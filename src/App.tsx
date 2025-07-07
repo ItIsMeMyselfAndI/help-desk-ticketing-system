@@ -1,35 +1,19 @@
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
-import "./App.css";
+import { AppSidebar } from "./components/AppSidebar.tsx";
+import HomePage from "./pages/HomePage.tsx";
+import { SidebarProvider, SidebarTrigger } from "./components/ui/sidebar.tsx";
 
-function App() {
-  const [count, setCount] = useState(0);
-
+const App = () => {
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <SidebarProvider className="h-screen">
+      <AppSidebar></AppSidebar>
+
+      <SidebarTrigger className="scale-150 mt-4 sticky top-4 rounded-r-xl ml-1" />
+
+      <div className="flex flex-col w-full h-full p-6">
+        <HomePage />
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    </SidebarProvider>
   );
-}
+};
 
 export default App;
