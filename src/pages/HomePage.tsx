@@ -25,6 +25,8 @@ import {
 import { DatePicker } from "@/components/ui/date-picker";
 import { Checkbox } from "@/components/ui/checkbox";
 import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { RotateCcw } from "lucide-react";
 
 type SummaryCardProps = {
   status: string;
@@ -66,7 +68,7 @@ type Ticket = {
 
 const tickets: Ticket[] = [
   {
-    id: "T-1",
+    id: "",
     title: "my 1st ticket mf",
     status: "Unassigned",
     created_at: "2024-10-09",
@@ -74,7 +76,7 @@ const tickets: Ticket[] = [
     assigned_to: "@bentot",
   },
   {
-    id: "T-2",
+    id: "",
     title: "my 2nd ticket mf",
     status: "In Progress",
     created_at: "2024-10-09",
@@ -82,7 +84,7 @@ const tickets: Ticket[] = [
     assigned_to: "@juantot",
   },
   {
-    id: "T-3",
+    id: "",
     title: "my 3rd ticket mf",
     status: "Resolved",
     created_at: "2024-10-09",
@@ -90,7 +92,7 @@ const tickets: Ticket[] = [
     assigned_to: "@gwentot",
   },
   {
-    id: "T-4",
+    id: "",
     title: "my 4th ticket mf",
     status: "Closed",
     created_at: "2024-10-09",
@@ -99,8 +101,12 @@ const tickets: Ticket[] = [
   },
 ];
 
-const cloneArray = <T,>(arr: T[], count: number) => {
-  return modToUniqueTicketIDs(Array(count).fill(arr).flat());
+const cloneTicketArr = (arr: Ticket[], count: number) => {
+  const clonedArr: Ticket[] = [];
+  for (let i = 0; i < count; i++) {
+    arr.forEach((t) => clonedArr.push({ ...t }));
+  }
+  return modToUniqueTicketIDs(clonedArr);
 };
 
 const modToUniqueTicketIDs = (tickets: Ticket[]) => {
@@ -157,7 +163,7 @@ const TicketTable = ({ tickets }: TicketTableProps) => {
       </TableHeader>
 
       <TableBody className="text-lg">
-        {cloneArray(tickets, 20).map((ticket) => (
+        {cloneTicketArr(tickets, 20).map((ticket) => (
           <TableRow
             key={ticket.id}
             onClick={() => toggleRowSelection(ticket.id)}
@@ -197,13 +203,18 @@ type FilterSelectionProps = {
 const FilterSelection = ({ placeholder, values }: FilterSelectionProps) => {
   return (
     <Select>
-      <SelectTrigger className="w-full text-sidebar-foreground data-[size=default]:h-full data-[placeholder]:text-foreground bg-muted hover:bg-accent">
-        <SelectValue placeholder={placeholder} />
+      <SelectTrigger className="w-full text-foreground data-[size=default]:h-full bg-muted hover:bg-accent">
+        <SelectValue
+          placeholder={`Select ${placeholder}`}
+          className="text-foreground/50"
+        />
       </SelectTrigger>
 
       <SelectContent>
         <SelectGroup>
-          <SelectLabel className="text-lg">{placeholder}</SelectLabel>
+          <SelectLabel className="text-lg text-foreground/50">
+            {placeholder}
+          </SelectLabel>
           {values.map((val: string) => (
             <SelectItem className="focus:bg-primary" value={val.toLowerCase()}>
               {val}
@@ -218,15 +229,28 @@ const FilterSelection = ({ placeholder, values }: FilterSelectionProps) => {
 const FiltersCard = () => {
   return (
     <Card className="h-full w-full px-6 gap-2">
-      <CardTitle className="text-2xl text-primary">Table Filters</CardTitle>
+      {/* title and reset  */}
+      <CardTitle className="flex justify-between text-2xl text-primary">
+        <span>Table Filters</span>
+        <Button className="bg-primary hover:bg-primary/80 active:bg-primary/50">
+          <span>reset</span>
+          <RotateCcw className="scale-125" />
+        </Button>
+      </CardTitle>
+
+      {/* by status  */}
       <CardContent className="flex flex-col justify-evenly gap-2">
         <CardDescription className="text-lg">By status</CardDescription>
         <FilterSelection
           placeholder="Status"
           values={["Unassigned", "In progress", "Resolved", "Closed"]}
         />
+
+        {/* by date  */}
         <CardDescription className="text-lg">By date</CardDescription>
         <DatePicker placeholder="Date" />
+
+        {/* by assignment */}
         <CardDescription className="text-lg">By assignment</CardDescription>
         <FilterSelection
           placeholder="Assignment"
