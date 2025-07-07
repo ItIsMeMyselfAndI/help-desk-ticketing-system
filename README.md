@@ -40,8 +40,8 @@ This design outlines the initial layout for the _Client Interface_ of the applic
 
 #### 1. Dashboard
 
-![Dashboard] (https://github.com/ItIsMeMyselfAndI/help-desk-ticketing-system/blob/d7c2eda3523ee944dc3c8655ad65e46c3c0afb93/figma-designs/dashboard.png)
+![Dashboard](https://github.com/ItIsMeMyselfAndI/help-desk-ticketing-system/blob/d7c2eda3523ee944dc3c8655ad65e46c3c0afb93/figma-designs/dashboard.png)
 
 #### 2. Add New Ticket
 
-![Add-Ticket] (https://github.com/ItIsMeMyselfAndI/help-desk-ticketing-system/blob/d7c2eda3523ee944dc3c8655ad65e46c3c0afb93/figma-designs/new-ticket.png)
+![Add-Ticket](https://github.com/ItIsMeMyselfAndI/help-desk-ticketing-system/blob/d7c2eda3523ee944dc3c8655ad65e46c3c0afb93/figma-designs/new-ticket.png)
