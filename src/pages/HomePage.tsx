@@ -11,91 +11,11 @@ import {
 } from "@/components/ui/select";
 import { DatePicker } from "@/components/ui/date-picker";
 import { Checkbox } from "@/components/ui/checkbox";
-import React, { createContext, useContext, useEffect, useState, type ReactNode } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
-import { RotateCcw, Ticket } from "lucide-react";
-
-type Ticket = {
-    id: string;
-    title: string;
-    status: "Unassigned" | "In Progress" | "Resolved" | "Closed";
-    created_at: string;
-    updated_at: string;
-    assigned_to: string;
-};
-
-const populateTicketArr = (arr: Ticket[], count: number) => {
-    const populatedArr: Ticket[] = [];
-    for (let i = 0; i < count; i++) {
-        arr.forEach((t) => populatedArr.push({ ...t }));
-    }
-    populatedArr.forEach((ticket, index) => (ticket.id = `T-${index}`));
-    return populatedArr;
-};
-
-type TicketContextType = {
-    origTickets: Ticket[];
-    setOrigTickets: React.Dispatch<React.SetStateAction<Ticket[]>>;
-    copyTickets: Ticket[];
-    setCopyTickets: React.Dispatch<React.SetStateAction<Ticket[]>>;
-};
-
-const TicketContext = createContext<TicketContextType | undefined>(undefined);
-
-const TicketProvider = ({ children }: { children: ReactNode }) => {
-    const defaultTickets: Ticket[] = populateTicketArr(
-        [
-            {
-                id: "",
-                title: "my 1st ticket mf",
-                status: "Unassigned",
-                created_at: "2024-10-09",
-                updated_at: "2024-10-09",
-                assigned_to: "@bentot",
-            },
-            {
-                id: "",
-                title: "my 2nd ticket mf",
-                status: "In Progress",
-                created_at: "2024-10-09",
-                updated_at: "2024-10-09",
-                assigned_to: "@juantot",
-            },
-            {
-                id: "",
-                title: "my 3rd ticket mf",
-                status: "Resolved",
-                created_at: "2024-10-09",
-                updated_at: "2024-10-09",
-                assigned_to: "@gwentot",
-            },
-            {
-                id: "",
-                title: "my 4th ticket mf",
-                status: "Closed",
-                created_at: "2024-10-09",
-                updated_at: "2024-10-09",
-                assigned_to: "@kwintot",
-            },
-        ],
-        20
-    );
-    const [origTickets, setOrigTickets] = useState<Ticket[]>([...defaultTickets]);
-    const [copyTickets, setCopyTickets] = useState<Ticket[]>([...defaultTickets]);
-    return (
-        <TicketContext.Provider value={{ origTickets, setOrigTickets, copyTickets, setCopyTickets }}>
-            {children}
-        </TicketContext.Provider>
-    );
-};
-
-const useTicketContext = () => {
-    const context = useContext(TicketContext);
-    if (!context) {
-        throw new Error("useTicketContext must be used within a TicketProvider");
-    }
-    return context;
-};
+import { RotateCcw } from "lucide-react";
+import type { StatusSummaryType, TicketType } from "@/types";
+import { TicketProvider, useTicketContext } from "@/contexts/TicketContext";
 
 type SummaryCardProps = {
     status: string;
@@ -112,13 +32,13 @@ const SummaryCard = ({ status, count }: SummaryCardProps) => {
 };
 
 type SummarySectionProps = {
-    statusSummaries: statusSummary[];
+    statusSummaries: StatusSummaryType[];
 };
 
 const SummarySection = ({ statusSummaries }: SummarySectionProps) => {
     return (
         <div className="grid grid-cols-4 gap-4 h-full">
-            {statusSummaries.map((summary: statusSummary) => (
+            {statusSummaries.map((summary: StatusSummaryType) => (
                 <SummaryCard status={summary.status} count={summary.count} />
             ))}
         </div>
@@ -141,7 +61,7 @@ const TicketTable = () => {
         });
     };
 
-    const chooseStatusColor = (status: Ticket["status"]) => {
+    const chooseStatusColor = (status: TicketType["status"]) => {
         switch (status) {
             case "Unassigned":
                 return "bg-gray-500";
@@ -282,13 +202,8 @@ const FiltersCard = () => {
     );
 };
 
-type statusSummary = {
-    status: string;
-    count: number;
-};
-
 const HomePage = () => {
-    const [statusSummaries, setStatusSummaries] = useState<statusSummary[]>([
+    const [statusSummaries, setStatusSummaries] = useState<StatusSummaryType[]>([
         { status: "Unassigned", count: 0 },
         { status: "In progress", count: 0 },
         { status: "Resolved", count: 0 },
