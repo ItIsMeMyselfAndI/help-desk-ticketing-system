@@ -29,7 +29,7 @@ export function DatePicker({ placeholder }: DatePickerProps) {
               typeof date !== "object" && "text-foreground/50"
             }`}
           >
-            {date ? date.toLocaleDateString() : `Select ${placeholder}`}
+            {date ? date.toISOString().split("T")[0] : `Select ${placeholder}`}
             <ChevronDownIcon />
           </Button>
         </PopoverTrigger>

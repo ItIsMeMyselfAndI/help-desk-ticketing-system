@@ -186,15 +186,15 @@
 
 /* Track */
 ::-webkit-scrollbar-track {
-  @apply hidden;
+  @apply rounded-full bg-muted;
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  @apply bg-accent rounded-full;
+  @apply bg-primary rounded-full;
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-  @apply bg-primary;
+  @apply bg-primary/70;
 }
