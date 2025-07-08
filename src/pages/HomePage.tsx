@@ -104,7 +104,7 @@ type SummaryCardProps = {
 
 const SummaryCard = ({ status, count }: SummaryCardProps) => {
     return (
-        <Card className="grow gap-0 h-50">
+        <Card className="grow gap-0 h-full">
             <CardHeader className="text-foreground/80 text-xl leading-none text-left">{status}</CardHeader>
             <CardContent className="flex text-primary justify-center text-5xl leading-none m-auto">{count}</CardContent>
         </Card>
@@ -117,9 +117,9 @@ type SummarySectionProps = {
 
 const SummarySection = ({ statusSummaries }: SummarySectionProps) => {
     return (
-        <div className="flex gap-4">
+        <div className="grid grid-cols-4 gap-4 h-full">
             {statusSummaries.map((summary: statusSummary) => (
-                <SummaryCard status={summary.status} count={summary.count}></SummaryCard>
+                <SummaryCard status={summary.status} count={summary.count} />
             ))}
         </div>
     );
@@ -157,37 +157,44 @@ const TicketTable = () => {
     };
 
     return (
-        <Table className="bg-card">
-            <TableHeader className="text-xl bg-muted h-15">
-                <TableRow key="header">
-                    <TableHead className="text-primary pl-5">Edit</TableHead>
-                    <TableHead className="text-primary">Ticket</TableHead>
-                    <TableHead className="text-primary">Title</TableHead>
-                    <TableHead className="text-primary">Status</TableHead>
-                    <TableHead className="text-primary">Submitted At</TableHead>
-                    <TableHead className="text-primary text-right pr-5">Assigned To</TableHead>
-                </TableRow>
-            </TableHeader>
-
-            <TableBody className="text-lg">
-                {copyTickets.map((ticket) => (
-                    <TableRow key={ticket.id} onClick={() => toggleRowSelection(ticket.id)}>
-                        <TableCell className="pl-5">
-                            <Checkbox checked={selectedRows.has(ticket.id)} className="size-5 bg-muted" />
-                        </TableCell>
-                        <TableCell>{ticket.id}</TableCell>
-                        <TableCell>{ticket.title}</TableCell>
-                        <TableCell>
-                            <span className={`${chooseStatusColor(ticket.status)} p-1 rounded-xl text-center`}>
-                                {ticket.status}
-                            </span>
-                        </TableCell>
-                        <TableCell>{ticket.created_at}</TableCell>
-                        <TableCell className="text-right pr-5">{ticket.assigned_to}</TableCell>
+        <div className="h-full flex flex-col gap-2">
+            <Table className="bg-card w-full">
+                <TableHeader className="text-xl bg-muted h-15">
+                    <TableRow key="header">
+                        <TableHead className="text-primary pl-5">Edit</TableHead>
+                        <TableHead className="text-primary">Ticket</TableHead>
+                        <TableHead className="text-primary">Title</TableHead>
+                        <TableHead className="text-primary">Status</TableHead>
+                        <TableHead className="text-primary">Submitted At</TableHead>
+                        <TableHead className="text-primary text-right pr-5">Assigned To</TableHead>
                     </TableRow>
-                ))}
-            </TableBody>
-        </Table>
+                </TableHeader>
+
+                <TableBody className="text-lg">
+                    {copyTickets.map((ticket) => (
+                        <TableRow key={ticket.id} onClick={() => toggleRowSelection(ticket.id)}>
+                            <TableCell className="pl-5">
+                                <Checkbox checked={selectedRows.has(ticket.id)} className="size-5 bg-muted" />
+                            </TableCell>
+                            <TableCell>{ticket.id}</TableCell>
+                            <TableCell>{ticket.title}</TableCell>
+                            <TableCell>
+                                <span className={`${chooseStatusColor(ticket.status)} p-1 rounded-xl text-center`}>
+                                    {ticket.status}
+                                </span>
+                            </TableCell>
+                            <TableCell>{ticket.created_at}</TableCell>
+                            <TableCell className="text-right pr-5">{ticket.assigned_to}</TableCell>
+                        </TableRow>
+                    ))}
+                </TableBody>
+            </Table>
+            {copyTickets.length === 0 && (
+                <div className="flex justify-center items-center h-full bg-card border rounded-lg text-xl">
+                    No available tickets
+                </div>
+            )}
+        </div>
     );
 };
 
@@ -248,7 +255,7 @@ const FiltersCard = () => {
     };
 
     return (
-        <Card className="px-6 gap-0">
+        <Card className="px-6 gap-0 h-full flex flex-col justify-evenly">
             {/* title and reset  */}
             <CardTitle className="flex justify-between text-2xl text-primary">
                 <span>Table Filters</span>
@@ -290,15 +297,21 @@ const HomePage = () => {
 
     return (
         <TicketProvider>
-            <div className="flex flex-col gap-4 h-full w-full">
-                <SummarySection statusSummaries={statusSummaries} />
-                <div className="flex min-h-0 gap-4">
-                    <div className="flex-4 bg-card item overflow-auto">
+            <div className="grid grid-rows-5 gap-4 h-[100vh] content-stretch p-4">
+                <div className="row-span-1">
+                    <SummarySection statusSummaries={statusSummaries} />
+                </div>
+                <div className="row-span-4 grid grid-cols-4 gap-4">
+                    <div className="col-span-3 overflow-auto h-full">
                         <TicketTable />
                     </div>
-                    <div className="flex-1 flex flex-col justify-evenly gap-4 h-full w-full">
-                        <FiltersCard />
-                        <div className="flex-1 w-full h-full bg-card border rounded-xl"></div>
+                    <div className="col-span-1 grid grid-rows-2 gap-4">
+                        <div className="row-span-1 flex-10">
+                            <FiltersCard />
+                        </div>
+                        <div className="row-span-1 flex-1">
+                            <div className="w-full h-full bg-card border rounded-xl"></div>
+                        </div>
                     </div>
                 </div>
             </div>
