@@ -125,6 +125,7 @@ type FilterSelectionProps = {
 };
 
 const FilterSelection = ({ filterType, values }: FilterSelectionProps) => {
+    const defaultItem = "None";
     const {
         isReset,
         selectedFilterByStatus,
@@ -136,8 +137,7 @@ const FilterSelection = ({ filterType, values }: FilterSelectionProps) => {
         setSelectedFilterByAssignment,
     } = useFilterContext();
     const { origTickets, setDisplayTickets } = useTicketContext();
-    const [selectedItem, setSelectedItem] = useState<string>("None");
-    const defaultItem = "None";
+    const [selectedItem, setSelectedItem] = useState<string>(defaultItem);
 
     const resetFiltersAndDisplayTickets = () => {
         setSelectedItem(defaultItem);
