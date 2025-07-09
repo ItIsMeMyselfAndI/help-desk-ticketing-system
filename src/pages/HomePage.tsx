@@ -40,7 +40,7 @@ const SummarySection = ({ statusSummaries }: SummarySectionProps) => {
     return (
         <div className="grid grid-cols-2 gap-4 h-full sm:grid-cols-4">
             {statusSummaries.map((summary: StatusSummaryType) => (
-                <SummaryCard status={summary.status} count={summary.count} />
+                <SummaryCard key={summary.status.toLowerCase()} status={summary.status} count={summary.count} />
             ))}
         </div>
     );
@@ -80,7 +80,7 @@ const TicketTable = () => {
     return (
         <div className="h-full flex flex-col gap-2">
             <Table className="bg-card w-full">
-                <TableHeader className="text-xl bg-muted h-15 sticky top-0 z-10">
+                <TableHeader className="text-xl bg-muted h-15 sticky top-0 z-1">
                     <TableRow key="header">
                         <TableHead className="text-primary pl-5">Edit</TableHead>
                         <TableHead className="text-primary">Ticket</TableHead>
@@ -122,8 +122,6 @@ const TicketTable = () => {
 type FilterSelectionProps = {
     filterType: string;
     values: string[];
-    // isFiltered: boolean;
-    // setIsFiltered: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 const FilterSelection = ({ filterType, values }: FilterSelectionProps) => {
@@ -138,7 +136,7 @@ const FilterSelection = ({ filterType, values }: FilterSelectionProps) => {
         setSelectedFilterByAssignment,
     } = useFilterContext();
     const { origTickets, setDisplayTickets } = useTicketContext();
-    const [selectedItem, setSelectedItem] = useState<string>("");
+    const [selectedItem, setSelectedItem] = useState<string>("None");
     const defaultItem = "None";
 
     const resetFiltersAndDisplayTickets = () => {
@@ -180,6 +178,7 @@ const FilterSelection = ({ filterType, values }: FilterSelectionProps) => {
         }
         const filteredTickets = _filterTickets(origTickets);
         setDisplayTickets(filteredTickets);
+        console.log("update display");
     };
 
     useEffect(() => {
@@ -215,7 +214,7 @@ const FilterSelection = ({ filterType, values }: FilterSelectionProps) => {
                         None
                     </SelectItem>
                     {values.map((val: string) => (
-                        <SelectItem className="focus:bg-primary" value={val}>
+                        <SelectItem key={val.toLowerCase()} className="focus:bg-primary" value={val}>
                             {val}
                         </SelectItem>
                     ))}
@@ -277,7 +276,7 @@ const HomePage = () => {
                     <SummarySection statusSummaries={statusSummaries} />
                 </div>
                 <div className="row-span-3 grid grid-cols-4 gap-4 sm:row-span-4">
-                    <div className="col-span-4 sm:col-span-3 overflow-auto relative">
+                    <div className="col-span-4 sm:col-span-3 overflow-auto">
                         <TicketTable />
                     </div>
                     <div className="hidden sm:col-span-1 sm:grid grid-rows-2 gap-4">
