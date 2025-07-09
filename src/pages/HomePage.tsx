@@ -17,6 +17,7 @@ import { RotateCcw } from "lucide-react";
 import type { StatusSummaryType, TicketType } from "@/types";
 import { TicketProvider, useTicketContext } from "@/contexts/TicketContext";
 import { FilterProvider, useFilterContext } from "@/contexts/FilterContext";
+import { defaultDateLib } from "react-day-picker";
 
 type SummaryCardProps = {
     status: string;
@@ -26,8 +27,10 @@ type SummaryCardProps = {
 const SummaryCard = ({ status, count }: SummaryCardProps) => {
     return (
         <Card className="grow gap-0 h-full">
-            <CardHeader className="text-foreground/80 text-xl leading-none text-left">{status}</CardHeader>
-            <CardContent className="flex text-primary justify-center text-5xl leading-none m-auto">{count}</CardContent>
+            <CardHeader className="text-foreground/80 leading-none text-left text-sm lg:text-xl">{status}</CardHeader>
+            <CardContent className="flex text-primary justify-center leading-none m-auto text-3xl lg:text-5xl">
+                {count}
+            </CardContent>
         </Card>
     );
 };
@@ -38,7 +41,7 @@ type SummarySectionProps = {
 
 const SummarySection = ({ statusSummaries }: SummarySectionProps) => {
     return (
-        <div className="grid grid-cols-2 gap-4 h-full sm:grid-cols-4">
+        <div className="grid grid-cols-2 gap-2 h-full sm:grid-cols-4 sm:gap-4">
             {statusSummaries.map((summary: StatusSummaryType) => (
                 <SummaryCard key={summary.status.toLowerCase()} status={summary.status} count={summary.count} />
             ))}
@@ -79,9 +82,9 @@ const TicketTable = () => {
 
     return (
         <div className="h-full flex flex-col gap-2">
-            <Table className="bg-card w-full">
-                <TableHeader className="text-xl bg-muted h-15 sticky top-0 z-1">
-                    <TableRow key="header">
+            <Table className="bg-card w-full text-sm lg:text-lg">
+                <TableHeader className="bg-muted h-15 sticky top-0 z-1">
+                    <TableRow key="header" className="text-lg lg:text-xl">
                         <TableHead className="text-primary pl-5">Edit</TableHead>
                         <TableHead className="text-primary">Ticket</TableHead>
                         <TableHead className="text-primary">Title</TableHead>
@@ -91,7 +94,7 @@ const TicketTable = () => {
                     </TableRow>
                 </TableHeader>
 
-                <TableBody className="text-lg">
+                <TableBody>
                     {displayTickets.map((ticket) => (
                         <TableRow key={ticket.id} onClick={() => toggleRowSelection(ticket.id)}>
                             <TableCell className="pl-5">
@@ -111,7 +114,7 @@ const TicketTable = () => {
                 </TableBody>
             </Table>
             {displayTickets.length === 0 && (
-                <div className="flex justify-center items-center h-full bg-card border rounded-lg text-xl">
+                <div className="flex justify-center items-center h-full bg-card border rounded-xl text-xl">
                     No available tickets
                 </div>
             )}
@@ -144,16 +147,16 @@ const FilterSelection = ({ filterType, values }: FilterSelectionProps) => {
         setIsReset(false);
     };
 
-    const updateFilterContext = () => {
+    const updateFilterContext = (value: string) => {
         switch (filterType.toLowerCase()) {
             case "status":
-                setSelectedFilterByStatus(selectedItem);
+                setSelectedFilterByStatus(value);
                 break;
             case "date":
-                setSelectedFilterByDate(selectedItem);
+                setSelectedFilterByDate(value);
                 break;
             case "assignment":
-                setSelectedFilterByAssignment(selectedItem);
+                setSelectedFilterByAssignment(value);
                 break;
             default:
                 break;
@@ -181,22 +184,24 @@ const FilterSelection = ({ filterType, values }: FilterSelectionProps) => {
         console.log("update display");
     };
 
+    const handleSelectionChange = (value: string) => {
+        updateFilterContext(value);
+        setSelectedItem(value);
+    };
+
     useEffect(() => {
         if (isReset) {
             resetFiltersAndDisplayTickets();
+            updateFilterContext(defaultItem);
         }
     }, [isReset]);
-
-    useEffect(() => {
-        updateFilterContext();
-    }, [selectedItem]);
 
     useEffect(() => {
         updateDisplayTickets();
     }, [selectedFilterByStatus, selectedFilterByDate, selectedFilterByAssignment, origTickets]);
 
     return (
-        <Select value={selectedItem} onValueChange={setSelectedItem}>
+        <Select value={selectedItem} onValueChange={handleSelectionChange}>
             <SelectTrigger
                 className={`w-full text-foreground data-[size=default]:h-full bg-muted hover:bg-accent ${
                     selectedItem === defaultItem && "text-muted-foreground"
@@ -271,15 +276,15 @@ const HomePage = () => {
 
     return (
         <TicketProvider>
-            <div className="grid grid-rows-5 gap-4 h-[100vh] content-stretch p-4">
+            <div className="grid grid-rows-6 gap-2 h-[100vh] content-stretch p-4 sm:grid-rows-5 sm:gap-4">
                 <div className="row-span-2 sm:row-span-1">
                     <SummarySection statusSummaries={statusSummaries} />
                 </div>
-                <div className="row-span-3 grid grid-cols-4 gap-4 sm:row-span-4">
-                    <div className="col-span-4 sm:col-span-3 overflow-auto">
+                <div className="row-span-4 grid grid-cols-4 gap-2 sm:row-span-4 sm:gap-4">
+                    <div className="col-span-4 xl:col-span-3 overflow-auto">
                         <TicketTable />
                     </div>
-                    <div className="hidden sm:col-span-1 sm:grid grid-rows-2 gap-4">
+                    <div className="hidden xl:col-span-1 xl:grid grid-rows-2 gap-4">
                         <div className="row-span-1 flex-10">
                             <FilterProvider>
                                 <FiltersCard />

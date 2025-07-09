@@ -176,7 +176,7 @@
     cursor: pointer;
   }
   span {
-    @apply text-xl;
+    @apply text-lg lg:text-xl;
   }
 }
 
