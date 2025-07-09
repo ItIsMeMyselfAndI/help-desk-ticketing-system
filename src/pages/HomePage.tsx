@@ -11,11 +11,12 @@ import {
 } from "@/components/ui/select";
 import { DatePicker } from "@/components/ui/date-picker";
 import { Checkbox } from "@/components/ui/checkbox";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { RotateCcw } from "lucide-react";
 import type { StatusSummaryType, TicketType } from "@/types";
 import { TicketProvider, useTicketContext } from "@/contexts/TicketContext";
+import { FilterProvider, useFilterContext } from "@/contexts/FilterContext";
 
 type SummaryCardProps = {
     status: string;
@@ -37,7 +38,7 @@ type SummarySectionProps = {
 
 const SummarySection = ({ statusSummaries }: SummarySectionProps) => {
     return (
-        <div className="grid grid-cols-4 gap-4 h-full">
+        <div className="grid grid-cols-2 gap-4 h-full sm:grid-cols-4">
             {statusSummaries.map((summary: StatusSummaryType) => (
                 <SummaryCard status={summary.status} count={summary.count} />
             ))}
@@ -46,7 +47,7 @@ const SummarySection = ({ statusSummaries }: SummarySectionProps) => {
 };
 
 const TicketTable = () => {
-    const { copyTickets } = useTicketContext();
+    const { displayTickets } = useTicketContext();
     const [selectedRows, setSelectedRows] = useState<Set<string>>(new Set());
 
     const toggleRowSelection = (id: string) => {
@@ -65,7 +66,7 @@ const TicketTable = () => {
         switch (status) {
             case "Unassigned":
                 return "bg-gray-500";
-            case "In Progress":
+            case "In progress":
                 return "bg-blue-500";
             case "Resolved":
                 return "bg-green-500";
@@ -91,7 +92,7 @@ const TicketTable = () => {
                 </TableHeader>
 
                 <TableBody className="text-lg">
-                    {copyTickets.map((ticket) => (
+                    {displayTickets.map((ticket) => (
                         <TableRow key={ticket.id} onClick={() => toggleRowSelection(ticket.id)}>
                             <TableCell className="pl-5">
                                 <Checkbox checked={selectedRows.has(ticket.id)} className="size-5 bg-muted" />
@@ -109,7 +110,7 @@ const TicketTable = () => {
                     ))}
                 </TableBody>
             </Table>
-            {copyTickets.length === 0 && (
+            {displayTickets.length === 0 && (
                 <div className="flex justify-center items-center h-full bg-card border rounded-lg text-xl">
                     No available tickets
                 </div>
@@ -119,17 +120,26 @@ const TicketTable = () => {
 };
 
 type FilterSelectionProps = {
-    placeholder: string;
+    filterType: string;
     values: string[];
+    // isFiltered: boolean;
+    // setIsFiltered: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-const FilterSelection = ({ placeholder, values }: FilterSelectionProps) => {
-    const { origTickets, setCopyTickets } = useTicketContext();
+const FilterSelection = ({ filterType, values }: FilterSelectionProps) => {
+    const { isReset, setIsReset } = useFilterContext();
+    const { origTickets, setDisplayTickets } = useTicketContext();
     const [selectedItem, setSelectedItem] = useState<string>("");
+    const defaultItem = `Select ${filterType}`;
 
-    useEffect(() => {
+    const resetFiltersAndDisplayTickets = () => {
+        setSelectedItem(defaultItem);
+        setIsReset(false);
+    };
+
+    const updateDisplayTickets = () => {
         if (!selectedItem) {
-            setCopyTickets(origTickets);
+            setDisplayTickets(origTickets);
             return;
         }
         const filteredTickets = origTickets.filter((ticket) => {
@@ -144,19 +154,33 @@ const FilterSelection = ({ placeholder, values }: FilterSelectionProps) => {
                     return;
             }
         });
-        filteredTickets.forEach((ticket) => console.log(ticket));
-        setCopyTickets(filteredTickets);
-    }, [selectedItem, origTickets]);
+        setDisplayTickets(filteredTickets);
+    };
+
+    useEffect(() => {
+        if (isReset) {
+            resetFiltersAndDisplayTickets();
+            return;
+        } else if (selectedItem !== defaultItem) {
+            updateDisplayTickets();
+        }
+    }, [isReset, selectedItem, origTickets]);
 
     return (
         <Select value={selectedItem} onValueChange={setSelectedItem}>
-            <SelectTrigger className="w-full text-foreground data-[size=default]:h-full bg-muted hover:bg-accent">
-                <SelectValue placeholder={`Select ${placeholder}`} className="text-foreground/50" />
+            <SelectTrigger
+                className={`w-full text-foreground data-[size=default]:h-full bg-muted hover:bg-accent ${
+                    selectedItem === defaultItem && "text-muted-foreground"
+                }`}
+            >
+                <SelectValue placeholder={defaultItem} />
             </SelectTrigger>
-
             <SelectContent>
                 <SelectGroup>
-                    <SelectLabel className="text-lg text-foreground/50">{placeholder}</SelectLabel>
+                    <SelectLabel className="text-lg text-foreground/50">{filterType}</SelectLabel>
+                    <SelectItem className="text-muted-foreground focus:bg-accent" value={defaultItem}>
+                        {defaultItem}
+                    </SelectItem>
                     {values.map((val: string) => (
                         <SelectItem className="focus:bg-primary" value={val.toLowerCase()}>
                             {val}
@@ -169,9 +193,12 @@ const FilterSelection = ({ placeholder, values }: FilterSelectionProps) => {
 };
 
 const FiltersCard = () => {
-    const { origTickets, setCopyTickets } = useTicketContext();
+    const { origTickets, setDisplayTickets } = useTicketContext();
+    const { setIsReset } = useFilterContext();
+
     const handleResetClick = () => {
-        setCopyTickets(origTickets);
+        setIsReset(true);
+        setDisplayTickets(origTickets);
     };
 
     return (
@@ -188,7 +215,7 @@ const FiltersCard = () => {
             <CardContent className="flex flex-col justify-evenly gap-2">
                 {/* by status  */}
                 <CardDescription className="text-lg">By status</CardDescription>
-                <FilterSelection placeholder="Status" values={["Unassigned", "In progress", "Resolved", "Closed"]} />
+                <FilterSelection filterType="Status" values={["Unassigned", "In progress", "Resolved", "Closed"]} />
 
                 {/* by date  */}
                 <CardDescription className="text-lg">By date submitted</CardDescription>
@@ -196,7 +223,7 @@ const FiltersCard = () => {
 
                 {/* by assignment */}
                 <CardDescription className="text-lg">By assignment</CardDescription>
-                <FilterSelection placeholder="Assignment" values={["@johndoe", "@dora", "@patric", "@spongebob"]} />
+                <FilterSelection filterType="Assignment" values={["@bentot", "@juantot", "@gwentot", "@kwintot"]} />
             </CardContent>
         </Card>
     );
@@ -213,16 +240,18 @@ const HomePage = () => {
     return (
         <TicketProvider>
             <div className="grid grid-rows-5 gap-4 h-[100vh] content-stretch p-4">
-                <div className="row-span-1">
+                <div className="row-span-2 sm:row-span-1">
                     <SummarySection statusSummaries={statusSummaries} />
                 </div>
-                <div className="row-span-4 grid grid-cols-4 gap-4">
-                    <div className="col-span-3 overflow-auto h-full">
+                <div className="row-span-3 grid grid-cols-4 gap-4 sm:row-span-4">
+                    <div className="col-span-4 sm:col-span-3 overflow-auto h-full">
                         <TicketTable />
                     </div>
-                    <div className="col-span-1 grid grid-rows-2 gap-4">
+                    <div className="hidden sm:col-span-1 sm:grid grid-rows-2 gap-4">
                         <div className="row-span-1 flex-10">
-                            <FiltersCard />
+                            <FilterProvider>
+                                <FiltersCard />
+                            </FilterProvider>
                         </div>
                         <div className="row-span-1 flex-1">
                             <div className="w-full h-full bg-card border rounded-xl"></div>

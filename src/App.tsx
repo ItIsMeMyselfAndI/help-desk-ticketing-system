@@ -7,7 +7,7 @@ const App = () => {
         <SidebarProvider>
             <AppSidebar></AppSidebar>
 
-            <SidebarTrigger className="scale-150 mt-4 sticky top-4 rounded-r-xl ml-1" />
+            <SidebarTrigger className="scale-150 mt-4 sticky top-4 rounded-r-xl ml-1 lg:hidden" />
 
             <div className="flex flex-col w-full h-[100vh]">
                 <HomePage />

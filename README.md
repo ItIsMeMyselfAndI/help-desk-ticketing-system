@@ -27,7 +27,7 @@ A web-based support ticketing system that allows clients to report issues and en
 - Register and log in to their account
 - View all assigned and open tickets
 - Add comments and solutions to tickets
-- Update ticket statuses (e.g., Open → In Progress → Resolved)
+- Update ticket statuses (e.g., Open → In progress → Resolved)
 - View ticket history and client interactions
 
 ---

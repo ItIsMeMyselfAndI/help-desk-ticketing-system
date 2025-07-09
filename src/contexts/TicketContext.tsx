@@ -10,57 +10,90 @@ const populateTicketArr = (arr: TicketType[], count: number) => {
     return populatedArr;
 };
 
+const defaultTickets: TicketType[] = populateTicketArr(
+    [
+        {
+            id: "",
+            title: "my 1st ticket mf",
+            status: "Unassigned",
+            created_at: "2024-10-09",
+            updated_at: "2024-10-09",
+            assigned_to: "@bentot",
+        },
+        {
+            id: "",
+            title: "my 1st ticket mf",
+            status: "Resolved",
+            created_at: "2024-10-09",
+            updated_at: "2024-10-09",
+            assigned_to: "@bentot",
+        },
+        {
+            id: "",
+            title: "my 2nd ticket mf",
+            status: "In progress",
+            created_at: "2024-10-09",
+            updated_at: "2024-10-09",
+            assigned_to: "@juantot",
+        },
+        {
+            id: "",
+            title: "my 2nd ticket mf",
+            status: "Unassigned",
+            created_at: "2024-10-09",
+            updated_at: "2024-10-09",
+            assigned_to: "@juantot",
+        },
+        {
+            id: "",
+            title: "my 3rd ticket mf",
+            status: "Resolved",
+            created_at: "2024-10-09",
+            updated_at: "2024-10-09",
+            assigned_to: "@gwentot",
+        },
+        {
+            id: "",
+            title: "my 3rd ticket mf",
+            status: "Closed",
+            created_at: "2024-10-09",
+            updated_at: "2024-10-09",
+            assigned_to: "@gwentot",
+        },
+        {
+            id: "",
+            title: "my 4th ticket mf",
+            status: "Closed",
+            created_at: "2024-10-09",
+            updated_at: "2024-10-09",
+            assigned_to: "@kwintot",
+        },
+        {
+            id: "",
+            title: "my 4th ticket mf",
+            status: "In progress",
+            created_at: "2024-10-09",
+            updated_at: "2024-10-09",
+            assigned_to: "@kwintot",
+        },
+    ],
+    20
+);
+
 type TicketContextType = {
     origTickets: TicketType[];
     setOrigTickets: React.Dispatch<React.SetStateAction<TicketType[]>>;
-    copyTickets: TicketType[];
-    setCopyTickets: React.Dispatch<React.SetStateAction<TicketType[]>>;
+    displayTickets: TicketType[];
+    setDisplayTickets: React.Dispatch<React.SetStateAction<TicketType[]>>;
 };
 
 const TicketContext = createContext<TicketContextType | undefined>(undefined);
 
 const TicketProvider = ({ children }: { children: ReactNode }) => {
-    const defaultTickets: TicketType[] = populateTicketArr(
-        [
-            {
-                id: "",
-                title: "my 1st ticket mf",
-                status: "Unassigned",
-                created_at: "2024-10-09",
-                updated_at: "2024-10-09",
-                assigned_to: "@bentot",
-            },
-            {
-                id: "",
-                title: "my 2nd ticket mf",
-                status: "In Progress",
-                created_at: "2024-10-09",
-                updated_at: "2024-10-09",
-                assigned_to: "@juantot",
-            },
-            {
-                id: "",
-                title: "my 3rd ticket mf",
-                status: "Resolved",
-                created_at: "2024-10-09",
-                updated_at: "2024-10-09",
-                assigned_to: "@gwentot",
-            },
-            {
-                id: "",
-                title: "my 4th ticket mf",
-                status: "Closed",
-                created_at: "2024-10-09",
-                updated_at: "2024-10-09",
-                assigned_to: "@kwintot",
-            },
-        ],
-        20
-    );
     const [origTickets, setOrigTickets] = useState<TicketType[]>([...defaultTickets]);
-    const [copyTickets, setCopyTickets] = useState<TicketType[]>([...defaultTickets]);
+    const [displayTickets, setDisplayTickets] = useState<TicketType[]>([...defaultTickets]);
     return (
-        <TicketContext.Provider value={{ origTickets, setOrigTickets, copyTickets, setCopyTickets }}>
+        <TicketContext.Provider value={{ origTickets, setOrigTickets, displayTickets, setDisplayTickets }}>
             {children}
         </TicketContext.Provider>
     );

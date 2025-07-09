@@ -1,7 +1,7 @@
 type TicketType = {
   id: string;
   title: string;
-  status: "Unassigned" | "In Progress" | "Resolved" | "Closed";
+  status: "Unassigned" | "In progress" | "Resolved" | "Closed";
   created_at: string;
   updated_at: string;
   assigned_to: string;
