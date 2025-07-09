@@ -181,7 +181,7 @@
 }
 
 ::-webkit-scrollbar {
-  width: 0.5rem;
+  @apply w-2.5 h-2.5;
 }
 
 /* Track */

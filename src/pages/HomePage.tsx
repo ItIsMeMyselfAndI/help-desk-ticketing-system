@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/select";
 import { DatePicker } from "@/components/ui/date-picker";
 import { Checkbox } from "@/components/ui/checkbox";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { RotateCcw } from "lucide-react";
 import type { StatusSummaryType, TicketType } from "@/types";
@@ -80,7 +80,7 @@ const TicketTable = () => {
     return (
         <div className="h-full flex flex-col gap-2">
             <Table className="bg-card w-full">
-                <TableHeader className="text-xl bg-muted h-15">
+                <TableHeader className="text-xl bg-muted h-15 sticky top-0 z-10">
                     <TableRow key="header">
                         <TableHead className="text-primary pl-5">Edit</TableHead>
                         <TableHead className="text-primary">Ticket</TableHead>
@@ -127,14 +127,50 @@ type FilterSelectionProps = {
 };
 
 const FilterSelection = ({ filterType, values }: FilterSelectionProps) => {
-    const { isReset, setIsReset } = useFilterContext();
+    const {
+        isReset,
+        selectedFilterByStatus,
+        selectedFilterByDate,
+        selectedFilterByAssignment,
+        setIsReset,
+        setSelectedFilterByStatus,
+        setSelectedFilterByDate,
+        setSelectedFilterByAssignment,
+    } = useFilterContext();
     const { origTickets, setDisplayTickets } = useTicketContext();
     const [selectedItem, setSelectedItem] = useState<string>("");
-    const defaultItem = `Select ${filterType}`;
+    const defaultItem = "None";
 
     const resetFiltersAndDisplayTickets = () => {
         setSelectedItem(defaultItem);
         setIsReset(false);
+    };
+
+    const updateFilterContext = () => {
+        switch (filterType.toLowerCase()) {
+            case "status":
+                setSelectedFilterByStatus(selectedItem);
+                break;
+            case "date":
+                setSelectedFilterByDate(selectedItem);
+                break;
+            case "assignment":
+                setSelectedFilterByAssignment(selectedItem);
+                break;
+            default:
+                break;
+        }
+    };
+
+    const _filterTickets = (tickets: TicketType[]) => {
+        const filters = [selectedFilterByStatus, selectedFilterByDate, selectedFilterByAssignment].filter(
+            (val) => val !== "None" && val !== ""
+        );
+        if (filters.every((val) => val === "None")) {
+            return origTickets;
+        }
+        console.log(filters);
+        return tickets.filter((ticket) => filters.every((val) => Object.values(ticket).includes(val)));
     };
 
     const updateDisplayTickets = () => {
@@ -142,29 +178,23 @@ const FilterSelection = ({ filterType, values }: FilterSelectionProps) => {
             setDisplayTickets(origTickets);
             return;
         }
-        const filteredTickets = origTickets.filter((ticket) => {
-            switch (selectedItem.toLowerCase()) {
-                case ticket.status.toLowerCase():
-                    return ticket;
-                case ticket.created_at.toLowerCase():
-                    return ticket;
-                case ticket.assigned_to.toLowerCase():
-                    return ticket;
-                default:
-                    return;
-            }
-        });
+        const filteredTickets = _filterTickets(origTickets);
         setDisplayTickets(filteredTickets);
     };
 
     useEffect(() => {
         if (isReset) {
             resetFiltersAndDisplayTickets();
-            return;
-        } else if (selectedItem !== defaultItem) {
-            updateDisplayTickets();
         }
-    }, [isReset, selectedItem, origTickets]);
+    }, [isReset]);
+
+    useEffect(() => {
+        updateFilterContext();
+    }, [selectedItem]);
+
+    useEffect(() => {
+        updateDisplayTickets();
+    }, [selectedFilterByStatus, selectedFilterByDate, selectedFilterByAssignment, origTickets]);
 
     return (
         <Select value={selectedItem} onValueChange={setSelectedItem}>
@@ -177,12 +207,15 @@ const FilterSelection = ({ filterType, values }: FilterSelectionProps) => {
             </SelectTrigger>
             <SelectContent>
                 <SelectGroup>
-                    <SelectLabel className="text-lg text-foreground/50">{filterType}</SelectLabel>
-                    <SelectItem className="text-muted-foreground focus:bg-accent" value={defaultItem}>
-                        {defaultItem}
+                    <SelectLabel className="text-lg text-foreground/50">{`Select ${filterType}`}</SelectLabel>
+                    <SelectItem
+                        className="text-muted-foreground focus:bg-accent focus:text-muted-foreground"
+                        value={defaultItem}
+                    >
+                        None
                     </SelectItem>
                     {values.map((val: string) => (
-                        <SelectItem className="focus:bg-primary" value={val.toLowerCase()}>
+                        <SelectItem className="focus:bg-primary" value={val}>
                             {val}
                         </SelectItem>
                     ))}
@@ -244,7 +277,7 @@ const HomePage = () => {
                     <SummarySection statusSummaries={statusSummaries} />
                 </div>
                 <div className="row-span-3 grid grid-cols-4 gap-4 sm:row-span-4">
-                    <div className="col-span-4 sm:col-span-3 overflow-auto h-full">
+                    <div className="col-span-4 sm:col-span-3 overflow-auto relative">
                         <TicketTable />
                     </div>
                     <div className="hidden sm:col-span-1 sm:grid grid-rows-2 gap-4">

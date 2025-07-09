@@ -2,34 +2,34 @@ import React, { createContext, useContext, useState, type ReactNode } from "reac
 
 type FilterContextType = {
     isReset: boolean;
+    selectedFilterByStatus: string;
+    selectedFilterByDate: string;
+    selectedFilterByAssignment: string;
     setIsReset: React.Dispatch<React.SetStateAction<boolean>>;
-    isFilteredByStatus: boolean;
-    setIsFilteredByStatus: React.Dispatch<React.SetStateAction<boolean>>;
-    isFilteredByDate: boolean;
-    setIsFilteredByDate: React.Dispatch<React.SetStateAction<boolean>>;
-    isFilteredByAssignment: boolean;
-    setIsFilteredByAssignment: React.Dispatch<React.SetStateAction<boolean>>;
+    setSelectedFilterByStatus: React.Dispatch<React.SetStateAction<string>>;
+    setSelectedFilterByDate: React.Dispatch<React.SetStateAction<string>>;
+    setSelectedFilterByAssignment: React.Dispatch<React.SetStateAction<string>>;
 };
 
 const FilterContext = createContext<FilterContextType | undefined>(undefined);
 
 const FilterProvider = ({ children }: { children: ReactNode }) => {
     const [isReset, setIsReset] = useState<boolean>(false);
-    const [isFilteredByStatus, setIsFilteredByStatus] = useState<boolean>(false);
-    const [isFilteredByDate, setIsFilteredByDate] = useState<boolean>(false);
-    const [isFilteredByAssignment, setIsFilteredByAssignment] = useState<boolean>(false);
+    const [selectedFilterByStatus, setSelectedFilterByStatus] = useState<string>("None");
+    const [selectedFilterByDate, setSelectedFilterByDate] = useState<string>("None");
+    const [selectedFilterByAssignment, setSelectedFilterByAssignment] = useState<string>("None");
 
     return (
         <FilterContext.Provider
             value={{
                 isReset,
+                selectedFilterByStatus,
+                selectedFilterByDate,
+                selectedFilterByAssignment,
                 setIsReset,
-                isFilteredByStatus,
-                setIsFilteredByStatus,
-                isFilteredByDate,
-                setIsFilteredByDate,
-                isFilteredByAssignment,
-                setIsFilteredByAssignment,
+                setSelectedFilterByStatus,
+                setSelectedFilterByDate,
+                setSelectedFilterByAssignment,
             }}
         >
             {children}
