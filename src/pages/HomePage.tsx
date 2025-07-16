@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/select";
 // import { DatePicker } from "@/components/ui/date-picker";
 import { Checkbox } from "@/components/ui/checkbox";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { RotateCcw } from "lucide-react";
 import type { StatusSummaryType, TicketType } from "@/types";
@@ -139,82 +139,89 @@ const FilterSelection = ({ filterType, values }: FilterSelectionProps) => {
     const { origTickets, setDisplayTickets } = useTicketContext();
     const [selectedItem, setSelectedItem] = useState<string>(defaultItem);
 
-    const resetFiltersAndDisplayTickets = () => {
-        setSelectedItem(defaultItem);
-        setIsReset(false);
-    };
-
-    const updateFilterContext = (value: string) => {
-        switch (filterType.toLowerCase()) {
-            case "status":
-                setSelectedFilterByStatus(value);
-                break;
-            case "year":
-                setSelectedFilterByYear(value);
-                break;
-            case "month": {
-                const monthIndex = monthOptions.indexOf(value);
-                if (monthIndex !== -1) {
-                    setSelectedFilterByMonth(String(monthIndex + 1).padStart(2, "0"));
+    const updateFilterContext = useCallback(
+        (value: string) => {
+            switch (filterType.toLowerCase()) {
+                case "status":
+                    setSelectedFilterByStatus(value);
+                    break;
+                case "year":
+                    setSelectedFilterByYear(value);
+                    break;
+                case "month": {
+                    const monthIndex = monthOptions.indexOf(value);
+                    if (monthIndex !== -1) {
+                        setSelectedFilterByMonth(String(monthIndex + 1).padStart(2, "0"));
+                    }
+                    break;
                 }
-                break;
+                case "assignment":
+                    setSelectedFilterByAssignment(value);
+                    break;
+                default:
+                    break;
             }
-            case "assignment":
-                setSelectedFilterByAssignment(value);
-                break;
-            default:
-                break;
-        }
-    };
+        },
+        [
+            filterType,
+            setSelectedFilterByStatus,
+            setSelectedFilterByYear,
+            setSelectedFilterByMonth,
+            setSelectedFilterByAssignment,
+        ]
+    );
 
-    const _filterTickets = (tickets: TicketType[]) => {
-        const filters = [
-            selectedFilterByStatus,
-            selectedFilterByYear,
-            selectedFilterByMonth,
-            selectedFilterByAssignment,
-        ].filter((val) => val !== "None" && val !== "");
-        if (filters.every((val) => val === "None")) {
-            return origTickets;
+    useEffect(() => {
+        if (isReset) {
+            setSelectedItem(defaultItem);
+            setIsReset(false);
+            updateFilterContext(defaultItem);
         }
-        console.log(filters);
-        return tickets.filter((ticket) =>
-            filters.every((val) => {
-                if (
-                    Object.values(ticket).includes(val) ||
-                    ticket.created_at.split("-")[0] === val || // for year
-                    ticket.created_at.split("-")[1] === val // for month
-                )
-                    return true;
-                return false;
-            })
-        );
-    };
+    }, [isReset, setIsReset, setSelectedItem, updateFilterContext]);
 
-    const updateDisplayTickets = () => {
+    useEffect(() => {
+        // update ticket table display
+        let filteredTickets: TicketType[];
         if (!selectedItem) {
-            setDisplayTickets(origTickets);
-            return;
+            filteredTickets = origTickets;
+        } else {
+            // get all filters
+            const filters = [
+                selectedFilterByStatus,
+                selectedFilterByYear,
+                selectedFilterByMonth,
+                selectedFilterByAssignment,
+            ].filter((val) => val !== "None" && val !== "");
+            if (filters.every((val) => val === "None")) {
+                filteredTickets = origTickets;
+            }
+            console.log(filters);
+            // filter tickets
+            filteredTickets = origTickets.filter((ticket) =>
+                filters.every((val) => {
+                    const [year, month] = ticket.created_at.split("-");
+                    if (Object.values(ticket).includes(val) || year === val || month === val) {
+                        return true;
+                    }
+                    return false;
+                })
+            );
         }
-        const filteredTickets = _filterTickets(origTickets);
         setDisplayTickets(filteredTickets);
-    };
+    }, [
+        selectedItem,
+        origTickets,
+        setDisplayTickets,
+        selectedFilterByStatus,
+        selectedFilterByYear,
+        selectedFilterByMonth,
+        selectedFilterByAssignment,
+    ]);
 
     const handleSelectionChange = (value: string) => {
         updateFilterContext(value);
         setSelectedItem(value);
     };
-
-    useEffect(() => {
-        if (isReset) {
-            resetFiltersAndDisplayTickets();
-            updateFilterContext(defaultItem);
-        }
-    }, [isReset]);
-
-    useEffect(() => {
-        updateDisplayTickets();
-    }, [selectedFilterByStatus, selectedFilterByYear, selectedFilterByMonth, selectedFilterByAssignment, origTickets]);
 
     return (
         <Select value={selectedItem} onValueChange={handleSelectionChange}>
