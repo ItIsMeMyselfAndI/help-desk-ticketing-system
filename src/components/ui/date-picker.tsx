@@ -25,9 +25,11 @@ export function DatePicker({ placeholder }: DatePickerProps) {
           <Button
             variant="outline"
             id="date"
-            className="h-full w-full justify-between text-xl font-normal bg-muted border-input"
+            className={`h-full w-full justify-between text-xl font-normal bg-muted border-input ${
+              typeof date !== "object" && "text-foreground/50"
+            }`}
           >
-            {date ? date.toLocaleDateString() : placeholder}
+            {date ? date.toISOString().split("T")[0] : `Select ${placeholder}`}
             <ChevronDownIcon />
           </Button>
         </PopoverTrigger>

@@ -176,25 +176,25 @@
     cursor: pointer;
   }
   span {
-    @apply text-xl;
+    @apply text-lg lg:text-xl;
   }
 }
 
 ::-webkit-scrollbar {
-  width: 10px;
+  @apply w-2.5 h-2.5;
 }
 
 /* Track */
 ::-webkit-scrollbar-track {
-  @apply hidden;
+  @apply rounded-full bg-muted;
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  @apply bg-accent rounded-full;
+  @apply bg-primary rounded-full;
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-  @apply bg-primary;
+  @apply bg-primary/70;
 }
