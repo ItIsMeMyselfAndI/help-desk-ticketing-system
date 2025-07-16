@@ -1,3 +1,39 @@
+## INSTRUCTION
+
+Follow the steps below to check the current state of the application.
+
+### 1. Clone my repository
+
+```
+git clone https://github.com/ItIsMeMyselfAndI/help-desk-ticketing-system.git
+```
+
+### 2. Navigate to the created folder
+
+```
+cd help-desk-ticketing-system
+```
+
+### 3. Install the dependencies
+
+```
+npm install
+```
+
+### 4. Run the application locally
+
+```
+npm run dev
+```
+
+### 5. Open the application in your browser
+
+```
+http://localhost:5173/
+```
+
+---
+
 ## HELP DESK TICKETING SYSTEM
 
 A web-based support ticketing system that allows clients to report issues and enables support teams to track, manage, and resolve them efficiently.
