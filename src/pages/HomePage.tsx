@@ -9,40 +9,34 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select";
-import { DatePicker } from "@/components/ui/date-picker";
+// import { DatePicker } from "@/components/ui/date-picker";
 import { Checkbox } from "@/components/ui/checkbox";
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { RotateCcw } from "lucide-react";
 import type { StatusSummaryType, TicketType } from "@/types";
-import { TicketProvider, useTicketContext } from "@/contexts/TicketContext";
+import { useTicketContext } from "@/contexts/TicketContext";
 import { FilterProvider, useFilterContext } from "@/contexts/FilterContext";
+import { getYearOptions, monthOptions } from "@/constants/filterOptions";
 
-type SummaryCardProps = {
-    status: string;
-    count: number;
-};
+const yearOptions = getYearOptions();
 
-const SummaryCard = ({ status, count }: SummaryCardProps) => {
-    return (
-        <Card className="grow gap-0 h-full">
-            <CardHeader className="text-foreground/80 leading-none text-left text-sm lg:text-xl">{status}</CardHeader>
-            <CardContent className="flex text-primary justify-center leading-none m-auto text-3xl lg:text-5xl">
-                {count}
-            </CardContent>
-        </Card>
-    );
-};
-
-type SummarySectionProps = {
+type SummaryCardsSectionProps = {
     statusSummaries: StatusSummaryType[];
 };
 
-const SummarySection = ({ statusSummaries }: SummarySectionProps) => {
+const SummaryCardsSection = ({ statusSummaries }: SummaryCardsSectionProps) => {
     return (
         <div className="grid grid-cols-2 gap-2 h-full sm:grid-cols-4 sm:gap-4">
             {statusSummaries.map((summary: StatusSummaryType) => (
-                <SummaryCard key={summary.status.toLowerCase()} status={summary.status} count={summary.count} />
+                <Card className="grow gap-0 h-full">
+                    <CardHeader className="text-foreground/80 leading-none text-left text-sm lg:text-xl">
+                        {summary.status}
+                    </CardHeader>
+                    <CardContent className="flex text-primary justify-center leading-none m-auto text-3xl lg:text-5xl">
+                        {summary.count}
+                    </CardContent>
+                </Card>
             ))}
         </div>
     );
@@ -129,13 +123,17 @@ type FilterSelectionProps = {
 const FilterSelection = ({ filterType, values }: FilterSelectionProps) => {
     const defaultItem = "None";
     const {
+        // states
         isReset,
         selectedFilterByStatus,
-        selectedFilterByDate,
+        selectedFilterByYear,
+        selectedFilterByMonth,
         selectedFilterByAssignment,
+        // setters
         setIsReset,
         setSelectedFilterByStatus,
-        setSelectedFilterByDate,
+        setSelectedFilterByYear,
+        setSelectedFilterByMonth,
         setSelectedFilterByAssignment,
     } = useFilterContext();
     const { origTickets, setDisplayTickets } = useTicketContext();
@@ -151,9 +149,16 @@ const FilterSelection = ({ filterType, values }: FilterSelectionProps) => {
             case "status":
                 setSelectedFilterByStatus(value);
                 break;
-            case "date":
-                setSelectedFilterByDate(value);
+            case "year":
+                setSelectedFilterByYear(value);
                 break;
+            case "month": {
+                const monthIndex = monthOptions.indexOf(value);
+                if (monthIndex !== -1) {
+                    setSelectedFilterByMonth(String(monthIndex + 1).padStart(2, "0"));
+                }
+                break;
+            }
             case "assignment":
                 setSelectedFilterByAssignment(value);
                 break;
@@ -163,14 +168,27 @@ const FilterSelection = ({ filterType, values }: FilterSelectionProps) => {
     };
 
     const _filterTickets = (tickets: TicketType[]) => {
-        const filters = [selectedFilterByStatus, selectedFilterByDate, selectedFilterByAssignment].filter(
-            (val) => val !== "None" && val !== ""
-        );
+        const filters = [
+            selectedFilterByStatus,
+            selectedFilterByYear,
+            selectedFilterByMonth,
+            selectedFilterByAssignment,
+        ].filter((val) => val !== "None" && val !== "");
         if (filters.every((val) => val === "None")) {
             return origTickets;
         }
         console.log(filters);
-        return tickets.filter((ticket) => filters.every((val) => Object.values(ticket).includes(val)));
+        return tickets.filter((ticket) =>
+            filters.every((val) => {
+                if (
+                    Object.values(ticket).includes(val) ||
+                    ticket.created_at.split("-")[0] === val || // for year
+                    ticket.created_at.split("-")[1] === val // for month
+                )
+                    return true;
+                return false;
+            })
+        );
     };
 
     const updateDisplayTickets = () => {
@@ -180,7 +198,6 @@ const FilterSelection = ({ filterType, values }: FilterSelectionProps) => {
         }
         const filteredTickets = _filterTickets(origTickets);
         setDisplayTickets(filteredTickets);
-        console.log("update display");
     };
 
     const handleSelectionChange = (value: string) => {
@@ -197,7 +214,7 @@ const FilterSelection = ({ filterType, values }: FilterSelectionProps) => {
 
     useEffect(() => {
         updateDisplayTickets();
-    }, [selectedFilterByStatus, selectedFilterByDate, selectedFilterByAssignment, origTickets]);
+    }, [selectedFilterByStatus, selectedFilterByYear, selectedFilterByMonth, selectedFilterByAssignment, origTickets]);
 
     return (
         <Select value={selectedItem} onValueChange={handleSelectionChange}>
@@ -254,8 +271,12 @@ const FiltersCard = () => {
                 <FilterSelection filterType="Status" values={["Unassigned", "In progress", "Resolved", "Closed"]} />
 
                 {/* by date  */}
-                <CardDescription className="text-lg">By date submitted</CardDescription>
-                <DatePicker placeholder="Date" />
+                <div className="grid grid-cols-2 gap-2">
+                    <CardDescription className="text-lg">By year</CardDescription>
+                    <CardDescription className="text-lg">By month</CardDescription>
+                    <FilterSelection filterType="Year" values={yearOptions} />
+                    <FilterSelection filterType="Month" values={monthOptions} />
+                </div>
 
                 {/* by assignment */}
                 <CardDescription className="text-lg">By assignment</CardDescription>
@@ -274,28 +295,26 @@ const HomePage = () => {
     ]);
 
     return (
-        <TicketProvider>
-            <div className="grid grid-rows-6 gap-2 h-[100vh] content-stretch p-4 sm:grid-rows-5 sm:gap-4">
-                <div className="row-span-2 sm:row-span-1">
-                    <SummarySection statusSummaries={statusSummaries} />
+        <div className="grid grid-rows-6 gap-2 h-[100vh] content-stretch p-4 sm:grid-rows-5 sm:gap-4">
+            <div className="row-span-2 sm:row-span-1">
+                <SummaryCardsSection statusSummaries={statusSummaries} />
+            </div>
+            <div className="row-span-4 grid grid-cols-4 gap-2 sm:row-span-4 sm:gap-4">
+                <div className="col-span-4 xl:col-span-3 overflow-auto">
+                    <TicketTable />
                 </div>
-                <div className="row-span-4 grid grid-cols-4 gap-2 sm:row-span-4 sm:gap-4">
-                    <div className="col-span-4 xl:col-span-3 overflow-auto">
-                        <TicketTable />
+                <div className="hidden xl:col-span-1 xl:grid grid-rows-2 gap-4">
+                    <div className="row-span-1 flex-10">
+                        <FilterProvider>
+                            <FiltersCard />
+                        </FilterProvider>
                     </div>
-                    <div className="hidden xl:col-span-1 xl:grid grid-rows-2 gap-4">
-                        <div className="row-span-1 flex-10">
-                            <FilterProvider>
-                                <FiltersCard />
-                            </FilterProvider>
-                        </div>
-                        <div className="row-span-1 flex-1">
-                            <div className="w-full h-full bg-card border rounded-xl"></div>
-                        </div>
+                    <div className="row-span-1 flex-1">
+                        <div className="w-full h-full bg-card border rounded-xl"></div>
                     </div>
                 </div>
             </div>
-        </TicketProvider>
+        </div>
     );
 };
 
