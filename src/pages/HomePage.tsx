@@ -17,7 +17,6 @@ import { RotateCcw } from "lucide-react";
 import type { StatusSummaryType, TicketType } from "@/types";
 import { TicketProvider, useTicketContext } from "@/contexts/TicketContext";
 import { FilterProvider, useFilterContext } from "@/contexts/FilterContext";
-import { defaultDateLib } from "react-day-picker";
 
 type SummaryCardProps = {
     status: string;
