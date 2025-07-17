@@ -13,7 +13,7 @@ import {
 import { Checkbox } from "@/components/ui/checkbox";
 import { useCallback, useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
-import { RotateCcw } from "lucide-react";
+import { RotateCcw, Trash2Icon } from "lucide-react";
 import type { StatusSummaryType, TicketType } from "@/types";
 import { useTicketContext } from "@/contexts/TicketContext";
 import { FilterProvider, useFilterContext } from "@/contexts/FilterContext";
@@ -43,18 +43,17 @@ const SummaryCardsSection = ({ statusSummaries }: SummaryCardsSectionProps) => {
 };
 
 const TicketTable = () => {
-    const { displayTickets } = useTicketContext();
-    const [selectedRows, setSelectedRows] = useState<Set<string>>(new Set());
+    const { displayTickets, selectedTicketIDs, setSelectedTicketIDs } = useTicketContext();
 
     const toggleRowSelection = (id: string) => {
-        setSelectedRows((prev) => {
-            const selectedRowsCopy = new Set(prev); // Create a copy
-            if (selectedRowsCopy.has(id)) {
-                selectedRowsCopy.delete(id);
+        setSelectedTicketIDs((prev) => {
+            const selectedTicketIDsCopy = new Set(prev);
+            if (selectedTicketIDsCopy.has(id)) {
+                selectedTicketIDsCopy.delete(id);
             } else {
-                selectedRowsCopy.add(id);
+                selectedTicketIDsCopy.add(id);
             }
-            return selectedRowsCopy; // Return the new Set
+            return selectedTicketIDsCopy;
         });
     };
 
@@ -91,7 +90,7 @@ const TicketTable = () => {
                     {displayTickets.map((ticket) => (
                         <TableRow key={ticket.id} onClick={() => toggleRowSelection(ticket.id)}>
                             <TableCell className="pl-5">
-                                <Checkbox checked={selectedRows.has(ticket.id)} className="size-5 bg-muted" />
+                                <Checkbox checked={selectedTicketIDs.has(ticket.id)} className="size-5 bg-muted" />
                             </TableCell>
                             <TableCell>{ticket.id}</TableCell>
                             <TableCell>{ticket.title}</TableCell>
@@ -293,6 +292,96 @@ const FiltersCard = () => {
     );
 };
 
+const StatusChangeSelection = () => {
+    const defaultItem = "None";
+    const [selectedItem, setSelectedItem] = useState<string>(defaultItem);
+
+    const handleSelectionChange = (value: string) => {
+        setSelectedItem(value);
+    };
+
+    const statuses = ["Unassigned", "In progress", "Resolved", "Closed"];
+
+    return (
+        <Select value={selectedItem} onValueChange={handleSelectionChange}>
+            <SelectTrigger
+                className={`w-full text-foreground data-[size=default]:h-full bg-muted hover:bg-accent ${
+                    selectedItem === defaultItem && "text-muted-foreground"
+                }`}
+            >
+                <SelectValue placeholder={defaultItem} />
+            </SelectTrigger>
+
+            <SelectContent>
+                <SelectGroup>
+                    <SelectLabel className="text-lg text-foreground/50">Select status</SelectLabel>
+                    <SelectItem
+                        className="text-muted-foreground focus:bg-accent focus:text-muted-foreground"
+                        value={defaultItem}
+                    >
+                        None
+                    </SelectItem>
+                    {statuses.map((val: string) => (
+                        <SelectItem key={val.toLowerCase()} className="focus:bg-primary" value={val}>
+                            {val}
+                        </SelectItem>
+                    ))}
+                </SelectGroup>
+            </SelectContent>
+        </Select>
+    );
+};
+
+const QuickEditCard = () => {
+    const { origTickets, setOrigTickets, selectedTicketIDs, setSelectedTicketIDs, isAllSelected, setIsAllSelected } =
+        useTicketContext();
+
+    const toggleSelectAll = () => {
+        if (isAllSelected) {
+            setSelectedTicketIDs(new Set());
+            setIsAllSelected(false);
+        } else {
+            setSelectedTicketIDs(new Set(origTickets.map((ticket) => ticket.id)));
+            setIsAllSelected(true);
+        }
+    };
+
+    return (
+        <Card className="px-6 gap-0 h-full flex flex-col justify-evenly">
+            <CardTitle className="flex justify-between text-2xl text-primary">
+                <span>Quick Edit</span>
+                <section className="flex items-center justify-end gap-2">
+                    <CardDescription className="text-lg font-medium">Select all tickets</CardDescription>
+                    <Checkbox className="size-5 bg-muted" onClick={toggleSelectAll} />
+                </section>
+            </CardTitle>
+
+            <CardContent className="flex flex-col justify-evenly gap-4">
+                <section className="flex-1 flex flex-col gap-1">
+                    <CardDescription className="text-lg">Change status</CardDescription>
+                    <StatusChangeSelection />
+                </section>
+
+                <section className="grid grid-cols-2 gap-2 flex-1">
+                    <Button className="h-full bg-green-500 hover:bg-green-500 hover:ring-4 hover:ring-green-500 active:bg-green-600 active:ring-green-600">
+                        <span className="text-foreground">Update</span>
+                    </Button>
+                    <Button className="h-full bg-yellow-500 hover:bg-yellow-500 hover:ring-4 hover:ring-yellow-500 active:bg-yellow-600 active:ring-yellow-600">
+                        <span className="text-foreground">Cancel</span>
+                    </Button>
+                </section>
+
+                <section className="flex flex-col flex-1">
+                    <CardDescription className="text-lg">Delete</CardDescription>
+                    <Button className="bg-red-500 hover:bg-red-500 hover:ring-4 hover:ring-red-500 active:bg-red-600 active:ring-red-600">
+                        <Trash2Icon className="scale-150" />
+                    </Button>
+                </section>
+            </CardContent>
+        </Card>
+    );
+};
+
 const HomePage = () => {
     const [statusSummaries, setStatusSummaries] = useState<StatusSummaryType[]>([
         { status: "Unassigned", count: 0 },
@@ -316,8 +405,8 @@ const HomePage = () => {
                             <FiltersCard />
                         </FilterProvider>
                     </div>
-                    <div className="row-span-1 flex-1">
-                        <div className="w-full h-full bg-card border rounded-xl"></div>
+                    <div className="row-span-1 flex-1 w-full h-full">
+                        <QuickEditCard />
                     </div>
                 </div>
             </div>
