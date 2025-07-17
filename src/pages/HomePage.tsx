@@ -300,7 +300,7 @@ const StatusChangeSelection = () => {
         setSelectedItem(value);
     };
 
-    const statuses = ["Unassigned", "In progress", "Resolved", "Closed"];
+    const statuses = ["Re-open", "Close"];
 
     return (
         <Select value={selectedItem} onValueChange={handleSelectionChange}>
