@@ -81,10 +81,16 @@ const defaultTickets: TicketType[] = populateTicketArr(
 );
 
 type TicketContextType = {
+    // states
     origTickets: TicketType[];
-    setOrigTickets: React.Dispatch<React.SetStateAction<TicketType[]>>;
     displayTickets: TicketType[];
+    selectedTicketIDs: Set<string>;
+    isAllSelected: boolean;
+    // setters
+    setOrigTickets: React.Dispatch<React.SetStateAction<TicketType[]>>;
     setDisplayTickets: React.Dispatch<React.SetStateAction<TicketType[]>>;
+    setSelectedTicketIDs: React.Dispatch<React.SetStateAction<Set<string>>>;
+    setIsAllSelected: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 const TicketContext = createContext<TicketContextType | undefined>(undefined);
@@ -92,8 +98,23 @@ const TicketContext = createContext<TicketContextType | undefined>(undefined);
 const TicketProvider = ({ children }: { children: ReactNode }) => {
     const [origTickets, setOrigTickets] = useState<TicketType[]>([...defaultTickets]);
     const [displayTickets, setDisplayTickets] = useState<TicketType[]>([...defaultTickets]);
+    const [selectedTicketIDs, setSelectedTicketIDs] = useState<Set<string>>(new Set());
+    const [isAllSelected, setIsAllSelected] = useState<boolean>(false);
     return (
-        <TicketContext.Provider value={{ origTickets, setOrigTickets, displayTickets, setDisplayTickets }}>
+        <TicketContext.Provider
+            value={{
+                // states
+                origTickets,
+                displayTickets,
+                selectedTicketIDs,
+                isAllSelected,
+                // setters
+                setOrigTickets,
+                setDisplayTickets,
+                setSelectedTicketIDs,
+                setIsAllSelected,
+            }}
+        >
             {children}
         </TicketContext.Provider>
     );
