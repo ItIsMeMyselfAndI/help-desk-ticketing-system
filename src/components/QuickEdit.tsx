@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Card, CardContent, CardDescription, CardTitle } from "@/components/ui/card";
 import {
     Select,
@@ -60,8 +60,16 @@ const StatusChangeSelection = ({ selectedStatus, setSelectedStatus }: StatusChan
 };
 
 const QuickEditCard = () => {
-    const { origTickets, setOrigTickets, selectedTicketIDs, setSelectedTicketIDs, isAllSelected, setIsAllSelected } =
-        useTicketContext();
+    const {
+        origTickets,
+        setOrigTickets,
+        recentModifiedTickets,
+        setRecentModifiedTickets,
+        selectedTicketIDs,
+        setSelectedTicketIDs,
+        isAllSelected,
+        setIsAllSelected,
+    } = useTicketContext();
     const [selectedStatus, setSelectedStatus] = useState<string>("None");
 
     const toggleSelectAll = () => {
@@ -75,7 +83,8 @@ const QuickEditCard = () => {
     };
 
     const handleUpdateStatus = () => {
-        if (selectedStatus === "None") return;
+        if (selectedStatus === "None" || selectedTicketIDs.size === 0) return;
+        setRecentModifiedTickets([...origTickets].filter((ticket) => selectedTicketIDs.has(ticket.id)));
 
         setOrigTickets((prev) => {
             const updatedTickets = prev.map((ticket) => {
@@ -90,6 +99,27 @@ const QuickEditCard = () => {
         });
     };
 
+    const handleUndoChanges = () => {
+        const currTicketIDs = origTickets.map((ticket) => ticket.id);
+        const undoneTickets = [...origTickets];
+        recentModifiedTickets.forEach((ticket) => {
+            // recover deleted tickets
+            if (!currTicketIDs.includes(ticket.id)) {
+                undoneTickets.push(ticket);
+            }
+            // undo last changes
+            else {
+                const i = undoneTickets.findIndex((undoneTicket) => undoneTicket.id === ticket.id);
+                undoneTickets[i] = ticket;
+            }
+        });
+        setOrigTickets(undoneTickets);
+    };
+
+    useEffect(() => {
+        console.log(recentModifiedTickets);
+    }, [recentModifiedTickets]);
+
     return (
         <Card className="px-6 gap-0 h-full flex flex-col justify-evenly">
             <CardTitle className="flex justify-between text-2xl text-primary">
@@ -103,7 +133,10 @@ const QuickEditCard = () => {
                         <CardDescription className="text-lg font-medium">Select all tickets</CardDescription>
                     </div>
 
-                    <Button className="bg-primary hover:bg-primary hover:ring-2 hover:ring-primary active:bg-primary/50 active:ring-primary/50">
+                    <Button
+                        onClick={handleUndoChanges}
+                        className="bg-primary hover:bg-primary hover:ring-2 hover:ring-primary active:bg-primary/50 active:ring-primary/50"
+                    >
                         <span>undo</span>
                         <Undo2 className="scale-150 m-1.5" />
                     </Button>
@@ -133,7 +166,10 @@ const QuickEditCard = () => {
 
                 <section className="flex flex-col flex-1">
                     <CardDescription className="text-lg">Delete ticket(s)</CardDescription>
-                    <Button className="bg-red-500 hover:bg-red-500 hover:ring-2 hover:ring-red-500 active:bg-red-600 active:ring-red-600">
+                    <Button
+                        onClick={() => {}}
+                        className="bg-red-500 hover:bg-red-500 hover:ring-2 hover:ring-red-500 active:bg-red-600 active:ring-red-600"
+                    >
                         <Trash2Icon className="scale-150 m-1.5" />
                     </Button>
                 </section>
