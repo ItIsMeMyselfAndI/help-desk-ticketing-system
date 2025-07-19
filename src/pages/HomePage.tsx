@@ -7,7 +7,7 @@ import { TableFilter } from "@/components/TableFIlter";
 import { QuickEditCard } from "@/components/QuickEdit";
 
 const HomePage = () => {
-    const [statusSummaries, setStatusSummaries] = useState<StatusSummaryType[]>([
+    const [statusSummaries] = useState<StatusSummaryType[]>([
         { status: "Open", count: 0 },
         { status: "In progress", count: 0 },
         { status: "Resolved", count: 0 },
