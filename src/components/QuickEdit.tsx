@@ -99,6 +99,16 @@ const QuickEditCard = () => {
         });
     };
 
+    const handleDeleteTickets = () => {
+        if (selectedTicketIDs.size === 0) return;
+        setRecentModifiedTickets([...origTickets].filter((ticket) => selectedTicketIDs.has(ticket.id)));
+
+        setOrigTickets((prev) => {
+            const newTickets = prev.filter((ticket) => !selectedTicketIDs.has(ticket.id));
+            return newTickets;
+        });
+    };
+
     const handleUndoChanges = () => {
         const currTicketIDs = origTickets.map((ticket) => ticket.id);
         const undoneTickets = [...origTickets];
@@ -113,7 +123,8 @@ const QuickEditCard = () => {
                 undoneTickets[i] = ticket;
             }
         });
-        setOrigTickets(undoneTickets);
+        const sortedTickets = undoneTickets.sort((a, b) => a.id.localeCompare(b.id));
+        setOrigTickets(sortedTickets);
     };
 
     useEffect(() => {
@@ -167,7 +178,7 @@ const QuickEditCard = () => {
                 <section className="flex flex-col flex-1">
                     <CardDescription className="text-lg">Delete ticket(s)</CardDescription>
                     <Button
-                        onClick={() => {}}
+                        onClick={handleDeleteTickets}
                         className="bg-red-500 hover:bg-red-500 hover:ring-2 hover:ring-red-500 active:bg-red-600 active:ring-red-600"
                     >
                         <Trash2Icon className="scale-150 m-1.5" />
