@@ -1,93 +1,17 @@
 import React, { createContext, useContext, useState, type ReactNode } from "react";
 import type { TicketType } from "@/types";
-
-const populateTicketArr = (arr: TicketType[], count: number) => {
-    const populatedArr: TicketType[] = [];
-    for (let i = 0; i < count; i++) {
-        arr.forEach((t) => populatedArr.push({ ...t }));
-    }
-    populatedArr.forEach((ticket, index) => (ticket.id = `T-${index}`));
-    return populatedArr;
-};
-
-const defaultTickets: TicketType[] = populateTicketArr(
-    [
-        {
-            id: "",
-            title: "my 1st ticket mf",
-            status: "Unassigned",
-            created_at: "2024-10-09",
-            updated_at: "2024-10-09",
-            assigned_to: "@bentot",
-        },
-        {
-            id: "",
-            title: "my 1st ticket mf",
-            status: "Resolved",
-            created_at: "2024-01-09",
-            updated_at: "2024-01-09",
-            assigned_to: "@bentot",
-        },
-        {
-            id: "",
-            title: "my 2nd ticket mf",
-            status: "In progress",
-            created_at: "2024-02-09",
-            updated_at: "2024-02-09",
-            assigned_to: "@juantot",
-        },
-        {
-            id: "",
-            title: "my 2nd ticket mf",
-            status: "Unassigned",
-            created_at: "2024-03-09",
-            updated_at: "2024-03-09",
-            assigned_to: "@juantot",
-        },
-        {
-            id: "",
-            title: "my 3rd ticket mf",
-            status: "Resolved",
-            created_at: "2024-04-09",
-            updated_at: "2024-04-09",
-            assigned_to: "@gwentot",
-        },
-        {
-            id: "",
-            title: "my 3rd ticket mf",
-            status: "Closed",
-            created_at: "2024-05-09",
-            updated_at: "2024-05-09",
-            assigned_to: "@gwentot",
-        },
-        {
-            id: "",
-            title: "my 4th ticket mf",
-            status: "Closed",
-            created_at: "2024-06-09",
-            updated_at: "2024-06-09",
-            assigned_to: "@kwintot",
-        },
-        {
-            id: "",
-            title: "my 4th ticket mf",
-            status: "In progress",
-            created_at: "2024-07-09",
-            updated_at: "2024-07-09",
-            assigned_to: "@kwintot",
-        },
-    ],
-    20
-);
+import ticketsSample from "@/data/tickets.sample.json";
 
 type TicketContextType = {
     // states
     origTickets: TicketType[];
+    recentModifiedTickets: TicketType[];
     displayTickets: TicketType[];
     selectedTicketIDs: Set<string>;
     isAllSelected: boolean;
     // setters
     setOrigTickets: React.Dispatch<React.SetStateAction<TicketType[]>>;
+    setRecentModifiedTickets: React.Dispatch<React.SetStateAction<TicketType[]>>;
     setDisplayTickets: React.Dispatch<React.SetStateAction<TicketType[]>>;
     setSelectedTicketIDs: React.Dispatch<React.SetStateAction<Set<string>>>;
     setIsAllSelected: React.Dispatch<React.SetStateAction<boolean>>;
@@ -96,8 +20,9 @@ type TicketContextType = {
 const TicketContext = createContext<TicketContextType | undefined>(undefined);
 
 const TicketProvider = ({ children }: { children: ReactNode }) => {
-    const [origTickets, setOrigTickets] = useState<TicketType[]>([...defaultTickets]);
-    const [displayTickets, setDisplayTickets] = useState<TicketType[]>([...defaultTickets]);
+    const [origTickets, setOrigTickets] = useState<TicketType[]>(ticketsSample as TicketType[]);
+    const [recentModifiedTickets, setRecentModifiedTickets] = useState<TicketType[]>([]);
+    const [displayTickets, setDisplayTickets] = useState<TicketType[]>(ticketsSample as TicketType[]);
     const [selectedTicketIDs, setSelectedTicketIDs] = useState<Set<string>>(new Set());
     const [isAllSelected, setIsAllSelected] = useState<boolean>(false);
     return (
@@ -105,11 +30,13 @@ const TicketProvider = ({ children }: { children: ReactNode }) => {
             value={{
                 // states
                 origTickets,
+                recentModifiedTickets,
                 displayTickets,
                 selectedTicketIDs,
                 isAllSelected,
                 // setters
                 setOrigTickets,
+                setRecentModifiedTickets,
                 setDisplayTickets,
                 setSelectedTicketIDs,
                 setIsAllSelected,
