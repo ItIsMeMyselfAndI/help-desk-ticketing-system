@@ -72,4 +72,8 @@ A web-based support ticketing system that allows clients to report issues and en
 
 #### 1. Client home/dashboard interface
 
-![Dashboard](https://github.com/ItIsMeMyselfAndI/help-desk-ticketing-system/blob/23145c17afc0b072d5cd1b47ccc219f64febcd18/screenshots/client-home-interface.png)
+![Dashboard](./screenshots/client-home-interface.png)
+
+#### 2. Client view-tickets interface
+
+![View-tickets](./screenshots/client-view_tickets-interface.png)
