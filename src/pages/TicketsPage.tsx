@@ -49,14 +49,14 @@ const ActionHeader = ({ openedTicket, setOpenedTicket }: ActionProps) => {
 
 const MessageSection = ({ openedTicket }: ActionProps) => {
     return (
-        <Card className="size-full p-4 text-xl bg-muted flex flex-col gap-3">
+        <Card className="size-full p-4 text-xl flex flex-col gap-3">
             {openedTicket && (
                 <CardTitle className="text-xl flex justify-between">
                     <span>Messages</span>
                 </CardTitle>
             )}
 
-            <CardContent className="text-xl bg-card rounded-md border border-input p-4 overflow-auto">
+            <CardContent className="text-xl bg-muted rounded-md border border-input p-4 overflow-auto">
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate consectetur illo accusamus, officia
                 et aperiam odit minima suscipit cumque repellendus ea perferendis hic voluptatum perspiciatis quaerat.
                 Consectetur aspernatur repudiandae culpa? Lorem ipsum dolor sit amet, consectetur adipisicing elit.
@@ -65,7 +65,7 @@ const MessageSection = ({ openedTicket }: ActionProps) => {
             </CardContent>
 
             <CardAction className="flex flex-row justify-center gap-1 items-center w-full">
-                <Textarea placeholder="Aa" className="max-h-10 text-xl bg-card" />
+                <Textarea placeholder="Aa" className="max-h-10 text-xl bg-muted" />
                 <ImageButton path={SendSVG} alt="send" className="size-9 hover:size-10 transition-all" />
             </CardAction>
         </Card>
@@ -96,7 +96,7 @@ const TicketsPage = () => {
                     <MessageSection openedTicket={openedTicket} />
                 </div>
                 <div className="flex-1">
-                    <Card className="h-full bg-muted"></Card>
+                    <Card className="h-full bg-card"></Card>
                 </div>
             </div>
         </div>
