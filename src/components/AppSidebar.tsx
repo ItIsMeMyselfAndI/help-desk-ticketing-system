@@ -20,16 +20,20 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { Link } from "react-router-dom";
+import { useState } from "react";
 
 // Menu items.
 const items = [
-    { title: "Home", url: "#", icon: Home },
-    { title: "View Tickets", url: "#", icon: Logs },
-    { title: "New Ticket", url: "#", icon: TicketPlus },
-    { title: "Inbox", url: "#", icon: Inbox },
+    { title: "Home", route: "/", icon: Home },
+    { title: "View Tickets", route: "/tickets", icon: Logs },
+    { title: "New Ticket", route: "/new", icon: TicketPlus },
+    { title: "Inbox", route: "/inbox", icon: Inbox },
 ];
 
 const AppSidebarContent = () => {
+    const [currPage, setCurrPage] = useState<string>("Home");
+
     return (
         <SidebarContent>
             <SidebarGroup>
@@ -40,11 +44,17 @@ const AppSidebarContent = () => {
                     <SidebarMenu>
                         {items.map((item) => (
                             <SidebarMenuItem key={item.title}>
-                                <SidebarMenuButton className="hover:bg-primary p-5 rounded-none" asChild>
-                                    <a href={item.url}>
+                                <SidebarMenuButton
+                                    className={`hover:bg-primary p-5 rounded-none ${
+                                        currPage === item.title ? "text-primary hover:text-foreground font-bold" : ""
+                                    }`}
+                                    asChild
+                                    onClick={() => setCurrPage(item.title)}
+                                >
+                                    <Link to={item.route}>
                                         <item.icon className="scale-125 mr-2" />
                                         <span>{item.title}</span>
-                                    </a>
+                                    </Link>
                                 </SidebarMenuButton>
                             </SidebarMenuItem>
                         ))}
