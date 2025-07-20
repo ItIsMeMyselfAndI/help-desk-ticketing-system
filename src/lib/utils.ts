@@ -1,6 +1,24 @@
-import { clsx, type ClassValue } from "clsx"
-import { twMerge } from "tailwind-merge"
+import type { TicketType } from "@/types";
+import { clsx, type ClassValue } from "clsx";
+import { twMerge } from "tailwind-merge";
 
-export function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs))
+function cn(...inputs: ClassValue[]) {
+    return twMerge(clsx(inputs));
 }
+
+const selectStatusBGColor = (status: TicketType["status"]) => {
+    switch (status) {
+        case "Open":
+            return "bg-gray-500";
+        case "In progress":
+            return "bg-blue-500";
+        case "Resolved":
+            return "bg-green-500";
+        case "Closed":
+            return "bg-yellow-500";
+        default:
+            return "";
+    }
+};
+
+export { cn, selectStatusBGColor };

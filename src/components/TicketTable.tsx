@@ -2,19 +2,21 @@ import { useTicketContext } from "@/contexts/TicketContext";
 import type { TicketType } from "@/types";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Checkbox } from "@/components/ui/checkbox";
+import { selectStatusBGColor } from "@/lib/utils";
 import { Button } from "./ui/button";
-import MessageFilled from "@/assets/message-write-svgrepo-com.svg";
+import { Ellipsis } from "lucide-react";
 
 type TicketTableProps = {
     edit?: true | false;
     variant?: "default" | "message" | "full" | "combo";
+    onActionClick?: (ticket: TicketType) => void;
 };
 
-const TicketTable = ({ edit = false, variant = "default" }: TicketTableProps) => {
+const TicketTable = ({ edit = false, variant = "default", onActionClick }: TicketTableProps) => {
     const { displayTickets, selectedTicketIDs, setSelectedTicketIDs } = useTicketContext();
 
     const showFullTable = variant === "full" || variant === "combo";
-    const showMessageColumn = variant === "message" || variant === "combo";
+    const showActionColumn = variant === "message" || variant === "combo";
 
     const toggleRowSelection = (id: string) => {
         setSelectedTicketIDs((prev) => {
@@ -28,19 +30,9 @@ const TicketTable = ({ edit = false, variant = "default" }: TicketTableProps) =>
         });
     };
 
-    const chooseStatusColor = (status: TicketType["status"]) => {
-        switch (status) {
-            case "Open":
-                return "bg-gray-500";
-            case "In progress":
-                return "bg-blue-500";
-            case "Resolved":
-                return "bg-green-500";
-            case "Closed":
-                return "bg-yellow-500";
-            default:
-                return "";
-        }
+    const handleAction = (e: React.MouseEvent, ticket: TicketType) => {
+        e.stopPropagation();
+        if (onActionClick) onActionClick(ticket);
     };
 
     return (
@@ -49,13 +41,13 @@ const TicketTable = ({ edit = false, variant = "default" }: TicketTableProps) =>
                 <TableHeader className="bg-muted h-15 sticky top-0 z-1">
                     <TableRow key="header" className="text-lg lg:text-xl">
                         {edit && <TableHead className="text-primary pl-5">Edit</TableHead>}
-                        <TableHead className="text-primary">Ticket</TableHead>
+                        <TableHead className={`text-primary ${!edit && "pl-5"}`}>Ticket</TableHead>
                         <TableHead className="text-primary">Title</TableHead>
                         <TableHead className="text-primary">Status</TableHead>
-                        <TableHead className="text-primary">Submitted At</TableHead>
-                        {showFullTable && <TableHead className="text-primary">Updated At</TableHead>}
+                        <TableHead className="text-primary text-right">Submitted At</TableHead>
+                        {showFullTable && <TableHead className="text-primary text-right">Updated At</TableHead>}
                         <TableHead className="text-primary text-right pr-5">Assigned To</TableHead>
-                        {showMessageColumn && <TableHead className="text-primary text-right pr-5">Message</TableHead>}
+                        {showActionColumn && <TableHead className="text-primary text-right pr-5">Actions</TableHead>}
                     </TableRow>
                 </TableHeader>
 
@@ -67,28 +59,26 @@ const TicketTable = ({ edit = false, variant = "default" }: TicketTableProps) =>
                                     <Checkbox checked={selectedTicketIDs.has(ticket.id)} className="size-5 bg-muted" />
                                 </TableCell>
                             )}
-                            <TableCell>{ticket.id}</TableCell>
-                            <TableCell>{ticket.title}</TableCell>
+                            <TableCell className={`${!edit ? "pl-5" : ""}`}>{ticket.id}</TableCell>
+                            <TableCell className="overflow-hidden max-w-70">{ticket.title}</TableCell>
                             <TableCell>
-                                <span className={`${chooseStatusColor(ticket.status)} p-1 rounded-xl text-center`}>
+                                <span
+                                    className={`${selectStatusBGColor(ticket.status)} py-1 px-2 rounded-xl text-center`}
+                                >
                                     {ticket.status}
                                 </span>
                             </TableCell>
-                            <TableCell>{ticket.created_at}</TableCell>
-                            {showFullTable && <TableCell>{ticket.updated_at}</TableCell>}
+                            <TableCell className="text-right">{ticket.created_at}</TableCell>
+                            {showFullTable && <TableCell className="text-right">{ticket.updated_at}</TableCell>}
                             <TableCell className="text-right pr-5">{ticket.assigned_to}</TableCell>
-                            {showMessageColumn && (
+                            {showActionColumn && (
                                 <TableCell className="flex items-center justify-end pr-5">
-                                    <Button variant="ghost" className="hover:bg-transparent">
-                                        <img
-                                            src={MessageFilled}
-                                            alt="Message Icon"
-                                            className="size-7 hover:size-9 transition-all"
-                                            onClick={(e) => {
-                                                e.stopPropagation();
-                                                window.alert(`message clicked: ${ticket.id}`);
-                                            }}
-                                        />
+                                    <Button
+                                        variant="ghost"
+                                        className="size-7 hover:size-8 transition-all"
+                                        onClick={(e) => handleAction(e, ticket)}
+                                    >
+                                        <Ellipsis className="size-6" />
                                     </Button>
                                 </TableCell>
                             )}

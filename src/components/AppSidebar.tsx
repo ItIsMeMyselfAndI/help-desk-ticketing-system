@@ -21,6 +21,7 @@ import {
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Link } from "react-router-dom";
+import { useState } from "react";
 
 // Menu items.
 const items = [
@@ -31,6 +32,8 @@ const items = [
 ];
 
 const AppSidebarContent = () => {
+    const [currPage, setCurrPage] = useState<string>("Home");
+
     return (
         <SidebarContent>
             <SidebarGroup>
@@ -41,7 +44,13 @@ const AppSidebarContent = () => {
                     <SidebarMenu>
                         {items.map((item) => (
                             <SidebarMenuItem key={item.title}>
-                                <SidebarMenuButton className="hover:bg-primary p-5 rounded-none" asChild>
+                                <SidebarMenuButton
+                                    className={`hover:bg-primary p-5 rounded-none ${
+                                        currPage === item.title ? "text-primary hover:text-foreground font-bold" : ""
+                                    }`}
+                                    asChild
+                                    onClick={() => setCurrPage(item.title)}
+                                >
                                     <Link to={item.route}>
                                         <item.icon className="scale-125 mr-2" />
                                         <span>{item.title}</span>
