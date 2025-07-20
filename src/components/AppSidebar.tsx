@@ -20,13 +20,14 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { Link } from "react-router-dom";
 
 // Menu items.
 const items = [
-    { title: "Home", url: "#", icon: Home },
-    { title: "View Tickets", url: "#", icon: Logs },
-    { title: "New Ticket", url: "#", icon: TicketPlus },
-    { title: "Inbox", url: "#", icon: Inbox },
+    { title: "Home", route: "/", icon: Home },
+    { title: "View Tickets", route: "/tickets", icon: Logs },
+    { title: "New Ticket", route: "/new", icon: TicketPlus },
+    { title: "Inbox", route: "/inbox", icon: Inbox },
 ];
 
 const AppSidebarContent = () => {
@@ -41,10 +42,10 @@ const AppSidebarContent = () => {
                         {items.map((item) => (
                             <SidebarMenuItem key={item.title}>
                                 <SidebarMenuButton className="hover:bg-primary p-5 rounded-none" asChild>
-                                    <a href={item.url}>
+                                    <Link to={item.route}>
                                         <item.icon className="scale-125 mr-2" />
                                         <span>{item.title}</span>
-                                    </a>
+                                    </Link>
                                 </SidebarMenuButton>
                             </SidebarMenuItem>
                         ))}

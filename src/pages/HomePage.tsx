@@ -15,13 +15,13 @@ const HomePage = () => {
     ]);
 
     return (
-        <div className="grid grid-rows-6 gap-2 h-[100vh] content-stretch p-4 sm:grid-rows-5 sm:gap-4">
+        <div className="grid grid-rows-6 gap-2 h-[100vh] p-4 sm:grid-rows-5 sm:gap-4">
             <div className="row-span-2 sm:row-span-1">
                 <StatusSummary statusSummaries={statusSummaries} />
             </div>
             <div className="row-span-4 grid grid-cols-4 gap-2 sm:row-span-4 sm:gap-4">
                 <div className="col-span-4 xl:col-span-3 overflow-auto">
-                    <TicketTable />
+                    <TicketTable edit={true} />
                 </div>
                 <div className="hidden xl:col-span-1 xl:grid grid-rows-2 gap-4">
                     <div className="row-span-1 flex-10">
