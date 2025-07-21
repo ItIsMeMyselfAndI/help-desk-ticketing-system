@@ -3,7 +3,7 @@ import { Card, CardAction, CardContent, CardHeader, CardTitle } from "@/componen
 import { Textarea } from "@/components/ui/textarea";
 import { selectStatusBGColor } from "@/lib/utils";
 import type { TicketType } from "@/types";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import CloseXSVG from "@/assets/close-circle-svgrepo-com.svg";
 import { ImageButton } from "@/components/ImageButton";
 import SendSVG from "@/assets/send-svgrepo-com.svg";
@@ -12,7 +12,6 @@ import { FilterProvider } from "@/contexts/FilterContext";
 import { Separator } from "@/components/ui/separator";
 import { TableFilter } from "@/components/TableFIlter";
 import { QuickEditSection } from "@/components/QuickEdit";
-import { useTicketContext } from "@/contexts/TicketContext";
 
 type ActionProps = {
     openedTicket: TicketType | undefined;
