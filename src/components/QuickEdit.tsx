@@ -59,9 +59,22 @@ const StatusChangeSelection = ({ selectedStatus, setSelectedStatus }: StatusChan
     );
 };
 
-const QuickEditCard = () => {
+type QuickEditSectionProps = {
+    hasPaddingTop?: boolean;
+    hasPaddingBot?: boolean;
+    hasBorder?: boolean;
+    bgColor?: string;
+};
+
+const QuickEditSection = ({
+    hasPaddingTop = true,
+    hasPaddingBot = true,
+    hasBorder = true,
+    bgColor = "bg-card",
+}: QuickEditSectionProps) => {
     const {
         origTickets,
+        displayTickets,
         setOrigTickets,
         recentModifiedTickets,
         setRecentModifiedTickets,
@@ -77,7 +90,7 @@ const QuickEditCard = () => {
             setSelectedTicketIDs(new Set());
             setIsAllSelected(false);
         } else {
-            setSelectedTicketIDs(new Set(origTickets.map((ticket) => ticket.id)));
+            setSelectedTicketIDs(new Set(displayTickets.map((ticket) => ticket.id)));
             setIsAllSelected(true);
         }
     };
@@ -132,7 +145,10 @@ const QuickEditCard = () => {
     }, [recentModifiedTickets]);
 
     return (
-        <Card className="px-6 gap-0 h-full flex flex-col justify-evenly">
+        <Card
+            className={`px-6 gap-0 h-full flex flex-col justify-evenly ${bgColor}
+                ${!hasBorder && "border-none"} ${!hasPaddingTop && "pt-0"} ${!hasPaddingBot && "pb-0"}`}
+        >
             <CardTitle className="flex justify-between text-2xl text-primary">
                 <span>Quick Edit</span>
             </CardTitle>
@@ -189,4 +205,4 @@ const QuickEditCard = () => {
     );
 };
 
-export { QuickEditCard };
+export { QuickEditSection };
