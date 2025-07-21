@@ -5,6 +5,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { selectStatusBGColor } from "@/lib/utils";
 import { Button } from "./ui/button";
 import { Ellipsis } from "lucide-react";
+import { useState } from "react";
 
 type TicketTableProps = {
     edit?: true | false;
@@ -14,6 +15,7 @@ type TicketTableProps = {
 
 const TicketTable = ({ edit = false, variant = "default", onActionClick }: TicketTableProps) => {
     const { displayTickets, selectedTicketIDs, setSelectedTicketIDs } = useTicketContext();
+    const [selectedActionId, setSelectedActionId] = useState<string | undefined>(undefined);
 
     const showFullTable = variant === "full" || variant === "combo";
     const showActionColumn = variant === "message" || variant === "combo";
@@ -33,6 +35,11 @@ const TicketTable = ({ edit = false, variant = "default", onActionClick }: Ticke
     const handleAction = (e: React.MouseEvent, ticket: TicketType) => {
         e.stopPropagation();
         if (onActionClick) onActionClick(ticket);
+        if (selectedActionId !== ticket.id) {
+            setSelectedActionId(ticket.id);
+        } else {
+            setSelectedActionId(undefined);
+        }
     };
 
     return (
@@ -75,7 +82,9 @@ const TicketTable = ({ edit = false, variant = "default", onActionClick }: Ticke
                                 <TableCell className="flex items-center justify-end pr-5">
                                     <Button
                                         variant="ghost"
-                                        className="size-7 hover:size-8 transition-all"
+                                        className={`size-7 hover:size-8 transition-all ${
+                                            selectedActionId === ticket.id && "bg-primary hover:bg-primary"
+                                        }`}
                                         onClick={(e) => handleAction(e, ticket)}
                                     >
                                         <Ellipsis className="size-6" />

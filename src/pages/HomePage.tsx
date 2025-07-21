@@ -4,7 +4,7 @@ import { FilterProvider } from "@/contexts/FilterContext";
 import { StatusSummary } from "@/components/StatusSummary";
 import { TicketTable } from "@/components/TicketTable";
 import { TableFilter } from "@/components/TableFIlter";
-import { QuickEditCard } from "@/components/QuickEdit";
+import { QuickEditSection } from "@/components/QuickEdit";
 
 const HomePage = () => {
     const [statusSummaries] = useState<StatusSummaryType[]>([
@@ -15,7 +15,7 @@ const HomePage = () => {
     ]);
 
     return (
-        <div className="grid grid-rows-6 gap-2 h-[100vh] p-4 sm:grid-rows-5 sm:gap-4">
+        <div className="h-full grid grid-rows-6 gap-2 sm:grid-rows-5 sm:gap-4">
             <div className="row-span-2 sm:row-span-1">
                 <StatusSummary statusSummaries={statusSummaries} />
             </div>
@@ -30,7 +30,7 @@ const HomePage = () => {
                         </FilterProvider>
                     </div>
                     <div className="row-span-1 flex-1 w-full h-full">
-                        <QuickEditCard />
+                        <QuickEditSection />
                     </div>
                 </div>
             </div>
