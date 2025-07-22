@@ -6,7 +6,7 @@ import { TicketTable } from "@/components/TicketTable";
 import { TableFilter } from "@/components/TableFIlter";
 import { QuickEdit } from "@/components/QuickEdit";
 
-const HomePage = () => {
+const DashboardPage = () => {
     const [statusSummaries] = useState<StatusSummaryType[]>([
         { status: "Open", count: 0 },
         { status: "In progress", count: 0 },
@@ -38,4 +38,4 @@ const HomePage = () => {
     );
 };
 
-export default HomePage;
+export default DashboardPage;

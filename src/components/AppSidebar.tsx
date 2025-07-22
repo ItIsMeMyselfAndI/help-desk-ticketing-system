@@ -1,4 +1,4 @@
-import { Home, Logs, TicketPlus, Inbox, CircleUser } from "lucide-react";
+import { Logs, TicketPlus, Inbox, CircleUser, LayoutDashboard } from "lucide-react";
 
 import {
     Sidebar,
@@ -21,11 +21,10 @@ import {
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Link, useLocation } from "react-router-dom";
-import { useState } from "react";
 
 // Menu items.
 const items = [
-    { title: "Home", route: "/", icon: Home },
+    { title: "Dashboard", route: "/", icon: LayoutDashboard },
     { title: "View Tickets", route: "/tickets", icon: Logs },
     { title: "New Ticket", route: "/new", icon: TicketPlus },
     { title: "Inbox", route: "/inbox", icon: Inbox },

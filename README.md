@@ -70,9 +70,9 @@ A web-based support ticketing system that allows clients to report issues and en
 
 ### Progress
 
-#### 1. Client home/dashboard interface
+#### 1. Client dashboard interface
 
-![Dashboard](./screenshots/client-home-interface.png)
+![Dashboard](./screenshots/client-dashboard-interface.png)
 
 #### 2. Client view-tickets interface
 

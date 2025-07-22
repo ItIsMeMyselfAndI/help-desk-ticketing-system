@@ -3,323 +3,559 @@
     "id": "T-001",
     "title": "Cannot access email",
     "status": "Open",
+    "description": "User unable to log into company email account. Getting authentication error message.",
     "created_at": "2024-10-09",
     "updated_at": "2024-10-09",
-    "assigned_to": "@bentot"
+    "assigned_to": {
+      "name": "@bentot",
+      "role": "support",
+      "imagePath": ""
+    }
   },
   {
     "id": "T-002",
     "title": "Printer not working",
     "status": "Resolved",
+    "description": "HP LaserJet printer in office not responding to print commands. Paper jam cleared and drivers updated.",
     "created_at": "2024-01-09",
     "updated_at": "2024-01-10",
-    "assigned_to": "@bentot"
+    "assigned_to": {
+      "name": "@bentot",
+      "role": "support",
+      "imagePath": "",
+      "chatHistory": []
+    }
   },
   {
     "id": "T-003",
     "title": "Request for new mouse",
     "status": "Open",
+    "description": "Current wireless mouse has intermittent connectivity issues. Need replacement for daily work.",
     "created_at": "2024-09-15",
     "updated_at": "2024-09-16",
-    "assigned_to": "@bentot"
+    "assigned_to": {
+      "name": "@bentot",
+      "role": "support",
+      "imagePath": "",
+      "chatHistory": []
+    }
   },
   {
     "id": "T-004",
     "title": "Monitor not displaying",
     "status": "In progress",
+    "description": "External monitor connected to laptop showing black screen. Cable and ports checked.",
     "created_at": "2024-03-12",
     "updated_at": "2024-03-13",
-    "assigned_to": "@bentot"
+    "assigned_to": {
+      "name": "@bentot",
+      "role": "support",
+      "imagePath": "",
+      "chatHistory": []
+    }
   },
   {
     "id": "T-005",
     "title": "Request for external hard drive",
     "status": "Closed",
+    "description": "Need additional storage space for project files. 1TB external drive requested and approved.",
     "created_at": "2024-04-22",
     "updated_at": "2024-04-23",
-    "assigned_to": "@bentot"
+    "assigned_to": {
+      "name": "@bentot",
+      "role": "support",
+      "imagePath": "",
+      "chatHistory": []
+    }
   },
   {
     "id": "T-006",
     "title": "Projector not working",
     "status": "Open",
+    "description": "Conference room projector not turning on. Red light blinking on power button.",
     "created_at": "2024-05-05",
     "updated_at": "2024-05-05",
-    "assigned_to": "@bentot"
+    "assigned_to": {
+      "name": "@bentot",
+      "role": "support",
+      "imagePath": "",
+      "chatHistory": []
+    }
   },
   {
     "id": "T-007",
     "title": "Request for additional storage",
     "status": "Closed",
+    "description": "Cloud storage quota exceeded. Need additional 500GB for team collaboration files.",
     "created_at": "2024-06-21",
     "updated_at": "2024-06-22",
-    "assigned_to": "@bentot"
+    "assigned_to": {
+      "name": "@bentot",
+      "role": "support",
+      "imagePath": "",
+      "chatHistory": []
+    }
   },
   {
     "id": "T-008",
     "title": "Laptop battery issue",
     "status": "Resolved",
+    "description": "Laptop battery draining very quickly, lasting only 1 hour. Battery replaced successfully.",
     "created_at": "2024-07-10",
     "updated_at": "2024-07-11",
-    "assigned_to": "@bentot"
+    "assigned_to": {
+      "name": "@bentot",
+      "role": "support",
+      "imagePath": "",
+      "chatHistory": []
+    }
   },
   {
     "id": "T-009",
     "title": "Request for new keyboard",
     "status": "Open",
+    "description": "Several keys on current keyboard are sticking. Need ergonomic keyboard replacement.",
     "created_at": "2024-08-18",
     "updated_at": "2024-08-19",
-    "assigned_to": "@bentot"
+    "assigned_to": {
+      "name": "@bentot",
+      "role": "support",
+      "imagePath": "",
+      "chatHistory": []
+    }
   },
   {
     "id": "T-010",
     "title": "Desktop not booting",
     "status": "In progress",
+    "description": "Desktop computer stuck on Windows loading screen. Attempted safe mode restart.",
     "created_at": "2024-09-01",
     "updated_at": "2024-09-02",
-    "assigned_to": "@bentot"
+    "assigned_to": {
+      "name": "@bentot",
+      "role": "support",
+      "imagePath": "",
+      "chatHistory": []
+    }
   },
-
   {
     "id": "T-011",
     "title": "Software installation request",
     "status": "In progress",
+    "description": "Need Adobe Creative Suite installed for marketing department projects. License verification in progress.",
     "created_at": "2024-02-09",
     "updated_at": "2024-02-11",
-    "assigned_to": "@juantot"
+    "assigned_to": {
+      "name": "@juantot",
+      "role": "technician",
+      "imagePath": "",
+      "chatHistory": []
+    }
   },
   {
     "id": "T-012",
     "title": "Request for software upgrade",
     "status": "Open",
+    "description": "Current version of accounting software outdated. Need upgrade to latest version for tax compliance.",
     "created_at": "2024-10-05",
     "updated_at": "2024-10-06",
-    "assigned_to": "@juantot"
+    "assigned_to": {
+      "name": "@juantot",
+      "role": "technician",
+      "imagePath": "",
+      "chatHistory": []
+    }
   },
   {
     "id": "T-013",
     "title": "Email sync issue",
     "status": "Open",
+    "description": "Emails not syncing between mobile and desktop clients. Missing recent messages.",
     "created_at": "2024-10-14",
     "updated_at": "2024-10-15",
-    "assigned_to": "@juantot"
+    "assigned_to": {
+      "name": "@juantot",
+      "role": "technician",
+      "imagePath": "",
+      "chatHistory": []
+    }
   },
   {
     "id": "T-014",
     "title": "Request for new laptop",
     "status": "Open",
+    "description": "Current laptop is 5 years old and running slowly. Need modern laptop for development work.",
     "created_at": "2024-10-16",
     "updated_at": "2024-10-16",
-    "assigned_to": "@juantot"
+    "assigned_to": {
+      "name": "@juantot",
+      "role": "technician",
+      "imagePath": "",
+      "chatHistory": []
+    }
   },
   {
     "id": "T-015",
     "title": "Network configuration change",
     "status": "Resolved",
+    "description": "Need to change network settings for new office location. DNS and gateway configured successfully.",
     "created_at": "2024-03-20",
     "updated_at": "2024-03-21",
-    "assigned_to": "@juantot"
+    "assigned_to": {
+      "name": "@juantot",
+      "role": "technician",
+      "imagePath": "",
+      "chatHistory": []
+    }
   },
   {
     "id": "T-016",
     "title": "VPN setup",
     "status": "Closed",
+    "description": "Remote worker needs VPN access to company resources. Client installed and configured.",
     "created_at": "2024-04-15",
     "updated_at": "2024-04-16",
-    "assigned_to": "@juantot"
+    "assigned_to": {
+      "name": "@juantot",
+      "role": "technician",
+      "imagePath": "",
+      "chatHistory": []
+    }
   },
   {
     "id": "T-017",
     "title": "Request for admin access",
     "status": "Open",
+    "description": "User needs admin privileges for installing development tools. Security approval required.",
     "created_at": "2024-05-25",
     "updated_at": "2024-05-26",
-    "assigned_to": "@juantot"
+    "assigned_to": {
+      "name": "@juantot",
+      "role": "technician",
+      "imagePath": "",
+      "chatHistory": []
+    }
   },
   {
     "id": "T-018",
     "title": "Printer setup",
     "status": "Resolved",
+    "description": "New department printer needs to be added to network. Drivers installed and sharing enabled.",
     "created_at": "2024-06-03",
     "updated_at": "2024-06-04",
-    "assigned_to": "@juantot"
+    "assigned_to": {
+      "name": "@juantot",
+      "role": "technician",
+      "imagePath": "",
+      "chatHistory": []
+    }
   },
   {
     "id": "T-019",
     "title": "Monitor calibration",
     "status": "In progress",
+    "description": "Design team monitors showing incorrect colors. Color calibration needed for accurate work.",
     "created_at": "2024-07-12",
     "updated_at": "2024-07-13",
-    "assigned_to": "@juantot"
+    "assigned_to": {
+      "name": "@juantot",
+      "role": "technician",
+      "imagePath": "",
+      "chatHistory": []
+    }
   },
   {
     "id": "T-020",
     "title": "System update failure",
     "status": "Open",
+    "description": "Windows update failed to install. System showing error code 0x80070002.",
     "created_at": "2024-08-22",
     "updated_at": "2024-08-22",
-    "assigned_to": "@juantot"
+    "assigned_to": {
+      "name": "@juantot",
+      "role": "technician",
+      "imagePath": "",
+      "chatHistory": []
+    }
   },
-
   {
     "id": "T-021",
     "title": "Password reset",
     "status": "Resolved",
+    "description": "User forgot domain password. Password reset successfully through Active Directory.",
     "created_at": "2024-04-09",
     "updated_at": "2024-04-09",
-    "assigned_to": "@gwentot"
+    "assigned_to": {
+      "name": "@gwentot",
+      "role": "administrator",
+      "imagePath": "",
+      "chatHistory": []
+    }
   },
   {
     "id": "T-022",
     "title": "Monitor flickering",
     "status": "Closed",
+    "description": "Monitor screen flickering intermittently. Cable replaced and issue resolved.",
     "created_at": "2024-05-09",
     "updated_at": "2024-05-10",
-    "assigned_to": "@gwentot"
+    "assigned_to": {
+      "name": "@gwentot",
+      "role": "administrator",
+      "imagePath": "",
+      "chatHistory": []
+    }
   },
   {
     "id": "T-023",
     "title": "System crash during startup",
     "status": "In progress",
+    "description": "Computer crashes with blue screen during Windows startup. Running memory diagnostics.",
     "created_at": "2024-10-07",
     "updated_at": "2024-10-08",
-    "assigned_to": "@gwentot"
+    "assigned_to": {
+      "name": "@gwentot",
+      "role": "administrator",
+      "imagePath": "",
+      "chatHistory": []
+    }
   },
   {
     "id": "T-024",
     "title": "Antivirus expired",
     "status": "Resolved",
+    "description": "Corporate antivirus license expired. New license activated and definitions updated.",
     "created_at": "2024-10-17",
     "updated_at": "2024-10-18",
-    "assigned_to": "@gwentot"
+    "assigned_to": {
+      "name": "@gwentot",
+      "role": "administrator",
+      "imagePath": "",
+      "chatHistory": []
+    }
   },
   {
     "id": "T-025",
     "title": "Slow internet connection",
     "status": "Open",
+    "description": "Internet speed significantly slower than usual. Download speeds below 10 Mbps.",
     "created_at": "2024-03-30",
     "updated_at": "2024-03-31",
-    "assigned_to": "@gwentot"
+    "assigned_to": {
+      "name": "@gwentot",
+      "role": "administrator",
+      "imagePath": "",
+      "chatHistory": []
+    }
   },
   {
     "id": "T-026",
     "title": "Request for new monitor",
     "status": "Closed",
+    "description": "Need second monitor for improved productivity. 24-inch monitor approved and delivered.",
     "created_at": "2024-04-18",
     "updated_at": "2024-04-19",
-    "assigned_to": "@gwentot"
+    "assigned_to": {
+      "name": "@gwentot",
+      "role": "administrator",
+      "imagePath": "",
+      "chatHistory": []
+    }
   },
   {
     "id": "T-027",
     "title": "Keyboard replacement",
     "status": "Resolved",
+    "description": "Keyboard keys not responding properly. New mechanical keyboard provided.",
     "created_at": "2024-05-28",
     "updated_at": "2024-05-29",
-    "assigned_to": "@gwentot"
+    "assigned_to": {
+      "name": "@gwentot",
+      "role": "administrator",
+      "imagePath": "",
+      "chatHistory": []
+    }
   },
   {
     "id": "T-028",
     "title": "Software license renewal",
     "status": "Open",
+    "description": "Microsoft Office license expiring next month. Need to renew for entire department.",
     "created_at": "2024-06-14",
     "updated_at": "2024-06-15",
-    "assigned_to": "@gwentot"
+    "assigned_to": {
+      "name": "@gwentot",
+      "role": "administrator",
+      "imagePath": "",
+      "chatHistory": []
+    }
   },
   {
     "id": "T-029",
     "title": "Desktop overheating",
     "status": "In progress",
+    "description": "Desktop computer running very hot and loud. CPU fan may need replacement.",
     "created_at": "2024-07-20",
     "updated_at": "2024-07-21",
-    "assigned_to": "@gwentot"
+    "assigned_to": {
+      "name": "@gwentot",
+      "role": "administrator",
+      "imagePath": "",
+      "chatHistory": []
+    }
   },
   {
     "id": "T-030",
     "title": "Request for webcam",
     "status": "Open",
+    "description": "Need webcam for video conferences. Current laptop camera quality is poor.",
     "created_at": "2024-08-29",
     "updated_at": "2024-08-29",
-    "assigned_to": "@gwentot"
+    "assigned_to": {
+      "name": "@gwentot",
+      "role": "administrator",
+      "imagePath": "",
+      "chatHistory": []
+    }
   },
-
   {
     "id": "T-031",
     "title": "VPN access request",
     "status": "Closed",
+    "description": "New employee needs VPN access for remote work. Account created and configured.",
     "created_at": "2024-06-09",
     "updated_at": "2024-06-10",
-    "assigned_to": "@kwintot"
+    "assigned_to": {
+      "name": "@kwintot",
+      "role": "senior technician",
+      "imagePath": "",
+      "chatHistory": []
+    }
   },
   {
     "id": "T-032",
     "title": "Slow computer performance",
     "status": "In progress",
+    "description": "Computer taking very long to start and open applications. Running disk cleanup and defragmentation.",
     "created_at": "2024-07-09",
     "updated_at": "2024-07-12",
-    "assigned_to": "@kwintot"
+    "assigned_to": {
+      "name": "@kwintot",
+      "role": "senior technician",
+      "imagePath": "",
+      "chatHistory": []
+    }
   },
   {
     "id": "T-033",
     "title": "Unable to connect to WiFi",
     "status": "Resolved",
+    "description": "Laptop cannot connect to office WiFi network. Network adapter driver updated successfully.",
     "created_at": "2024-10-10",
     "updated_at": "2024-10-11",
-    "assigned_to": "@kwintot"
+    "assigned_to": {
+      "name": "@kwintot",
+      "role": "senior technician",
+      "imagePath": "",
+      "chatHistory": []
+    }
   },
   {
     "id": "T-034",
     "title": "Projector not displaying",
     "status": "In progress",
+    "description": "Meeting room projector showing 'no signal' message. Testing different cables and inputs.",
     "created_at": "2024-10-19",
     "updated_at": "2024-10-20",
-    "assigned_to": "@kwintot"
+    "assigned_to": {
+      "name": "@kwintot",
+      "role": "senior technician",
+      "imagePath": "",
+      "chatHistory": []
+    }
   },
   {
     "id": "T-035",
     "title": "Request for new headset",
     "status": "Open",
+    "description": "Current headset microphone not working properly. Need noise-canceling headset for calls.",
     "created_at": "2024-03-25",
     "updated_at": "2024-03-26",
-    "assigned_to": "@kwintot"
+    "assigned_to": {
+      "name": "@kwintot",
+      "role": "senior technician",
+      "imagePath": "",
+      "chatHistory": []
+    }
   },
   {
     "id": "T-036",
     "title": "Network connectivity issue",
     "status": "Open",
+    "description": "Intermittent network disconnections throughout the day. Affecting productivity and file access.",
     "created_at": "2024-04-27",
     "updated_at": "2024-04-28",
-    "assigned_to": "@kwintot"
+    "assigned_to": {
+      "name": "@kwintot",
+      "role": "senior technician",
+      "imagePath": "",
+      "chatHistory": []
+    }
   },
   {
     "id": "T-037",
     "title": "Request for new phone llllllllllllllllllllllllllllllllll",
     "status": "Closed",
+    "description": "Current work phone is outdated and battery life is very poor. New smartphone approved and delivered.",
     "created_at": "2024-05-12",
     "updated_at": "2024-05-13",
-    "assigned_to": "@kwintot"
+    "assigned_to": {
+      "name": "@kwintot",
+      "role": "senior technician",
+      "imagePath": "",
+      "chatHistory": []
+    }
   },
   {
     "id": "T-038",
     "title": "System backup failed",
     "status": "Resolved",
+    "description": "Automated system backup failed for three consecutive days. Backup schedule reconfigured and tested.",
     "created_at": "2024-06-30",
     "updated_at": "2024-07-01",
-    "assigned_to": "@kwintot"
+    "assigned_to": {
+      "name": "@kwintot",
+      "role": "senior technician",
+      "imagePath": "",
+      "chatHistory": []
+    }
   },
   {
     "id": "T-039",
     "title": "Request for new chair",
     "status": "Open",
+    "description": "Current office chair causing back pain. Need ergonomic chair for better posture support.",
     "created_at": "2024-08-05",
     "updated_at": "2024-08-05",
-    "assigned_to": "@kwintot"
+    "assigned_to": {
+      "name": "@kwintot",
+      "role": "senior technician",
+      "imagePath": "",
+      "chatHistory": []
+    }
   },
   {
     "id": "T-040",
     "title": "Mobile device setup",
     "status": "Open",
+    "description": "New employee needs company mobile device configured with email and business applications.",
     "created_at": "2024-09-10",
     "updated_at": "2024-09-11",
-    "assigned_to": "@kwintot"
+    "assigned_to": {
+      "name": "@kwintot",
+      "role": "senior technician",
+      "imagePath": "",
+      "chatHistory": []
+    }
   }
 ]

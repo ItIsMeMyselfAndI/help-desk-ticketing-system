@@ -77,7 +77,7 @@ const TicketTable = ({ edit = false, variant = "default", onActionClick }: Ticke
                             </TableCell>
                             <TableCell className="text-right">{ticket.created_at}</TableCell>
                             {showFullTable && <TableCell className="text-right">{ticket.updated_at}</TableCell>}
-                            <TableCell className="text-right pr-5">{ticket.assigned_to}</TableCell>
+                            <TableCell className="text-right pr-5">{ticket.assigned_to.name}</TableCell>
                             {showActionColumn && (
                                 <TableCell className="flex items-center justify-end pr-5">
                                     <Button
