@@ -5,7 +5,6 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { selectStatusBGColor } from "@/lib/utils";
 import { Button } from "./ui/button";
 import { Ellipsis } from "lucide-react";
-import { useState } from "react";
 
 type TicketTableProps = {
     edit?: true | false;
@@ -14,8 +13,8 @@ type TicketTableProps = {
 };
 
 const TicketTable = ({ edit = false, variant = "default", onActionClick }: TicketTableProps) => {
-    const { displayTickets, selectedTicketIDs, setSelectedTicketIDs } = useTicketContext();
-    const [selectedActionId, setSelectedActionId] = useState<string | undefined>(undefined);
+    const { displayTickets, openedActionTicket, setOpenedActionTicket, selectedTicketIDs, setSelectedTicketIDs } =
+        useTicketContext();
 
     const showFullTable = variant === "full" || variant === "combo";
     const showActionColumn = variant === "message" || variant === "combo";
@@ -35,10 +34,10 @@ const TicketTable = ({ edit = false, variant = "default", onActionClick }: Ticke
     const handleAction = (e: React.MouseEvent, ticket: TicketType) => {
         e.stopPropagation();
         if (onActionClick) onActionClick(ticket);
-        if (selectedActionId !== ticket.id) {
-            setSelectedActionId(ticket.id);
+        if (openedActionTicket?.id !== ticket.id) {
+            setOpenedActionTicket(ticket);
         } else {
-            setSelectedActionId(undefined);
+            setOpenedActionTicket(undefined);
         }
     };
 
@@ -67,7 +66,7 @@ const TicketTable = ({ edit = false, variant = "default", onActionClick }: Ticke
                                 </TableCell>
                             )}
                             <TableCell className={`${!edit ? "pl-5" : ""}`}>{ticket.id}</TableCell>
-                            <TableCell className="overflow-hidden max-w-70">{ticket.title}</TableCell>
+                            <TableCell className="truncate max-w-70">{ticket.title}</TableCell>
                             <TableCell>
                                 <span
                                     className={`${selectStatusBGColor(ticket.status)} py-1 px-2 rounded-xl text-center`}
@@ -77,13 +76,13 @@ const TicketTable = ({ edit = false, variant = "default", onActionClick }: Ticke
                             </TableCell>
                             <TableCell className="text-right">{ticket.created_at}</TableCell>
                             {showFullTable && <TableCell className="text-right">{ticket.updated_at}</TableCell>}
-                            <TableCell className="text-right pr-5">{ticket.assigned_to}</TableCell>
+                            <TableCell className="text-right pr-5">{ticket.assigned_to.name}</TableCell>
                             {showActionColumn && (
                                 <TableCell className="flex items-center justify-end pr-5">
                                     <Button
                                         variant="ghost"
                                         className={`size-7 hover:size-8 transition-all ${
-                                            selectedActionId === ticket.id && "bg-primary hover:bg-primary"
+                                            openedActionTicket?.id === ticket.id && "bg-primary hover:bg-primary"
                                         }`}
                                         onClick={(e) => handleAction(e, ticket)}
                                     >

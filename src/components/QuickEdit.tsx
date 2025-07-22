@@ -59,19 +59,13 @@ const StatusChangeSelection = ({ selectedStatus, setSelectedStatus }: StatusChan
     );
 };
 
-type QuickEditSectionProps = {
-    hasPaddingTop?: boolean;
-    hasPaddingBot?: boolean;
+type QuickEditProps = {
+    padding?: string;
     hasBorder?: boolean;
     bgColor?: string;
 };
 
-const QuickEditSection = ({
-    hasPaddingTop = true,
-    hasPaddingBot = true,
-    hasBorder = true,
-    bgColor = "bg-card",
-}: QuickEditSectionProps) => {
+const QuickEdit = ({ padding, hasBorder = true, bgColor = "bg-card" }: QuickEditProps) => {
     const {
         origTickets,
         displayTickets,
@@ -147,7 +141,7 @@ const QuickEditSection = ({
     return (
         <Card
             className={`px-6 gap-0 h-full flex flex-col justify-evenly ${bgColor}
-                ${!hasBorder && "border-none"} ${!hasPaddingTop && "pt-0"} ${!hasPaddingBot && "pb-0"}`}
+                ${!hasBorder && "border-none"} ${padding || ""}`}
         >
             <CardTitle className="flex justify-between text-2xl text-primary">
                 <span>Quick Edit</span>
@@ -174,7 +168,7 @@ const QuickEditSection = ({
                     <StatusChangeSelection selectedStatus={selectedStatus} setSelectedStatus={setSelectedStatus} />
                 </section>
 
-                <section className="grid grid-cols-2 gap-2 flex-1">
+                <section className="flex-1 grid grid-cols-2 gap-2">
                     <Button
                         onClick={handleUpdateStatus}
                         className="h-full bg-green-500 hover:bg-green-500 hover:ring-2 hover:ring-green-500 active:bg-green-600 active:ring-green-600"
@@ -195,7 +189,7 @@ const QuickEditSection = ({
                     <CardDescription className="text-lg">Delete ticket(s)</CardDescription>
                     <Button
                         onClick={handleDeleteTickets}
-                        className="bg-red-500 hover:bg-red-500 hover:ring-2 hover:ring-red-500 active:bg-red-600 active:ring-red-600"
+                        className="flex-1 bg-red-500 hover:bg-red-500 hover:ring-2 hover:ring-red-500 active:bg-red-600 active:ring-red-600"
                     >
                         <Trash2Icon className="scale-150 m-1.5" />
                     </Button>
@@ -205,4 +199,4 @@ const QuickEditSection = ({
     );
 };
 
-export { QuickEditSection };
+export { QuickEdit };

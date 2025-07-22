@@ -3,7 +3,7 @@ import { useTicketContext } from "@/contexts/TicketContext";
 import { Card, CardContent, CardDescription, CardTitle } from "@/components/ui/card";
 import { Button } from "./ui/button";
 import { RotateCcw } from "lucide-react";
-import { getYearOptions, monthOptions } from "@/constants/filterOptions";
+import { getYearOptions, monthOptions } from "@/data/filterOptions";
 import { useCallback, useEffect, useState } from "react";
 import {
     Select,
@@ -159,18 +159,12 @@ const FilterSelection = ({ filterType, values }: FilterSelectionProps) => {
 };
 
 type TableFilterProps = {
-    hasPaddingTop?: boolean;
-    hasPaddingBot?: boolean;
+    padding?: string;
     hasBorder?: boolean;
     bgColor?: string;
 };
 
-const TableFilter = ({
-    hasPaddingTop = true,
-    hasPaddingBot = true,
-    hasBorder = true,
-    bgColor = "bg-card",
-}: TableFilterProps) => {
+const TableFilter = ({ padding, hasBorder = true, bgColor = "bg-card" }: TableFilterProps) => {
     const { origTickets, setDisplayTickets } = useTicketContext();
     const { setIsReset } = useFilterContext();
 
@@ -182,7 +176,7 @@ const TableFilter = ({
     return (
         <Card
             className={`px-6 gap-0 h-full flex flex-col justify-evenly ${bgColor}
-                ${!hasBorder && "border-none"} ${!hasPaddingTop && "pt-0"} ${!hasPaddingBot && "pb-0"}`}
+                ${!hasBorder && "border-none"} ${padding || ""}`}
         >
             {/* title and reset  */}
             <CardTitle className="flex justify-between text-2xl text-primary">

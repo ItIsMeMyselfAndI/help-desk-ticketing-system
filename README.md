@@ -70,20 +70,20 @@ A web-based support ticketing system that allows clients to report issues and en
 
 ### Progress
 
-#### 1. Client home/dashboard interface
+#### 1. Client dashboard interface
 
-![Dashboard](./screenshots/client-home-interface.png)
+![Dashboard](./screenshots/client-dashboard-interface.png)
 
 #### 2. Client view-tickets interface
 
-##### a. Closed action section
+- ##### a. Closed action section
 
-![View-tickets-no-action](./screenshots/client-view_tickets-interface-1.png)
+  ![View-tickets-no-action](./screenshots/client-view_tickets-interface-1.png)
 
-##### a. Open action section [message, filter]
+- ##### b. Open action section [message, filter]
 
-![View-tickets-filter](./screenshots/client-view_tickets-interface-2.png)
+  ![View-tickets-filter](./screenshots/client-view_tickets-interface-2.png)
 
-##### a. Closed action section [message, edit]
+- ##### c. Closed action section [message, edit]
 
-![View-tickets-edit](./screenshots/client-view_tickets-interface-3.png)
+  ![View-tickets-edit](./screenshots/client-view_tickets-interface-3.png)
