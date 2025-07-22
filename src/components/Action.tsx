@@ -9,7 +9,8 @@ import { TableFilter } from "@/components/TableFIlter";
 import { QuickEdit } from "@/components/QuickEdit";
 import type { TicketType } from "@/types";
 import XCloseSVG from "@/assets/close-circle-svgrepo-com.svg";
-import { Chat } from "./Chat";
+import { Chat } from "@/components/Chat";
+import { TicketDetails } from "./TicketDetails";
 
 type ActionsProps = {
     openedTicket: TicketType | undefined;
@@ -41,16 +42,6 @@ const Header = ({ openedTicket, onActionsExitClick }: ActionsProps) => {
                 onClick={onActionsExitClick}
             />
         </CardHeader>
-    );
-};
-
-const TicketDetails = ({ openedTicket }: { openedTicket: TicketType | undefined }) => {
-    return (
-        <Card className="h-full">
-            <CardTitle>
-                <span className="text-primary">Details</span>
-            </CardTitle>
-        </Card>
     );
 };
 
@@ -89,9 +80,9 @@ const DetailsAndChat = ({ openedTicket }: { openedTicket: TicketType | undefined
 
             <Separator orientation="horizontal" />
 
-            <CardContent className="flex-1 min-h-0 p-4">
-                <CardAction className={`size-full ${currTab !== "details" && "hidden"}`}>
-                    <TicketDetails openedTicket={openedTicket} />
+            <CardContent className="flex-1 min-h-0 p-4 min-w-0 overflow-x-auto">
+                <CardAction className={`size-full min-w-0 overflow-x-auto ${currTab !== "details" && "hidden"}`}>
+                    <TicketDetails openedTicket={openedTicket} padding="p-2" hasBorder={false} />
                 </CardAction>
                 <CardAction className={`size-full ${currTab !== "chat" && "hidden"}`}>
                     <Chat openedTicket={openedTicket} padding="p-0" hasBorder={false} />
@@ -157,7 +148,7 @@ const Actions = ({ openedTicket, onActionsExitClick }: ActionsProps) => {
                 <Header openedTicket={openedTicket} onActionsExitClick={onActionsExitClick} />
             </div>
             <div className="flex-1 grid grid-rows-13 gap-2 min-h-0">
-                <div className="row-span-7 min-h-0">
+                <div className="row-span-7 min-w-0">
                     <DetailsAndChat openedTicket={openedTicket} />
                 </div>
                 <div className="row-span-6">

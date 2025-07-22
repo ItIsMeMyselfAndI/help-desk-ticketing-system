@@ -2,8 +2,8 @@ import { Textarea } from "@/components/ui/textarea";
 import SendSVG from "@/assets/send-svgrepo-com.svg";
 import ProfileSVG from "@/assets/user-person-profile-block-account-circle-svgrepo-com.svg";
 import type { TicketType } from "@/types";
-import { Card, CardAction, CardContent, CardHeader, CardTitle } from "./ui/card";
-import { ImageButton } from "./ImageButton";
+import { Card, CardAction, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { ImageButton } from "@/components/ImageButton";
 
 type ChatProps = {
     openedTicket: TicketType | undefined;
