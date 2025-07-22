@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { Card, CardAction, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { selectStatusBGColor } from "@/lib/utils";
 import { ImageButton } from "@/components/ImageButton";
@@ -7,7 +7,6 @@ import { FilterProvider } from "@/contexts/FilterContext";
 import { Separator } from "@/components/ui/separator";
 import { TableFilter } from "@/components/TableFIlter";
 import { QuickEdit } from "@/components/QuickEdit";
-import type { TicketType } from "@/types";
 import XCloseSVG from "@/assets/close-circle-svgrepo-com.svg";
 import { Chat } from "@/components/Chat";
 import { TicketDetails } from "./TicketDetails";
