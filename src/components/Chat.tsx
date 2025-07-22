@@ -1,17 +1,18 @@
 import { Textarea } from "@/components/ui/textarea";
 import SendSVG from "@/assets/send-svgrepo-com.svg";
 import ProfileSVG from "@/assets/user-person-profile-block-account-circle-svgrepo-com.svg";
-import type { TicketType } from "@/types";
 import { Card, CardAction, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ImageButton } from "@/components/ImageButton";
+import { useTicketContext } from "@/contexts/TicketContext";
 
 type ChatProps = {
-    openedTicket: TicketType | undefined;
     padding?: string;
     hasBorder?: boolean;
 };
 
-const Chat = ({ openedTicket, padding, hasBorder = true }: ChatProps) => {
+const Chat = ({ padding, hasBorder = true }: ChatProps) => {
+    const { openedActionTicket } = useTicketContext();
+
     return (
         <Card className={`size-full text-xl flex flex-col gap-3 ${padding || "p-4"} ${!hasBorder && "border-none"}`}>
             <CardHeader className="text-xl flex justify-start gap-2 items-center px-0">
@@ -19,8 +20,8 @@ const Chat = ({ openedTicket, padding, hasBorder = true }: ChatProps) => {
                     <img src={ProfileSVG} alt="" className="size-10" />
                 </div>
                 <CardTitle className="text-right">
-                    <h3>{openedTicket?.assigned_to.name}</h3>
-                    <span className="text-primary text-sm">{openedTicket?.assigned_to.role}</span>
+                    <h3>{openedActionTicket?.assigned_to.name}</h3>
+                    <span className="text-primary text-sm">{openedActionTicket?.assigned_to.role}</span>
                 </CardTitle>
             </CardHeader>
 

@@ -13,23 +13,23 @@ import { Chat } from "@/components/Chat";
 import { TicketDetails } from "./TicketDetails";
 
 type ActionsProps = {
-    openedTicket: TicketType | undefined;
+    openedActionTicket: TicketType | undefined;
     onActionsExitClick?: () => void;
 };
 
-const Header = ({ openedTicket, onActionsExitClick }: ActionsProps) => {
+const Header = ({ openedActionTicket, onActionsExitClick }: ActionsProps) => {
     return (
         <CardHeader className="flex flex-row justify-between p-0">
             <section className="flex flex-row gap-2 items-center">
                 <CardTitle className="text-primary text-2xl">Actions</CardTitle>
-                <span className="text-lg">{openedTicket ? openedTicket.id : "None"}</span>
-                {openedTicket ? (
+                <span className="text-lg">{openedActionTicket ? openedActionTicket.id : "None"}</span>
+                {openedActionTicket ? (
                     <span
                         className={`${selectStatusBGColor(
-                            openedTicket.status
+                            openedActionTicket.status
                         )} font-normal py-1 px-2 rounded-xl text-center`}
                     >
-                        {openedTicket.status}
+                        {openedActionTicket.status}
                     </span>
                 ) : (
                     <span>Ticket not found</span>
@@ -45,7 +45,7 @@ const Header = ({ openedTicket, onActionsExitClick }: ActionsProps) => {
     );
 };
 
-const DetailsAndChat = ({ openedTicket }: { openedTicket: TicketType | undefined }) => {
+const DetailsAndChat = () => {
     const [currTab, setCurrTab] = useState<"details" | "chat">("details");
 
     const handleTabChange = (tab: "details" | "chat") => {
@@ -82,10 +82,10 @@ const DetailsAndChat = ({ openedTicket }: { openedTicket: TicketType | undefined
 
             <CardContent className="flex-1 min-h-0 p-4 min-w-0 overflow-x-auto">
                 <CardAction className={`size-full min-w-0 overflow-x-auto ${currTab !== "details" && "hidden"}`}>
-                    <TicketDetails openedTicket={openedTicket} padding="p-2" hasBorder={false} />
+                    <TicketDetails padding="p-2" hasBorder={false} />
                 </CardAction>
                 <CardAction className={`size-full ${currTab !== "chat" && "hidden"}`}>
-                    <Chat openedTicket={openedTicket} padding="p-0" hasBorder={false} />
+                    <Chat padding="p-0" hasBorder={false} />
                 </CardAction>
             </CardContent>
         </Card>
@@ -141,15 +141,15 @@ const FilterAndEdit = () => {
     );
 };
 
-const Actions = ({ openedTicket, onActionsExitClick }: ActionsProps) => {
+const Actions = ({ openedActionTicket, onActionsExitClick }: ActionsProps) => {
     return (
         <div className="h-[100vh] py-4 pr-4 flex flex-col gap-2">
             <div className="">
-                <Header openedTicket={openedTicket} onActionsExitClick={onActionsExitClick} />
+                <Header openedActionTicket={openedActionTicket} onActionsExitClick={onActionsExitClick} />
             </div>
             <div className="flex-1 grid grid-rows-13 gap-2 min-h-0">
                 <div className="row-span-7 min-w-0">
-                    <DetailsAndChat openedTicket={openedTicket} />
+                    <DetailsAndChat />
                 </div>
                 <div className="row-span-6">
                     <FilterAndEdit />

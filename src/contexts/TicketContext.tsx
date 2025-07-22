@@ -9,12 +9,14 @@ type TicketContextType = {
     displayTickets: TicketType[];
     selectedTicketIDs: Set<string>;
     isAllSelected: boolean;
+    openedActionTicket: TicketType | undefined;
     // setters
     setOrigTickets: React.Dispatch<React.SetStateAction<TicketType[]>>;
     setRecentModifiedTickets: React.Dispatch<React.SetStateAction<TicketType[]>>;
     setDisplayTickets: React.Dispatch<React.SetStateAction<TicketType[]>>;
     setSelectedTicketIDs: React.Dispatch<React.SetStateAction<Set<string>>>;
     setIsAllSelected: React.Dispatch<React.SetStateAction<boolean>>;
+    setOpenedActionTicket: React.Dispatch<React.SetStateAction<TicketType | undefined>>;
 };
 
 const TicketContext = createContext<TicketContextType | undefined>(undefined);
@@ -25,6 +27,7 @@ const TicketProvider = ({ children }: { children: ReactNode }) => {
     const [displayTickets, setDisplayTickets] = useState<TicketType[]>(ticketsSample as TicketType[]);
     const [selectedTicketIDs, setSelectedTicketIDs] = useState<Set<string>>(new Set());
     const [isAllSelected, setIsAllSelected] = useState<boolean>(false);
+    const [openedActionTicket, setOpenedActionTicket] = useState<TicketType | undefined>(undefined);
     return (
         <TicketContext.Provider
             value={{
@@ -34,12 +37,14 @@ const TicketProvider = ({ children }: { children: ReactNode }) => {
                 displayTickets,
                 selectedTicketIDs,
                 isAllSelected,
+                openedActionTicket,
                 // setters
                 setOrigTickets,
                 setRecentModifiedTickets,
                 setDisplayTickets,
                 setSelectedTicketIDs,
                 setIsAllSelected,
+                setOpenedActionTicket,
             }}
         >
             {children}
