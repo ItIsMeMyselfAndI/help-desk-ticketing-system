@@ -80,10 +80,10 @@ A web-based support ticketing system that allows clients to report issues and en
 
   ![View-tickets-no-action](./screenshots/client-view_tickets-interface-1.png)
 
-- ##### b. Open action section [message, filter]
+- ##### b. Open action section [details, filter]
 
   ![View-tickets-filter](./screenshots/client-view_tickets-interface-2.png)
 
-- ##### c. Closed action section [message, edit]
+- ##### c. Closed action section [chat, edit]
 
   ![View-tickets-edit](./screenshots/client-view_tickets-interface-3.png)
