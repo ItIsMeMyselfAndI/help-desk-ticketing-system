@@ -2,9 +2,16 @@ import type { TicketType } from "@/types";
 import { TicketTable } from "@/components/TicketTable";
 import { Actions } from "@/components/Action";
 import { useTicketContext } from "@/contexts/TicketContext";
+import { useEffect } from "react";
 
 const TicketsPage = () => {
-    const { openedActionTicket, setOpenedActionTicket } = useTicketContext();
+    const { origTickets, openedActionTicket, setOpenedActionTicket } = useTicketContext();
+
+    useEffect(() => {
+        if (!openedActionTicket?.id) return;
+        const newOpenedActionTicket = origTickets.find((ticket) => ticket.id === openedActionTicket.id);
+        setOpenedActionTicket(newOpenedActionTicket);
+    }, [origTickets, openedActionTicket?.id, setOpenedActionTicket]);
 
     const handleActions = (ticket: TicketType) => {
         if (ticket.id !== openedActionTicket?.id) {
@@ -25,7 +32,7 @@ const TicketsPage = () => {
             </div>
 
             <div className={`${openedActionTicket ? "col-span-5" : "hidden"}`}>
-                <Actions openedActionTicket={openedActionTicket} onActionsExitClick={handleActionsExit} />
+                <Actions onActionsExitClick={handleActionsExit} />
             </div>
         </div>
     );

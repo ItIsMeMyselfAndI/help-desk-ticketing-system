@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Card, CardAction, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { selectStatusBGColor } from "@/lib/utils";
 import { ImageButton } from "@/components/ImageButton";
@@ -11,13 +11,15 @@ import type { TicketType } from "@/types";
 import XCloseSVG from "@/assets/close-circle-svgrepo-com.svg";
 import { Chat } from "@/components/Chat";
 import { TicketDetails } from "./TicketDetails";
+import { useTicketContext } from "@/contexts/TicketContext";
 
 type ActionsProps = {
-    openedActionTicket: TicketType | undefined;
     onActionsExitClick?: () => void;
 };
 
-const Header = ({ openedActionTicket, onActionsExitClick }: ActionsProps) => {
+const Header = ({ onActionsExitClick }: ActionsProps) => {
+    const { openedActionTicket } = useTicketContext();
+
     return (
         <CardHeader className="flex flex-row justify-between p-0">
             <section className="flex flex-row gap-2 items-center">
@@ -141,11 +143,11 @@ const FilterAndEdit = () => {
     );
 };
 
-const Actions = ({ openedActionTicket, onActionsExitClick }: ActionsProps) => {
+const Actions = ({ onActionsExitClick }: ActionsProps) => {
     return (
         <div className="h-[100vh] py-4 pr-4 flex flex-col gap-2">
             <div className="">
-                <Header openedActionTicket={openedActionTicket} onActionsExitClick={onActionsExitClick} />
+                <Header onActionsExitClick={onActionsExitClick} />
             </div>
             <div className="flex-1 grid grid-rows-13 gap-2 min-h-0">
                 <div className="row-span-7 min-w-0">
