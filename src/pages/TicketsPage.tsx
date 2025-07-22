@@ -4,14 +4,14 @@ import { Textarea } from "@/components/ui/textarea";
 import { selectStatusBGColor } from "@/lib/utils";
 import type { TicketType } from "@/types";
 import { useState } from "react";
-import CloseXSVG from "@/assets/close-circle-svgrepo-com.svg";
+import XCloseSVG from "@/assets/close-circle-svgrepo-com.svg";
 import { ImageButton } from "@/components/ImageButton";
 import SendSVG from "@/assets/send-svgrepo-com.svg";
 import { Button } from "@/components/ui/button";
 import { FilterProvider } from "@/contexts/FilterContext";
 import { Separator } from "@/components/ui/separator";
 import { TableFilter } from "@/components/TableFIlter";
-import { QuickEditSection } from "@/components/QuickEdit";
+import { QuickEdit } from "@/components/QuickEdit";
 
 type ActionProps = {
     openedTicket: TicketType | undefined;
@@ -24,7 +24,7 @@ const Header = ({ openedTicket, onActionExitClick }: ActionProps) => {
             <section className="flex flex-row justify-between items-center">
                 <h3 className="text-primary">Actions</h3>
                 <ImageButton
-                    path={CloseXSVG}
+                    path={XCloseSVG}
                     alt="X"
                     className="size-9 hover:size-10 transition-all"
                     onClick={() => onActionExitClick?.(openedTicket)}
@@ -112,7 +112,7 @@ const FilterAndEdit = () => {
                     </FilterProvider>
                 </CardAction>
                 <CardAction className={`h-full w-full ${currTab !== "edit" && "hidden"}`}>
-                    <QuickEditSection hasPaddingTop={false} hasPaddingBot={false} hasBorder={false} />
+                    <QuickEdit hasPaddingTop={false} hasPaddingBot={false} hasBorder={false} />
                 </CardAction>
             </CardContent>
         </Card>

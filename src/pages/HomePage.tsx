@@ -4,7 +4,7 @@ import { FilterProvider } from "@/contexts/FilterContext";
 import { StatusSummary } from "@/components/StatusSummary";
 import { TicketTable } from "@/components/TicketTable";
 import { TableFilter } from "@/components/TableFIlter";
-import { QuickEditSection } from "@/components/QuickEdit";
+import { QuickEdit } from "@/components/QuickEdit";
 
 const HomePage = () => {
     const [statusSummaries] = useState<StatusSummaryType[]>([
@@ -30,7 +30,7 @@ const HomePage = () => {
                         </FilterProvider>
                     </div>
                     <div className="row-span-1 flex-1 w-full h-full">
-                        <QuickEditSection />
+                        <QuickEdit />
                     </div>
                 </div>
             </div>

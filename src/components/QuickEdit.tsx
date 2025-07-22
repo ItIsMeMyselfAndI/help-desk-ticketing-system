@@ -59,19 +59,19 @@ const StatusChangeSelection = ({ selectedStatus, setSelectedStatus }: StatusChan
     );
 };
 
-type QuickEditSectionProps = {
+type QuickEditProps = {
     hasPaddingTop?: boolean;
     hasPaddingBot?: boolean;
     hasBorder?: boolean;
     bgColor?: string;
 };
 
-const QuickEditSection = ({
+const QuickEdit = ({
     hasPaddingTop = true,
     hasPaddingBot = true,
     hasBorder = true,
     bgColor = "bg-card",
-}: QuickEditSectionProps) => {
+}: QuickEditProps) => {
     const {
         origTickets,
         displayTickets,
@@ -205,4 +205,4 @@ const QuickEditSection = ({
     );
 };
 
-export { QuickEditSection };
+export { QuickEdit };
