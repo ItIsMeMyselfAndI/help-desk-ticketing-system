@@ -15,14 +15,10 @@ import { QuickEditSection } from "@/components/QuickEdit";
 
 type ActionProps = {
     openedTicket: TicketType | undefined;
-    setOpenedTicket?: React.Dispatch<React.SetStateAction<TicketType | undefined>>;
+    onActionExitClick?: (ticket: TicketType | undefined) => void;
 };
 
-const ActionHeader = ({ openedTicket, setOpenedTicket }: ActionProps) => {
-    const handleActionClose = () => {
-        if (setOpenedTicket) setOpenedTicket(undefined);
-    };
-
+const Header = ({ openedTicket, onActionExitClick }: ActionProps) => {
     return (
         <header className="text-2xl grid grid-rows-2 gap-1">
             <section className="flex flex-row justify-between items-center">
@@ -31,7 +27,7 @@ const ActionHeader = ({ openedTicket, setOpenedTicket }: ActionProps) => {
                     path={CloseXSVG}
                     alt="X"
                     className="size-9 hover:size-10 transition-all"
-                    onClick={handleActionClose}
+                    onClick={() => onActionExitClick?.(openedTicket)}
                 />
             </section>
             <section className="flex flex-row justify-between items-center">
@@ -52,7 +48,7 @@ const ActionHeader = ({ openedTicket, setOpenedTicket }: ActionProps) => {
     );
 };
 
-const MessageSection = ({ openedTicket }: ActionProps) => {
+const Message = ({ openedTicket }: ActionProps) => {
     return (
         <Card className="size-full p-4 text-xl flex flex-col gap-3">
             <CardTitle className="text-xl flex justify-between">
@@ -75,7 +71,7 @@ const MessageSection = ({ openedTicket }: ActionProps) => {
     );
 };
 
-const FilterAndEditSection = () => {
+const FilterAndEdit = () => {
     const [currTab, setCurrTab] = useState<"filter" | "edit">("filter");
 
     const handleTabChange = (tab: "filter" | "edit") => {
@@ -123,6 +119,22 @@ const FilterAndEditSection = () => {
     );
 };
 
+const Actions = ({ openedTicket, onActionExitClick }: ActionProps) => {
+    return (
+        <div className="h-[100vh] py-4 pr-4 flex flex-col gap-2">
+            <div className="">
+                <Header openedTicket={openedTicket} onActionExitClick={onActionExitClick} />
+            </div>
+            <div className="flex-1 min-h-0">
+                <Message openedTicket={openedTicket} />
+            </div>
+            <div className="flex-1">
+                <FilterAndEdit />
+            </div>
+        </div>
+    );
+};
+
 const TicketsPage = () => {
     const [openedTicket, setOpenedTicket] = useState<TicketType | undefined>(undefined);
 
@@ -134,22 +146,18 @@ const TicketsPage = () => {
         }
     };
 
+    const handleActionExit = () => {
+        if (setOpenedTicket) setOpenedTicket(undefined);
+    };
+
     return (
-        <div className="h-full grid grid-cols-15 gap-4">
-            <div className={`${openedTicket ? "col-span-10" : "col-span-15"} overflow-auto`}>
+        <div className="h-[100vh] grid grid-cols-15 gap-4">
+            <div className={`${openedTicket ? "col-span-10 py-4 pl-4" : "col-span-15 p-4"} overflow-auto`}>
                 <TicketTable edit={true} variant="combo" onActionClick={handleAction} />
             </div>
 
-            <div className={`flex flex-col gap-2 ${openedTicket ? "col-span-5" : "hidden"}`}>
-                <div className="">
-                    <ActionHeader openedTicket={openedTicket} setOpenedTicket={setOpenedTicket} />
-                </div>
-                <div className="flex-1 min-h-0">
-                    <MessageSection openedTicket={openedTicket} />
-                </div>
-                <div className="flex-1">
-                    <FilterAndEditSection />
-                </div>
+            <div className={`${openedTicket ? "col-span-5" : "hidden"}`}>
+                <Actions openedTicket={openedTicket} onActionExitClick={handleActionExit} />
             </div>
         </div>
     );

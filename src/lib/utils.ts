@@ -6,7 +6,7 @@ function cn(...inputs: ClassValue[]) {
     return twMerge(clsx(inputs));
 }
 
-const selectStatusBGColor = (status: TicketType["status"]) => {
+function selectStatusBGColor(status: TicketType["status"]) {
     switch (status) {
         case "Open":
             return "bg-gray-500";
@@ -19,6 +19,6 @@ const selectStatusBGColor = (status: TicketType["status"]) => {
         default:
             return "";
     }
-};
+}
 
 export { cn, selectStatusBGColor };

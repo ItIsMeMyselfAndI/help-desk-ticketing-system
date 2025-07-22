@@ -15,7 +15,7 @@ const HomePage = () => {
     ]);
 
     return (
-        <div className="h-full grid grid-rows-6 gap-2 sm:grid-rows-5 sm:gap-4">
+        <div className="h-[100vh] p-4 grid grid-rows-6 gap-2 sm:grid-rows-5 sm:gap-4">
             <div className="row-span-2 sm:row-span-1">
                 <StatusSummary statusSummaries={statusSummaries} />
             </div>

@@ -67,7 +67,7 @@ const TicketTable = ({ edit = false, variant = "default", onActionClick }: Ticke
                                 </TableCell>
                             )}
                             <TableCell className={`${!edit ? "pl-5" : ""}`}>{ticket.id}</TableCell>
-                            <TableCell className="overflow-hidden max-w-70">{ticket.title}</TableCell>
+                            <TableCell className="truncate max-w-70">{ticket.title}</TableCell>
                             <TableCell>
                                 <span
                                     className={`${selectStatusBGColor(ticket.status)} py-1 px-2 rounded-xl text-center`}
