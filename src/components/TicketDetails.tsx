@@ -1,5 +1,6 @@
 import { Card, CardDescription, CardTitle } from "@/components/ui/card";
 import { useTicketContext } from "@/contexts/TicketContext";
+import { selectRoleBGColor } from "@/lib/utils";
 
 type TicketDetailsProps = {
     padding?: string;
@@ -52,9 +53,17 @@ const TicketDetails = ({ padding, hasBorder = true }: TicketDetailsProps) => {
             </CardDescription>
             <CardDescription className="flex flex-row gap-2 items-center">
                 <span>Assigned to:</span>
-                <div className="flex-1 bg-muted border border-input rounded-xl py-0.5 px-4 overflow-x-auto">
+                <div className="flex-1 overflow-x-auto flex flex-row items-center bg-muted border border-input rounded-xl py-0.5 px-4">
                     <span className="text-foreground text-lg whitespace-nowrap">
                         {openedActionTicket?.assigned_to.name}
+                    </span>
+                    <div
+                        className={`size-3 rounded-full ${
+                            openedActionTicket && selectRoleBGColor(openedActionTicket.assigned_to.role)
+                        }`}
+                    />
+                    <span className="text-foreground text-lg whitespace-nowrap">
+                        {openedActionTicket?.assigned_to.role}
                     </span>
                 </div>
             </CardDescription>
