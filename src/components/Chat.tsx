@@ -19,7 +19,7 @@ const Chat = ({ padding, hasBorder = true }: ChatProps) => {
                 <div className="size-auto rounded-full bg-white">
                     <img src={ProfileSVG} alt="" className="size-10" />
                 </div>
-                <CardTitle className="text-right">
+                <CardTitle className="text-left">
                     <h3>{openedActionTicket?.assigned_to.name}</h3>
                     <span className="text-primary text-sm">{openedActionTicket?.assigned_to.role}</span>
                 </CardTitle>

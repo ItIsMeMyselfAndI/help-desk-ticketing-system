@@ -70,8 +70,7 @@ const QuickEdit = ({ padding, hasBorder = true, bgColor = "bg-card" }: QuickEdit
         origTickets,
         displayTickets,
         setOrigTickets,
-        recentModifiedTickets,
-        setRecentModifiedTickets,
+        prevModifiedTickets,
         selectedTicketIDs,
         setSelectedTicketIDs,
         isAllSelected,
@@ -91,7 +90,7 @@ const QuickEdit = ({ padding, hasBorder = true, bgColor = "bg-card" }: QuickEdit
 
     const handleUpdateStatus = () => {
         if (selectedStatus === "None" || selectedTicketIDs.size === 0) return;
-        setRecentModifiedTickets([...origTickets].filter((ticket) => selectedTicketIDs.has(ticket.id)));
+        prevModifiedTickets.current = [...origTickets].filter((ticket) => selectedTicketIDs.has(ticket.id));
 
         setOrigTickets((prev) => {
             const updatedTickets = prev.map((ticket) => {
@@ -108,7 +107,7 @@ const QuickEdit = ({ padding, hasBorder = true, bgColor = "bg-card" }: QuickEdit
 
     const handleDeleteTickets = () => {
         if (selectedTicketIDs.size === 0) return;
-        setRecentModifiedTickets([...origTickets].filter((ticket) => selectedTicketIDs.has(ticket.id)));
+        prevModifiedTickets.current = [...origTickets].filter((ticket) => selectedTicketIDs.has(ticket.id));
 
         setOrigTickets((prev) => {
             const newTickets = prev.filter((ticket) => !selectedTicketIDs.has(ticket.id));
@@ -119,7 +118,7 @@ const QuickEdit = ({ padding, hasBorder = true, bgColor = "bg-card" }: QuickEdit
     const handleUndoChanges = () => {
         const currTicketIDs = origTickets.map((ticket) => ticket.id);
         const undoneTickets = [...origTickets];
-        recentModifiedTickets.forEach((ticket) => {
+        prevModifiedTickets.current.forEach((ticket) => {
             // recover deleted tickets
             if (!currTicketIDs.includes(ticket.id)) {
                 undoneTickets.push(ticket);
@@ -135,8 +134,8 @@ const QuickEdit = ({ padding, hasBorder = true, bgColor = "bg-card" }: QuickEdit
     };
 
     useEffect(() => {
-        console.log(recentModifiedTickets);
-    }, [recentModifiedTickets]);
+        console.log(prevModifiedTickets);
+    }, [prevModifiedTickets]);
 
     return (
         <Card
