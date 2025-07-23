@@ -16,4 +16,11 @@ type StatusSummaryType = {
     status: "Open" | "In progress" | "Resolved" | "Closed";
     count: number;
 };
-export { type TicketType, type StatusSummaryType };
+
+type ChatType = {
+    source: "you" | "other";
+    date: string;
+    message: string;
+};
+
+export { type TicketType, type StatusSummaryType, type ChatType };
