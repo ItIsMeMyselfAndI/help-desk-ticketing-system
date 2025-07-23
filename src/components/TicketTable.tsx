@@ -2,7 +2,7 @@ import { useTicketContext } from "@/contexts/TicketContext";
 import type { TicketType } from "@/types";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Checkbox } from "@/components/ui/checkbox";
-import { selectStatusBGColor } from "@/lib/utils";
+import { selectRoleBGColor, selectStatusBGColor } from "@/lib/utils";
 import { Button } from "./ui/button";
 import { Ellipsis } from "lucide-react";
 
@@ -76,7 +76,14 @@ const TicketTable = ({ edit = false, variant = "default", onActionClick }: Ticke
                             </TableCell>
                             <TableCell className="text-right">{ticket.created_at}</TableCell>
                             {showFullTable && <TableCell className="text-right">{ticket.updated_at}</TableCell>}
-                            <TableCell className="text-right pr-5">{ticket.assigned_to.name}</TableCell>
+                            <TableCell className="pr-5">
+                                <div className="flex flex-row items-center justify-end">
+                                    <div
+                                        className={`size-3 rounded-full ${selectRoleBGColor(ticket.assigned_to.role)}`}
+                                    />
+                                    {ticket.assigned_to.name}
+                                </div>
+                            </TableCell>
                             {showActionColumn && (
                                 <TableCell className="flex items-center justify-end pr-5">
                                     <Button
