@@ -4,6 +4,9 @@ import ProfileSVG from "@/assets/user-person-profile-block-account-circle-svgrep
 import { Card, CardAction, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ImageButton } from "@/components/ImageButton";
 import { useTicketContext } from "@/contexts/TicketContext";
+import chatHistorySample from "@/data/chat.sample.json";
+import type { ChatType } from "@/types";
+import { useMemo, useState } from "react";
 
 type ChatProps = {
     padding?: string;
@@ -12,6 +15,33 @@ type ChatProps = {
 
 const Chat = ({ padding, hasBorder = true }: ChatProps) => {
     const { openedActionTicket } = useTicketContext();
+    const [chatHistory, setChatHistory] = useState<ChatType[]>(chatHistorySample as ChatType[]);
+
+    const renderedReversedChatHistory = useMemo(() => {
+        const renderedElements = [];
+        for (let i = chatHistory.length - 1; i >= 0; i--) {
+            renderedElements.push(
+                <div
+                    key={i}
+                    className={`flex flex-row ${
+                        chatHistory[i].source === "you" ? "justify-end text-right" : "justify-start text-left"
+                    }`}
+                >
+                    <div className="max-w-[70%] space-y-2">
+                        <div
+                            className={`rounded-lg p-4 bg-accent ${
+                                chatHistory[i].source === "you" ? "bg-primary" : "bg-accent"
+                            }`}
+                        >
+                            <span className="text-lg">{chatHistory[i].message}</span>
+                        </div>
+                        <p className="text-sm">{chatHistory[i].date}</p>
+                    </div>
+                </div>
+            );
+        }
+        return renderedElements;
+    }, [chatHistory]);
 
     return (
         <Card className={`size-full text-xl flex flex-col gap-3 ${padding || "p-4"} ${!hasBorder && "border-none"}`}>
@@ -25,12 +55,8 @@ const Chat = ({ padding, hasBorder = true }: ChatProps) => {
                 </CardTitle>
             </CardHeader>
 
-            <CardContent className="text-xl bg-muted rounded-md border border-input p-4 overflow-auto">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate consectetur illo accusamus, officia
-                et aperiam odit minima suscipit cumque repellendus ea perferendis hic voluptatum perspiciatis quaerat.
-                Consectetur aspernatur repudiandae culpa? Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                Dolorum exercitationem, enim quam dolor sunt at consequuntur facilis nisi obcaecati quas facere fugiat,
-                blanditiis, quae quis repudiandae eos accusamus dignissimos officiis.
+            <CardContent className="flex-1 flex flex-col-reverse overflow-auto gap-4 text-xl bg-muted rounded-md border border-input p-4">
+                {renderedReversedChatHistory}
             </CardContent>
 
             <CardAction className="flex flex-row justify-center gap-1 items-center w-full">
