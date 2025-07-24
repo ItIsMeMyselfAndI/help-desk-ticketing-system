@@ -79,7 +79,7 @@ const QuickEdit = ({ padding, hasBorder = true, bgColor = "bg-card" }: QuickEdit
     const [selectedStatus, setSelectedStatus] = useState<string>("None");
 
     const toggleSelectAll = () => {
-        if (isAllSelected) {
+        if (selectedTicketIDs.size === origTickets.length) {
             setSelectedTicketIDs(new Set());
             setIsAllSelected(false);
         } else {
@@ -149,7 +149,7 @@ const QuickEdit = ({ padding, hasBorder = true, bgColor = "bg-card" }: QuickEdit
             <CardContent className="flex flex-col justify-evenly gap-4">
                 <section className="flex justify-between">
                     <div className="flex items-center gap-2">
-                        <Checkbox className="size-5 bg-muted" onClick={toggleSelectAll} />
+                        <Checkbox className="size-5 bg-muted" checked={isAllSelected} onClick={toggleSelectAll} />
                         <CardDescription className="text-lg font-medium">Select all tickets</CardDescription>
                     </div>
 
