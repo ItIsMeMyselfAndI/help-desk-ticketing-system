@@ -19,19 +19,17 @@ const DashboardPage = () => {
             <div className="row-span-2 sm:row-span-1">
                 <StatusSummary statusSummaries={statusSummaries} />
             </div>
-            <div className="row-span-4 grid grid-cols-4 gap-2 sm:row-span-4 sm:gap-4">
-                <div className="col-span-4 xl:col-span-3 overflow-auto">
+            <div className="row-span-4 flex flex-row gap-4">
+                {/* table */}
+                <div className={`overflow-auto flex-1`}>
                     <TicketTable edit={true} />
                 </div>
-                <div className="hidden xl:col-span-1 xl:grid grid-rows-2 gap-4">
-                    <div className="row-span-1 flex-10">
-                        <FilterProvider>
-                            <TableFilter />
-                        </FilterProvider>
-                    </div>
-                    <div className="row-span-1 flex-1 w-full h-full">
-                        <QuickEdit />
-                    </div>
+                {/* action */}
+                <div className="flex-1 min-w-md max-w-md grid grid-row-2 gap-4">
+                    <FilterProvider>
+                        <TableFilter />
+                    </FilterProvider>
+                    <QuickEdit />
                 </div>
             </div>
         </div>

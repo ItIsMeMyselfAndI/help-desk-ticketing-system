@@ -105,14 +105,10 @@ const Actions = ({ onActionsExitClick }: ActionsProps) => {
                         {/* filter & edit */}
                         <CardAction className={`size-full ${currTab !== "others" && "hidden"}`}>
                             <div className="grid grid-rows-2 gap-4">
-                                <div className="row-span-1">
-                                    <FilterProvider>
-                                        <TableFilter />
-                                    </FilterProvider>
-                                </div>
-                                <div className="row-span-1">
-                                    <QuickEdit />
-                                </div>
+                                <FilterProvider>
+                                    <TableFilter />
+                                </FilterProvider>
+                                <QuickEdit />
                             </div>
                         </CardAction>
                     </CardContent>

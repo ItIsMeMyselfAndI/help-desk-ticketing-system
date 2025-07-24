@@ -139,14 +139,14 @@ const QuickEdit = ({ padding, hasBorder = true, bgColor = "bg-card" }: QuickEdit
 
     return (
         <Card
-            className={`px-6 gap-0 h-full flex flex-col justify-evenly ${bgColor}
-                ${!hasBorder && "border-none"} ${padding || ""}`}
+            className={`flex-1 gap-0 flex flex-col ${bgColor}
+                ${!hasBorder && "border-none"} ${padding ? "" : "p-6"}`}
         >
             <CardTitle className="flex justify-between text-2xl text-primary">
                 <span>Quick Edit</span>
             </CardTitle>
 
-            <CardContent className="flex flex-col justify-evenly gap-4">
+            <CardContent className="flex-1 flex flex-col justify-between gap-2">
                 <section className="flex justify-between">
                     <div className="flex items-center gap-2">
                         <Checkbox className="size-5 bg-muted" checked={isAllSelected} onClick={toggleSelectAll} />
@@ -162,15 +162,15 @@ const QuickEdit = ({ padding, hasBorder = true, bgColor = "bg-card" }: QuickEdit
                     </Button>
                 </section>
 
-                <section className="flex-1 flex flex-col gap-2">
+                <section className="flex flex-col gap-1">
                     <CardDescription className="text-lg">Change status</CardDescription>
                     <StatusChangeSelection selectedStatus={selectedStatus} setSelectedStatus={setSelectedStatus} />
                 </section>
 
-                <section className="flex-1 grid grid-cols-2 gap-2">
+                <section className="flex flex-row gap-2">
                     <Button
                         onClick={handleUpdateStatus}
-                        className="h-full bg-green-500 hover:bg-green-500 hover:ring-2 hover:ring-green-500 active:bg-green-600 active:ring-green-600"
+                        className="h-full flex-1 bg-green-500 hover:bg-green-500 hover:ring-2 hover:ring-green-500 active:bg-green-600 active:ring-green-600"
                     >
                         <Check className="scale-150 m-1.5 text-foreground" />
                     </Button>
@@ -178,13 +178,13 @@ const QuickEdit = ({ padding, hasBorder = true, bgColor = "bg-card" }: QuickEdit
                         onClick={() => {
                             setSelectedStatus("None");
                         }}
-                        className="h-full bg-yellow-500 hover:bg-yellow-500 hover:ring-2 hover:ring-yellow-500 active:bg-yellow-600 active:ring-yellow-600"
+                        className="h-full flex-1 bg-yellow-500 hover:bg-yellow-500 hover:ring-2 hover:ring-yellow-500 active:bg-yellow-600 active:ring-yellow-600"
                     >
                         <X className="scale-150 m-1.5 text-foreground" />
                     </Button>
                 </section>
 
-                <section className="flex flex-col flex-1">
+                <section className="flex flex-col gap-1">
                     <CardDescription className="text-lg">Delete ticket(s)</CardDescription>
                     <Button
                         onClick={handleDeleteTickets}
