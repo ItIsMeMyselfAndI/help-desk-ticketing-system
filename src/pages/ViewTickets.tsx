@@ -26,17 +26,15 @@ const TicketsPage = () => {
     };
 
     return (
-        <div className="h-[100vh] flex flex-col xl:grid xl:grid-cols-15 gap-4">
-            <div
-                className={`overflow-auto ${
-                    openedActionTicket ? "hidden xl:block xl:col-span-10 py-4 pl-4" : "block xl:col-span-15 p-4"
-                }`}
-            >
-                <TicketTable edit={true} variant="combo" onActionClick={handleActions} />
-            </div>
+        <div className="h-[100vh] grid grid-cols-1">
+            <div className="min-h-0 flex flex-row">
+                <div className={`overflow-auto p-4 flex-1 ${openedActionTicket && "hidden xl:block"}`}>
+                    <TicketTable edit={true} variant="combo" onActionClick={handleActions} />
+                </div>
 
-            <div className={`p-2 ${openedActionTicket ? "block xl:col-span-5" : "hidden"}`}>
-                <Actions onActionsExitClick={handleActionsExit} />
+                <div className={`flex-1 min-h-0 min-w-md xl:max-w-md ${openedActionTicket ? "block" : "hidden"}`}>
+                    <Actions onActionsExitClick={handleActionsExit} />
+                </div>
             </div>
         </div>
     );

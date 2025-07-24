@@ -11,6 +11,7 @@ import XCloseSVG from "@/assets/close-circle-svgrepo-com.svg";
 import { Chat } from "@/components/Chat";
 import { TicketDetails } from "./TicketDetails";
 import { useTicketContext } from "@/contexts/TicketContext";
+import type { ActionTabType } from "@/types";
 
 type ActionsProps = {
     onActionsExitClick?: () => void;
@@ -46,131 +47,73 @@ const Header = ({ onActionsExitClick }: ActionsProps) => {
     );
 };
 
-const DetailsAndChat = () => {
-    const [currTab, setCurrTab] = useState<"details" | "chat">("details");
-
-    const handleTabChange = (tab: "details" | "chat") => {
-        if (currTab !== tab) {
-            setCurrTab(tab);
-        }
-    };
-
-    return (
-        <Card className="h-full bg-card gap-0 p-0">
-            <CardHeader className="h-auto flex flex-row justify-end items-center p-2">
-                <Button
-                    variant="ghost"
-                    className={`p-4 ${currTab === "details" && "bg-primary hover:bg-primary"}`}
-                    onClick={() => handleTabChange("details")}
-                >
-                    <CardTitle className="text-foreground">
-                        <span>Details</span>
-                    </CardTitle>
-                </Button>
-                <Separator orientation="vertical" />
-                <Button
-                    variant="ghost"
-                    className={`p-4 ${currTab === "chat" && "bg-primary hover:bg-primary"}`}
-                    onClick={() => handleTabChange("chat")}
-                >
-                    <CardTitle className="text-foreground">
-                        <span>Chat</span>
-                    </CardTitle>
-                </Button>
-            </CardHeader>
-
-            <Separator orientation="horizontal" />
-
-            <CardContent className="flex-1 min-h-0 p-4">
-                <CardAction className={`size-full min-w-0 ${currTab !== "details" && "hidden"}`}>
-                    <TicketDetails padding="p-2" hasBorder={false} />
-                </CardAction>
-                <CardAction className={`size-full ${currTab !== "chat" && "hidden"}`}>
-                    <Chat padding="p-0" hasBorder={false} />
-                </CardAction>
-            </CardContent>
-        </Card>
-    );
+type ButtonTabProp = {
+    tab: ActionTabType;
+    currTab: ActionTabType;
+    handleTabChange: (tab: ActionTabType) => void;
 };
 
-const FilterAndEdit = () => {
+const ButtonTab = ({ tab, currTab, handleTabChange }: ButtonTabProp) => {
     return (
-        <div className="grid grid-rows-2 gap-4">
-            <div className="row-span-1 flex-10">
-                <FilterProvider>
-                    <TableFilter />
-                </FilterProvider>
-            </div>
-            <div className="row-span-1 flex-1 w-full h-full">
-                <QuickEdit />
-            </div>
-        </div>
+        <Button
+            variant="ghost"
+            className={`p-4 ${currTab === tab && "bg-primary hover:bg-primary"}`}
+            onClick={() => handleTabChange(tab)}
+        >
+            <CardTitle className="text-foreground">
+                <span>{tab[0].toUpperCase() + tab.slice(1)}</span>
+            </CardTitle>
+        </Button>
     );
-};
-
-type TabType = {
-    currTab: "details" | "chat" | "others";
 };
 
 const Actions = ({ onActionsExitClick }: ActionsProps) => {
-    const [currTab, setCurrTab] = useState<"details" | "chat" | "others">("details");
+    const [currTab, setCurrTab] = useState<ActionTabType>("details");
 
-    const handleTabChange = (tab: "details" | "chat" | "others") => {
+    const handleTabChange = (tab: ActionTabType) => {
         if (currTab !== tab) {
             setCurrTab(tab);
         }
     };
 
     return (
-        <div className="h-[100vh] py-4 pr-4 flex flex-col gap-2">
+        <div className="h-[100vh] flex flex-col gap-2 p-4 xl:pl-0">
             <div className="">
                 <Header onActionsExitClick={onActionsExitClick} />
             </div>
             <div className="flex-1 space-2 min-h-0">
                 <Card className="h-full bg-card gap-0 p-0">
                     <CardHeader className="h-auto flex flex-row justify-end items-center p-2">
-                        <Button
-                            variant="ghost"
-                            className={`p-4 ${currTab === "details" && "bg-primary hover:bg-primary"}`}
-                            onClick={() => handleTabChange("details")}
-                        >
-                            <CardTitle className="text-foreground">
-                                <span>Details</span>
-                            </CardTitle>
-                        </Button>
+                        <ButtonTab tab="details" currTab={currTab} handleTabChange={handleTabChange} />
                         <Separator orientation="vertical" />
-                        <Button
-                            variant="ghost"
-                            className={`p-4 ${currTab === "chat" && "bg-primary hover:bg-primary"}`}
-                            onClick={() => handleTabChange("chat")}
-                        >
-                            <CardTitle className="text-foreground">
-                                <span>Chat</span>
-                            </CardTitle>
-                        </Button>
+                        <ButtonTab tab="chat" currTab={currTab} handleTabChange={handleTabChange} />
                         <Separator orientation="vertical" />
-                        <Button
-                            variant="ghost"
-                            className={`p-4 ${currTab === "others" && "bg-primary hover:bg-primary"}`}
-                            onClick={() => handleTabChange("others")}
-                        >
-                            <CardTitle className="text-foreground">
-                                <span>Others</span>
-                            </CardTitle>
-                        </Button>
+                        <ButtonTab tab="others" currTab={currTab} handleTabChange={handleTabChange} />
                     </CardHeader>
 
                     <Separator orientation="horizontal" />
 
                     <CardContent className="flex-1 min-h-0 p-4">
+                        {/* ticket details */}
                         <CardAction className={`size-full min-w-0 ${currTab !== "details" && "hidden"}`}>
                             <TicketDetails padding="p-2" hasBorder={false} />
                         </CardAction>
+                        {/* chat */}
                         <CardAction className={`size-full ${currTab !== "chat" && "hidden"}`}>
                             <Chat padding="p-0" hasBorder={false} />
                         </CardAction>
-                        <CardAction className={`size-full min-w-0 ${currTab !== "others" && "hidden"}`}>
-                            <FilterAndEdit />
+                        {/* filter & edit */}
+                        <CardAction className={`size-full ${currTab !== "others" && "hidden"}`}>
+                            <div className="grid grid-rows-2 gap-4">
+                                <div className="row-span-1">
+                                    <FilterProvider>
+                                        <TableFilter />
+                                    </FilterProvider>
+                                </div>
+                                <div className="row-span-1">
+                                    <QuickEdit />
+                                </div>
+                            </div>
                         </CardAction>
                     </CardContent>
                 </Card>
