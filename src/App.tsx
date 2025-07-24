@@ -18,7 +18,7 @@ const App = () => {
                     <TicketProvider>
                         <Routes>
                             <Route path="/" element={<DashboardPage />} />
-                            <Route path="/tickets" element={<TicketsPage />} />
+                            <Route path="/view-tickets" element={<TicketsPage />} />
                             <Route path="/new-ticket" element={<NewTicketPage />} />
                             <Route path="/inbox" element={<InboxPage />} />
                         </Routes>

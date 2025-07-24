@@ -34,9 +34,7 @@ const TicketDetails = ({ padding, hasBorder = true }: TicketDetailsProps) => {
             <CardDescription className="flex flex-row gap-2 items-center min-w-0">
                 <span className="text-lg">Title:</span>
                 <div className="flex-1 bg-muted border border-input rounded-xl py-0.5 px-4 overflow-x-auto">
-                    <span className="text-foreground text-lg whitespace-nowrap">
-                        {openedActionTicket?.title}lkjljlkjlkjlkjlkjlkjlkjlkjlkjlkjlkjlkjlkj
-                    </span>
+                    <span className="text-foreground text-lg whitespace-nowrap">{openedActionTicket?.title}</span>
                 </div>
             </CardDescription>
             <CardDescription className="min-h-0 flex-1 flex flex-row gap-2">

@@ -70,20 +70,44 @@ A web-based support ticketing system that allows clients to report issues and en
 
 ### Progress
 
-#### 1. Client dashboard interface
+See current progress - [Help Desk Ticketing System](https://help-desk-ticketing-system-ashen.vercel.app/)
 
-![Dashboard](./screenshots/client-dashboard-interface.png)
+#### Client interface
 
-#### 2. Client view-tickets interface
+#### 1. Dashboard
+
+![Dashboard](./screenshots/application/client/dashboard.png)
+
+#### 2. View-tickets
 
 - ##### a. Closed action section
 
-  ![View-tickets-no-action](./screenshots/client-view_tickets-interface-1.png)
+  ![View-tickets-no-action](./screenshots/application/client/view_tickets-1.png)
 
-- ##### b. Open action section [details, filter]
+- ##### b. Opened action section [details, filter]
 
-  ![View-tickets-filter](./screenshots/client-view_tickets-interface-2.png)
+  ![View-tickets-filter](./screenshots/application/client/view_tickets-2.png)
 
-- ##### c. Closed action section [chat, edit]
+- ##### c. Opened action section [chat, edit]
 
-  ![View-tickets-edit](./screenshots/client-view_tickets-interface-3.png)
+  ![View-tickets-edit](./screenshots/application/client/view_tickets-3.png)
+
+---
+
+### Wireframe (Figma)
+
+See wireframe - [Figma](https://www.figma.com/design/NXD9zZWMqSGBfUK8sOjD32/Help-Desk-Ticket-System?node-id=60-4&t=uJqbF0tHFrYApNyi-1)
+
+#### Client interface
+
+#### 1. Dashboard
+
+![Dashboard](./screenshots/wireframe/client/dashboard.png)
+
+#### 2. View Tickets
+
+![View-tickets](./screenshots/wireframe/client/view-tickets.png)
+
+#### 3. New Ticket
+
+![New-tickets](./screenshots/wireframe/client/new-ticket.png)
