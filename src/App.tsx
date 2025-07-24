@@ -3,7 +3,7 @@ import { SidebarProvider, SidebarTrigger } from "./components/ui/sidebar.tsx";
 import { TicketProvider } from "./contexts/TicketContext.tsx";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import DashboardPage from "./pages/DashboardPage.tsx";
-import TicketsPage from "./pages/TicketsPage.tsx";
+import TicketsPage from "./pages/ViewTickets.tsx";
 import NewTicketPage from "./pages/NewTicketPage.tsx";
 import InboxPage from "./pages/InboxPage.tsx";
 

@@ -94,67 +94,86 @@ const DetailsAndChat = () => {
 };
 
 const FilterAndEdit = () => {
-    const [currTab, setCurrTab] = useState<"filter" | "edit">("filter");
+    return (
+        <div className="grid grid-rows-2 gap-4">
+            <div className="row-span-1 flex-10">
+                <FilterProvider>
+                    <TableFilter />
+                </FilterProvider>
+            </div>
+            <div className="row-span-1 flex-1 w-full h-full">
+                <QuickEdit />
+            </div>
+        </div>
+    );
+};
 
-    const handleTabChange = (tab: "filter" | "edit") => {
+type TabType = {
+    currTab: "details" | "chat" | "others";
+};
+
+const Actions = ({ onActionsExitClick }: ActionsProps) => {
+    const [currTab, setCurrTab] = useState<"details" | "chat" | "others">("details");
+
+    const handleTabChange = (tab: "details" | "chat" | "others") => {
         if (currTab !== tab) {
             setCurrTab(tab);
         }
     };
 
     return (
-        <Card className="h-full bg-card gap-0 p-0">
-            <CardHeader className="h-auto flex flex-row justify-start items-center p-2">
-                <Button
-                    variant="ghost"
-                    className={`p-4 ${currTab === "filter" && "bg-primary hover:bg-primary"}`}
-                    onClick={() => handleTabChange("filter")}
-                >
-                    <CardTitle className="text-foreground">
-                        <span>Filter</span>
-                    </CardTitle>
-                </Button>
-                <Separator orientation="vertical" />
-                <Button
-                    variant="ghost"
-                    className={`p-4 ${currTab === "edit" && "bg-primary hover:bg-primary"}`}
-                    onClick={() => handleTabChange("edit")}
-                >
-                    <CardTitle className="text-foreground">
-                        <span>Edit</span>
-                    </CardTitle>
-                </Button>
-            </CardHeader>
-
-            <Separator orientation="horizontal" />
-
-            <CardContent className="flex-1 p-4">
-                <CardAction className={`size-full ${currTab !== "filter" && "hidden"}`}>
-                    <FilterProvider>
-                        <TableFilter padding="py-0" hasBorder={false} />
-                    </FilterProvider>
-                </CardAction>
-                <CardAction className={`size-full ${currTab !== "edit" && "hidden"}`}>
-                    <QuickEdit padding="py-0" hasBorder={false} />
-                </CardAction>
-            </CardContent>
-        </Card>
-    );
-};
-
-const Actions = ({ onActionsExitClick }: ActionsProps) => {
-    return (
         <div className="h-[100vh] py-4 pr-4 flex flex-col gap-2">
             <div className="">
                 <Header onActionsExitClick={onActionsExitClick} />
             </div>
-            <div className="flex-1 grid grid-rows-2 gap-2 min-h-0">
-                <div className="row-span-1 min-w-0">
-                    <DetailsAndChat />
-                </div>
-                <div className="row-span-1">
-                    <FilterAndEdit />
-                </div>
+            <div className="flex-1 space-2 min-h-0">
+                <Card className="h-full bg-card gap-0 p-0">
+                    <CardHeader className="h-auto flex flex-row justify-end items-center p-2">
+                        <Button
+                            variant="ghost"
+                            className={`p-4 ${currTab === "details" && "bg-primary hover:bg-primary"}`}
+                            onClick={() => handleTabChange("details")}
+                        >
+                            <CardTitle className="text-foreground">
+                                <span>Details</span>
+                            </CardTitle>
+                        </Button>
+                        <Separator orientation="vertical" />
+                        <Button
+                            variant="ghost"
+                            className={`p-4 ${currTab === "chat" && "bg-primary hover:bg-primary"}`}
+                            onClick={() => handleTabChange("chat")}
+                        >
+                            <CardTitle className="text-foreground">
+                                <span>Chat</span>
+                            </CardTitle>
+                        </Button>
+                        <Separator orientation="vertical" />
+                        <Button
+                            variant="ghost"
+                            className={`p-4 ${currTab === "others" && "bg-primary hover:bg-primary"}`}
+                            onClick={() => handleTabChange("others")}
+                        >
+                            <CardTitle className="text-foreground">
+                                <span>Others</span>
+                            </CardTitle>
+                        </Button>
+                    </CardHeader>
+
+                    <Separator orientation="horizontal" />
+
+                    <CardContent className="flex-1 min-h-0 p-4">
+                        <CardAction className={`size-full min-w-0 ${currTab !== "details" && "hidden"}`}>
+                            <TicketDetails padding="p-2" hasBorder={false} />
+                        </CardAction>
+                        <CardAction className={`size-full ${currTab !== "chat" && "hidden"}`}>
+                            <Chat padding="p-0" hasBorder={false} />
+                        </CardAction>
+                        <CardAction className={`size-full min-w-0 ${currTab !== "others" && "hidden"}`}>
+                            <FilterAndEdit />
+                        </CardAction>
+                    </CardContent>
+                </Card>
             </div>
         </div>
     );
