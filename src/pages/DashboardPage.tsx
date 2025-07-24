@@ -15,21 +15,21 @@ const DashboardPage = () => {
     ]);
 
     return (
-        <div className="h-[100vh] p-4 grid grid-rows-6 gap-2 sm:grid-rows-5 sm:gap-4">
-            <div className="row-span-2 sm:row-span-1">
+        <div className="h-[100vh] p-4 flex flex-col gap-2 sm:gap-4">
+            <div>
                 <StatusSummary statusSummaries={statusSummaries} />
             </div>
-            <div className="row-span-4 grid grid-cols-4 gap-2 sm:row-span-4 sm:gap-4">
-                <div className="col-span-4 xl:col-span-3 overflow-auto">
-                    <TicketTable edit={true} />
-                </div>
-                <div className="hidden xl:col-span-1 xl:grid grid-rows-2 gap-4">
-                    <div className="row-span-1 flex-10">
+            <div className="min-h-0 grid grid-cols-1">
+                <div className="min-h-0 flex-1 flex flex-row gap-4">
+                    {/* table */}
+                    <div className={`overflow-auto flex-1`}>
+                        <TicketTable edit={true} />
+                    </div>
+                    {/* action */}
+                    <div className="hidden flex-1 min-w-md max-w-md xl:grid grid-row-2 gap-4">
                         <FilterProvider>
                             <TableFilter />
                         </FilterProvider>
-                    </div>
-                    <div className="row-span-1 flex-1 w-full h-full">
                         <QuickEdit />
                     </div>
                 </div>

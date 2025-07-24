@@ -12,7 +12,6 @@ import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle } from "
 import { Skeleton } from "@/components/ui/skeleton";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { useIsLargeScreen } from "@/hooks/use-large-screen";
-import { tr } from "date-fns/locale";
 
 const SIDEBAR_COOKIE_NAME = "sidebar_state";
 const SIDEBAR_COOKIE_MAX_AGE = 60 * 60 * 24 * 7;
@@ -84,7 +83,6 @@ function SidebarProvider({
     }, [isMobile, setOpen, setOpenMobile]);
 
     React.useEffect(() => {
-        console.log("is large:", isLargeScreen);
         if (isLargeScreen && !open) {
             // toggleSidebar();
             setOpen(true);
@@ -99,7 +97,6 @@ function SidebarProvider({
                 toggleSidebar();
             }
         };
-
         window.addEventListener("keydown", handleKeyDown);
         return () => window.removeEventListener("keydown", handleKeyDown);
     }, [toggleSidebar]);
@@ -255,8 +252,8 @@ function SidebarTrigger({ className, onClick, ...props }: React.ComponentProps<t
             variant="outline"
             size="icon"
             className={cn(
-                "size-7",
-                "bg-primary text-foreground hover:bg-primary/50 active:bg-primary hover:text-foreground/50 ",
+                "size-7 flex items-center justify-center",
+                "bg-primary text-foreground hover:bg-primary/50 active:bg-primary hover:text-foreground/50",
                 className
             )}
             onClick={(event) => {
@@ -265,7 +262,7 @@ function SidebarTrigger({ className, onClick, ...props }: React.ComponentProps<t
             }}
             {...props}
         >
-            <PanelLeftIcon />
+            <PanelLeftIcon className="size-4" />
             <span className="sr-only">Toggle Sidebar</span>
         </Button>
     );

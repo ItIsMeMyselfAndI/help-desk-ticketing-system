@@ -7,9 +7,9 @@ type StatusSummaryProps = {
 
 const StatusSummary = ({ statusSummaries }: StatusSummaryProps) => {
     return (
-        <div className="grid grid-cols-2 gap-2 h-full sm:grid-cols-4 sm:gap-4">
+        <div className="flex-1 grid grid-cols-2 gap-2 sm:grid-cols-4 sm:gap-4">
             {statusSummaries.map((summary: StatusSummaryType) => (
-                <Card key={summary.status} className="grow gap-0 h-full">
+                <Card key={summary.status} className="flex-1 gap-0">
                     <CardHeader className="text-foreground/80 leading-none text-left text-sm lg:text-xl">
                         {summary.status}
                     </CardHeader>

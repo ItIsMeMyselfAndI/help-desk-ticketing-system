@@ -23,4 +23,6 @@ type ChatType = {
     message: string;
 };
 
-export { type TicketType, type StatusSummaryType, type ChatType };
+type ActionTabType = "details" | "chat" | "others";
+
+export { type TicketType, type StatusSummaryType, type ChatType, type ActionTabType };
