@@ -11,6 +11,8 @@ import { Separator } from "@/components/ui/separator";
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle } from "@/components/ui/sheet";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { useIsLargeScreen } from "@/hooks/use-large-screen";
+import { tr } from "date-fns/locale";
 
 const SIDEBAR_COOKIE_NAME = "sidebar_state";
 const SIDEBAR_COOKIE_MAX_AGE = 60 * 60 * 24 * 7;
@@ -55,6 +57,7 @@ function SidebarProvider({
 }) {
     const isMobile = useIsMobile();
     const [openMobile, setOpenMobile] = React.useState(false);
+    const isLargeScreen = useIsLargeScreen();
 
     // This is the internal state of the sidebar.
     // We use openProp and setOpenProp for control from outside the component.
@@ -79,6 +82,14 @@ function SidebarProvider({
     const toggleSidebar = React.useCallback(() => {
         return isMobile ? setOpenMobile((open) => !open) : setOpen((open) => !open);
     }, [isMobile, setOpen, setOpenMobile]);
+
+    React.useEffect(() => {
+        console.log("is large:", isLargeScreen);
+        if (isLargeScreen && !open) {
+            // toggleSidebar();
+            setOpen(true);
+        }
+    }, [isLargeScreen, open, setOpen]);
 
     // Adds a keyboard shortcut to toggle the sidebar.
     React.useEffect(() => {
@@ -153,7 +164,7 @@ function Sidebar({
         return (
             <div
                 data-slot="sidebar"
-                className={cn("bg-sidebar text-sidebar-foreground flex h-full w-(--sidebar-width) flex-col", className)}
+                className={cn(`bg-sidebar text-sidebar-foreground flex h-full w-(--sidebar-width) flex-col`, className)}
                 {...props}
             >
                 {children}
@@ -245,7 +256,7 @@ function SidebarTrigger({ className, onClick, ...props }: React.ComponentProps<t
             size="icon"
             className={cn(
                 "size-7",
-                "bg-primary text-foreground hover:bg-primary/50 active:bg-primary hover:text-foreground/50",
+                "bg-primary text-foreground hover:bg-primary/50 active:bg-primary hover:text-foreground/50 ",
                 className
             )}
             onClick={(event) => {

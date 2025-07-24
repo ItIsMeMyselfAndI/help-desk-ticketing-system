@@ -12,7 +12,7 @@ const App = () => {
         <BrowserRouter>
             <SidebarProvider>
                 <AppSidebar />
-                <SidebarTrigger className="scale-150 mt-4 sticky top-4 rounded-r-xl ml-1 lg:hidden" />
+                <SidebarTrigger className="block scale-150 mt-4 sticky top-4 rounded-r-xl ml-1 lg:hidden" />
 
                 <div className="flex flex-col h-[100vh] w-[100vw]">
                     <TicketProvider>
