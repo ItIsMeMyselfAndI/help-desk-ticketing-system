@@ -12,13 +12,13 @@ const App = () => {
         <BrowserRouter>
             <SidebarProvider>
                 <AppSidebar />
-                <SidebarTrigger className="scale-150 mt-4 sticky top-4 rounded-r-xl ml-1 lg:hidden" />
+                <SidebarTrigger className="block scale-150 mt-4 sticky top-4 rounded-r-xl ml-1 lg:hidden" />
 
                 <div className="flex flex-col h-[100vh] w-[100vw]">
                     <TicketProvider>
                         <Routes>
                             <Route path="/" element={<DashboardPage />} />
-                            <Route path="/tickets" element={<TicketsPage />} />
+                            <Route path="/view-tickets" element={<TicketsPage />} />
                             <Route path="/new-ticket" element={<NewTicketPage />} />
                             <Route path="/inbox" element={<InboxPage />} />
                         </Routes>

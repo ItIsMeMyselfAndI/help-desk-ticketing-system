@@ -26,12 +26,16 @@ const TicketsPage = () => {
     };
 
     return (
-        <div className="h-[100vh] grid grid-cols-15 gap-4">
-            <div className={`${openedActionTicket ? "col-span-10 py-4 pl-4" : "col-span-15 p-4"} overflow-auto`}>
+        <div className="h-[100vh] flex flex-col xl:grid xl:grid-cols-15 gap-4">
+            <div
+                className={`overflow-auto ${
+                    openedActionTicket ? "hidden xl:block xl:col-span-10 py-4 pl-4" : "block xl:col-span-15 p-4"
+                }`}
+            >
                 <TicketTable edit={true} variant="combo" onActionClick={handleActions} />
             </div>
 
-            <div className={`${openedActionTicket ? "col-span-5" : "hidden"}`}>
+            <div className={`p-2 ${openedActionTicket ? "block xl:col-span-5" : "hidden"}`}>
                 <Actions onActionsExitClick={handleActionsExit} />
             </div>
         </div>

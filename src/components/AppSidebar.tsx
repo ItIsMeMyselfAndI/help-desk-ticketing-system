@@ -25,8 +25,8 @@ import { Link, useLocation } from "react-router-dom";
 // Menu items.
 const items = [
     { title: "Dashboard", route: "/", icon: LayoutDashboard },
-    { title: "View Tickets", route: "/tickets", icon: Logs },
-    { title: "New Ticket", route: "/new", icon: TicketPlus },
+    { title: "View Tickets", route: "/view-tickets", icon: Logs },
+    { title: "New Ticket", route: "/new-ticket", icon: TicketPlus },
     { title: "Inbox", route: "/inbox", icon: Inbox },
 ];
 

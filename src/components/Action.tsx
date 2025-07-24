@@ -81,8 +81,8 @@ const DetailsAndChat = () => {
 
             <Separator orientation="horizontal" />
 
-            <CardContent className="flex-1 min-h-0 p-4 min-w-0 overflow-x-auto">
-                <CardAction className={`size-full min-w-0 overflow-x-auto ${currTab !== "details" && "hidden"}`}>
+            <CardContent className="flex-1 min-h-0 p-4">
+                <CardAction className={`size-full min-w-0 ${currTab !== "details" && "hidden"}`}>
                     <TicketDetails padding="p-2" hasBorder={false} />
                 </CardAction>
                 <CardAction className={`size-full ${currTab !== "chat" && "hidden"}`}>
@@ -148,11 +148,11 @@ const Actions = ({ onActionsExitClick }: ActionsProps) => {
             <div className="">
                 <Header onActionsExitClick={onActionsExitClick} />
             </div>
-            <div className="flex-1 grid grid-rows-13 gap-2 min-h-0">
-                <div className="row-span-7 min-w-0">
+            <div className="flex-1 grid grid-rows-2 gap-2 min-h-0">
+                <div className="row-span-1 min-w-0">
                     <DetailsAndChat />
                 </div>
-                <div className="row-span-6">
+                <div className="row-span-1">
                     <FilterAndEdit />
                 </div>
             </div>
