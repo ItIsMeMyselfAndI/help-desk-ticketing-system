@@ -1,11 +1,21 @@
+type FileType = {
+    name: string;
+    size: number;
+    type: string;
+    uploadedAt: string;
+};
+
 type TicketType = {
     id: string;
     title: string;
     status: "Open" | "In progress" | "Resolved" | "Closed";
+    category: "Hardware" | "Software" | "Network" | "Access" | "Support";
     description: string;
-    created_at: string;
-    updated_at: string;
-    assigned_to: {
+    files: FileType[];
+    createdAt: string;
+    updatedAt: string;
+    assignedTo: {
+        id: string;
         name: string;
         role: "client" | "support" | "admin";
         imagePath: string;
@@ -25,4 +35,4 @@ type ChatType = {
 
 type ActionTabType = "details" | "chat" | "others";
 
-export { type TicketType, type StatusSummaryType, type ChatType, type ActionTabType };
+export { type TicketType, type StatusSummaryType, type ChatType, type ActionTabType, type FileType };

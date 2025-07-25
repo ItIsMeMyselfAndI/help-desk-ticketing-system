@@ -50,6 +50,7 @@ const TicketTable = ({ edit = false, variant = "default", onActionClick }: Ticke
                         <TableHead className={`text-primary ${!edit && "pl-5"}`}>Ticket</TableHead>
                         <TableHead className="text-primary">Title</TableHead>
                         <TableHead className="text-primary">Status</TableHead>
+                        <TableHead className="text-primary">Category</TableHead>
                         <TableHead className="text-primary text-right">Submitted At</TableHead>
                         {showFullTable && <TableHead className="text-primary text-right">Updated At</TableHead>}
                         <TableHead className="text-primary text-right pr-5">Assigned To</TableHead>
@@ -66,7 +67,7 @@ const TicketTable = ({ edit = false, variant = "default", onActionClick }: Ticke
                                 </TableCell>
                             )}
                             <TableCell className={`${!edit ? "pl-5" : ""}`}>{ticket.id}</TableCell>
-                            <TableCell className="truncate max-w-70">{ticket.title}</TableCell>
+                            <TableCell className="truncate max-w-50">{ticket.title}</TableCell>
                             <TableCell>
                                 <span
                                     className={`${selectStatusBGColor(ticket.status)} py-1 px-2 rounded-xl text-center`}
@@ -74,14 +75,15 @@ const TicketTable = ({ edit = false, variant = "default", onActionClick }: Ticke
                                     {ticket.status}
                                 </span>
                             </TableCell>
-                            <TableCell className="text-right">{ticket.created_at}</TableCell>
-                            {showFullTable && <TableCell className="text-right">{ticket.updated_at}</TableCell>}
+                            <TableCell className="text-left">{ticket.category}</TableCell>
+                            <TableCell className="text-right">{ticket.createdAt}</TableCell>
+                            {showFullTable && <TableCell className="text-right">{ticket.updatedAt}</TableCell>}
                             <TableCell className="pr-5">
                                 <div className="flex flex-row items-center justify-end">
                                     <div
-                                        className={`size-3 rounded-full ${selectRoleBGColor(ticket.assigned_to.role)}`}
+                                        className={`size-3 rounded-full ${selectRoleBGColor(ticket.assignedTo.role)}`}
                                     />
-                                    {ticket.assigned_to.name}
+                                    {ticket.assignedTo.name}
                                 </div>
                             </TableCell>
                             {showActionColumn && (

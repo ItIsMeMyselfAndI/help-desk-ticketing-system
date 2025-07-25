@@ -105,7 +105,7 @@ const FilterSelection = ({ filterType, values }: FilterSelectionProps) => {
             // filter tickets
             filteredTickets = origTickets.filter((ticket) =>
                 filters.every((val) => {
-                    const [year, month] = ticket.created_at.split("-");
+                    const [year, month] = ticket.createdAt.split("-");
                     if (Object.values(ticket).includes(val) || year === val || month === val) {
                         return true;
                     }

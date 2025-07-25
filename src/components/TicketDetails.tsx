@@ -1,6 +1,32 @@
 import { Card, CardDescription, CardTitle } from "@/components/ui/card";
 import { useTicketContext } from "@/contexts/TicketContext";
 import { selectRoleBGColor } from "@/lib/utils";
+import type { FileType } from "@/types";
+
+type TicketDetailType =
+    | "id"
+    | "title"
+    | "status"
+    | "category"
+    | "description"
+    | "createdAt"
+    | "updatedAt"
+    | "assignedTo";
+
+const Detail = ({ detail }: { detail: TicketDetailType }) => {
+    const { openedActionTicket } = useTicketContext();
+
+    return (
+        <CardDescription className="flex flex-row gap-2 items-center">
+            <span className="text-lg">{detail === "id" ? "ID" : detail[0].toUpperCase() + detail.slice(1)}</span>
+            <div className="flex-1 bg-muted border border-input rounded-xl py-0.5 px-4 overflow-x-auto">
+                <span className="text-foreground text-lg whitespace-nowrap">
+                    {detail === "assignedTo" ? openedActionTicket?.assignedTo?.name : openedActionTicket?.[detail]}
+                </span>
+            </div>
+        </CardDescription>
+    );
+};
 
 type TicketDetailsProps = {
     padding?: string;
@@ -16,26 +42,10 @@ const TicketDetails = ({ padding, hasBorder = true }: TicketDetailsProps) => {
                 <span className="text-primary text-2xl">Details</span>
             </CardTitle>
 
-            <CardDescription className="flex flex-row gap-2 items-center">
-                <span className="text-lg">ID:</span>
-                <div className="flex-1 bg-muted border border-input rounded-xl py-0.5 px-4 overflow-x-auto">
-                    <span className="text-foreground text-lg whitespace-nowrap">{openedActionTicket?.id}</span>
-                </div>
-            </CardDescription>
-
-            <CardDescription className=" flex flex-row gap-2 items-center">
-                <span className="text-lg">Status:</span>
-                <div className="flex-1 bg-muted border border-input rounded-xl py-0.5 px-4 overflow-x-auto">
-                    <span className="text-foreground text-lg whitespace-nowrap">{openedActionTicket?.status}</span>
-                </div>
-            </CardDescription>
-
-            <CardDescription className="flex flex-row gap-2 items-center">
-                <span className="text-lg">Title:</span>
-                <div className="flex-1 bg-muted border border-input rounded-xl py-0.5 px-4 overflow-x-auto">
-                    <span className="text-foreground text-lg whitespace-nowrap">{openedActionTicket?.title}</span>
-                </div>
-            </CardDescription>
+            <Detail detail="id" />
+            <Detail detail="title" />
+            <Detail detail="status" />
+            <Detail detail="category" />
 
             <CardDescription className="min-h-0 flex-1 flex flex-row gap-2">
                 <span className="text-lg">Description:</span>
@@ -44,33 +54,34 @@ const TicketDetails = ({ padding, hasBorder = true }: TicketDetailsProps) => {
                 </div>
             </CardDescription>
 
-            <CardDescription className="flex flex-row gap-2 items-center">
-                <span className="text-lg">Created at:</span>
-                <div className="flex-1 bg-muted border border-input rounded-xl py-0.5 px-4 overflow-x-auto">
-                    <span className="text-foreground text-lg whitespace-nowrap">{openedActionTicket?.created_at}</span>
+            <CardDescription className="min-h-0 flex-1 flex flex-row gap-2">
+                <span className="text-lg">Files:</span>
+                <div className="flex-1 overflow-auto flex flex-col gap-2 bg-muted border border-input rounded-xl py-0.5 px-4">
+                    {openedActionTicket?.files?.map((file: FileType) => {
+                        return (
+                            <span className="bg-accent text-foreground text-lg p-1 whitespace-nowrap">{file.name}</span>
+                        );
+                    })}
                 </div>
             </CardDescription>
 
-            <CardDescription className="flex flex-row gap-2 items-center min-w-0">
-                <span className="text-lg">Updated at:</span>
-                <div className="flex-1 bg-muted border border-input rounded-xl py-0.5 px-4 overflow-x-auto">
-                    <span className="text-foreground text-lg whitespace-nowrap">{openedActionTicket?.updated_at}</span>
-                </div>
-            </CardDescription>
+            <Detail detail="createdAt" />
+            <Detail detail="updatedAt" />
+            <Detail detail="assignedTo" />
 
             <CardDescription className="flex flex-row gap-2 items-center">
                 <span className="text-lg">Assigned to:</span>
                 <div className="flex-1 overflow-x-auto flex flex-row items-center bg-muted border border-input rounded-xl py-0.5 px-4">
                     <span className="text-foreground text-lg whitespace-nowrap">
-                        {openedActionTicket?.assigned_to.name}
+                        {openedActionTicket?.assignedTo.name}
                     </span>
                     <div
                         className={`size-3 rounded-full ${
-                            openedActionTicket && selectRoleBGColor(openedActionTicket.assigned_to.role)
+                            openedActionTicket && selectRoleBGColor(openedActionTicket.assignedTo.role)
                         }`}
                     />
                     <span className="text-foreground text-lg whitespace-nowrap">
-                        {openedActionTicket?.assigned_to.role}
+                        {openedActionTicket?.assignedTo.role}
                     </span>
                 </div>
             </CardDescription>
