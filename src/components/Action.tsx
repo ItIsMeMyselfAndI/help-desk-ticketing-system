@@ -9,7 +9,7 @@ import { QuickEdit } from "@/components/QuickEdit";
 import XCloseSVG from "@/assets/close-circle-svgrepo-com.svg";
 import { Chat } from "@/components/Chat";
 import { TicketDetails } from "./TicketDetails";
-import { useTicketContext } from "@/contexts/TicketContext";
+import { useTickets } from "@/hooks/use-tickets";
 import type { ActionTabType } from "@/types";
 import { ButtonTab } from "./ButtonTab";
 import { useCustomScreenSize } from "@/hooks/use-screen-size";
@@ -21,7 +21,7 @@ type ActionsProps = {
 };
 
 const ActionHeader = ({ onActionsExitClick }: ActionsProps) => {
-    const { openedActionTicket } = useTicketContext();
+    const { openedActionTicket } = useTickets();
 
     return (
         <CardHeader className="flex flex-row justify-between p-0">

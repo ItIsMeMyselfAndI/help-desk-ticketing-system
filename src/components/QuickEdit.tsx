@@ -9,7 +9,7 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select";
-import { useTicketContext } from "@/contexts/TicketContext";
+import { useTickets } from "@/hooks/use-tickets";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
 import { Check, Trash2Icon, Undo2, X } from "lucide-react";
@@ -75,7 +75,7 @@ const QuickEdit = ({ padding, hasBorder = true, bgColor = "bg-card" }: QuickEdit
         setSelectedTicketIDs,
         isAllSelected,
         setIsAllSelected,
-    } = useTicketContext();
+    } = useTickets();
     const [selectedStatus, setSelectedStatus] = useState<string>("None");
 
     const toggleSelectAll = () => {

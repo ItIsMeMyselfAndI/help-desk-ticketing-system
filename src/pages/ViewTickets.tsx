@@ -1,12 +1,12 @@
 import type { TicketType } from "@/types";
 import { TicketTable } from "@/components/TicketTable";
 import { Actions } from "@/components/Action";
-import { useTicketContext } from "@/contexts/TicketContext";
+import { useTickets } from "@/hooks/use-tickets";
 import { useEffect } from "react";
 import { APP_MIN_HEIGHT, EMPTY_TICKET } from "@/data/constants";
 
 const TicketsPage = () => {
-    const { origTickets, openedActionTicket, setOpenedActionTicket } = useTicketContext();
+    const { origTickets, openedActionTicket, setOpenedActionTicket } = useTickets();
 
     // update opened actions ticket
     useEffect(() => {

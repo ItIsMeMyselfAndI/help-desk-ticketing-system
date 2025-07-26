@@ -3,7 +3,7 @@ import SendSVG from "@/assets/send-svgrepo-com.svg";
 import ProfileSVG from "@/assets/user-person-profile-block-account-circle-svgrepo-com.svg";
 import { Card, CardAction, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ImageButton } from "@/components/ImageButton";
-import { useTicketContext } from "@/contexts/TicketContext";
+import { useTickets } from "@/hooks/use-tickets";
 import chatHistorySample from "@/data/chat.sample.json";
 import type { ChatType } from "@/types";
 import { useEffect, useMemo, useState } from "react";
@@ -14,7 +14,7 @@ type ChatProps = {
 };
 
 const Chat = ({ padding, hasBorder = true }: ChatProps) => {
-    const { openedActionTicket } = useTicketContext();
+    const { openedActionTicket } = useTickets();
     const [chatHistory, setChatHistory] = useState<ChatType[]>(chatHistorySample as ChatType[]);
     const [newMessage, setNewMessage] = useState<string>("");
     const newDateOBJ = new Date();

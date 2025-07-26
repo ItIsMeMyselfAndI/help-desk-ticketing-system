@@ -1,5 +1,5 @@
 import { useFilterContext } from "@/contexts/FilterContext";
-import { useTicketContext } from "@/contexts/TicketContext";
+import { useTickets } from "@/hooks/use-tickets";
 import { Card, CardAction, CardContent, CardDescription, CardTitle } from "@/components/ui/card";
 import { Button } from "./ui/button";
 import { RotateCcw } from "lucide-react";
@@ -39,7 +39,7 @@ const FilterSelection = ({ filterType, values }: FilterSelectionProps) => {
         setSelectedFilterByMonth,
         setSelectedFilterByAssignment,
     } = useFilterContext();
-    const { origTickets, setDisplayTickets } = useTicketContext();
+    const { origTickets, setDisplayTickets } = useTickets();
     const [selectedItem, setSelectedItem] = useState<string>(defaultItem);
 
     const updateFilterContext = useCallback(
@@ -172,7 +172,7 @@ type TableFilterProps = {
 };
 
 const TableFilter = ({ padding, hasBorder = true, bgColor = "bg-card", variant = "default" }: TableFilterProps) => {
-    const { origTickets, setDisplayTickets } = useTicketContext();
+    const { origTickets, setDisplayTickets } = useTickets();
     const { setIsReset } = useFilterContext();
 
     const handleResetClick = () => {
@@ -208,8 +208,6 @@ const TableFilter = ({ padding, hasBorder = true, bgColor = "bg-card", variant =
                         />
                     )}
                 </section>
-
-                {/* by category  */}
 
                 {/* by date  */}
                 <section className="flex-1 flex flex-row gap-2">
