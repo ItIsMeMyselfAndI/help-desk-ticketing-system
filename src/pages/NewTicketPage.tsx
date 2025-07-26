@@ -18,6 +18,7 @@ type FormProps = {
 const Form = ({ ticketID }: FormProps) => {
     const defaultItem = "None";
     const [selectedItem, setSelectedItem] = useState<string>(defaultItem);
+    const date = new Date();
 
     const handleSelectionChange = (value: string) => {
         setSelectedItem(value);
@@ -61,11 +62,17 @@ const Form = ({ ticketID }: FormProps) => {
                 <section className="flex flex-row gap-4">
                     <div className="flex-1 flex flex-col gap-4">
                         <label className="font-semibold">Created at</label>
-                        <input type="text" className="border border-input rounded-xl py-2 px-4 bg-muted" />
+                        <div className="flex flex-row justify-between items-center border border-input rounded-xl py-2 px-4 bg-background hover:cursor-not-allowed">
+                            <span className="text-2xl">{date.toISOString().split("T")[0]}</span>
+                            <LockKeyholeIcon className="size-10 text-foreground p-2 rounded-xl bg-orange-500" />
+                        </div>
                     </div>
                     <div className="flex-1 flex flex-col gap-4">
                         <label className="font-semibold">Updated at</label>
-                        <input type="text" className="border border-input rounded-xl py-2 px-4 bg-muted" />
+                        <div className="flex flex-row justify-between items-center border border-input rounded-xl py-2 px-4 bg-background hover:cursor-not-allowed">
+                            <span className="text-2xl">{date.toISOString().split("T")[0]}</span>
+                            <LockKeyholeIcon className="size-10 text-foreground p-2 rounded-xl bg-orange-500" />
+                        </div>
                     </div>
                 </section>
 
