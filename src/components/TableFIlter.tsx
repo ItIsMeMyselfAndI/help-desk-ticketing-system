@@ -1,6 +1,6 @@
 import { useFilterContext } from "@/contexts/FilterContext";
 import { useTicketContext } from "@/contexts/TicketContext";
-import { Card, CardContent, CardDescription, CardTitle } from "@/components/ui/card";
+import { Card, CardAction, CardContent, CardDescription, CardTitle } from "@/components/ui/card";
 import { Button } from "./ui/button";
 import { RotateCcw } from "lucide-react";
 import { getYearOptions, monthOptions } from "@/data/filterOptions";
@@ -19,7 +19,7 @@ import type { TicketType } from "@/types";
 const yearOptions = getYearOptions();
 
 type FilterSelectionProps = {
-    filterType: string;
+    filterType: "status" | "category" | "year" | "month" | "assignment";
     values: string[];
 };
 
@@ -46,6 +46,9 @@ const FilterSelection = ({ filterType, values }: FilterSelectionProps) => {
         (value: string) => {
             switch (filterType.toLowerCase()) {
                 case "status":
+                    setSelectedFilterByStatus(value);
+                    break;
+                case "category":
                     setSelectedFilterByStatus(value);
                     break;
                 case "year":
@@ -130,31 +133,34 @@ const FilterSelection = ({ filterType, values }: FilterSelectionProps) => {
     };
 
     return (
-        <Select value={selectedItem} onValueChange={handleSelectionChange}>
-            <SelectTrigger
-                className={`w-full text-foreground data-[size=default]:h-full bg-muted hover:bg-accent ${
-                    selectedItem === defaultItem && "text-muted-foreground"
-                }`}
-            >
-                <SelectValue placeholder={defaultItem} />
-            </SelectTrigger>
-            <SelectContent>
-                <SelectGroup>
-                    <SelectLabel className="text-lg text-foreground/50">{`Select ${filterType}`}</SelectLabel>
-                    <SelectItem
-                        className="text-muted-foreground focus:bg-accent focus:text-muted-foreground"
-                        value={defaultItem}
-                    >
-                        None
-                    </SelectItem>
-                    {values.map((val: string) => (
-                        <SelectItem key={val.toLowerCase()} className="focus:bg-primary" value={val}>
-                            {val}
+        <CardAction className="h-full w-full flex flex-col gap-2">
+            <CardDescription className="text-lg">By {filterType}</CardDescription>
+            <Select value={selectedItem} onValueChange={handleSelectionChange}>
+                <SelectTrigger
+                    className={`w-full text-foreground data-[size=default]:h-full bg-muted hover:bg-accent ${
+                        selectedItem === defaultItem && "text-muted-foreground"
+                    }`}
+                >
+                    <SelectValue placeholder={defaultItem} />
+                </SelectTrigger>
+                <SelectContent>
+                    <SelectGroup>
+                        <SelectLabel className="text-lg text-foreground/50">{`Select ${filterType}`}</SelectLabel>
+                        <SelectItem
+                            className="text-muted-foreground focus:bg-accent focus:text-muted-foreground"
+                            value={defaultItem}
+                        >
+                            None
                         </SelectItem>
-                    ))}
-                </SelectGroup>
-            </SelectContent>
-        </Select>
+                        {values.map((val: string) => (
+                            <SelectItem key={val.toLowerCase()} className="focus:bg-primary" value={val}>
+                                {val}
+                            </SelectItem>
+                        ))}
+                    </SelectGroup>
+                </SelectContent>
+            </Select>
+        </CardAction>
     );
 };
 
@@ -162,9 +168,10 @@ type TableFilterProps = {
     padding?: string;
     hasBorder?: boolean;
     bgColor?: string;
+    variant?: "default" | "full";
 };
 
-const TableFilter = ({ padding, hasBorder = true, bgColor = "bg-card" }: TableFilterProps) => {
+const TableFilter = ({ padding, hasBorder = true, bgColor = "bg-card", variant = "default" }: TableFilterProps) => {
     const { origTickets, setDisplayTickets } = useTicketContext();
     const { setIsReset } = useFilterContext();
 
@@ -175,7 +182,7 @@ const TableFilter = ({ padding, hasBorder = true, bgColor = "bg-card" }: TableFi
 
     return (
         <Card
-            className={`px-6 gap-0 h-full flex flex-col justify-evenly ${bgColor}
+            className={`px-6 gap-2 h-full flex flex-col ${bgColor}
                 ${!hasBorder && "border-none"} ${padding || ""}`}
         >
             {/* title and reset  */}
@@ -190,22 +197,32 @@ const TableFilter = ({ padding, hasBorder = true, bgColor = "bg-card" }: TableFi
                 </Button>
             </CardTitle>
 
-            <CardContent className="flex flex-col justify-evenly gap-2">
+            <CardContent className="flex-1 flex flex-col justify-evenly gap-2">
                 {/* by status  */}
-                <CardDescription className="text-lg">By status</CardDescription>
-                <FilterSelection filterType="Status" values={["Open", "In progress", "Resolved", "Closed"]} />
+                <section className="flex-1">
+                    <FilterSelection filterType="status" values={["Open", "In progress", "Resolved", "Closed"]} />
+                </section>
+
+                {/* by category  */}
+                {variant === "full" && (
+                    <section className="flex-1">
+                        <FilterSelection
+                            filterType="category"
+                            values={["Hardware", "Software", "Access", "Network", "Support"]}
+                        />
+                    </section>
+                )}
 
                 {/* by date  */}
-                <div className="grid grid-cols-2 gap-2">
-                    <CardDescription className="text-lg">By year</CardDescription>
-                    <CardDescription className="text-lg">By month</CardDescription>
-                    <FilterSelection filterType="Year" values={yearOptions} />
-                    <FilterSelection filterType="Month" values={monthOptions} />
-                </div>
+                <section className="flex-1 flex flex-row gap-2">
+                    <FilterSelection filterType="year" values={yearOptions} />
+                    <FilterSelection filterType="month" values={monthOptions} />
+                </section>
 
                 {/* by assignment */}
-                <CardDescription className="text-lg">By assignment</CardDescription>
-                <FilterSelection filterType="Assignment" values={["@bentot", "@juantot", "@gwentot", "@kwintot"]} />
+                <section className="flex-1">
+                    <FilterSelection filterType="assignment" values={["@bentot", "@juantot", "@gwentot", "@kwintot"]} />
+                </section>
             </CardContent>
         </Card>
     );

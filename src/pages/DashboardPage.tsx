@@ -26,7 +26,7 @@ const DashboardPage = () => {
                         <TicketTable edit={true} />
                     </div>
                     {/* action */}
-                    <div className="hidden flex-1 min-w-md max-w-md xl:grid grid-row-2 gap-4">
+                    <div className="hidden flex-1 min-w-md max-w-md xl:grid grid-rows-2 gap-4">
                         <FilterProvider>
                             <TableFilter />
                         </FilterProvider>

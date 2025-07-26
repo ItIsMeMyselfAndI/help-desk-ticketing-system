@@ -50,7 +50,7 @@ const TicketTable = ({ edit = false, variant = "default", onActionClick }: Ticke
                         <TableHead className={`text-primary ${!edit && "pl-5"}`}>Ticket</TableHead>
                         <TableHead className="text-primary">Title</TableHead>
                         <TableHead className="text-primary">Status</TableHead>
-                        <TableHead className="text-primary">Category</TableHead>
+                        {showFullTable && <TableHead className="text-primary text-left">Category</TableHead>}
                         <TableHead className="text-primary text-right">Submitted At</TableHead>
                         {showFullTable && <TableHead className="text-primary text-right">Updated At</TableHead>}
                         <TableHead className="text-primary text-right pr-5">Assigned To</TableHead>
@@ -75,7 +75,7 @@ const TicketTable = ({ edit = false, variant = "default", onActionClick }: Ticke
                                     {ticket.status}
                                 </span>
                             </TableCell>
-                            <TableCell className="text-left">{ticket.category}</TableCell>
+                            {showFullTable && <TableCell className="text-lef">{ticket.category}</TableCell>}
                             <TableCell className="text-right">{ticket.createdAt}</TableCell>
                             {showFullTable && <TableCell className="text-right">{ticket.updatedAt}</TableCell>}
                             <TableCell className="pr-5">
