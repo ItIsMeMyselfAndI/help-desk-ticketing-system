@@ -33,6 +33,6 @@ type ChatType = {
     message: string;
 };
 
-type ActionTabType = "details" | "chat" | "others";
+type ActionTabType = "details" | "chat" | "filter" | "edit" | "others";
 
 export { type TicketType, type StatusSummaryType, type ChatType, type ActionTabType, type FileType };

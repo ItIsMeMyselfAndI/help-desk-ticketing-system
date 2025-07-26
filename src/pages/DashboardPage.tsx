@@ -1,10 +1,9 @@
 import { useState } from "react";
 import type { StatusSummaryType } from "@/types";
-import { FilterProvider } from "@/contexts/FilterContext";
 import { StatusSummary } from "@/components/StatusSummary";
 import { TicketTable } from "@/components/TicketTable";
-import { TableFilter } from "@/components/TableFIlter";
-import { QuickEdit } from "@/components/QuickEdit";
+import { Actions } from "@/components/Action";
+import { APP_MIN_HEIGHT } from "@/data/constants";
 
 const DashboardPage = () => {
     const [statusSummaries] = useState<StatusSummaryType[]>([
@@ -15,7 +14,7 @@ const DashboardPage = () => {
     ]);
 
     return (
-        <main className="h-[100vh] p-4 flex flex-col gap-2 md:gap-4">
+        <main className={`h-[100vh] min-h-[${APP_MIN_HEIGHT}] p-4 flex flex-col gap-2 md:gap-4`}>
             <section className="xl:h-40">
                 <StatusSummary statusSummaries={statusSummaries} />
             </section>
@@ -26,11 +25,8 @@ const DashboardPage = () => {
                         <TicketTable edit={true} />
                     </div>
                     {/* action */}
-                    <div className="hidden flex-1 min-w-md max-w-md xl:grid grid-rows-2 gap-4">
-                        <FilterProvider>
-                            <TableFilter />
-                        </FilterProvider>
-                        <QuickEdit />
+                    <div className="hidden flex-1 min-w-md max-w-md xl:block">
+                        <Actions variant="default" />
                     </div>
                 </div>
             </section>

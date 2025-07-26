@@ -111,4 +111,31 @@ const useDefaultScreenSizes = () => {
     };
 };
 
-export { useDefaultScreenSizes };
+const useCustomScreenSize = (matchMedia: string) => {
+    const [isConstrainedSize, setIsConstrainedSize] = useState<boolean>(false);
+
+    if (
+        !(
+            (matchMedia.includes("-height") || matchMedia.includes("-width")) &&
+            (matchMedia.includes("max") || matchMedia.includes("min"))
+        )
+    ) {
+        throw new Error("Invalid media query format. Use 'max-height', 'min-height', 'max-width', or 'min-width'.");
+    }
+
+    useEffect(() => {
+        const mediaQuery = window.matchMedia(matchMedia);
+        setIsConstrainedSize(mediaQuery.matches);
+
+        const handleSizeChange = () => {
+            return setIsConstrainedSize(mediaQuery.matches);
+        };
+        mediaQuery.addEventListener("change", handleSizeChange);
+
+        return () => mediaQuery.removeEventListener("change", handleSizeChange);
+    }, [matchMedia]);
+
+    return isConstrainedSize;
+};
+
+export { useDefaultScreenSizes, useCustomScreenSize };

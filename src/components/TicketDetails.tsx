@@ -67,10 +67,9 @@ const TicketDetails = ({ padding, hasBorder = true }: TicketDetailsProps) => {
 
             <Detail detail="createdAt" />
             <Detail detail="updatedAt" />
-            <Detail detail="assignedTo" />
 
             <CardDescription className="flex flex-row gap-2 items-center">
-                <span className="text-lg">Assigned to:</span>
+                <span className="text-lg">assignedTo:</span>
                 <div className="flex-1 overflow-x-auto flex flex-row items-center bg-muted border border-input rounded-xl py-0.5 px-4">
                     <span className="text-foreground text-lg whitespace-nowrap">
                         {openedActionTicket?.assignedTo.name}

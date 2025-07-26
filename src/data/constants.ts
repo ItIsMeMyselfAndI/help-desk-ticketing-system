@@ -1,0 +1,6 @@
+const APP_MIN_HEIGHT = "650px";
+const APP_MAX_HEIGHT = "100vh";
+const APP_MIN_WIDTH = "300px";
+const APP_MAX_WIDTH = "100vh";
+
+export { APP_MIN_HEIGHT, APP_MAX_HEIGHT, APP_MIN_WIDTH, APP_MAX_WIDTH };
