@@ -3,14 +3,23 @@ import { TicketTable } from "@/components/TicketTable";
 import { Actions } from "@/components/Action";
 import { useTicketContext } from "@/contexts/TicketContext";
 import { useEffect } from "react";
-import { APP_MIN_HEIGHT } from "@/data/constants";
+import { APP_MIN_HEIGHT, EMPTY_TICKET } from "@/data/constants";
 
 const TicketsPage = () => {
     const { origTickets, openedActionTicket, setOpenedActionTicket } = useTicketContext();
 
+    // update opened actions ticket
     useEffect(() => {
         if (!openedActionTicket?.id) return;
-        const newOpenedActionTicket = origTickets.find((ticket) => ticket.id === openedActionTicket.id);
+
+        let newOpenedActionTicket: TicketType | undefined;
+        // deleted ticket
+        if (!origTickets.some((ticket) => ticket.id === openedActionTicket.id)) {
+            newOpenedActionTicket = EMPTY_TICKET;
+            // edited ticket
+        } else {
+            newOpenedActionTicket = origTickets.find((ticket) => ticket.id === openedActionTicket.id);
+        }
         setOpenedActionTicket(newOpenedActionTicket);
     }, [origTickets, openedActionTicket?.id, setOpenedActionTicket]);
 

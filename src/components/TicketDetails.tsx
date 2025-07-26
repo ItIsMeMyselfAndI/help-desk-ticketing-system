@@ -49,7 +49,7 @@ const TicketDetails = ({ padding, hasBorder = true }: TicketDetailsProps) => {
 
             <CardDescription className="min-h-0 flex-1 flex flex-row gap-2">
                 <span className="text-lg">Description:</span>
-                <div className="overflow-y-auto bg-muted border border-input rounded-xl py-0.5 px-4">
+                <div className="flex-1 overflow-y-auto bg-muted border border-input rounded-xl py-0.5 px-4">
                     <span className="text-foreground text-lg">{openedActionTicket?.description}</span>
                 </div>
             </CardDescription>

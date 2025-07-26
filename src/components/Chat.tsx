@@ -6,7 +6,7 @@ import { ImageButton } from "@/components/ImageButton";
 import { useTicketContext } from "@/contexts/TicketContext";
 import chatHistorySample from "@/data/chat.sample.json";
 import type { ChatType } from "@/types";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 type ChatProps = {
     padding?: string;
@@ -18,6 +18,14 @@ const Chat = ({ padding, hasBorder = true }: ChatProps) => {
     const [chatHistory, setChatHistory] = useState<ChatType[]>(chatHistorySample as ChatType[]);
     const [newMessage, setNewMessage] = useState<string>("");
     const newDateOBJ = new Date();
+
+    useEffect(() => {
+        if (openedActionTicket?.id === "") {
+            setChatHistory([]);
+        } else {
+            setChatHistory(chatHistorySample as ChatType[]);
+        }
+    }, [openedActionTicket]);
 
     const renderedReversedChatHistory = useMemo(() => {
         const renderedElements = [];
