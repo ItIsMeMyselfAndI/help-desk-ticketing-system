@@ -1,14 +1,95 @@
 import React, { useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardTitle } from "@/components/ui/card";
-import { Trash2Icon, UploadIcon } from "lucide-react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { LockKeyholeIcon, Trash2Icon, UploadIcon } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
 import { useMatchSize } from "@/hooks/use-screen-size";
 import { ButtonTab } from "@/components/ButtonTab";
 import { useTab } from "@/hooks/use-tab";
+import { useTickets } from "@/hooks/use-tickets";
+import { Selector } from "@/components/Selector";
+import { CATEGORIES } from "@/data/constants";
+import { Textarea } from "@/components/ui/textarea";
 
-const Form = () => {
-    return <Card className="size-full"></Card>;
+type FormProps = {
+    ticketID: string;
+};
+
+const Form = ({ ticketID }: FormProps) => {
+    const defaultItem = "None";
+    const [selectedItem, setSelectedItem] = useState<string>(defaultItem);
+
+    const handleSelectionChange = (value: string) => {
+        setSelectedItem(value);
+    };
+
+    return (
+        <Card className="text-2xl text-foreground/80 size-full flex flex-col gap-2 p-0 border-none bg-transparent">
+            <CardHeader className="p-0">
+                <span className="text-5xl text-primary font-bold p-0">{ticketID}</span>
+            </CardHeader>
+            <form className="flex-1 flex flex-col p-6 gap-4 rounded-xl border border-border bg-card">
+                <section className="flex flex-col gap-4">
+                    <label className="font-semibold">Title</label>
+                    <input type="text" className="border border-input rounded-xl py-2 px-4 bg-muted" />
+                </section>
+
+                <section className="flex flex-row gap-4">
+                    <div className="flex-1 flex flex-col gap-4">
+                        <label className="font-semibold">Status</label>
+                        <div className="flex flex-row justify-between items-center border border-input rounded-xl py-2 px-4 bg-background hover:cursor-not-allowed">
+                            <span className="text-2xl">Open</span>
+                            <LockKeyholeIcon className="size-10 text-foreground p-2 rounded-xl bg-orange-500" />
+                        </div>
+                    </div>
+                    <div className="flex-1 flex flex-col gap-4">
+                        <label className="font-semibold">Category</label>
+                        <Selector
+                            options={CATEGORIES}
+                            defaultItem={defaultItem}
+                            selectedItem={selectedItem}
+                            handleSelectionChange={handleSelectionChange}
+                        />
+                    </div>
+                </section>
+
+                <section className="flex-1 flex flex-col gap-4">
+                    <label className="font-semibold">Description</label>
+                    <Textarea className="flex-1 text-2xl border border-input rounded-xl py-2 px-4 bg-muted" />
+                </section>
+
+                <section className="flex flex-row gap-4">
+                    <div className="flex-1 flex flex-col gap-4">
+                        <label className="font-semibold">Created at</label>
+                        <input type="text" className="border border-input rounded-xl py-2 px-4 bg-muted" />
+                    </div>
+                    <div className="flex-1 flex flex-col gap-4">
+                        <label className="font-semibold">Updated at</label>
+                        <input type="text" className="border border-input rounded-xl py-2 px-4 bg-muted" />
+                    </div>
+                </section>
+
+                <section className="flex flex-col gap-4">
+                    <label className="font-semibold">Assigned to</label>
+                    <div className="flex flex-row justify-between items-center border border-input rounded-xl py-2 px-4 bg-background hover:cursor-not-allowed">
+                        <span className="text-2xl">Not available for you</span>
+                        <LockKeyholeIcon className="size-10 text-foreground p-2 rounded-xl bg-orange-500" />
+                    </div>
+                </section>
+
+                <Separator orientation="horizontal" />
+
+                <section className="flex flex-row justify-end items-center gap-4">
+                    <Button className="p-6 rounded-xl bg-yellow-500 hover:bg-yellow-500 hover:p-7">
+                        <span className="text-2xl font-semibold text-foreground/80">Submit</span>
+                    </Button>
+                    <Button className="p-6 rounded-xl bg-red-500 hover:bg-red-500 hover:p-7">
+                        <span className="text-2xl font-semibold text-foreground/80">Cancel</span>
+                    </Button>
+                </section>
+            </form>
+        </Card>
+    );
 };
 
 type DropAreaProps = {
@@ -147,9 +228,16 @@ const UploadedFiles = ({ uploadedFiles, handleDeleteFile }: UploadedFilesProps) 
 };
 
 const NewTicketPage = () => {
+    const { origTickets } = useTickets();
     const [uploadedFiles, setUploadedFiles] = useState<File[]>([]);
     const isConstrainedWidth = useMatchSize("(max-width: 1110px");
     const { currTab, handleTabChange } = useTab("form");
+
+    const getAvailableTicketID = () => {
+        const lastID = origTickets[origTickets.length - 1].id;
+        const idNumber = lastID.split("-")[1];
+        return "TKT-" + String(Number(idNumber) + 1).padStart(3, "0");
+    };
 
     const handleAddNewFiles = (files: File[]) => {
         console.log("\nOld");
@@ -185,16 +273,18 @@ const NewTicketPage = () => {
         <main className="h-[100vh] w-full flex flex-row gap-4 p-4">
             {isConstrainedWidth ? (
                 <div className="min-w-0 flex-1 flex flex-col gap-2">
+                    {/* tabs */}
                     <section className="h-auto flex flex-row justify-end gap-2">
                         <ButtonTab tab="form" currTab={currTab} handleTabChange={handleTabChange} />
                         {/* <Separator orientation="vertical" /> */}
                         <ButtonTab tab="upload" currTab={currTab} handleTabChange={handleTabChange} />
                     </section>
 
+                    {/* main */}
                     {currTab === "form" ? (
-                        <form className="flex-1">
-                            <Form />
-                        </form>
+                        <section className="flex-1">
+                            <Form ticketID={getAvailableTicketID()} />
+                        </section>
                     ) : (
                         <aside className="flex-1 flex flex-col gap-4">
                             <DropArea handleAddNewFiles={handleAddNewFiles} />
@@ -204,9 +294,9 @@ const NewTicketPage = () => {
                 </div>
             ) : (
                 <>
-                    <form className="flex-8">
-                        <Form />
-                    </form>
+                    <section className="flex-8">
+                        <Form ticketID={getAvailableTicketID()} />
+                    </section>
                     <aside className="flex-5 min-w-0 max-w-lg flex flex-col gap-4">
                         <DropArea handleAddNewFiles={handleAddNewFiles} />
                         <UploadedFiles uploadedFiles={uploadedFiles} handleDeleteFile={handleDeleteFile} />
