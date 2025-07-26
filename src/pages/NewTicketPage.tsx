@@ -3,6 +3,13 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardTitle } from "@/components/ui/card";
 import { Trash2Icon, UploadIcon } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
+import { useMatchSize } from "@/hooks/use-screen-size";
+import { ButtonTab } from "@/components/ButtonTab";
+import { useTab } from "@/hooks/use-tab";
+
+const Form = () => {
+    return <Card className="size-full"></Card>;
+};
 
 type DropAreaProps = {
     handleAddNewFiles: (files: File[]) => void;
@@ -70,7 +77,7 @@ const DropArea = ({ handleAddNewFiles }: DropAreaProps) => {
                         isInside && "bg-muted opacity-50"
                     }`}
                 >
-                    <span className="text-primary text-2xl font-semibold">Drag & Drop</span>
+                    <span className="text-primary text-2xl text-center font-semibold">Drag & Drop</span>
                     <UploadIcon className="size-12 text-primary" strokeWidth={2} />
                     {/* file uploads */}
                     <input
@@ -80,8 +87,13 @@ const DropArea = ({ handleAddNewFiles }: DropAreaProps) => {
                         onChange={handleFilesSelected}
                         className="hidden"
                     ></input>
-                    <Button onClick={handleBrowseClick} className={`bg-primary rounded-full px-6 hover:opacity-80`}>
-                        <span className={`text-xl font-semibold text-foreground`}>Browse Files</span>
+                    <Button
+                        onClick={handleBrowseClick}
+                        className={`h-auto bg-primary rounded-full px-6 hover:opacity-80`}
+                    >
+                        <span className={`whitespace-break-spaces text-xl font-semibold  text-foreground`}>
+                            Browse Files
+                        </span>
                     </Button>
                 </div>
             </Card>
@@ -97,7 +109,7 @@ type UploadedFilesProps = {
 const UploadedFiles = ({ uploadedFiles, handleDeleteFile }: UploadedFilesProps) => {
     return (
         <>
-            <Card className="flex-1 flex flex-col gap-0 p-0 min-h-0">
+            <Card className="min-h-0 flex-1 h-full flex flex-col gap-0 p-0">
                 <CardTitle className="flex justify-start p-4">
                     <span className="text-primary text-xl">Uploaded Files</span>
                 </CardTitle>
@@ -112,9 +124,9 @@ const UploadedFiles = ({ uploadedFiles, handleDeleteFile }: UploadedFilesProps) 
                             uploadedFiles.map((file) => (
                                 <div key={file.name} className="flex items-center gap-2">
                                     <div className="flex-1 min-w-0 flex py-2 px-4 rounded-xl border border-accent bg-muted">
-                                        <section className="h-auto overflow-x-auto flex flex-row justify-center items-center">
-                                            <span className="whitespace-nowrap text-foreground text-lg font-normal">
-                                                {file.name}
+                                        <section className="h-auto overflow-x-auto flex flex-row justify-start items-center">
+                                            <span className="whitespace-nowrap text-foreground text-[1.1rem] font-normal">
+                                                {file.name}lkjslfksjlfksjlfksjflksdjflksjflsjdflksjdflskjdflksjdfl
                                             </span>
                                         </section>
                                     </div>
@@ -136,6 +148,8 @@ const UploadedFiles = ({ uploadedFiles, handleDeleteFile }: UploadedFilesProps) 
 
 const NewTicketPage = () => {
     const [uploadedFiles, setUploadedFiles] = useState<File[]>([]);
+    const isConstrainedWidth = useMatchSize("(max-width: 1110px");
+    const { currTab, handleTabChange } = useTab("form");
 
     const handleAddNewFiles = (files: File[]) => {
         console.log("\nOld");
@@ -169,13 +183,36 @@ const NewTicketPage = () => {
 
     return (
         <main className="h-[100vh] w-full flex flex-row gap-4 p-4">
-            <form className="flex-8">
-                <Card className="size-full"></Card>
-            </form>
-            <aside className="flex-5 min-w-0 max-w-lg flex flex-col gap-4">
-                <DropArea handleAddNewFiles={handleAddNewFiles} />
-                <UploadedFiles uploadedFiles={uploadedFiles} handleDeleteFile={handleDeleteFile} />
-            </aside>
+            {isConstrainedWidth ? (
+                <div className="min-w-0 flex-1 flex flex-col gap-2">
+                    <section className="h-auto flex flex-row justify-end gap-2">
+                        <ButtonTab tab="form" currTab={currTab} handleTabChange={handleTabChange} />
+                        {/* <Separator orientation="vertical" /> */}
+                        <ButtonTab tab="upload" currTab={currTab} handleTabChange={handleTabChange} />
+                    </section>
+
+                    {currTab === "form" ? (
+                        <form className="flex-1">
+                            <Form />
+                        </form>
+                    ) : (
+                        <aside className="flex-1 flex flex-col gap-4">
+                            <DropArea handleAddNewFiles={handleAddNewFiles} />
+                            <UploadedFiles uploadedFiles={uploadedFiles} handleDeleteFile={handleDeleteFile} />
+                        </aside>
+                    )}
+                </div>
+            ) : (
+                <>
+                    <form className="flex-8">
+                        <Form />
+                    </form>
+                    <aside className="flex-5 min-w-0 max-w-lg flex flex-col gap-4">
+                        <DropArea handleAddNewFiles={handleAddNewFiles} />
+                        <UploadedFiles uploadedFiles={uploadedFiles} handleDeleteFile={handleDeleteFile} />
+                    </aside>
+                </>
+            )}
         </main>
     );
 };

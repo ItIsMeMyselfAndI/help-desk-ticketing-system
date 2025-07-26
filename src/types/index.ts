@@ -35,4 +35,6 @@ type ChatType = {
 
 type ActionTabType = "details" | "chat" | "filter" | "edit" | "others";
 
-export { type TicketType, type StatusSummaryType, type ChatType, type ActionTabType, type FileType };
+type FormTabType = "form" | "upload";
+
+export type { TicketType, StatusSummaryType, ChatType, ActionTabType, FileType, FormTabType };

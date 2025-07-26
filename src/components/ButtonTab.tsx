@@ -1,11 +1,11 @@
-import type { ActionTabType } from "@/types";
+import type { ActionTabType, FormTabType } from "@/types";
 import { Button } from "./ui/button";
 import { CardTitle } from "./ui/card";
 
 type ButtonTabProp = {
-    tab: ActionTabType;
-    currTab: ActionTabType;
-    handleTabChange: (tab: ActionTabType) => void;
+    tab: ActionTabType | FormTabType;
+    currTab: ActionTabType | FormTabType;
+    handleTabChange: (tab: ActionTabType | FormTabType) => void;
 };
 
 const ButtonTab = ({ tab, currTab, handleTabChange }: ButtonTabProp) => {
