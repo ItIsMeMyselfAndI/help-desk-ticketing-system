@@ -5,10 +5,10 @@ import { Trash2Icon, UploadIcon } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
 
 type DropAreaProps = {
-    updateFiles: (files: File[]) => void;
+    handleAddNewFiles: (files: File[]) => void;
 };
 
-const DropArea = ({ updateFiles }: DropAreaProps) => {
+const DropArea = ({ handleAddNewFiles }: DropAreaProps) => {
     const fileInputRef = useRef<HTMLInputElement>(null);
     const dropAreaRef = useRef<HTMLDivElement>(null);
     const [isInside, setIsInside] = useState<boolean>(false);
@@ -20,7 +20,7 @@ const DropArea = ({ updateFiles }: DropAreaProps) => {
     const handleFilesSelected = (e: React.ChangeEvent<HTMLInputElement>) => {
         const selectedFiles = e.target.files ? Array.from(e.target.files) : [];
         selectedFiles.forEach((file) => console.log("file:", file));
-        updateFiles(selectedFiles);
+        handleAddNewFiles(selectedFiles);
     };
 
     const handleFileDragEnter = (e: React.DragEvent) => {
@@ -54,20 +54,20 @@ const DropArea = ({ updateFiles }: DropAreaProps) => {
 
         const droppedFiles = Array.from(e.dataTransfer.files);
         droppedFiles.forEach((file) => console.log(file));
-        updateFiles(droppedFiles);
+        handleAddNewFiles(droppedFiles);
     };
 
     return (
         <>
-            <Card className="flex-3 p-14">
+            <Card className="flex-1 p-14">
                 <div
                     ref={dropAreaRef}
                     onDragEnter={handleFileDragEnter}
                     onDragOver={handleFileDragOver}
                     onDragLeave={handleFileDragLeave}
                     onDrop={handleFileDrop}
-                    className={`flex-1 flex flex-col justify-center items-center gap-2 rounded-xl outline-4 outline-primary outline-dashed ${
-                        isInside && "bg-muted"
+                    className={`flex-1 flex flex-col justify-center items-center gap-2 p-4 rounded-xl outline-4 outline-primary outline-dashed ${
+                        isInside && "bg-muted opacity-50"
                     }`}
                 >
                     <span className="text-primary text-2xl font-semibold">Drag & Drop</span>
@@ -80,11 +80,8 @@ const DropArea = ({ updateFiles }: DropAreaProps) => {
                         onChange={handleFilesSelected}
                         className="hidden"
                     ></input>
-                    <Button
-                        onClick={handleBrowseClick}
-                        className="text-foreground rounded-full px-6 hover:bg-primary/80"
-                    >
-                        <span className="text-foreground text-xl font-semibold">Browse Files</span>
+                    <Button onClick={handleBrowseClick} className={`bg-primary rounded-full px-6 hover:opacity-80`}>
+                        <span className={`text-xl font-semibold text-foreground`}>Browse Files</span>
                     </Button>
                 </div>
             </Card>
@@ -94,14 +91,15 @@ const DropArea = ({ updateFiles }: DropAreaProps) => {
 
 type UploadedFilesProps = {
     uploadedFiles: File[];
+    handleDeleteFile: (file: File) => void;
 };
 
-const UploadedFiles = ({ uploadedFiles }: UploadedFilesProps) => {
+const UploadedFiles = ({ uploadedFiles, handleDeleteFile }: UploadedFilesProps) => {
     return (
         <>
-            <Card className="flex-2 flex flex-col gap-0 p-0 min-h-0">
+            <Card className="flex-1 flex flex-col gap-0 p-0 min-h-0">
                 <CardTitle className="flex justify-start p-4">
-                    <span className="text-primary text-2xl">Uploaded Files</span>
+                    <span className="text-primary text-xl">Uploaded Files</span>
                 </CardTitle>
                 <Separator orientation="horizontal" />
                 <CardContent className="min-h-0 p-4 flex">
@@ -117,11 +115,13 @@ const UploadedFiles = ({ uploadedFiles }: UploadedFilesProps) => {
                                         <section className="h-auto overflow-x-auto flex flex-row justify-center items-center">
                                             <span className="whitespace-nowrap text-foreground text-lg font-normal">
                                                 {file.name}
-                                                lskjflskjflsklsjflsjfljflskjflskdjflskdjflksdjflskdjflksjdfjflskdjflskdjflkdsjflkjs
                                             </span>
                                         </section>
                                     </div>
-                                    <Button className="size-auto rounded-xl p-3 bg-red-500 hover:p-4 hover:bg-red-500">
+                                    <Button
+                                        onClick={() => handleDeleteFile(file)}
+                                        className="size-auto rounded-xl p-3 bg-red-500 hover:p-4 hover:bg-red-500"
+                                    >
                                         <Trash2Icon className="size-5 text-foreground m-0 p-0" />
                                     </Button>
                                 </div>
@@ -137,7 +137,7 @@ const UploadedFiles = ({ uploadedFiles }: UploadedFilesProps) => {
 const NewTicketPage = () => {
     const [uploadedFiles, setUploadedFiles] = useState<File[]>([]);
 
-    const updateFiles = (files: File[]) => {
+    const handleAddNewFiles = (files: File[]) => {
         console.log("\nOld");
         uploadedFiles.forEach((file) => console.log(file.name));
 
@@ -162,14 +162,19 @@ const NewTicketPage = () => {
         }
     };
 
+    const handleDeleteFile = (file: File) => {
+        const updatedFiles = uploadedFiles.filter((f: File) => f.name !== file.name);
+        setUploadedFiles(updatedFiles);
+    };
+
     return (
         <main className="h-[100vh] w-full flex flex-row gap-4 p-4">
             <form className="flex-8">
                 <Card className="size-full"></Card>
             </form>
             <aside className="flex-5 min-w-0 max-w-lg flex flex-col gap-4">
-                <DropArea updateFiles={updateFiles} />
-                <UploadedFiles uploadedFiles={uploadedFiles} />
+                <DropArea handleAddNewFiles={handleAddNewFiles} />
+                <UploadedFiles uploadedFiles={uploadedFiles} handleDeleteFile={handleDeleteFile} />
             </aside>
         </main>
     );
