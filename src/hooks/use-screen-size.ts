@@ -111,7 +111,7 @@ const useDefaultScreenSizes = () => {
     };
 };
 
-const useCustomScreenSize = (matchMedia: string) => {
+const useMatchSize = (matchMedia: string) => {
     const [isConstrainedSize, setIsConstrainedSize] = useState<boolean>(false);
 
     if (
@@ -138,4 +138,4 @@ const useCustomScreenSize = (matchMedia: string) => {
     return isConstrainedSize;
 };
 
-export { useDefaultScreenSizes, useCustomScreenSize };
+export { useDefaultScreenSizes, useMatchSize };

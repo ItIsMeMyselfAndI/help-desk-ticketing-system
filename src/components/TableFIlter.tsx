@@ -1,29 +1,19 @@
 import { useFilterContext } from "@/contexts/FilterContext";
-import { useTicketContext } from "@/contexts/TicketContext";
+import { useTickets } from "@/hooks/use-tickets";
 import { Card, CardAction, CardContent, CardDescription, CardTitle } from "@/components/ui/card";
 import { Button } from "./ui/button";
 import { RotateCcw } from "lucide-react";
-import { getYearOptions, monthOptions } from "@/data/filterOptions";
 import { useCallback, useEffect, useState } from "react";
-import {
-    Select,
-    SelectContent,
-    SelectGroup,
-    SelectItem,
-    SelectLabel,
-    SelectTrigger,
-    SelectValue,
-} from "@/components/ui/select";
 import type { TicketType } from "@/types";
-
-const yearOptions = getYearOptions();
+import { Selector } from "./Selector";
+import { ASSIGNMENT_TO, CATEGORIES, MONTHS, STATUSES, YEARS } from "@/data/constants";
 
 type FilterSelectionProps = {
     filterType: "status" | "category" | "year" | "month" | "assignment";
-    values: string[];
+    options: string[];
 };
 
-const FilterSelection = ({ filterType, values }: FilterSelectionProps) => {
+const FilterSelection = ({ filterType, options }: FilterSelectionProps) => {
     const defaultItem = "None";
     const {
         // states
@@ -39,7 +29,7 @@ const FilterSelection = ({ filterType, values }: FilterSelectionProps) => {
         setSelectedFilterByMonth,
         setSelectedFilterByAssignment,
     } = useFilterContext();
-    const { origTickets, setDisplayTickets } = useTicketContext();
+    const { origTickets, setDisplayTickets } = useTickets();
     const [selectedItem, setSelectedItem] = useState<string>(defaultItem);
 
     const updateFilterContext = useCallback(
@@ -55,7 +45,7 @@ const FilterSelection = ({ filterType, values }: FilterSelectionProps) => {
                     setSelectedFilterByYear(value);
                     break;
                 case "month": {
-                    const monthIndex = monthOptions.indexOf(value);
+                    const monthIndex = MONTHS.indexOf(value);
                     if (monthIndex !== -1) {
                         setSelectedFilterByMonth(String(monthIndex + 1).padStart(2, "0"));
                     } else {
@@ -135,31 +125,13 @@ const FilterSelection = ({ filterType, values }: FilterSelectionProps) => {
     return (
         <CardAction className="h-full w-full flex flex-col gap-2">
             <CardDescription className="text-lg">By {filterType}</CardDescription>
-            <Select value={selectedItem} onValueChange={handleSelectionChange}>
-                <SelectTrigger
-                    className={`w-full text-foreground data-[size=default]:h-full bg-muted hover:bg-accent ${
-                        selectedItem === defaultItem && "text-muted-foreground"
-                    }`}
-                >
-                    <SelectValue placeholder={defaultItem} />
-                </SelectTrigger>
-                <SelectContent>
-                    <SelectGroup>
-                        <SelectLabel className="text-lg text-foreground/50">{`Select ${filterType}`}</SelectLabel>
-                        <SelectItem
-                            className="text-muted-foreground focus:bg-accent focus:text-muted-foreground"
-                            value={defaultItem}
-                        >
-                            None
-                        </SelectItem>
-                        {values.map((val: string) => (
-                            <SelectItem key={val.toLowerCase()} className="focus:bg-primary" value={val}>
-                                {val}
-                            </SelectItem>
-                        ))}
-                    </SelectGroup>
-                </SelectContent>
-            </Select>
+            <Selector
+                options={options}
+                defaultItem="None"
+                selectedItem={selectedItem}
+                handleSelectionChange={handleSelectionChange}
+                filterType={filterType}
+            />
         </CardAction>
     );
 };
@@ -172,7 +144,7 @@ type TableFilterProps = {
 };
 
 const TableFilter = ({ padding, hasBorder = true, bgColor = "bg-card", variant = "default" }: TableFilterProps) => {
-    const { origTickets, setDisplayTickets } = useTicketContext();
+    const { origTickets, setDisplayTickets } = useTickets();
     const { setIsReset } = useFilterContext();
 
     const handleResetClick = () => {
@@ -200,26 +172,19 @@ const TableFilter = ({ padding, hasBorder = true, bgColor = "bg-card", variant =
             <CardContent className="flex-1 flex flex-col justify-evenly gap-2">
                 {/* by status  */}
                 <section className={`flex-1 ${variant === "full" && "flex flex-row gap-2"}`}>
-                    <FilterSelection filterType="status" values={["Open", "In progress", "Resolved", "Closed"]} />
-                    {variant === "full" && (
-                        <FilterSelection
-                            filterType="category"
-                            values={["Hardware", "Software", "Access", "Network", "Support"]}
-                        />
-                    )}
+                    <FilterSelection filterType="status" options={STATUSES} />
+                    {variant === "full" && <FilterSelection filterType="category" options={CATEGORIES} />}
                 </section>
-
-                {/* by category  */}
 
                 {/* by date  */}
                 <section className="flex-1 flex flex-row gap-2">
-                    <FilterSelection filterType="year" values={yearOptions} />
-                    <FilterSelection filterType="month" values={monthOptions} />
+                    <FilterSelection filterType="year" options={YEARS} />
+                    <FilterSelection filterType="month" options={MONTHS} />
                 </section>
 
                 {/* by assignment */}
                 <section className="flex-1">
-                    <FilterSelection filterType="assignment" values={["@bentot", "@juantot", "@gwentot", "@kwintot"]} />
+                    <FilterSelection filterType="assignment" options={ASSIGNMENT_TO} />
                 </section>
             </CardContent>
         </Card>

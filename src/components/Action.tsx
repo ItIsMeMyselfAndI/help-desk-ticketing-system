@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { Card, CardAction, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { selectStatusBGColor } from "@/lib/utils";
 import { ImageButton } from "@/components/ImageButton";
@@ -9,11 +9,11 @@ import { QuickEdit } from "@/components/QuickEdit";
 import XCloseSVG from "@/assets/close-circle-svgrepo-com.svg";
 import { Chat } from "@/components/Chat";
 import { TicketDetails } from "./TicketDetails";
-import { useTicketContext } from "@/contexts/TicketContext";
-import type { ActionTabType } from "@/types";
+import { useTickets } from "@/hooks/use-tickets";
 import { ButtonTab } from "./ButtonTab";
-import { useCustomScreenSize } from "@/hooks/use-screen-size";
+import { useMatchSize } from "@/hooks/use-screen-size";
 import { APP_MIN_HEIGHT } from "@/data/constants";
+import { useTab } from "@/hooks/use-tab";
 
 type ActionsProps = {
     variant?: "default" | "full";
@@ -21,7 +21,7 @@ type ActionsProps = {
 };
 
 const ActionHeader = ({ onActionsExitClick }: ActionsProps) => {
-    const { openedActionTicket } = useTicketContext();
+    const { openedActionTicket } = useTickets();
 
     return (
         <CardHeader className="flex flex-row justify-between p-0">
@@ -55,14 +55,8 @@ type FullActionsProps = {
 };
 
 const FullActions = ({ onActionsExitClick }: FullActionsProps) => {
-    const isConstrainedSize = useCustomScreenSize("(max-height: 890px)");
-    const [currTab, setCurrTab] = useState<ActionTabType>("details");
-
-    const handleTabChange = (tab: ActionTabType) => {
-        if (currTab !== tab) {
-            setCurrTab(tab);
-        }
-    };
+    const isConstrainedSize = useMatchSize("(max-height: 890px)");
+    const { currTab, setCurrTab, handleTabChange } = useTab("details");
 
     useEffect(() => {
         if (isConstrainedSize) {
@@ -140,14 +134,8 @@ const FullActions = ({ onActionsExitClick }: FullActionsProps) => {
 };
 
 const DefaultActions = () => {
-    const isConstrainedSize = useCustomScreenSize("(max-height: 890px)");
-    const [currTab, setCurrTab] = useState<ActionTabType>("filter");
-
-    const handleTabChange = (tab: ActionTabType) => {
-        if (currTab !== tab) {
-            setCurrTab(tab);
-        }
-    };
+    const isConstrainedSize = useMatchSize("(max-height: 890px)");
+    const { currTab, handleTabChange } = useTab("filter");
 
     return isConstrainedSize ? (
         <Card className="h-full bg-card gap-0 p-0">

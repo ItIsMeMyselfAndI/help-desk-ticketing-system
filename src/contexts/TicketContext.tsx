@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useRef, useState, type ReactNode, type RefObject } from "react";
+import React, { createContext, useRef, useState, type ReactNode, type RefObject } from "react";
 import type { TicketType } from "@/types";
 import ticketsSample from "@/data/tickets.sample.json";
 
@@ -50,12 +50,4 @@ const TicketProvider = ({ children }: { children: ReactNode }) => {
     );
 };
 
-const useTicketContext = () => {
-    const context = useContext(TicketContext);
-    if (!context) {
-        throw new Error("useTicketContext must be used within a TicketProvider");
-    }
-    return context;
-};
-
-export { TicketProvider, useTicketContext };
+export { TicketProvider, TicketContext };

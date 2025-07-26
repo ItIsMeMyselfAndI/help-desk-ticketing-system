@@ -1,19 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Card, CardContent, CardDescription, CardTitle } from "@/components/ui/card";
-import {
-    Select,
-    SelectContent,
-    SelectGroup,
-    SelectItem,
-    SelectLabel,
-    SelectTrigger,
-    SelectValue,
-} from "@/components/ui/select";
-import { useTicketContext } from "@/contexts/TicketContext";
+import { useTickets } from "@/hooks/use-tickets";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
 import { Check, Trash2Icon, Undo2, X } from "lucide-react";
 import type { TicketType } from "@/types";
+import { Selector } from "./Selector";
 
 type StatusChangeSelectionProp = {
     selectedStatus: string;
@@ -21,8 +13,6 @@ type StatusChangeSelectionProp = {
 };
 
 const StatusChangeSelection = ({ selectedStatus, setSelectedStatus }: StatusChangeSelectionProp) => {
-    const defaultItem = "None";
-
     const handleSelectionChange = (value: string) => {
         setSelectedStatus(value);
     };
@@ -30,32 +20,12 @@ const StatusChangeSelection = ({ selectedStatus, setSelectedStatus }: StatusChan
     const statuses = ["Re-open", "Close"];
 
     return (
-        <Select value={selectedStatus} onValueChange={handleSelectionChange}>
-            <SelectTrigger
-                className={`w-full text-foreground data-[size=default]:h-full bg-muted hover:bg-accent ${
-                    selectedStatus === defaultItem && "text-muted-foreground"
-                }`}
-            >
-                <SelectValue placeholder={defaultItem} />
-            </SelectTrigger>
-
-            <SelectContent>
-                <SelectGroup>
-                    <SelectLabel className="text-lg text-foreground/50">Select status</SelectLabel>
-                    <SelectItem
-                        className="text-muted-foreground focus:bg-accent focus:text-muted-foreground"
-                        value={defaultItem}
-                    >
-                        None
-                    </SelectItem>
-                    {statuses.map((val: string) => (
-                        <SelectItem key={val.toLowerCase()} className="focus:bg-primary" value={val}>
-                            {val}
-                        </SelectItem>
-                    ))}
-                </SelectGroup>
-            </SelectContent>
-        </Select>
+        <Selector
+            options={statuses}
+            defaultItem="None"
+            selectedItem={selectedStatus}
+            handleSelectionChange={handleSelectionChange}
+        />
     );
 };
 
@@ -75,7 +45,7 @@ const QuickEdit = ({ padding, hasBorder = true, bgColor = "bg-card" }: QuickEdit
         setSelectedTicketIDs,
         isAllSelected,
         setIsAllSelected,
-    } = useTicketContext();
+    } = useTickets();
     const [selectedStatus, setSelectedStatus] = useState<string>("None");
 
     const toggleSelectAll = () => {

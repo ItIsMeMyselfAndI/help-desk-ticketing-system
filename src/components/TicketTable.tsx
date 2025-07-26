@@ -1,4 +1,4 @@
-import { useTicketContext } from "@/contexts/TicketContext";
+import { useTickets } from "@/hooks/use-tickets";
 import type { TicketType } from "@/types";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -14,7 +14,7 @@ type TicketTableProps = {
 
 const TicketTable = ({ edit = false, variant = "default", onActionClick }: TicketTableProps) => {
     const { displayTickets, openedActionTicket, setOpenedActionTicket, selectedTicketIDs, setSelectedTicketIDs } =
-        useTicketContext();
+        useTickets();
 
     const showFullTable = variant === "full" || variant === "combo";
     const showActionColumn = variant === "message" || variant === "combo";

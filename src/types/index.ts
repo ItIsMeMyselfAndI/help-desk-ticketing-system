@@ -8,8 +8,8 @@ type FileType = {
 type TicketType = {
     id: string;
     title: string;
-    status: "Open" | "In progress" | "Resolved" | "Closed";
-    category: "Hardware" | "Software" | "Network" | "Access" | "Support";
+    status: "Open" | "In progress" | "Resolved" | "Closed" | "";
+    category: "Hardware" | "Software" | "Network" | "Access" | "Support" | "";
     description: string;
     files: FileType[];
     createdAt: string;
@@ -17,22 +17,24 @@ type TicketType = {
     assignedTo: {
         id: string;
         name: string;
-        role: "client" | "support" | "admin";
+        role: "client" | "support" | "admin" | "";
         imagePath: string;
     };
 };
 
 type StatusSummaryType = {
-    status: "Open" | "In progress" | "Resolved" | "Closed";
+    status: "Open" | "In progress" | "Resolved" | "Closed" | "";
     count: number;
 };
 
 type ChatType = {
-    source: "you" | "other";
+    source: "you" | "other" | "";
     date: string;
     message: string;
 };
 
 type ActionTabType = "details" | "chat" | "filter" | "edit" | "others";
 
-export { type TicketType, type StatusSummaryType, type ChatType, type ActionTabType, type FileType };
+type FormTabType = "form" | "upload";
+
+export type { TicketType, StatusSummaryType, ChatType, ActionTabType, FileType, FormTabType };
