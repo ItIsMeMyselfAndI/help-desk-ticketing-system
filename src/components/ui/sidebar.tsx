@@ -11,7 +11,7 @@ import { Separator } from "@/components/ui/separator";
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle } from "@/components/ui/sheet";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
-import { useScreenSize } from "@/hooks/use-large-screen";
+import { useDefaultScreenSizes } from "@/hooks/use-screen-size";
 
 const SIDEBAR_COOKIE_NAME = "sidebar_state";
 const SIDEBAR_COOKIE_MAX_AGE = 60 * 60 * 24 * 7;
@@ -56,7 +56,7 @@ function SidebarProvider({
 }) {
     const isMobile = useIsMobile();
     const [openMobile, setOpenMobile] = React.useState(false);
-    const { isExtraWidth } = useScreenSize();
+    const { isExtraWidth } = useDefaultScreenSizes();
 
     // This is the internal state of the sidebar.
     // We use openProp and setOpenProp for control from outside the component.
