@@ -6,6 +6,7 @@ import DashboardPage from "./pages/DashboardPage.tsx";
 import TicketsPage from "./pages/ViewTickets.tsx";
 import NewTicketPage from "./pages/NewTicketPage.tsx";
 import InboxPage from "./pages/InboxPage.tsx";
+import { APP_MIN_HEIGHT, MAIN_MIN_WIDTH } from "./data/constants.ts";
 
 const App = () => {
     return (
@@ -14,7 +15,10 @@ const App = () => {
                 <AppSidebar />
                 <SidebarTrigger className="block scale-150 sticky top-4 rounded-r-xl lg:hidden" />
 
-                <div className="flex flex-col h-[100vh] w-[100vw] min-w-[350px]">
+                <div
+                    className={`flex flex-col h-[100vh] w-[100vw]`}
+                    style={{ minHeight: APP_MIN_HEIGHT, minWidth: MAIN_MIN_WIDTH }}
+                >
                     <TicketProvider>
                         <Routes>
                             <Route path="/" element={<DashboardPage />} />

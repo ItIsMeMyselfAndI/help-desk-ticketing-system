@@ -77,7 +77,7 @@ const FullActions = ({ onActionsExitClick }: FullActionsProps) => {
     }, [currTab, setCurrTab, isConstrainedSize]);
 
     return (
-        <div className={`h-[100vh] min-h-[${APP_MIN_HEIGHT}] flex flex-col gap-2 p-4 xl:pl-0`}>
+        <div className={`h-[100vh] flex flex-col gap-2 p-4 xl:pl-0`} style={{ minHeight: APP_MIN_HEIGHT }}>
             <div>
                 <ActionHeader onActionsExitClick={onActionsExitClick} />
             </div>
@@ -103,8 +103,8 @@ const FullActions = ({ onActionsExitClick }: FullActionsProps) => {
 
                     <CardContent className="flex-1 min-h-0 p-4">
                         {/* ticket details */}
-                        <CardAction className={`size-full min-w-0 ${currTab !== "details" && "hidden"}`}>
-                            <TicketDetails padding="p-2" hasBorder={false} />
+                        <CardAction className={`size-full ${currTab !== "details" && "hidden"}`}>
+                            <TicketDetails hasBorder={true} />
                         </CardAction>
                         {/* chat */}
                         <CardAction className={`size-full ${currTab !== "chat" && "hidden"}`}>
@@ -179,7 +179,7 @@ const DefaultActions = () => {
                     <TableFilter variant="full" />
                 </FilterProvider>
             </section>
-            <section className="flex-1 bg-amber-700">
+            <section className="flex-1">
                 <QuickEdit />
             </section>
         </div>

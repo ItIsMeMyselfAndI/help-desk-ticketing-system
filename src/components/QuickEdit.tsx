@@ -147,7 +147,7 @@ const QuickEdit = ({ padding, hasBorder = true, bgColor = "bg-card" }: QuickEdit
             </CardTitle>
 
             <CardContent className="h-full flex flex-col justify-between gap-2">
-                <section className="flex-1 flex justify-between">
+                <section className="flex-1 flex justify-between items-center">
                     <div className="flex items-center gap-2">
                         <Checkbox className="size-5 bg-muted" checked={isAllSelected} onClick={toggleSelectAll} />
                         <CardDescription className="text-lg font-medium">Select all tickets</CardDescription>

@@ -3,7 +3,7 @@ import type { StatusSummaryType } from "@/types";
 import { StatusSummary } from "@/components/StatusSummary";
 import { TicketTable } from "@/components/TicketTable";
 import { Actions } from "@/components/Action";
-import { APP_MIN_HEIGHT } from "@/data/constants";
+import { APP_MIN_HEIGHT, MAIN_MIN_WIDTH } from "@/data/constants";
 
 const DashboardPage = () => {
     const [statusSummaries] = useState<StatusSummaryType[]>([
@@ -14,11 +14,14 @@ const DashboardPage = () => {
     ]);
 
     return (
-        <main className={`h-[100vh] min-h-[${APP_MIN_HEIGHT}] p-4 flex flex-col gap-2 md:gap-4`}>
+        <main
+            className={`h-[100vh] p-4 flex flex-col gap-2 md:gap-4`}
+            style={{ minHeight: APP_MIN_HEIGHT, minWidth: MAIN_MIN_WIDTH }}
+        >
             <section className="xl:h-40">
                 <StatusSummary statusSummaries={statusSummaries} />
             </section>
-            <section className="flex-1 min-h-0 grid grid-cols-1 bg-amber-600">
+            <section className="flex-1 min-h-0 grid grid-cols-1">
                 <div className="min-h-0 flex flex-row gap-4">
                     {/* table */}
                     <div className={`overflow-auto flex-1`}>
