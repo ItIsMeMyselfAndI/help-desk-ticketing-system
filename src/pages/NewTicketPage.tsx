@@ -8,7 +8,7 @@ import { ButtonTab } from "@/components/ButtonTab";
 import { useTab } from "@/hooks/use-tab";
 import { useTickets } from "@/hooks/use-tickets";
 import { Selector } from "@/components/Selector";
-import { CATEGORIES } from "@/data/constants";
+import { APP_MIN_HEIGHT, CATEGORIES, MAIN_MIN_WIDTH } from "@/data/constants";
 import { Textarea } from "@/components/ui/textarea";
 
 type FormProps = {
@@ -18,6 +18,7 @@ type FormProps = {
 const Form = ({ ticketID }: FormProps) => {
     const defaultItem = "None";
     const [selectedItem, setSelectedItem] = useState<string>(defaultItem);
+    const isConstrainedSize = useMatchSize("(max-width: 500px)");
     const date = new Date();
 
     const handleSelectionChange = (value: string) => {
@@ -25,76 +26,78 @@ const Form = ({ ticketID }: FormProps) => {
     };
 
     return (
-        <Card className="text-2xl text-foreground/80 size-full flex flex-col gap-2 p-0 border-none bg-transparent">
+        <Card className="flex-1 size-full min-h-0 text-2xl text-foreground/80 flex flex-col gap-2 p-0 border-none rounded-none bg-transparent">
             <CardHeader className="p-0">
                 <span className="text-5xl text-primary font-bold p-0">{ticketID}</span>
             </CardHeader>
-            <form className="flex-1 flex flex-col p-6 gap-4 rounded-xl border border-border bg-card">
-                <section className="flex flex-col gap-4">
-                    <label className="font-semibold">Title</label>
-                    <input type="text" className="border border-input rounded-xl py-2 px-4 bg-muted" />
-                </section>
+            <div className="flex size-full min-h-0 p-6 rounded-xl border border-border bg-card">
+                <form className="flex-1 overflow-auto flex flex-col gap-4 bg-transparent">
+                    <section className="flex flex-col gap-4">
+                        <label className="font-semibold">Title</label>
+                        <input type="text" className="border border-input rounded-xl py-2 px-4 bg-muted" />
+                    </section>
 
-                <section className="flex flex-row gap-4">
-                    <div className="flex-1 flex flex-col gap-4">
-                        <label className="font-semibold">Status</label>
+                    <section className="flex flex-row gap-4">
+                        <div className="flex-1 flex flex-col gap-4">
+                            <label className="font-semibold">Status</label>
+                            <div className="flex flex-row justify-between items-center border border-input rounded-xl py-2 px-4 bg-background hover:cursor-not-allowed">
+                                <span className="text-2xl">Open</span>
+                                <LockKeyholeIcon className="size-10 text-foreground p-2 rounded-xl bg-orange-500" />
+                            </div>
+                        </div>
+                        <div className="flex-1 flex flex-col gap-4">
+                            <label className="font-semibold">Category</label>
+                            <Selector
+                                options={CATEGORIES}
+                                defaultItem={defaultItem}
+                                selectedItem={selectedItem}
+                                handleSelectionChange={handleSelectionChange}
+                            />
+                        </div>
+                    </section>
+
+                    <section className="flex-1 flex flex-col gap-4">
+                        <label className="font-semibold">Description</label>
+                        <Textarea className="flex-1 text-2xl border border-input rounded-xl py-2 px-4 bg-muted" />
+                    </section>
+
+                    <section className={`flex gap-4 ${isConstrainedSize ? "flex-col" : "flex-row"}`}>
+                        <div className="flex-1 flex flex-col gap-4">
+                            <label className="font-semibold">Created at</label>
+                            <div className="flex flex-row justify-between items-center border border-input rounded-xl py-2 px-4 bg-background hover:cursor-not-allowed">
+                                <span className="text-2xl">{date.toISOString().split("T")[0]}</span>
+                                <LockKeyholeIcon className="size-10 text-foreground p-2 rounded-xl bg-orange-500" />
+                            </div>
+                        </div>
+                        <div className="flex-1 flex flex-col gap-4">
+                            <label className="font-semibold">Updated at</label>
+                            <div className="flex flex-row justify-between items-center border border-input rounded-xl py-2 px-4 bg-background hover:cursor-not-allowed">
+                                <span className="text-2xl">{date.toISOString().split("T")[0]}</span>
+                                <LockKeyholeIcon className="size-10 text-foreground p-2 rounded-xl bg-orange-500" />
+                            </div>
+                        </div>
+                    </section>
+
+                    <section className="flex flex-col gap-4">
+                        <label className="font-semibold">Assigned to</label>
                         <div className="flex flex-row justify-between items-center border border-input rounded-xl py-2 px-4 bg-background hover:cursor-not-allowed">
-                            <span className="text-2xl">Open</span>
+                            <span className="text-2xl">Not available for you</span>
                             <LockKeyholeIcon className="size-10 text-foreground p-2 rounded-xl bg-orange-500" />
                         </div>
-                    </div>
-                    <div className="flex-1 flex flex-col gap-4">
-                        <label className="font-semibold">Category</label>
-                        <Selector
-                            options={CATEGORIES}
-                            defaultItem={defaultItem}
-                            selectedItem={selectedItem}
-                            handleSelectionChange={handleSelectionChange}
-                        />
-                    </div>
-                </section>
+                    </section>
 
-                <section className="flex-1 flex flex-col gap-4">
-                    <label className="font-semibold">Description</label>
-                    <Textarea className="flex-1 text-2xl border border-input rounded-xl py-2 px-4 bg-muted" />
-                </section>
+                    <Separator orientation="horizontal" />
 
-                <section className="flex flex-row gap-4">
-                    <div className="flex-1 flex flex-col gap-4">
-                        <label className="font-semibold">Created at</label>
-                        <div className="flex flex-row justify-between items-center border border-input rounded-xl py-2 px-4 bg-background hover:cursor-not-allowed">
-                            <span className="text-2xl">{date.toISOString().split("T")[0]}</span>
-                            <LockKeyholeIcon className="size-10 text-foreground p-2 rounded-xl bg-orange-500" />
-                        </div>
-                    </div>
-                    <div className="flex-1 flex flex-col gap-4">
-                        <label className="font-semibold">Updated at</label>
-                        <div className="flex flex-row justify-between items-center border border-input rounded-xl py-2 px-4 bg-background hover:cursor-not-allowed">
-                            <span className="text-2xl">{date.toISOString().split("T")[0]}</span>
-                            <LockKeyholeIcon className="size-10 text-foreground p-2 rounded-xl bg-orange-500" />
-                        </div>
-                    </div>
-                </section>
-
-                <section className="flex flex-col gap-4">
-                    <label className="font-semibold">Assigned to</label>
-                    <div className="flex flex-row justify-between items-center border border-input rounded-xl py-2 px-4 bg-background hover:cursor-not-allowed">
-                        <span className="text-2xl">Not available for you</span>
-                        <LockKeyholeIcon className="size-10 text-foreground p-2 rounded-xl bg-orange-500" />
-                    </div>
-                </section>
-
-                <Separator orientation="horizontal" />
-
-                <section className="flex flex-row justify-end items-center gap-4">
-                    <Button className="p-6 rounded-xl bg-yellow-500 hover:bg-yellow-500 hover:p-7">
-                        <span className="text-2xl font-semibold text-foreground/80">Submit</span>
-                    </Button>
-                    <Button className="p-6 rounded-xl bg-red-500 hover:bg-red-500 hover:p-7">
-                        <span className="text-2xl font-semibold text-foreground/80">Cancel</span>
-                    </Button>
-                </section>
-            </form>
+                    <section className="flex flex-row justify-end items-center gap-4">
+                        <Button className="p-6 rounded-xl bg-yellow-500 hover:bg-yellow-500 hover:p-7">
+                            <span className="text-2xl font-semibold text-foreground/80">Submit</span>
+                        </Button>
+                        <Button className="p-6 rounded-xl bg-red-500 hover:bg-red-500 hover:p-7">
+                            <span className="text-2xl font-semibold text-foreground/80">Cancel</span>
+                        </Button>
+                    </section>
+                </form>
+            </div>
         </Card>
     );
 };
@@ -237,7 +240,7 @@ const UploadedFiles = ({ uploadedFiles, handleDeleteFile }: UploadedFilesProps) 
 const NewTicketPage = () => {
     const { origTickets } = useTickets();
     const [uploadedFiles, setUploadedFiles] = useState<File[]>([]);
-    const isConstrainedWidth = useMatchSize("(max-width: 1110px");
+    const isConstrainedWidth = useMatchSize("(max-width: 1160px");
     const { currTab, handleTabChange } = useTab("form");
 
     const getAvailableTicketID = () => {
@@ -277,9 +280,12 @@ const NewTicketPage = () => {
     };
 
     return (
-        <main className="h-[100vh] w-full flex flex-row gap-4 p-4">
+        <main
+            className="h-[100vh] min-h-0 w-full flex flex-row gap-4 p-4"
+            style={{ minHeight: APP_MIN_HEIGHT, minWidth: MAIN_MIN_WIDTH }}
+        >
             {isConstrainedWidth ? (
-                <div className="min-w-0 flex-1 flex flex-col gap-2">
+                <div className="min-w-0 min-h-0 flex-1 flex flex-col gap-2">
                     {/* tabs */}
                     <section className="h-auto flex flex-row justify-end gap-2">
                         <ButtonTab tab="form" currTab={currTab} handleTabChange={handleTabChange} />
@@ -289,7 +295,7 @@ const NewTicketPage = () => {
 
                     {/* main */}
                     {currTab === "form" ? (
-                        <section className="flex-1">
+                        <section className="flex-1 min-h-0">
                             <Form ticketID={getAvailableTicketID()} />
                         </section>
                     ) : (
