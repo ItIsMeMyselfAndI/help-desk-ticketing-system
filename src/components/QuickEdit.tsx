@@ -139,15 +139,15 @@ const QuickEdit = ({ padding, hasBorder = true, bgColor = "bg-card" }: QuickEdit
 
     return (
         <Card
-            className={`flex-1 gap-0 flex flex-col ${bgColor}
+            className={`px-6 h-full gap-2 flex flex-col ${bgColor}
                 ${!hasBorder && "border-none"} ${padding ? "" : "p-6"}`}
         >
             <CardTitle className="flex justify-between text-2xl text-primary">
                 <span>Quick Edit</span>
             </CardTitle>
 
-            <CardContent className="flex-1 flex flex-col justify-between gap-2">
-                <section className="flex justify-between">
+            <CardContent className="h-full flex flex-col justify-between gap-2">
+                <section className="flex-1 flex justify-between items-center">
                     <div className="flex items-center gap-2">
                         <Checkbox className="size-5 bg-muted" checked={isAllSelected} onClick={toggleSelectAll} />
                         <CardDescription className="text-lg font-medium">Select all tickets</CardDescription>
@@ -162,12 +162,12 @@ const QuickEdit = ({ padding, hasBorder = true, bgColor = "bg-card" }: QuickEdit
                     </Button>
                 </section>
 
-                <section className="flex flex-col gap-1">
-                    <CardDescription className="text-lg">Change status</CardDescription>
+                <CardDescription className="text-lg">Change status</CardDescription>
+                <section className="flex-1 flex flex-col gap-2">
                     <StatusChangeSelection selectedStatus={selectedStatus} setSelectedStatus={setSelectedStatus} />
                 </section>
 
-                <section className="flex flex-row gap-2">
+                <section className="flex-1 flex flex-row gap-2">
                     <Button
                         onClick={handleUpdateStatus}
                         className="h-full flex-1 bg-green-500 hover:bg-green-500 hover:ring-2 hover:ring-green-500 active:bg-green-600 active:ring-green-600"
@@ -184,8 +184,8 @@ const QuickEdit = ({ padding, hasBorder = true, bgColor = "bg-card" }: QuickEdit
                     </Button>
                 </section>
 
-                <section className="flex flex-col gap-1">
-                    <CardDescription className="text-lg">Delete ticket(s)</CardDescription>
+                <CardDescription className="text-lg">Delete ticket(s)</CardDescription>
+                <section className="flex-1 flex flex-col gap-2">
                     <Button
                         onClick={handleDeleteTickets}
                         className="flex-1 bg-red-500 hover:bg-red-500 hover:ring-2 hover:ring-red-500 active:bg-red-600 active:ring-red-600"

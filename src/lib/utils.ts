@@ -21,7 +21,7 @@ function selectStatusBGColor(status: TicketType["status"]) {
     }
 }
 
-function selectRoleBGColor(role: TicketType["assigned_to"]["role"]) {
+function selectRoleBGColor(role: TicketType["assignedTo"]["role"]) {
     switch (role) {
         case "admin":
             return "bg-purple-500";

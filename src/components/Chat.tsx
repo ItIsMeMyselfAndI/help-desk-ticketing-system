@@ -84,8 +84,8 @@ const Chat = ({ padding, hasBorder = true }: ChatProps) => {
                     <img src={ProfileSVG} alt="" className="size-10" />
                 </div>
                 <CardTitle className="text-left">
-                    <h3>{openedActionTicket?.assigned_to.name}</h3>
-                    <span className="text-primary text-sm">{openedActionTicket?.assigned_to.role}</span>
+                    <h3>{openedActionTicket?.assignedTo.name}</h3>
+                    <span className="text-primary text-sm">{openedActionTicket?.assignedTo.role}</span>
                 </CardTitle>
             </CardHeader>
 

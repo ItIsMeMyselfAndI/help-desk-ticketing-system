@@ -3,6 +3,7 @@ import { TicketTable } from "@/components/TicketTable";
 import { Actions } from "@/components/Action";
 import { useTicketContext } from "@/contexts/TicketContext";
 import { useEffect } from "react";
+import { APP_MIN_HEIGHT } from "@/data/constants";
 
 const TicketsPage = () => {
     const { origTickets, openedActionTicket, setOpenedActionTicket } = useTicketContext();
@@ -26,17 +27,17 @@ const TicketsPage = () => {
     };
 
     return (
-        <div className="h-[100vh] grid grid-cols-1">
-            <div className="min-h-0 flex flex-row">
-                <div className={`overflow-auto p-4 flex-1 ${openedActionTicket && "hidden xl:block"}`}>
+        <main className={`h-[100vh] grid grid-cols-1`} style={{ minHeight: APP_MIN_HEIGHT }}>
+            <div className={`flex flex-row min-h-0`}>
+                <section className={`overflow-auto p-4 flex-1 ${openedActionTicket && "hidden xl:block"}`}>
                     <TicketTable edit={true} variant="combo" onActionClick={handleActions} />
-                </div>
+                </section>
 
-                <div className={`flex-1 min-h-0 min-w-md xl:max-w-md ${openedActionTicket ? "block" : "hidden"}`}>
-                    <Actions onActionsExitClick={handleActionsExit} />
-                </div>
+                <section className={`flex-1 min-h-0 min-w-0 xl:max-w-md ${openedActionTicket ? "block" : "hidden"}`}>
+                    <Actions variant="full" onActionsExitClick={handleActionsExit} />
+                </section>
             </div>
-        </div>
+        </main>
     );
 };
 

@@ -3,10 +3,73 @@
     "id": "TKT-001",
     "title": "Cannot access email",
     "status": "Open",
+    "category": "Access",
     "description": "User unable to log into company email account. Getting authentication error message.",
-    "created_at": "2024-10-09",
-    "updated_at": "2024-10-09",
-    "assigned_to": {
+    "files": [
+      {
+        "name": "error_screenshot.png",
+        "size": 245760,
+        "type": "image/png",
+        "uploadedAt": "2024-10-09T10:15:00Z"
+      },
+      {
+        "name": "system_logs.txt",
+        "size": 8192,
+        "type": "text/plain",
+        "uploadedAt": "2024-10-09T10:30:00Z"
+      },
+      {
+        "name": "email_client_config.xml",
+        "size": 4096,
+        "type": "application/xml",
+        "uploadedAt": "2024-10-09T10:45:00Z"
+      },
+      {
+        "name": "outlook_error_log.txt",
+        "size": 12288,
+        "type": "text/plain",
+        "uploadedAt": "2024-10-09T11:00:00Z"
+      },
+      {
+        "name": "network_trace.pcap",
+        "size": 102400,
+        "type": "application/vnd.tcpdump.pcap",
+        "uploadedAt": "2024-10-09T11:15:00Z"
+      },
+      {
+        "name": "authentication_details.docx",
+        "size": 32768,
+        "type": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        "uploadedAt": "2024-10-09T11:30:00Z"
+      },
+      {
+        "name": "server_response_headers.txt",
+        "size": 2048,
+        "type": "text/plain",
+        "uploadedAt": "2024-10-09T11:45:00Z"
+      },
+      {
+        "name": "ssl_certificate_error.png",
+        "size": 156672,
+        "type": "image/png",
+        "uploadedAt": "2024-10-09T12:00:00Z"
+      },
+      {
+        "name": "email_account_settings.pdf",
+        "size": 98304,
+        "type": "application/pdf",
+        "uploadedAt": "2024-10-09T12:15:00Z"
+      },
+      {
+        "name": "troubleshooting_steps.md",
+        "size": 6144,
+        "type": "text/markdown",
+        "uploadedAt": "2024-10-09T12:30:00Z"
+      }
+    ],
+    "createdAt": "2024-10-09",
+    "updatedAt": "2024-10-09",
+    "assignedTo": {
       "id": "USR-001",
       "name": "@bentot",
       "role": "support",
@@ -17,10 +80,73 @@
     "id": "TKT-002",
     "title": "Printer not working",
     "status": "Resolved",
+    "category": "Hardware",
     "description": "HP LaserJet printer in office not responding to print commands. Paper jam cleared and drivers updated.",
-    "created_at": "2024-01-09",
-    "updated_at": "2024-01-10",
-    "assigned_to": {
+    "files": [
+      {
+        "name": "printer_error.jpg",
+        "size": 512000,
+        "type": "image/jpeg",
+        "uploadedAt": "2024-01-09T14:20:00Z"
+      },
+      {
+        "name": "paper_jam_photo.jpg",
+        "size": 768000,
+        "type": "image/jpeg",
+        "uploadedAt": "2024-01-09T14:25:00Z"
+      },
+      {
+        "name": "printer_status_report.pdf",
+        "size": 131072,
+        "type": "application/pdf",
+        "uploadedAt": "2024-01-09T14:30:00Z"
+      },
+      {
+        "name": "driver_installation_log.txt",
+        "size": 16384,
+        "type": "text/plain",
+        "uploadedAt": "2024-01-09T14:35:00Z"
+      },
+      {
+        "name": "network_printer_config.xml",
+        "size": 8192,
+        "type": "application/xml",
+        "uploadedAt": "2024-01-09T14:40:00Z"
+      },
+      {
+        "name": "print_queue_screenshot.png",
+        "size": 204800,
+        "type": "image/png",
+        "uploadedAt": "2024-01-09T14:45:00Z"
+      },
+      {
+        "name": "toner_levels.jpg",
+        "size": 345600,
+        "type": "image/jpeg",
+        "uploadedAt": "2024-01-09T14:50:00Z"
+      },
+      {
+        "name": "maintenance_history.xlsx",
+        "size": 49152,
+        "type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        "uploadedAt": "2024-01-09T14:55:00Z"
+      },
+      {
+        "name": "user_manual.pdf",
+        "size": 2097152,
+        "type": "application/pdf",
+        "uploadedAt": "2024-01-09T15:00:00Z"
+      },
+      {
+        "name": "test_print_results.pdf",
+        "size": 73728,
+        "type": "application/pdf",
+        "uploadedAt": "2024-01-09T15:05:00Z"
+      }
+    ],
+    "createdAt": "2024-01-09",
+    "updatedAt": "2024-01-10",
+    "assignedTo": {
       "id": "USR-001",
       "name": "@bentot",
       "role": "support",
@@ -31,10 +157,73 @@
     "id": "TKT-003",
     "title": "Request for new mouse",
     "status": "Open",
+    "category": "Hardware",
     "description": "Current wireless mouse has intermittent connectivity issues. Need replacement for daily work.",
-    "created_at": "2024-09-15",
-    "updated_at": "2024-09-16",
-    "assigned_to": {
+    "files": [
+      {
+        "name": "mouse_connectivity_issue.mp4",
+        "size": 10485760,
+        "type": "video/mp4",
+        "uploadedAt": "2024-09-15T09:00:00Z"
+      },
+      {
+        "name": "current_mouse_photo.jpg",
+        "size": 614400,
+        "type": "image/jpeg",
+        "uploadedAt": "2024-09-15T09:15:00Z"
+      },
+      {
+        "name": "device_manager_screenshot.png",
+        "size": 187392,
+        "type": "image/png",
+        "uploadedAt": "2024-09-15T09:30:00Z"
+      },
+      {
+        "name": "bluetooth_settings.png",
+        "size": 143360,
+        "type": "image/png",
+        "uploadedAt": "2024-09-15T09:45:00Z"
+      },
+      {
+        "name": "mouse_driver_info.txt",
+        "size": 4096,
+        "type": "text/plain",
+        "uploadedAt": "2024-09-15T10:00:00Z"
+      },
+      {
+        "name": "replacement_request_form.pdf",
+        "size": 98304,
+        "type": "application/pdf",
+        "uploadedAt": "2024-09-15T10:15:00Z"
+      },
+      {
+        "name": "recommended_mouse_models.docx",
+        "size": 32768,
+        "type": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        "uploadedAt": "2024-09-15T10:30:00Z"
+      },
+      {
+        "name": "battery_level_history.xlsx",
+        "size": 24576,
+        "type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        "uploadedAt": "2024-09-15T10:45:00Z"
+      },
+      {
+        "name": "ergonomic_requirements.pdf",
+        "size": 163840,
+        "type": "application/pdf",
+        "uploadedAt": "2024-09-15T11:00:00Z"
+      },
+      {
+        "name": "warranty_information.jpg",
+        "size": 409600,
+        "type": "image/jpeg",
+        "uploadedAt": "2024-09-15T11:15:00Z"
+      }
+    ],
+    "createdAt": "2024-09-15",
+    "updatedAt": "2024-09-16",
+    "assignedTo": {
       "id": "USR-001",
       "name": "@bentot",
       "role": "support",
@@ -45,10 +234,73 @@
     "id": "TKT-004",
     "title": "Monitor not displaying",
     "status": "In progress",
+    "category": "Hardware",
     "description": "External monitor connected to laptop showing black screen. Cable and ports checked.",
-    "created_at": "2024-03-12",
-    "updated_at": "2024-03-13",
-    "assigned_to": {
+    "files": [
+      {
+        "name": "monitor_setup.jpg",
+        "size": 1024000,
+        "type": "image/jpeg",
+        "uploadedAt": "2024-03-12T09:45:00Z"
+      },
+      {
+        "name": "cable_check_video.mp4",
+        "size": 15728640,
+        "type": "video/mp4",
+        "uploadedAt": "2024-03-12T10:00:00Z"
+      },
+      {
+        "name": "display_settings_screenshot.png",
+        "size": 256000,
+        "type": "image/png",
+        "uploadedAt": "2024-03-12T10:15:00Z"
+      },
+      {
+        "name": "hdmi_port_inspection.jpg",
+        "size": 819200,
+        "type": "image/jpeg",
+        "uploadedAt": "2024-03-12T10:30:00Z"
+      },
+      {
+        "name": "graphics_driver_version.txt",
+        "size": 2048,
+        "type": "text/plain",
+        "uploadedAt": "2024-03-12T10:45:00Z"
+      },
+      {
+        "name": "monitor_specifications.pdf",
+        "size": 409600,
+        "type": "application/pdf",
+        "uploadedAt": "2024-03-12T11:00:00Z"
+      },
+      {
+        "name": "resolution_test_results.xlsx",
+        "size": 16384,
+        "type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        "uploadedAt": "2024-03-12T11:15:00Z"
+      },
+      {
+        "name": "cable_tester_results.pdf",
+        "size": 73728,
+        "type": "application/pdf",
+        "uploadedAt": "2024-03-12T11:30:00Z"
+      },
+      {
+        "name": "power_led_status.mp4",
+        "size": 8388608,
+        "type": "video/mp4",
+        "uploadedAt": "2024-03-12T11:45:00Z"
+      },
+      {
+        "name": "troubleshooting_checklist.docx",
+        "size": 40960,
+        "type": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        "uploadedAt": "2024-03-12T12:00:00Z"
+      }
+    ],
+    "createdAt": "2024-03-12",
+    "updatedAt": "2024-03-13",
+    "assignedTo": {
       "id": "USR-001",
       "name": "@bentot",
       "role": "support",
@@ -59,10 +311,73 @@
     "id": "TKT-005",
     "title": "Request for external hard drive",
     "status": "Closed",
+    "category": "Hardware",
     "description": "Need additional storage space for project files. 1TB external drive requested and approved.",
-    "created_at": "2024-04-22",
-    "updated_at": "2024-04-23",
-    "assigned_to": {
+    "files": [
+      {
+        "name": "storage_requirements.pdf",
+        "size": 204800,
+        "type": "application/pdf",
+        "uploadedAt": "2024-04-22T11:30:00Z"
+      },
+      {
+        "name": "current_disk_usage.png",
+        "size": 163840,
+        "type": "image/png",
+        "uploadedAt": "2024-04-22T11:45:00Z"
+      },
+      {
+        "name": "file_type_breakdown.xlsx",
+        "size": 32768,
+        "type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        "uploadedAt": "2024-04-22T12:00:00Z"
+      },
+      {
+        "name": "project_folders_size.txt",
+        "size": 8192,
+        "type": "text/plain",
+        "uploadedAt": "2024-04-22T12:15:00Z"
+      },
+      {
+        "name": "drive_specifications.pdf",
+        "size": 524288,
+        "type": "application/pdf",
+        "uploadedAt": "2024-04-22T12:30:00Z"
+      },
+      {
+        "name": "budget_approval.docx",
+        "size": 24576,
+        "type": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        "uploadedAt": "2024-04-22T12:45:00Z"
+      },
+      {
+        "name": "backup_strategy.pdf",
+        "size": 294912,
+        "type": "application/pdf",
+        "uploadedAt": "2024-04-22T13:00:00Z"
+      },
+      {
+        "name": "vendor_quotes.xlsx",
+        "size": 65536,
+        "type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        "uploadedAt": "2024-04-22T13:15:00Z"
+      },
+      {
+        "name": "encryption_requirements.txt",
+        "size": 4096,
+        "type": "text/plain",
+        "uploadedAt": "2024-04-22T13:30:00Z"
+      },
+      {
+        "name": "delivery_confirmation.pdf",
+        "size": 131072,
+        "type": "application/pdf",
+        "uploadedAt": "2024-04-23T09:00:00Z"
+      }
+    ],
+    "createdAt": "2024-04-22",
+    "updatedAt": "2024-04-23",
+    "assignedTo": {
       "id": "USR-001",
       "name": "@bentot",
       "role": "support",
@@ -73,10 +388,19 @@
     "id": "TKT-006",
     "title": "Projector not working",
     "status": "Open",
+    "category": "Hardware",
     "description": "Conference room projector not turning on. Red light blinking on power button.",
-    "created_at": "2024-05-05",
-    "updated_at": "2024-05-05",
-    "assigned_to": {
+    "files": [
+      {
+        "name": "projector_status.jpg",
+        "size": 768000,
+        "type": "image/jpeg",
+        "uploadedAt": "2024-05-05T13:15:00Z"
+      }
+    ],
+    "createdAt": "2024-05-05",
+    "updatedAt": "2024-05-05",
+    "assignedTo": {
       "id": "USR-001",
       "name": "@bentot",
       "role": "support",
@@ -87,10 +411,12 @@
     "id": "TKT-007",
     "title": "Request for additional storage",
     "status": "Closed",
+    "category": "Software",
     "description": "Cloud storage quota exceeded. Need additional 500GB for team collaboration files.",
-    "created_at": "2024-06-21",
-    "updated_at": "2024-06-22",
-    "assigned_to": {
+    "files": [],
+    "createdAt": "2024-06-21",
+    "updatedAt": "2024-06-22",
+    "assignedTo": {
       "id": "USR-001",
       "name": "@bentot",
       "role": "support",
@@ -101,10 +427,25 @@
     "id": "TKT-008",
     "title": "Laptop battery issue",
     "status": "Resolved",
+    "category": "Hardware",
     "description": "Laptop battery draining very quickly, lasting only 1 hour. Battery replaced successfully.",
-    "created_at": "2024-07-10",
-    "updated_at": "2024-07-11",
-    "assigned_to": {
+    "files": [
+      {
+        "name": "battery_report.html",
+        "size": 16384,
+        "type": "text/html",
+        "uploadedAt": "2024-07-10T08:45:00Z"
+      },
+      {
+        "name": "power_settings.png",
+        "size": 187392,
+        "type": "image/png",
+        "uploadedAt": "2024-07-10T09:00:00Z"
+      }
+    ],
+    "createdAt": "2024-07-10",
+    "updatedAt": "2024-07-11",
+    "assignedTo": {
       "id": "USR-001",
       "name": "@bentot",
       "role": "support",
@@ -115,10 +456,12 @@
     "id": "TKT-009",
     "title": "Request for new keyboard",
     "status": "Open",
+    "category": "Hardware",
     "description": "Several keys on current keyboard are sticking. Need ergonomic keyboard replacement.",
-    "created_at": "2024-08-18",
-    "updated_at": "2024-08-19",
-    "assigned_to": {
+    "files": [],
+    "createdAt": "2024-08-18",
+    "updatedAt": "2024-08-19",
+    "assignedTo": {
       "id": "USR-001",
       "name": "@bentot",
       "role": "support",
@@ -129,10 +472,25 @@
     "id": "TKT-010",
     "title": "Desktop not booting",
     "status": "In progress",
+    "category": "Support",
     "description": "Desktop computer stuck on Windows loading screen. Attempted safe mode restart.",
-    "created_at": "2024-09-01",
-    "updated_at": "2024-09-02",
-    "assigned_to": {
+    "files": [
+      {
+        "name": "boot_error.jpg",
+        "size": 614400,
+        "type": "image/jpeg",
+        "uploadedAt": "2024-09-01T12:30:00Z"
+      },
+      {
+        "name": "diagnostic_log.txt",
+        "size": 4096,
+        "type": "text/plain",
+        "uploadedAt": "2024-09-01T15:45:00Z"
+      }
+    ],
+    "createdAt": "2024-09-01",
+    "updatedAt": "2024-09-02",
+    "assignedTo": {
       "id": "USR-001",
       "name": "@bentot",
       "role": "support",
@@ -143,10 +501,25 @@
     "id": "TKT-011",
     "title": "Software installation request",
     "status": "In progress",
+    "category": "Software",
     "description": "Need Adobe Creative Suite installed for marketing department projects. License verification in progress.",
-    "created_at": "2024-02-09",
-    "updated_at": "2024-02-11",
-    "assigned_to": {
+    "files": [
+      {
+        "name": "software_requirements.pdf",
+        "size": 327680,
+        "type": "application/pdf",
+        "uploadedAt": "2024-02-09T10:00:00Z"
+      },
+      {
+        "name": "license_info.docx",
+        "size": 49152,
+        "type": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        "uploadedAt": "2024-02-09T14:30:00Z"
+      }
+    ],
+    "createdAt": "2024-02-09",
+    "updatedAt": "2024-02-11",
+    "assignedTo": {
       "id": "USR-002",
       "name": "@juantot",
       "role": "support",
@@ -157,10 +530,19 @@
     "id": "TKT-012",
     "title": "Request for software upgrade",
     "status": "Open",
+    "category": "Software",
     "description": "Current version of accounting software outdated. Need upgrade to latest version for tax compliance.",
-    "created_at": "2024-10-05",
-    "updated_at": "2024-10-06",
-    "assigned_to": {
+    "files": [
+      {
+        "name": "current_version.png",
+        "size": 122880,
+        "type": "image/png",
+        "uploadedAt": "2024-10-05T16:20:00Z"
+      }
+    ],
+    "createdAt": "2024-10-05",
+    "updatedAt": "2024-10-06",
+    "assignedTo": {
       "id": "USR-002",
       "name": "@juantot",
       "role": "support",
@@ -171,10 +553,25 @@
     "id": "TKT-013",
     "title": "Email sync issue",
     "status": "Open",
+    "category": "Software",
     "description": "Emails not syncing between mobile and desktop clients. Missing recent messages.",
-    "created_at": "2024-10-14",
-    "updated_at": "2024-10-15",
-    "assigned_to": {
+    "files": [
+      {
+        "name": "sync_error_mobile.jpg",
+        "size": 256000,
+        "type": "image/jpeg",
+        "uploadedAt": "2024-10-14T11:45:00Z"
+      },
+      {
+        "name": "email_settings.png",
+        "size": 163840,
+        "type": "image/png",
+        "uploadedAt": "2024-10-14T12:00:00Z"
+      }
+    ],
+    "createdAt": "2024-10-14",
+    "updatedAt": "2024-10-15",
+    "assignedTo": {
       "id": "USR-002",
       "name": "@juantot",
       "role": "support",
@@ -185,10 +582,25 @@
     "id": "TKT-014",
     "title": "Request for new laptop",
     "status": "Open",
+    "category": "Hardware",
     "description": "Current laptop is 5 years old and running slowly. Need modern laptop for development work.",
-    "created_at": "2024-10-16",
-    "updated_at": "2024-10-16",
-    "assigned_to": {
+    "files": [
+      {
+        "name": "laptop_specs.pdf",
+        "size": 409600,
+        "type": "application/pdf",
+        "uploadedAt": "2024-10-16T09:30:00Z"
+      },
+      {
+        "name": "performance_benchmark.xlsx",
+        "size": 73728,
+        "type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        "uploadedAt": "2024-10-16T10:15:00Z"
+      }
+    ],
+    "createdAt": "2024-10-16",
+    "updatedAt": "2024-10-16",
+    "assignedTo": {
       "id": "USR-002",
       "name": "@juantot",
       "role": "support",
@@ -199,10 +611,19 @@
     "id": "TKT-015",
     "title": "Network configuration change",
     "status": "Resolved",
+    "category": "Network",
     "description": "Need to change network settings for new office location. DNS and gateway configured successfully.",
-    "created_at": "2024-03-20",
-    "updated_at": "2024-03-21",
-    "assigned_to": {
+    "files": [
+      {
+        "name": "network_diagram.pdf",
+        "size": 1048576,
+        "type": "application/pdf",
+        "uploadedAt": "2024-03-20T13:45:00Z"
+      }
+    ],
+    "createdAt": "2024-03-20",
+    "updatedAt": "2024-03-21",
+    "assignedTo": {
       "id": "USR-002",
       "name": "@juantot",
       "role": "support",
@@ -213,10 +634,25 @@
     "id": "TKT-016",
     "title": "VPN setup",
     "status": "Closed",
+    "category": "Network",
     "description": "Remote worker needs VPN access to company resources. Client installed and configured.",
-    "created_at": "2024-04-15",
-    "updated_at": "2024-04-16",
-    "assigned_to": {
+    "files": [
+      {
+        "name": "vpn_config.ovpn",
+        "size": 2048,
+        "type": "application/x-openvpn-profile",
+        "uploadedAt": "2024-04-15T15:00:00Z"
+      },
+      {
+        "name": "setup_instructions.pdf",
+        "size": 286720,
+        "type": "application/pdf",
+        "uploadedAt": "2024-04-15T15:30:00Z"
+      }
+    ],
+    "createdAt": "2024-04-15",
+    "updatedAt": "2024-04-16",
+    "assignedTo": {
       "id": "USR-002",
       "name": "@juantot",
       "role": "support",
@@ -227,10 +663,19 @@
     "id": "TKT-017",
     "title": "Request for admin access",
     "status": "Open",
+    "category": "Access",
     "description": "User needs admin privileges for installing development tools. Security approval required.",
-    "created_at": "2024-05-25",
-    "updated_at": "2024-05-26",
-    "assigned_to": {
+    "files": [
+      {
+        "name": "access_request_form.pdf",
+        "size": 147456,
+        "type": "application/pdf",
+        "uploadedAt": "2024-05-25T10:45:00Z"
+      }
+    ],
+    "createdAt": "2024-05-25",
+    "updatedAt": "2024-05-26",
+    "assignedTo": {
       "id": "USR-002",
       "name": "@juantot",
       "role": "support",
@@ -241,10 +686,12 @@
     "id": "TKT-018",
     "title": "Printer setup",
     "status": "Resolved",
+    "category": "Support",
     "description": "New department printer needs to be added to network. Drivers installed and sharing enabled.",
-    "created_at": "2024-06-03",
-    "updated_at": "2024-06-04",
-    "assigned_to": {
+    "files": [],
+    "createdAt": "2024-06-03",
+    "updatedAt": "2024-06-04",
+    "assignedTo": {
       "id": "USR-002",
       "name": "@juantot",
       "role": "support",
@@ -255,10 +702,25 @@
     "id": "TKT-019",
     "title": "Monitor calibration",
     "status": "In progress",
+    "category": "Support",
     "description": "Design team monitors showing incorrect colors. Color calibration needed for accurate work.",
-    "created_at": "2024-07-12",
-    "updated_at": "2024-07-13",
-    "assigned_to": {
+    "files": [
+      {
+        "name": "color_test.png",
+        "size": 2097152,
+        "type": "image/png",
+        "uploadedAt": "2024-07-12T14:20:00Z"
+      },
+      {
+        "name": "monitor_profile.icm",
+        "size": 8192,
+        "type": "application/octet-stream",
+        "uploadedAt": "2024-07-12T14:45:00Z"
+      }
+    ],
+    "createdAt": "2024-07-12",
+    "updatedAt": "2024-07-13",
+    "assignedTo": {
       "id": "USR-002",
       "name": "@juantot",
       "role": "support",
@@ -269,10 +731,25 @@
     "id": "TKT-020",
     "title": "System update failure",
     "status": "Open",
+    "category": "Software",
     "description": "Windows update failed to install. System showing error code 0x80070002.",
-    "created_at": "2024-08-22",
-    "updated_at": "2024-08-22",
-    "assigned_to": {
+    "files": [
+      {
+        "name": "update_error.png",
+        "size": 204800,
+        "type": "image/png",
+        "uploadedAt": "2024-08-22T16:30:00Z"
+      },
+      {
+        "name": "windows_update_log.txt",
+        "size": 32768,
+        "type": "text/plain",
+        "uploadedAt": "2024-08-22T17:00:00Z"
+      }
+    ],
+    "createdAt": "2024-08-22",
+    "updatedAt": "2024-08-22",
+    "assignedTo": {
       "id": "USR-002",
       "name": "@juantot",
       "role": "support",
@@ -283,10 +760,12 @@
     "id": "TKT-021",
     "title": "Password reset",
     "status": "Resolved",
+    "category": "Access",
     "description": "User forgot domain password. Password reset successfully through Active Directory.",
-    "created_at": "2024-04-09",
-    "updated_at": "2024-04-09",
-    "assigned_to": {
+    "files": [],
+    "createdAt": "2024-04-09",
+    "updatedAt": "2024-04-09",
+    "assignedTo": {
       "id": "USR-003",
       "name": "@gwentot",
       "role": "admin",
@@ -297,10 +776,19 @@
     "id": "TKT-022",
     "title": "Monitor flickering",
     "status": "Closed",
+    "category": "Hardware",
     "description": "Monitor screen flickering intermittently. Cable replaced and issue resolved.",
-    "created_at": "2024-05-09",
-    "updated_at": "2024-05-10",
-    "assigned_to": {
+    "files": [
+      {
+        "name": "flickering_video.mp4",
+        "size": 25165824,
+        "type": "video/mp4",
+        "uploadedAt": "2024-05-09T11:15:00Z"
+      }
+    ],
+    "createdAt": "2024-05-09",
+    "updatedAt": "2024-05-10",
+    "assignedTo": {
       "id": "USR-003",
       "name": "@gwentot",
       "role": "admin",
@@ -311,10 +799,31 @@
     "id": "TKT-023",
     "title": "System crash during startup",
     "status": "In progress",
+    "category": "Support",
     "description": "Computer crashes with blue screen during Windows startup. Running memory diagnostics.",
-    "created_at": "2024-10-07",
-    "updated_at": "2024-10-08",
-    "assigned_to": {
+    "files": [
+      {
+        "name": "blue_screen.jpg",
+        "size": 1228800,
+        "type": "image/jpeg",
+        "uploadedAt": "2024-10-07T08:20:00Z"
+      },
+      {
+        "name": "memory_test_results.txt",
+        "size": 12288,
+        "type": "text/plain",
+        "uploadedAt": "2024-10-07T14:30:00Z"
+      },
+      {
+        "name": "minidump.dmp",
+        "size": 268435456,
+        "type": "application/octet-stream",
+        "uploadedAt": "2024-10-07T15:00:00Z"
+      }
+    ],
+    "createdAt": "2024-10-07",
+    "updatedAt": "2024-10-08",
+    "assignedTo": {
       "id": "USR-003",
       "name": "@gwentot",
       "role": "admin",
@@ -325,10 +834,19 @@
     "id": "TKT-024",
     "title": "Antivirus expired",
     "status": "Resolved",
+    "category": "Software",
     "description": "Corporate antivirus license expired. New license activated and definitions updated.",
-    "created_at": "2024-10-17",
-    "updated_at": "2024-10-18",
-    "assigned_to": {
+    "files": [
+      {
+        "name": "license_renewal.pdf",
+        "size": 98304,
+        "type": "application/pdf",
+        "uploadedAt": "2024-10-17T09:45:00Z"
+      }
+    ],
+    "createdAt": "2024-10-17",
+    "updatedAt": "2024-10-18",
+    "assignedTo": {
       "id": "USR-003",
       "name": "@gwentot",
       "role": "admin",
@@ -339,10 +857,19 @@
     "id": "TKT-025",
     "title": "Slow internet connection",
     "status": "Open",
+    "category": "Network",
     "description": "Internet speed significantly slower than usual. Download speeds below 10 Mbps.",
-    "created_at": "2024-03-30",
-    "updated_at": "2024-03-31",
-    "assigned_to": {
+    "files": [
+      {
+        "name": "speed_test_results.png",
+        "size": 143360,
+        "type": "image/png",
+        "uploadedAt": "2024-03-30T13:25:00Z"
+      }
+    ],
+    "createdAt": "2024-03-30",
+    "updatedAt": "2024-03-31",
+    "assignedTo": {
       "id": "USR-003",
       "name": "@gwentot",
       "role": "admin",
@@ -353,10 +880,19 @@
     "id": "TKT-026",
     "title": "Request for new monitor",
     "status": "Closed",
+    "category": "Hardware",
     "description": "Need second monitor for improved productivity. 24-inch monitor approved and delivered.",
-    "created_at": "2024-04-18",
-    "updated_at": "2024-04-19",
-    "assigned_to": {
+    "files": [
+      {
+        "name": "monitor_specifications.pdf",
+        "size": 367616,
+        "type": "application/pdf",
+        "uploadedAt": "2024-04-18T10:30:00Z"
+      }
+    ],
+    "createdAt": "2024-04-18",
+    "updatedAt": "2024-04-19",
+    "assignedTo": {
       "id": "USR-003",
       "name": "@gwentot",
       "role": "admin",
@@ -367,10 +903,12 @@
     "id": "TKT-027",
     "title": "Keyboard replacement",
     "status": "Resolved",
+    "category": "Hardware",
     "description": "Keyboard keys not responding properly. New mechanical keyboard provided.",
-    "created_at": "2024-05-28",
-    "updated_at": "2024-05-29",
-    "assigned_to": {
+    "files": [],
+    "createdAt": "2024-05-28",
+    "updatedAt": "2024-05-29",
+    "assignedTo": {
       "id": "USR-003",
       "name": "@gwentot",
       "role": "admin",
@@ -381,10 +919,25 @@
     "id": "TKT-028",
     "title": "Software license renewal",
     "status": "Open",
+    "category": "Software",
     "description": "Microsoft Office license expiring next month. Need to renew for entire department.",
-    "created_at": "2024-06-14",
-    "updated_at": "2024-06-15",
-    "assigned_to": {
+    "files": [
+      {
+        "name": "license_expiry_notice.pdf",
+        "size": 131072,
+        "type": "application/pdf",
+        "uploadedAt": "2024-06-14T11:00:00Z"
+      },
+      {
+        "name": "department_user_list.xlsx",
+        "size": 24576,
+        "type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        "uploadedAt": "2024-06-14T11:30:00Z"
+      }
+    ],
+    "createdAt": "2024-06-14",
+    "updatedAt": "2024-06-15",
+    "assignedTo": {
       "id": "USR-003",
       "name": "@gwentot",
       "role": "admin",
@@ -395,10 +948,25 @@
     "id": "TKT-029",
     "title": "Desktop overheating",
     "status": "In progress",
+    "category": "Hardware",
     "description": "Desktop computer running very hot and loud. CPU fan may need replacement.",
-    "created_at": "2024-07-20",
-    "updated_at": "2024-07-21",
-    "assigned_to": {
+    "files": [
+      {
+        "name": "temperature_readings.txt",
+        "size": 6144,
+        "type": "text/plain",
+        "uploadedAt": "2024-07-20T12:45:00Z"
+      },
+      {
+        "name": "fan_noise_recording.wav",
+        "size": 5242880,
+        "type": "audio/wav",
+        "uploadedAt": "2024-07-20T13:00:00Z"
+      }
+    ],
+    "createdAt": "2024-07-20",
+    "updatedAt": "2024-07-21",
+    "assignedTo": {
       "id": "USR-003",
       "name": "@gwentot",
       "role": "admin",
@@ -409,10 +977,19 @@
     "id": "TKT-030",
     "title": "Request for webcam",
     "status": "Open",
+    "category": "Hardware",
     "description": "Need webcam for video conferences. Current laptop camera quality is poor.",
-    "created_at": "2024-08-29",
-    "updated_at": "2024-08-29",
-    "assigned_to": {
+    "files": [
+      {
+        "name": "current_camera_quality.jpg",
+        "size": 174080,
+        "type": "image/jpeg",
+        "uploadedAt": "2024-08-29T14:15:00Z"
+      }
+    ],
+    "createdAt": "2024-08-29",
+    "updatedAt": "2024-08-29",
+    "assignedTo": {
       "id": "USR-003",
       "name": "@gwentot",
       "role": "admin",
@@ -423,10 +1000,19 @@
     "id": "TKT-031",
     "title": "VPN access request",
     "status": "Closed",
+    "category": "Network",
     "description": "New employee needs VPN access for remote work. Account created and configured.",
-    "created_at": "2024-06-09",
-    "updated_at": "2024-06-10",
-    "assigned_to": {
+    "files": [
+      {
+        "name": "employee_onboarding.pdf",
+        "size": 458752,
+        "type": "application/pdf",
+        "uploadedAt": "2024-06-09T09:00:00Z"
+      }
+    ],
+    "createdAt": "2024-06-09",
+    "updatedAt": "2024-06-10",
+    "assignedTo": {
       "id": "USR-004",
       "name": "@kwintot",
       "role": "admin",
@@ -437,10 +1023,25 @@
     "id": "TKT-032",
     "title": "Slow computer performance",
     "status": "In progress",
+    "category": "Support",
     "description": "Computer taking very long to start and open applications. Running disk cleanup and defragmentation.",
-    "created_at": "2024-07-09",
-    "updated_at": "2024-07-12",
-    "assigned_to": {
+    "files": [
+      {
+        "name": "system_performance.png",
+        "size": 219136,
+        "type": "image/png",
+        "uploadedAt": "2024-07-09T15:30:00Z"
+      },
+      {
+        "name": "disk_usage_report.html",
+        "size": 40960,
+        "type": "text/html",
+        "uploadedAt": "2024-07-09T16:00:00Z"
+      }
+    ],
+    "createdAt": "2024-07-09",
+    "updatedAt": "2024-07-12",
+    "assignedTo": {
       "id": "USR-004",
       "name": "@kwintot",
       "role": "admin",
@@ -451,10 +1052,19 @@
     "id": "TKT-033",
     "title": "Unable to connect to WiFi",
     "status": "Resolved",
+    "category": "Network",
     "description": "Laptop cannot connect to office WiFi network. Network adapter driver updated successfully.",
-    "created_at": "2024-10-10",
-    "updated_at": "2024-10-11",
-    "assigned_to": {
+    "files": [
+      {
+        "name": "wifi_error.png",
+        "size": 92160,
+        "type": "image/png",
+        "uploadedAt": "2024-10-10T10:45:00Z"
+      }
+    ],
+    "createdAt": "2024-10-10",
+    "updatedAt": "2024-10-11",
+    "assignedTo": {
       "id": "USR-004",
       "name": "@kwintot",
       "role": "admin",
@@ -465,10 +1075,19 @@
     "id": "TKT-034",
     "title": "Projector not displaying",
     "status": "In progress",
+    "category": "Hardware",
     "description": "Meeting room projector showing 'no signal' message. Testing different cables and inputs.",
-    "created_at": "2024-10-19",
-    "updated_at": "2024-10-20",
-    "assigned_to": {
+    "files": [
+      {
+        "name": "projector_no_signal.jpg",
+        "size": 345600,
+        "type": "image/jpeg",
+        "uploadedAt": "2024-10-19T11:20:00Z"
+      }
+    ],
+    "createdAt": "2024-10-19",
+    "updatedAt": "2024-10-20",
+    "assignedTo": {
       "id": "USR-004",
       "name": "@kwintot",
       "role": "admin",
@@ -479,10 +1098,12 @@
     "id": "TKT-035",
     "title": "Request for new headset",
     "status": "Open",
+    "category": "Hardware",
     "description": "Current headset microphone not working properly. Need noise-canceling headset for calls.",
-    "created_at": "2024-03-25",
-    "updated_at": "2024-03-26",
-    "assigned_to": {
+    "files": [],
+    "createdAt": "2024-03-25",
+    "updatedAt": "2024-03-26",
+    "assignedTo": {
       "id": "USR-004",
       "name": "@kwintot",
       "role": "admin",
@@ -493,10 +1114,25 @@
     "id": "TKT-036",
     "title": "Network connectivity issue",
     "status": "Open",
+    "category": "Network",
     "description": "Intermittent network disconnections throughout the day. Affecting productivity and file access.",
-    "created_at": "2024-04-27",
-    "updated_at": "2024-04-28",
-    "assigned_to": {
+    "files": [
+      {
+        "name": "network_log.txt",
+        "size": 16384,
+        "type": "text/plain",
+        "uploadedAt": "2024-04-27T13:15:00Z"
+      },
+      {
+        "name": "ping_test_results.png",
+        "size": 78848,
+        "type": "image/png",
+        "uploadedAt": "2024-04-27T13:45:00Z"
+      }
+    ],
+    "createdAt": "2024-04-27",
+    "updatedAt": "2024-04-28",
+    "assignedTo": {
       "id": "USR-004",
       "name": "@kwintot",
       "role": "admin",
@@ -505,12 +1141,21 @@
   },
   {
     "id": "TKT-037",
-    "title": "Request for new phone llllllllllllllllllllllllllllllllll",
+    "title": "Request for new phone",
     "status": "Closed",
+    "category": "Hardware",
     "description": "Current work phone is outdated and battery life is very poor. New smartphone approved and delivered.",
-    "created_at": "2024-05-12",
-    "updated_at": "2024-05-13",
-    "assigned_to": {
+    "files": [
+      {
+        "name": "phone_specifications.pdf",
+        "size": 524288,
+        "type": "application/pdf",
+        "uploadedAt": "2024-05-12T14:00:00Z"
+      }
+    ],
+    "createdAt": "2024-05-12",
+    "updatedAt": "2024-05-13",
+    "assignedTo": {
       "id": "USR-004",
       "name": "@kwintot",
       "role": "admin",
@@ -521,10 +1166,25 @@
     "id": "TKT-038",
     "title": "System backup failed",
     "status": "Resolved",
+    "category": "Support",
     "description": "Automated system backup failed for three consecutive days. Backup schedule reconfigured and tested.",
-    "created_at": "2024-06-30",
-    "updated_at": "2024-07-01",
-    "assigned_to": {
+    "files": [
+      {
+        "name": "backup_error_log.txt",
+        "size": 20480,
+        "type": "text/plain",
+        "uploadedAt": "2024-06-30T07:30:00Z"
+      },
+      {
+        "name": "backup_configuration.xml",
+        "size": 4096,
+        "type": "application/xml",
+        "uploadedAt": "2024-06-30T12:00:00Z"
+      }
+    ],
+    "createdAt": "2024-06-30",
+    "updatedAt": "2024-07-01",
+    "assignedTo": {
       "id": "USR-004",
       "name": "@kwintot",
       "role": "admin",
@@ -535,10 +1195,19 @@
     "id": "TKT-039",
     "title": "Request for new chair",
     "status": "Open",
+    "category": "Hardware",
     "description": "Current office chair causing back pain. Need ergonomic chair for better posture support.",
-    "created_at": "2024-08-05",
-    "updated_at": "2024-08-05",
-    "assigned_to": {
+    "files": [
+      {
+        "name": "ergonomic_chair_options.pdf",
+        "size": 655360,
+        "type": "application/pdf",
+        "uploadedAt": "2024-08-05T10:30:00Z"
+      }
+    ],
+    "createdAt": "2024-08-05",
+    "updatedAt": "2024-08-05",
+    "assignedTo": {
       "id": "USR-004",
       "name": "@kwintot",
       "role": "admin",
@@ -549,10 +1218,25 @@
     "id": "TKT-040",
     "title": "Mobile device setup",
     "status": "Open",
+    "category": "Support",
     "description": "New employee needs company mobile device configured with email and business applications.",
-    "created_at": "2024-09-10",
-    "updated_at": "2024-09-11",
-    "assigned_to": {
+    "files": [
+      {
+        "name": "mobile_setup_checklist.pdf",
+        "size": 196608,
+        "type": "application/pdf",
+        "uploadedAt": "2024-09-10T08:45:00Z"
+      },
+      {
+        "name": "company_apps_list.docx",
+        "size": 32768,
+        "type": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        "uploadedAt": "2024-09-10T09:15:00Z"
+      }
+    ],
+    "createdAt": "2024-09-10",
+    "updatedAt": "2024-09-11",
+    "assignedTo": {
       "id": "USR-004",
       "name": "@kwintot",
       "role": "admin",
