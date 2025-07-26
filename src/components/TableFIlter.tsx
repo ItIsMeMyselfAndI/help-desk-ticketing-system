@@ -3,12 +3,10 @@ import { useTickets } from "@/hooks/use-tickets";
 import { Card, CardAction, CardContent, CardDescription, CardTitle } from "@/components/ui/card";
 import { Button } from "./ui/button";
 import { RotateCcw } from "lucide-react";
-import { getYearOptions, monthOptions } from "@/data/filterOptions";
 import { useCallback, useEffect, useState } from "react";
 import type { TicketType } from "@/types";
 import { Selector } from "./Selector";
-
-const yearOptions = getYearOptions();
+import { ASSIGNMENT_TO, CATEGORIES, MONTHS, STATUSES, YEARS } from "@/data/constants";
 
 type FilterSelectionProps = {
     filterType: "status" | "category" | "year" | "month" | "assignment";
@@ -47,7 +45,7 @@ const FilterSelection = ({ filterType, options }: FilterSelectionProps) => {
                     setSelectedFilterByYear(value);
                     break;
                 case "month": {
-                    const monthIndex = monthOptions.indexOf(value);
+                    const monthIndex = MONTHS.indexOf(value);
                     if (monthIndex !== -1) {
                         setSelectedFilterByMonth(String(monthIndex + 1).padStart(2, "0"));
                     } else {
@@ -174,27 +172,19 @@ const TableFilter = ({ padding, hasBorder = true, bgColor = "bg-card", variant =
             <CardContent className="flex-1 flex flex-col justify-evenly gap-2">
                 {/* by status  */}
                 <section className={`flex-1 ${variant === "full" && "flex flex-row gap-2"}`}>
-                    <FilterSelection filterType="status" options={["Open", "In progress", "Resolved", "Closed"]} />
-                    {variant === "full" && (
-                        <FilterSelection
-                            filterType="category"
-                            options={["Hardware", "Software", "Access", "Network", "Support"]}
-                        />
-                    )}
+                    <FilterSelection filterType="status" options={STATUSES} />
+                    {variant === "full" && <FilterSelection filterType="category" options={CATEGORIES} />}
                 </section>
 
                 {/* by date  */}
                 <section className="flex-1 flex flex-row gap-2">
-                    <FilterSelection filterType="year" options={yearOptions} />
-                    <FilterSelection filterType="month" options={monthOptions} />
+                    <FilterSelection filterType="year" options={YEARS} />
+                    <FilterSelection filterType="month" options={MONTHS} />
                 </section>
 
                 {/* by assignment */}
                 <section className="flex-1">
-                    <FilterSelection
-                        filterType="assignment"
-                        options={["@bentot", "@juantot", "@gwentot", "@kwintot"]}
-                    />
+                    <FilterSelection filterType="assignment" options={ASSIGNMENT_TO} />
                 </section>
             </CardContent>
         </Card>
