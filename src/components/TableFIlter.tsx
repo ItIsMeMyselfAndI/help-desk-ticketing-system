@@ -5,25 +5,17 @@ import { Button } from "./ui/button";
 import { RotateCcw } from "lucide-react";
 import { getYearOptions, monthOptions } from "@/data/filterOptions";
 import { useCallback, useEffect, useState } from "react";
-import {
-    Select,
-    SelectContent,
-    SelectGroup,
-    SelectItem,
-    SelectLabel,
-    SelectTrigger,
-    SelectValue,
-} from "@/components/ui/select";
 import type { TicketType } from "@/types";
+import { Selector } from "./Selector";
 
 const yearOptions = getYearOptions();
 
 type FilterSelectionProps = {
     filterType: "status" | "category" | "year" | "month" | "assignment";
-    values: string[];
+    options: string[];
 };
 
-const FilterSelection = ({ filterType, values }: FilterSelectionProps) => {
+const FilterSelection = ({ filterType, options }: FilterSelectionProps) => {
     const defaultItem = "None";
     const {
         // states
@@ -135,31 +127,13 @@ const FilterSelection = ({ filterType, values }: FilterSelectionProps) => {
     return (
         <CardAction className="h-full w-full flex flex-col gap-2">
             <CardDescription className="text-lg">By {filterType}</CardDescription>
-            <Select value={selectedItem} onValueChange={handleSelectionChange}>
-                <SelectTrigger
-                    className={`w-full text-foreground data-[size=default]:h-full bg-muted hover:bg-accent ${
-                        selectedItem === defaultItem && "text-muted-foreground"
-                    }`}
-                >
-                    <SelectValue placeholder={defaultItem} />
-                </SelectTrigger>
-                <SelectContent>
-                    <SelectGroup>
-                        <SelectLabel className="text-lg text-foreground/50">{`Select ${filterType}`}</SelectLabel>
-                        <SelectItem
-                            className="text-muted-foreground focus:bg-accent focus:text-muted-foreground"
-                            value={defaultItem}
-                        >
-                            None
-                        </SelectItem>
-                        {values.map((val: string) => (
-                            <SelectItem key={val.toLowerCase()} className="focus:bg-primary" value={val}>
-                                {val}
-                            </SelectItem>
-                        ))}
-                    </SelectGroup>
-                </SelectContent>
-            </Select>
+            <Selector
+                options={options}
+                defaultItem="None"
+                selectedItem={selectedItem}
+                handleSelectionChange={handleSelectionChange}
+                filterType={filterType}
+            />
         </CardAction>
     );
 };
@@ -200,24 +174,27 @@ const TableFilter = ({ padding, hasBorder = true, bgColor = "bg-card", variant =
             <CardContent className="flex-1 flex flex-col justify-evenly gap-2">
                 {/* by status  */}
                 <section className={`flex-1 ${variant === "full" && "flex flex-row gap-2"}`}>
-                    <FilterSelection filterType="status" values={["Open", "In progress", "Resolved", "Closed"]} />
+                    <FilterSelection filterType="status" options={["Open", "In progress", "Resolved", "Closed"]} />
                     {variant === "full" && (
                         <FilterSelection
                             filterType="category"
-                            values={["Hardware", "Software", "Access", "Network", "Support"]}
+                            options={["Hardware", "Software", "Access", "Network", "Support"]}
                         />
                     )}
                 </section>
 
                 {/* by date  */}
                 <section className="flex-1 flex flex-row gap-2">
-                    <FilterSelection filterType="year" values={yearOptions} />
-                    <FilterSelection filterType="month" values={monthOptions} />
+                    <FilterSelection filterType="year" options={yearOptions} />
+                    <FilterSelection filterType="month" options={monthOptions} />
                 </section>
 
                 {/* by assignment */}
                 <section className="flex-1">
-                    <FilterSelection filterType="assignment" values={["@bentot", "@juantot", "@gwentot", "@kwintot"]} />
+                    <FilterSelection
+                        filterType="assignment"
+                        options={["@bentot", "@juantot", "@gwentot", "@kwintot"]}
+                    />
                 </section>
             </CardContent>
         </Card>
