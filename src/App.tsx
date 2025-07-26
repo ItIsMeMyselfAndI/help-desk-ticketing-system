@@ -14,7 +14,7 @@ const App = () => {
                 <AppSidebar />
                 <SidebarTrigger className="block scale-150 sticky top-4 rounded-r-xl lg:hidden" />
 
-                <div className="flex flex-col h-[100vh] w-[100vw]">
+                <div className="flex flex-col h-[100vh] w-[100vw] min-w-[350px]">
                     <TicketProvider>
                         <Routes>
                             <Route path="/" element={<DashboardPage />} />

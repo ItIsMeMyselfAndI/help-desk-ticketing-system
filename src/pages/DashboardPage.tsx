@@ -15,12 +15,12 @@ const DashboardPage = () => {
     ]);
 
     return (
-        <div className="h-[100vh] p-4 flex flex-col gap-2 sm:gap-4">
-            <div>
+        <main className="h-[100vh] p-4 flex flex-col gap-2 md:gap-4">
+            <section className="xl:h-40">
                 <StatusSummary statusSummaries={statusSummaries} />
-            </div>
-            <div className="min-h-0 grid grid-cols-1">
-                <div className="min-h-0 flex-1 flex flex-row gap-4">
+            </section>
+            <section className="flex-1 min-h-0 grid grid-cols-1 bg-amber-600">
+                <div className="min-h-0 flex flex-row gap-4">
                     {/* table */}
                     <div className={`overflow-auto flex-1`}>
                         <TicketTable edit={true} />
@@ -33,8 +33,8 @@ const DashboardPage = () => {
                         <QuickEdit />
                     </div>
                 </div>
-            </div>
-        </div>
+            </section>
+        </main>
     );
 };
 

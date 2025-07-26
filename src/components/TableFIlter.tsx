@@ -199,19 +199,17 @@ const TableFilter = ({ padding, hasBorder = true, bgColor = "bg-card", variant =
 
             <CardContent className="flex-1 flex flex-col justify-evenly gap-2">
                 {/* by status  */}
-                <section className="flex-1">
+                <section className={`flex-1 ${variant === "full" && "flex flex-row gap-2"}`}>
                     <FilterSelection filterType="status" values={["Open", "In progress", "Resolved", "Closed"]} />
-                </section>
-
-                {/* by category  */}
-                {variant === "full" && (
-                    <section className="flex-1">
+                    {variant === "full" && (
                         <FilterSelection
                             filterType="category"
                             values={["Hardware", "Software", "Access", "Network", "Support"]}
                         />
-                    </section>
-                )}
+                    )}
+                </section>
+
+                {/* by category  */}
 
                 {/* by date  */}
                 <section className="flex-1 flex flex-row gap-2">
