@@ -1,7 +1,6 @@
 import { Card, CardDescription, CardTitle } from "@/components/ui/card";
 import { useTickets } from "@/hooks/use-tickets";
 import { selectRoleBGColor } from "@/lib/utils";
-import type { FileType } from "@/types";
 
 type TicketDetailType =
     | "id"
@@ -57,7 +56,7 @@ const TicketDetails = ({ padding, hasBorder = true }: TicketDetailsProps) => {
             <CardDescription className="min-h-0 flex-1 flex flex-row gap-2">
                 <span className="text-lg">Files:</span>
                 <div className="flex-1 overflow-auto flex flex-col gap-2 bg-muted border border-input rounded-xl py-0.5 px-4">
-                    {openedActionTicket?.files?.map((file: FileType) => {
+                    {openedActionTicket?.files?.map((file: File) => {
                         return (
                             <span className="bg-accent text-foreground text-lg p-1 whitespace-nowrap">{file.name}</span>
                         );
@@ -72,15 +71,15 @@ const TicketDetails = ({ padding, hasBorder = true }: TicketDetailsProps) => {
                 <span className="text-lg">assignedTo:</span>
                 <div className="flex-1 overflow-x-auto flex flex-row items-center bg-muted border border-input rounded-xl py-0.5 px-4">
                     <span className="text-foreground text-lg whitespace-nowrap">
-                        {openedActionTicket?.assignedTo.name}
+                        {openedActionTicket?.assignedTo?.name || "None"}
                     </span>
                     <div
                         className={`size-3 rounded-full ${
-                            openedActionTicket && selectRoleBGColor(openedActionTicket.assignedTo.role)
+                            openedActionTicket && selectRoleBGColor(openedActionTicket.assignedTo?.role)
                         }`}
                     />
                     <span className="text-foreground text-lg whitespace-nowrap">
-                        {openedActionTicket?.assignedTo.role}
+                        {openedActionTicket?.assignedTo?.role}
                     </span>
                 </div>
             </CardDescription>

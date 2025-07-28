@@ -1,20 +1,13 @@
-type FileType = {
-    name: string;
-    size: number;
-    type: string;
-    uploadedAt: string;
-};
-
 type TicketType = {
     id: string;
     title: string;
     status: "Open" | "In progress" | "Resolved" | "Closed" | "";
     category: "Hardware" | "Software" | "Network" | "Access" | "Support" | "";
     description: string;
-    files: FileType[];
+    files: File[];
     createdAt: string;
     updatedAt: string;
-    assignedTo: {
+    assignedTo: null | {
         id: string;
         name: string;
         role: "client" | "support" | "admin" | "";
@@ -37,4 +30,4 @@ type ActionTabType = "details" | "chat" | "filter" | "edit" | "others";
 
 type FormTabType = "form" | "upload";
 
-export type { TicketType, StatusSummaryType, ChatType, ActionTabType, FileType, FormTabType };
+export type { TicketType, StatusSummaryType, ChatType, ActionTabType, FormTabType };
