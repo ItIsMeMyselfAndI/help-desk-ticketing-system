@@ -1,6 +1,7 @@
 import { Card, CardDescription, CardTitle } from "@/components/ui/card";
 import { useTickets } from "@/hooks/use-tickets";
 import { selectRoleBGColor } from "@/lib/utils";
+import type { FileType } from "@/types";
 
 type TicketDetailType =
     | "id"
@@ -56,7 +57,7 @@ const TicketDetails = ({ padding, hasBorder = true }: TicketDetailsProps) => {
             <CardDescription className="min-h-0 flex-1 flex flex-row gap-2">
                 <span className="text-lg">Files:</span>
                 <div className="flex-1 overflow-auto flex flex-col gap-2 bg-muted border border-input rounded-xl py-0.5 px-4">
-                    {openedActionTicket?.files?.map((file: File) => {
+                    {openedActionTicket?.files?.map((file: File | FileType) => {
                         return (
                             <span className="bg-accent text-foreground text-lg p-1 whitespace-nowrap">{file.name}</span>
                         );
