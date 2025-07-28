@@ -18,12 +18,7 @@ const EMPTY_TICKET: TicketType = {
     files: [],
     createdAt: "",
     updatedAt: "",
-    assignedTo: {
-        id: "",
-        name: "",
-        role: "",
-        imagePath: "",
-    },
+    assignedTo: null,
 };
 
 const STATUSES = ["Open", "In progress", "Resolved", "Closed"];

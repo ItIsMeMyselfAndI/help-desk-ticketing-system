@@ -81,9 +81,9 @@ const TicketTable = ({ edit = false, variant = "default", onActionClick }: Ticke
                             <TableCell className="pr-5">
                                 <div className="flex flex-row items-center justify-end">
                                     <div
-                                        className={`size-3 rounded-full ${selectRoleBGColor(ticket.assignedTo.role)}`}
+                                        className={`size-3 rounded-full ${selectRoleBGColor(ticket.assignedTo?.role)}`}
                                     />
-                                    {ticket.assignedTo.name}
+                                    {ticket.assignedTo?.name || "None"}
                                 </div>
                             </TableCell>
                             {showActionColumn && (

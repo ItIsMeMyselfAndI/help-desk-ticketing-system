@@ -69,12 +69,7 @@
     ],
     "createdAt": "2024-10-09",
     "updatedAt": "2024-10-09",
-    "assignedTo": {
-      "id": "USR-001",
-      "name": "@bentot",
-      "role": "support",
-      "imagePath": ""
-    }
+    "assignedTo": null
   },
   {
     "id": "TKT-002",
@@ -223,12 +218,7 @@
     ],
     "createdAt": "2024-09-15",
     "updatedAt": "2024-09-16",
-    "assignedTo": {
-      "id": "USR-001",
-      "name": "@bentot",
-      "role": "support",
-      "imagePath": ""
-    }
+    "assignedTo": null
   },
   {
     "id": "TKT-004",
@@ -400,12 +390,7 @@
     ],
     "createdAt": "2024-05-05",
     "updatedAt": "2024-05-05",
-    "assignedTo": {
-      "id": "USR-001",
-      "name": "@bentot",
-      "role": "support",
-      "imagePath": ""
-    }
+    "assignedTo": null
   },
   {
     "id": "TKT-007",
@@ -461,12 +446,7 @@
     "files": [],
     "createdAt": "2024-08-18",
     "updatedAt": "2024-08-19",
-    "assignedTo": {
-      "id": "USR-001",
-      "name": "@bentot",
-      "role": "support",
-      "imagePath": ""
-    }
+    "assignedTo": null
   },
   {
     "id": "TKT-010",
@@ -542,12 +522,7 @@
     ],
     "createdAt": "2024-10-05",
     "updatedAt": "2024-10-06",
-    "assignedTo": {
-      "id": "USR-002",
-      "name": "@juantot",
-      "role": "support",
-      "imagePath": ""
-    }
+    "assignedTo": null
   },
   {
     "id": "TKT-013",
@@ -571,12 +546,7 @@
     ],
     "createdAt": "2024-10-14",
     "updatedAt": "2024-10-15",
-    "assignedTo": {
-      "id": "USR-002",
-      "name": "@juantot",
-      "role": "support",
-      "imagePath": ""
-    }
+    "assignedTo": null
   },
   {
     "id": "TKT-014",
@@ -600,12 +570,7 @@
     ],
     "createdAt": "2024-10-16",
     "updatedAt": "2024-10-16",
-    "assignedTo": {
-      "id": "USR-002",
-      "name": "@juantot",
-      "role": "support",
-      "imagePath": ""
-    }
+    "assignedTo": null
   },
   {
     "id": "TKT-015",
@@ -675,12 +640,7 @@
     ],
     "createdAt": "2024-05-25",
     "updatedAt": "2024-05-26",
-    "assignedTo": {
-      "id": "USR-002",
-      "name": "@juantot",
-      "role": "support",
-      "imagePath": ""
-    }
+    "assignedTo": null
   },
   {
     "id": "TKT-018",
@@ -749,12 +709,7 @@
     ],
     "createdAt": "2024-08-22",
     "updatedAt": "2024-08-22",
-    "assignedTo": {
-      "id": "USR-002",
-      "name": "@juantot",
-      "role": "support",
-      "imagePath": ""
-    }
+    "assignedTo": null
   },
   {
     "id": "TKT-021",
@@ -869,12 +824,7 @@
     ],
     "createdAt": "2024-03-30",
     "updatedAt": "2024-03-31",
-    "assignedTo": {
-      "id": "USR-003",
-      "name": "@gwentot",
-      "role": "admin",
-      "imagePath": ""
-    }
+    "assignedTo": null
   },
   {
     "id": "TKT-026",
@@ -937,12 +887,7 @@
     ],
     "createdAt": "2024-06-14",
     "updatedAt": "2024-06-15",
-    "assignedTo": {
-      "id": "USR-003",
-      "name": "@gwentot",
-      "role": "admin",
-      "imagePath": ""
-    }
+    "assignedTo": null
   },
   {
     "id": "TKT-029",
@@ -989,12 +934,7 @@
     ],
     "createdAt": "2024-08-29",
     "updatedAt": "2024-08-29",
-    "assignedTo": {
-      "id": "USR-003",
-      "name": "@gwentot",
-      "role": "admin",
-      "imagePath": ""
-    }
+    "assignedTo": null
   },
   {
     "id": "TKT-031",
@@ -1103,12 +1043,7 @@
     "files": [],
     "createdAt": "2024-03-25",
     "updatedAt": "2024-03-26",
-    "assignedTo": {
-      "id": "USR-004",
-      "name": "@kwintot",
-      "role": "admin",
-      "imagePath": ""
-    }
+    "assignedTo": null
   },
   {
     "id": "TKT-036",
@@ -1132,12 +1067,7 @@
     ],
     "createdAt": "2024-04-27",
     "updatedAt": "2024-04-28",
-    "assignedTo": {
-      "id": "USR-004",
-      "name": "@kwintot",
-      "role": "admin",
-      "imagePath": ""
-    }
+    "assignedTo": null
   },
   {
     "id": "TKT-037",
@@ -1207,12 +1137,7 @@
     ],
     "createdAt": "2024-08-05",
     "updatedAt": "2024-08-05",
-    "assignedTo": {
-      "id": "USR-004",
-      "name": "@kwintot",
-      "role": "admin",
-      "imagePath": ""
-    }
+    "assignedTo": null
   },
   {
     "id": "TKT-040",
@@ -1236,11 +1161,6 @@
     ],
     "createdAt": "2024-09-10",
     "updatedAt": "2024-09-11",
-    "assignedTo": {
-      "id": "USR-004",
-      "name": "@kwintot",
-      "role": "admin",
-      "imagePath": ""
-    }
+    "assignedTo": null
   }
 ]

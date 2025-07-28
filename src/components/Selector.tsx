@@ -1,6 +1,7 @@
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "./ui/select";
 
 type SelectorProps = {
+    id?: string;
     options: string[];
     defaultItem: string;
     selectedItem: string;
@@ -8,10 +9,11 @@ type SelectorProps = {
     filterType?: "status" | "category" | "year" | "month" | "assignment";
 };
 
-const Selector = ({ options, defaultItem, selectedItem, handleSelectionChange, filterType }: SelectorProps) => {
+const Selector = ({ id, options, defaultItem, selectedItem, handleSelectionChange, filterType }: SelectorProps) => {
     return (
         <Select value={selectedItem} onValueChange={handleSelectionChange}>
             <SelectTrigger
+                id={id}
                 className={`w-full text-foreground data-[size=default]:h-full bg-muted hover:bg-accent ${
                     selectedItem === defaultItem && "text-muted-foreground"
                 }`}
