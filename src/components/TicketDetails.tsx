@@ -76,7 +76,7 @@ const TicketDetails = ({ padding, hasBorder = true }: TicketDetailsProps) => {
                     </span>
                     <div
                         className={`size-3 rounded-full ${
-                            openedActionTicket && selectRoleBGColor(openedActionTicket.assignedTo?.role)
+                            openedActionTicket && selectRoleBGColor(openedActionTicket.assignedTo)
                         }`}
                     />
                     <span className="text-foreground text-lg whitespace-nowrap">

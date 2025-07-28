@@ -80,9 +80,7 @@ const TicketTable = ({ edit = false, variant = "default", onActionClick }: Ticke
                             {showFullTable && <TableCell className="text-right">{ticket.updatedAt}</TableCell>}
                             <TableCell className="pr-5">
                                 <div className="flex flex-row items-center justify-end">
-                                    <div
-                                        className={`size-3 rounded-full ${selectRoleBGColor(ticket.assignedTo?.role)}`}
-                                    />
+                                    <div className={`size-3 rounded-full ${selectRoleBGColor(ticket.assignedTo)}`} />
                                     {ticket.assignedTo?.name || "None"}
                                 </div>
                             </TableCell>
