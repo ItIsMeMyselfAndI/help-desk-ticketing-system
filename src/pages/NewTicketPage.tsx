@@ -6,11 +6,11 @@ import { useTickets } from "@/hooks/use-tickets";
 import { APP_MIN_HEIGHT, MAIN_MIN_WIDTH } from "@/data/constants";
 import { TicketForm } from "@/components/TicketForm";
 import { DropArea } from "@/components/DropArea";
-import { UploadedFiles } from "@/components/UploadedFiles";
+import { Attachments } from "@/components/Attachments";
 
 const NewTicketPage = () => {
     const { origTickets } = useTickets();
-    const [uploadedFiles, setUploadedFiles] = useState<File[]>([]);
+    const [uploadedFiles, setAttachments] = useState<File[]>([]);
     const isConstrainedWidth = useMatchSize("(max-width: 1160px");
     const { currTab, handleTabChange } = useTab("form");
 
@@ -33,7 +33,7 @@ const NewTicketPage = () => {
                 newFiles.push(file);
             }
         });
-        setUploadedFiles((prev) => [...prev, ...newFiles]);
+        setAttachments((prev) => [...prev, ...newFiles]);
 
         console.log("\nNew");
         newFiles.forEach((file) => console.log(file.name));
@@ -47,7 +47,7 @@ const NewTicketPage = () => {
 
     const handleFileDelete = (file: File) => {
         const updatedFiles = uploadedFiles.filter((f: File) => f.name !== file.name);
-        setUploadedFiles(updatedFiles);
+        setAttachments(updatedFiles);
     };
 
     return (
@@ -69,14 +69,14 @@ const NewTicketPage = () => {
                         <section className="flex-1 min-h-0">
                             <TicketForm
                                 uploadedFiles={uploadedFiles}
-                                setUploadedFiles={setUploadedFiles}
+                                setAttachments={setAttachments}
                                 ticketID={getAvailableTicketID()}
                             />
                         </section>
                     ) : (
                         <aside className="flex-1 flex flex-col gap-4">
                             <DropArea handleFileUpload={handleFileUpload} />
-                            <UploadedFiles uploadedFiles={uploadedFiles} handleFileDelete={handleFileDelete} />
+                            <Attachments uploadedFiles={uploadedFiles} handleFileDelete={handleFileDelete} />
                         </aside>
                     )}
                 </div>
@@ -85,13 +85,13 @@ const NewTicketPage = () => {
                     <section className="flex-8">
                         <TicketForm
                             uploadedFiles={uploadedFiles}
-                            setUploadedFiles={setUploadedFiles}
+                            setAttachments={setAttachments}
                             ticketID={getAvailableTicketID()}
                         />
                     </section>
                     <aside className="flex-5 min-w-0 max-w-lg flex flex-col gap-4">
                         <DropArea handleFileUpload={handleFileUpload} />
-                        <UploadedFiles uploadedFiles={uploadedFiles} handleFileDelete={handleFileDelete} />
+                        <Attachments uploadedFiles={uploadedFiles} handleFileDelete={handleFileDelete} />
                     </aside>
                 </>
             )}

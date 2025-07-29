@@ -84,13 +84,21 @@ See current progress - [Help Desk Ticketing System](https://help-desk-ticketing-
 
   ![View-tickets-no-action](./screenshots/application/client/view_tickets-1.png)
 
-- ##### b. Opened action section [details, filter]
+- ##### b. Opened action section [details]
 
-  ![View-tickets-filter](./screenshots/application/client/view_tickets-2.png)
+  ![View-tickets-details](./screenshots/application/client/view_tickets-2.png)
 
-- ##### c. Opened action section [chat, edit]
+- ##### c. Opened action section [chat]
 
-  ![View-tickets-edit](./screenshots/application/client/view_tickets-3.png)
+  ![View-tickets-chat](./screenshots/application/client/view_tickets-3.png)
+
+- ##### c. Opened action section [others]
+
+  ![View-tickets-others](./screenshots/application/client/view_tickets-4.png)
+
+#### 3. New-ticket
+
+![New-ticket](./screenshots/application/client/new_ticket.png)
 
 ---
 

@@ -3,17 +3,17 @@ import { Button } from "./ui/button";
 import { Card, CardContent, CardTitle } from "./ui/card";
 import { Separator } from "./ui/separator";
 
-type UploadedFilesProps = {
+type AttachmentsProps = {
     uploadedFiles: File[];
     handleFileDelete: (file: File) => void;
 };
 
-const UploadedFiles = ({ uploadedFiles, handleFileDelete }: UploadedFilesProps) => {
+const Attachments = ({ uploadedFiles, handleFileDelete }: AttachmentsProps) => {
     return (
         <>
             <Card className="min-h-0 flex-1 h-full flex flex-col gap-0 p-0">
                 <CardTitle className="flex justify-start p-4">
-                    <span className="text-primary text-xl">Uploaded Files</span>
+                    <span className="text-primary text-xl">Attachments</span>
                 </CardTitle>
                 <Separator orientation="horizontal" />
                 <CardContent className="min-h-0 p-4 flex">
@@ -48,4 +48,4 @@ const UploadedFiles = ({ uploadedFiles, handleFileDelete }: UploadedFilesProps) 
     );
 };
 
-export { UploadedFiles };
+export { Attachments };

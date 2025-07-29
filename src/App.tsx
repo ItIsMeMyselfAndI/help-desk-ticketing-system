@@ -13,7 +13,7 @@ const App = () => {
         <BrowserRouter>
             <SidebarProvider>
                 <AppSidebar />
-                <SidebarTrigger className="block scale-150 sticky top-4 rounded-r-xl lg:hidden" />
+                <SidebarTrigger className="scale-150 sticky top-4 lg:hidden" />
 
                 <div
                     className={`flex flex-col h-[100vh] w-[100vw]`}
