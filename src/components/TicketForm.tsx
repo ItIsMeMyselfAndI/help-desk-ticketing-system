@@ -13,10 +13,10 @@ import { Separator } from "./ui/separator";
 type TicketFormProps = {
     ticketID: string;
     uploadedFiles: File[];
-    setUploadedFiles: React.Dispatch<React.SetStateAction<File[]>>;
+    setAttachments: React.Dispatch<React.SetStateAction<File[]>>;
 };
 
-const TicketForm = ({ ticketID, uploadedFiles, setUploadedFiles }: TicketFormProps) => {
+const TicketForm = ({ ticketID, uploadedFiles, setAttachments }: TicketFormProps) => {
     const defaultStatus = "Open";
     const defaultCategory = "None";
     const { origTickets, setOrigTickets } = useTickets();
@@ -54,8 +54,8 @@ const TicketForm = ({ ticketID, uploadedFiles, setUploadedFiles }: TicketFormPro
         setTitle("");
         setCategory(defaultCategory);
         setDescription("");
-        setUploadedFiles([]);
-    }, [setTitle, setCategory, setDescription, setUploadedFiles]);
+        setAttachments([]);
+    }, [setTitle, setCategory, setDescription, setAttachments]);
 
     const handleSubmit = (e: React.MouseEvent) => {
         e.preventDefault();
