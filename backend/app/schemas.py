@@ -34,26 +34,26 @@ class TicketBase(ORMBase):
     title: str
     status: str
     category: str
-    description: Optional[str]
+    description: Optional[str] = None
 
 class TicketCreate(TicketBase):
-    issue_id: int
-    assigned_id: Optional[int]
+    issuer_id: int
+    assignee_id: Optional[int] = None
 
 class TicketOut(TicketBase):
     id: int
-    issue_id: int
-    assigned_id: Optional[int]
-    create_at: Optional[datetime] = None
+    issuer_id: int
+    assignee_id: Optional[int] = None
+    created_at: Optional[datetime] = None
     updated_at: Optional[datetime] = None
 
 class TicketUpdate(ORMBase):
-    title:  Optional[str]
-    status:  Optional[str]
-    category:  Optional[str]
-    description: Optional[str]
-    issue_id:  Optional[str]
-    assigned_id: Optional[int]
+    title:  Optional[str] = None
+    status:  Optional[str] = None
+    category:  Optional[str] = None
+    description: Optional[str] = None
+    issuer_id:  Optional[int] = None
+    assignee_id: Optional[int] = None
 
 class TicketRef(ORMBase):
     id: int
@@ -87,7 +87,6 @@ class TicketMessageCreate(TicketMessageBase):
     ticket_id: int
     sender_id: int
     receiver_id: int
-
 
 class TicketMessageOut(TicketMessageBase):
     id: int
