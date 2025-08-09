@@ -3,13 +3,13 @@ from app import models, schemas
 from typing import List, Optional
 
 
-# users
+# ---------- users ----------
+
 def create_user(db: Session, user: schemas.UserCreate) -> models.User:
     if db.query(models.User).filter(models.User.username == user.username).first():
         raise ValueError("Username already exists.")
     if db.query(models.User).filter(models.User.email == user.email).first():
         raise ValueError("Email already exists.")
-
     db_user = models.User(
             username = user.username,
             email = user.email,
@@ -51,7 +51,8 @@ def delete_user(db: Session, user_id: int) -> bool:
     return True
 
 
-# tickets
+# ---------- ticket ----------
+
 def create_ticket(db: Session, ticket: schemas.TicketCreate) -> models.Ticket:
     db_ticket = models.Ticket(
             title = ticket.title,
@@ -94,7 +95,8 @@ def delete_ticket(db: Session, ticket_id: int) -> bool:
     return True
 
 
-# ticket attachments
+# ---------- ticket attachments ----------
+
 def create_ticket_attachment(db: Session, ticket_attachment: schemas.TicketAttachmentCreate) -> models.TicketAttachment:
     db_ticket_attachment = models.TicketAttachment(
             filename = ticket_attachment.filename,
@@ -124,7 +126,8 @@ def delete_ticket_attachment(db: Session, ticket_attachment_id: int) -> bool:
     return True
 
 
-# ticket messages
+# ---------- ticket messages ----------
+
 def create_ticket_message(db: Session, ticket_message: schemas.TicketMessageCreate) -> models.TicketMessage:
     db_ticket_message = models.TicketMessage(
             content = ticket_message.content,
@@ -152,4 +155,6 @@ def delete_ticket_message(db: Session, ticket_message_id: int) -> bool:
     db.delete(db_ticket_message)
     db.commit()
     return True
+
+
 
