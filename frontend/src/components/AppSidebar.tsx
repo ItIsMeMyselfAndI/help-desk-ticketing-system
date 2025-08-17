@@ -1,4 +1,4 @@
-import { Logs, TicketPlus, Inbox, CircleUser, LayoutDashboard } from "lucide-react";
+import { Logs, TicketPlus, MessagesSquare, CircleUser, LayoutDashboard } from "lucide-react";
 
 import {
     Sidebar,
@@ -27,7 +27,7 @@ const items = [
     { title: "Dashboard", route: "/", icon: LayoutDashboard },
     { title: "View Tickets", route: "/view-tickets", icon: Logs },
     { title: "New Ticket", route: "/new-ticket", icon: TicketPlus },
-    { title: "Inbox", route: "/inbox", icon: Inbox },
+    { title: "Messages", route: "/chats", icon: MessagesSquare },
 ];
 
 const AppSidebarContent = () => {
@@ -45,10 +45,9 @@ const AppSidebarContent = () => {
                         {items.map((item) => (
                             <SidebarMenuItem key={item.title}>
                                 <SidebarMenuButton
-                                    className={`hover:bg-primary p-5 rounded-none ${
-                                        location.pathname === item.route &&
+                                    className={`hover:bg-primary p-5 rounded-none ${location.pathname === item.route &&
                                         "text-primary hover:text-foreground font-bold"
-                                    }`}
+                                        }`}
                                     asChild
                                 >
                                     <Link to={item.route}>
