@@ -1,160 +1,127 @@
 from sqlalchemy.orm import Session
-from app import models, schemas
-from typing import List, Optional
+from . import models, schemas
+from typing import Optional
 
 
-# ---------- users ----------
+# users
+def get_user_bad(db: Session, user_id: int):
+    return db.get(models.User, user_id)
 
-def create_user(session: Session, user: schemas.UserCreate) -> models.User:
-    if session.query(models.User).filter(models.User.username == user.username).first():
-        raise ValueError("Username already exists.")
-    if session.query(models.User).filter(models.User.email == user.email).first():
-        raise ValueError("Email already exists.")
-    db_user = models.User(
-        username = user.username,
-        email = user.email,
-        password = user.password,
-    )
-    session.add(db_user)
-    session.commit()
-    session.refresh(db_user)
-    return db_user
+def create_user(db: Session, user: schemas.UserCreate) -> Optional[models.User]:
+    # ---- temporary ----
+    user_dict = dict()
+    for key, val in user.model_dump().items():
+        if key == "password":
+            key = "hashed_password"
+        user_dict.update({key:val})
+    # -------------------
+    new_user = models.User(**user_dict)
+    db.add(new_user)
+    db.commit()
+    return new_user
 
-def get_users(session: Session, limit: Optional[int]) -> List[models.User]:
-    if limit == None:
-        return session.query(models.User).all()
-    return session.query(models.User).limit(limit).all()
-
-def get_user(session: Session, user_id: int) -> Optional[models.User]:
-    return session.query(models.User).filter(models.User.id == user_id).first()
-
-def get_user_by_username(session: Session, username: str) -> Optional[models.User]:
-    return session.query(models.User).filter(models.User.username == username).first()
-
-def update_user(session: Session, user_id: int, user_update: schemas.UserUpdate) -> Optional[models.User]:
-    db_user = get_user(session, user_id)
+def update_user(db: Session, user_id: int,
+                updated_user: schemas.UserUpdate) -> Optional[models.User]:
+    db_user = get_user_bad(db, user_id)
     if not db_user:
         return None
-    updated_fields = user_update.model_dump(exclude_unset=True)
-    for key, value in updated_fields.items():
-        setattr(db_user, key, value)
-    session.commit()
-    session.refresh(db_user)
+    updated_dict = updated_user.model_dump()
+    for key, val in updated_dict.items():
+        setattr(db_user, key, val)
+    db.commit()
     return db_user
 
-def delete_user(session: Session, user_id: int) -> bool:
-    db_user = get_user(session, user_id)
-    if not db_user:
-        return False
-    session.delete(db_user)
-    session.commit()
-    return True
+def delete_user(db: Session, user_id: int) -> Optional[models.User]:
+    db_user = get_user_bad(db, user_id)
+    db.delete(db_user)
+    db.commit()
+    return db_user
 
 
-# ---------- ticket ----------
+# tickets
+def get_ticket_bad(db: Session, ticket_id: int):
+    return db.get(models.Ticket, ticket_id)
 
-def create_ticket(session: Session, ticket: schemas.TicketCreate) -> models.Ticket:
-    db_ticket = models.Ticket(
-            title = ticket.title,
-            status = ticket.status,
-            category = ticket.category,
-            description = ticket.description,
-            issuer_id = ticket.issuer_id,
-            assignee_id = ticket.assignee_id
-            )
-    session.add(db_ticket)
-    session.commit()
-    session.refresh(db_ticket)
-    return db_ticket
+def create_ticket(db: Session, ticket: schemas.TicketCreate) -> Optional[models.Ticket]:
+    ticket_dict = ticket.model_dump()
+    new_ticket = models.Ticket(**ticket_dict)
+    db.add(new_ticket)
+    db.commit()
+    return new_ticket
 
-def get_tickets_for_user(session: Session, user_id: int,  limit: Optional[int]) -> List[models.Ticket]:
-    if limit == None:
-        return session.query(models.Ticket).filter(models.Ticket.issuer_id == user_id).all()
-    return session.query(models.Ticket).filter(models.Ticket.issuer_id == user_id).limit(limit).all()
-
-def get_ticket(session: Session, ticket_id: int) -> Optional[models.Ticket]:
-    return session.query(models.Ticket).filter(models.Ticket.id == ticket_id).first()
-
-def update_ticket(session: Session, ticket_id: int, ticket_update: schemas.TicketUpdate) -> Optional[models.Ticket]:
-    db_ticket = get_ticket(session, ticket_id)
+def update_ticket(db: Session, ticket_id: int,
+                  updated_ticket: schemas.TicketUpdate) -> Optional[models.Ticket]:
+    db_ticket = get_ticket_bad(db, ticket_id)
     if not db_ticket:
         return None
-    updated_fields = ticket_update.model_dump(exclude_unset=True)
-    for key, value in updated_fields.items():
-        setattr(db_ticket, key, value)
-    session.commit()
-    session.refresh(db_ticket)
+    updated_dict = updated_ticket.model_dump()
+    for key, val in updated_dict.items():
+        setattr(db_ticket, key, val)
+    db.commit()
     return db_ticket
 
-def delete_ticket(session: Session, ticket_id: int) -> bool:
-    db_ticket = get_ticket(session, ticket_id)
-    if not db_ticket:
-        return False
-    session.delete(db_ticket)
-    session.commit()
-    return True
+def delete_ticket(db: Session, ticket_id: int) -> Optional[models.Ticket]:
+    db_ticket =  db.get(models.Ticket, ticket_id)
+    db.delete(db_ticket)
+    db.commit()
+    return db_ticket
 
 
-# ---------- ticket attachments ----------
+# attachments
+def get_attachment_bad(db: Session, attachment_id: int):
+    return db.get(models.Attachment, attachment_id)
 
-def create_ticket_attachment(session: Session, ticket_attachment: schemas.TicketAttachmentCreate) -> models.TicketAttachment:
-    db_ticket_attachment = models.TicketAttachment(
-            filename = ticket_attachment.filename,
-            size = ticket_attachment.size,
-            filetype = ticket_attachment.filetype,
-            ticket_id = ticket_attachment.ticket_id
-            )
-    session.add(db_ticket_attachment)
-    session.commit()
-    session.refresh(db_ticket_attachment)
-    return db_ticket_attachment
+def create_attachment(db: Session, attachment: schemas.AttachmentCreate) -> Optional[models.Attachment]:
+    attachment_dict = attachment.model_dump()
+    new_attachment = models.Attachment(**attachment_dict)
+    db.add(new_attachment)
+    db.commit()
+    return new_attachment
 
-def get_attachments_for_ticket(session: Session, ticket_id: int,  limit: Optional[int]) -> List[models.TicketAttachment]:
-    if limit == None:
-        return session.query(models.TicketAttachment).filter(models.TicketAttachment.ticket_id == ticket_id).all()
-    return session.query(models.TicketAttachment).filter(models.TicketAttachment.ticket_id == ticket_id).limit(limit).all()
+def update_attachment(db: Session, attachment_id: int,
+                  updated_attachment: schemas.AttachmentUpdate) -> Optional[models.Attachment]:
+    db_attachment = get_attachment_bad(db, attachment_id)
+    if not db_attachment:
+        return None
+    updated_dict = updated_attachment.model_dump()
+    for key, val in updated_dict.items():
+        setattr(db_attachment, key, val)
+    db.commit()
+    return db_attachment
 
-def get_ticket_attachment(session: Session, ticket_attachment_id: int) -> Optional[models.TicketAttachment]:
-    return session.query(models.TicketAttachment).filter(models.TicketAttachment.id == ticket_attachment_id).first()
-
-def delete_ticket_attachment(session: Session, ticket_attachment_id: int) -> bool:
-    db_ticket_attachment = get_ticket_attachment(session, ticket_attachment_id)
-    if not db_ticket_attachment:
-        return False
-    session.delete(db_ticket_attachment)
-    session.commit()
-    return True
+def delete_attachment(db: Session, attachment_id: int) -> Optional[models.Attachment]:
+    db_attachment = get_attachment_bad(db, attachment_id)
+    db.delete(db_attachment)
+    db.commit()
+    return db_attachment
 
 
-# ---------- ticket messages ----------
+# messages
+def get_message_bad(db: Session, message_id: int):
+    return db.get(models.Message, message_id)
 
-def create_ticket_message(session: Session, ticket_message: schemas.TicketMessageCreate) -> models.TicketMessage:
-    db_ticket_message = models.TicketMessage(
-            content = ticket_message.content,
-            ticket_id = ticket_message.ticket_id,
-            sender_id = ticket_message.sender_id,
-            receiver_id = ticket_message.receiver_id
-            )
-    session.add(db_ticket_message)
-    session.commit()
-    session.refresh(db_ticket_message)
-    return db_ticket_message
+def create_message(db: Session, message: schemas.MessageCreate) -> Optional[models.Message]:
+    message_dict = message.model_dump()
+    new_message = models.Message(**message_dict)
+    db.add(new_message)
+    db.commit()
+    return new_message
 
-def get_messages_for_ticket(session: Session, ticket_id: int,  limit: Optional[int]) -> List[models.TicketMessage]:
-    if limit == None:
-        return session.query(models.TicketMessage).filter(models.TicketMessage.ticket_id == ticket_id).all()
-    return session.query(models.TicketMessage).filter(models.TicketMessage.ticket_id == ticket_id).limit(limit).all()
+def update_message(db: Session, message_id: int,
+                  updated_message: schemas.MessageUpdate) -> Optional[models.Message]:
+    db_message = get_message_bad(db, message_id)
+    if not db_message:
+        return None
+    updated_dict = updated_message.model_dump()
+    for key, val in updated_dict.items():
+        setattr(db_message, key, val)
+    db.commit()
+    return db_message
 
-def get_ticket_message(session: Session, ticket_message_id: int) -> Optional[models.TicketMessage]:
-    return session.query(models.TicketMessage).filter(models.TicketMessage.id == ticket_message_id).first()
-
-def delete_ticket_message(session: Session, ticket_message_id: int) -> bool:
-    db_ticket_message = get_ticket_message(session, ticket_message_id)
-    if not db_ticket_message:
-        return False
-    session.delete(db_ticket_message)
-    session.commit()
-    return True
-
+def delete_message(db: Session, message_id: int) -> Optional[models.Message]:
+    db_message = get_message_bad(db, message_id)
+    db.delete(db_message)
+    db.commit()
+    return db_message
 
 

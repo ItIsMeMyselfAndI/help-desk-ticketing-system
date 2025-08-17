@@ -1,10 +1,10 @@
 from datetime import datetime
-from typing import List, Optional
+from typing import Optional
 from pydantic import BaseModel, EmailStr
 
 class ORMBase(BaseModel):
     class Config:
-        orm_mode = True
+        orm_mode = True # for attr + dict access + model compatibility
 
 # users
 class UserBase(ORMBase):
@@ -14,15 +14,15 @@ class UserBase(ORMBase):
 class UserCreate(UserBase):
     password: str
 
-class UserOut(UserBase):
-    id: int
-    created_at: Optional[datetime] = None
-    updated_at: Optional[datetime] = None
-
 class UserUpdate(ORMBase):
     username: Optional[str] = None
     email: Optional[EmailStr] = None
     password: Optional[str] = None
+
+class UserResponse(UserBase):
+    id: int
+    created_at: datetime
+    updated_at: datetime
 
 class UserRef(ORMBase):
     id: int
@@ -33,27 +33,27 @@ class UserRef(ORMBase):
 class TicketBase(ORMBase):
     title: str
     status: str
-    category: str
-    description: Optional[str] = None
+    description: str
+    category: Optional[str] = None
 
 class TicketCreate(TicketBase):
     issuer_id: int
     assignee_id: Optional[int] = None
 
-class TicketOut(TicketBase):
-    id: int
-    issuer_id: int
-    assignee_id: Optional[int] = None
-    created_at: Optional[datetime] = None
-    updated_at: Optional[datetime] = None
-
 class TicketUpdate(ORMBase):
-    title:  Optional[str] = None
-    status:  Optional[str] = None
-    category:  Optional[str] = None
-    description: Optional[str] = None
-    issuer_id:  Optional[int] = None
+    issuer_id: Optional[int] = None
     assignee_id: Optional[int] = None
+    title: Optional[str] = None
+    status: Optional[str] = None
+    category: Optional[str] = None
+    description: Optional[str] = None
+
+class TicketResponse(TicketBase):
+    id: int
+    issuer: UserRef
+    assignee: Optional[UserRef] = None
+    created_at: datetime
+    updated_at: datetime
 
 class TicketRef(ORMBase):
     id: int
@@ -61,39 +61,47 @@ class TicketRef(ORMBase):
 
 
 # attachments
-class TicketAttachmentBase(ORMBase):
+class AttachmentBase(ORMBase):
     filename: str
-    size: int
     filetype: str
+    filesize: int
 
-class TicketAttachmentCreate(TicketAttachmentBase):
+class AttachmentCreate(AttachmentBase):
     ticket_id: int
 
-class TicketAttachmentOut(TicketAttachmentBase):
-    id: int
-    ticket_id: TicketRef
-    uploaded_at: Optional[datetime] = None
+class AttachmentUpdate(ORMBase):
+    ticket_id: Optional[int] = None
+    filename: Optional[str] = None
+    filetype: Optional[str] = None
+    filesize: Optional[int] = None
 
-class TicketAttachmentRef(ORMBase):
+class AttachmentResponse(AttachmentBase):
     id: int
-    filename: str
+    ticket: TicketRef
+    uploaded_at: datetime
 
 
 # messages
-class TicketMessageBase(ORMBase):
+class MessageBase(ORMBase):
     content: str
 
-class TicketMessageCreate(TicketMessageBase):
-    ticket_id: int
+class MessageCreate(MessageBase):
     sender_id: int
     receiver_id: int
+    ticket_id: int
 
-class TicketMessageOut(TicketMessageBase):
+class MessageUpdate(ORMBase):
+    sender_id: Optional[int] = None
+    receiver_id: Optional[int] = None
+    ticket_id: Optional[int] = None
+    content: Optional[str] = None
+
+class MessageResponse(MessageBase):
     id: int
-    content: str
-    ticket_id: TicketRef
-    sender_id: UserRef
-    receiver_id: UserRef
-    sent_at: Optional[datetime] = None
+    sender: UserRef
+    receiver: UserRef
+    ticket: TicketRef
+    sent_at: datetime
+    edited_at: datetime
 
 

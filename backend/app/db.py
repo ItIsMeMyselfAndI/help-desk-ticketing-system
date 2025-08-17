@@ -7,6 +7,7 @@ Session = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 def get_db():
     with Session() as session:
+        session.expire_on_commit = False
         yield session
 
 def init_db():
