@@ -26,3 +26,11 @@ dist-ssr
 *.sw?
 
 .prettierrc
+
+.env
+.env.local
+.env.*.local
+venv*
+__pycache__
+
+*.bak

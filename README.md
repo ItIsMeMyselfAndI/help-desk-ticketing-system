@@ -11,7 +11,7 @@ git clone https://github.com/ItIsMeMyselfAndI/help-desk-ticketing-system.git
 ### 2. Navigate to the created folder
 
 ```
-cd help-desk-ticketing-system
+cd help-desk-ticketing-system/frontend
 ```
 
 ### 3. Install the dependencies
