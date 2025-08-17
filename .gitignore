@@ -32,3 +32,5 @@ dist-ssr
 .env.*.local
 venv*
 __pycache__
+
+*.bak
