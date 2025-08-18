@@ -1,6 +1,8 @@
+from sqlalchemy import select
 from sqlalchemy.orm import Session
-from . import models, schemas
 from typing import Optional
+
+from . import models, schemas
 
 
 # users
@@ -8,6 +10,9 @@ def get_user_bad(db: Session, user_id: int):
     return db.get(models.User, user_id)
 
 def create_user(db: Session, user: schemas.UserCreate) -> Optional[models.User]:
+    user_exist = db.execute(select(models.User).where(models.User.username == user.username)).first()
+    if user_exist:
+        return None
     # ---- temporary ----
     user_dict = dict()
     for key, val in user.model_dump().items():
@@ -33,6 +38,8 @@ def update_user(db: Session, user_id: int,
 
 def delete_user(db: Session, user_id: int) -> Optional[models.User]:
     db_user = get_user_bad(db, user_id)
+    if not db_user:
+        return None
     db.delete(db_user)
     db.commit()
     return db_user

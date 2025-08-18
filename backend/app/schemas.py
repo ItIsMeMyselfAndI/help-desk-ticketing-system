@@ -2,14 +2,19 @@ from datetime import datetime
 from typing import Optional
 from pydantic import BaseModel, EmailStr
 
+from . import constants
+
 class ORMBase(BaseModel):
     class Config:
-        orm_mode = True # for attr + dict access + model compatibility
+        from_attributes = True # for attr + dict access + model compatibility
 
 # users
 class UserBase(ORMBase):
     username: str
     email: EmailStr
+    role: constants.UserRolesLiterals
+    created_at: Optional[datetime]
+    updated_at: Optional[datetime]
 
 class UserCreate(UserBase):
     password: str
@@ -18,11 +23,12 @@ class UserUpdate(ORMBase):
     username: Optional[str] = None
     email: Optional[EmailStr] = None
     password: Optional[str] = None
+    role: Optional[constants.UserRolesLiterals] = None
+    created_at: Optional[datetime]
+    updated_at: Optional[datetime]
 
 class UserResponse(UserBase):
     id: int
-    created_at: datetime
-    updated_at: datetime
 
 class UserRef(ORMBase):
     id: int
@@ -32,9 +38,11 @@ class UserRef(ORMBase):
 # tickets
 class TicketBase(ORMBase):
     title: str
-    status: str
+    status: constants.TicketStatusLiterals
     description: str
-    category: Optional[str] = None
+    category: Optional[constants.TicketCategoryLiterals] = None
+    created_at: Optional[datetime]
+    updated_at: Optional[datetime]
 
 class TicketCreate(TicketBase):
     issuer_id: int
@@ -47,13 +55,13 @@ class TicketUpdate(ORMBase):
     status: Optional[str] = None
     category: Optional[str] = None
     description: Optional[str] = None
+    created_at: Optional[datetime]
+    updated_at: Optional[datetime]
 
 class TicketResponse(TicketBase):
     id: int
     issuer: UserRef
     assignee: Optional[UserRef] = None
-    created_at: datetime
-    updated_at: datetime
 
 class TicketRef(ORMBase):
     id: int
@@ -65,6 +73,8 @@ class AttachmentBase(ORMBase):
     filename: str
     filetype: str
     filesize: int
+    uploaded_at: Optional[datetime]
+    updated_at: Optional[datetime]
 
 class AttachmentCreate(AttachmentBase):
     ticket_id: int
@@ -74,16 +84,19 @@ class AttachmentUpdate(ORMBase):
     filename: Optional[str] = None
     filetype: Optional[str] = None
     filesize: Optional[int] = None
+    uploaded_at: Optional[datetime]
+    updated_at: Optional[datetime]
 
 class AttachmentResponse(AttachmentBase):
     id: int
     ticket: TicketRef
-    uploaded_at: datetime
 
 
 # messages
 class MessageBase(ORMBase):
     content: str
+    sent_at: Optional[datetime]
+    edited_at: Optional[datetime]
 
 class MessageCreate(MessageBase):
     sender_id: int
@@ -95,13 +108,13 @@ class MessageUpdate(ORMBase):
     receiver_id: Optional[int] = None
     ticket_id: Optional[int] = None
     content: Optional[str] = None
+    sent_at: Optional[datetime]
+    edited_at: Optional[datetime]
 
 class MessageResponse(MessageBase):
     id: int
     sender: UserRef
     receiver: UserRef
     ticket: TicketRef
-    sent_at: datetime
-    edited_at: datetime
 
 

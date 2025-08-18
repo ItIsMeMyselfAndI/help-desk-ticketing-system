@@ -1,4 +1,3 @@
-from .constants import TicketStatus, TicketCategory
 from sqlalchemy import DateTime, ForeignKey, String, func
 from sqlalchemy.orm import (
     DeclarativeBase,
@@ -8,6 +7,8 @@ from sqlalchemy.orm import (
 )
 from datetime import datetime
 from typing import Optional, List
+
+from . import constants
 
 # for shared metadata
 class Base(DeclarativeBase):
@@ -22,6 +23,7 @@ class User(Base):
     username: Mapped[str] = mapped_column(unique=True, nullable=False)
     email: Mapped[str] = mapped_column(unique=True, index=True)
     hashed_password: Mapped[str] = mapped_column(nullable=False)
+    role: Mapped[constants.UserRoles] = mapped_column(String, nullable=False)
     # dates
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
     updated_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now(), onupdate=func.now())
@@ -41,8 +43,8 @@ class Ticket(Base):
     assignee_id: Mapped[Optional[int]] = mapped_column(ForeignKey("users.id"), nullable=True, index=True)
     # details
     title: Mapped[str] = mapped_column(nullable=False, index=True)
-    status: Mapped[TicketStatus] = mapped_column(String, default=TicketStatus.OPEN, nullable=False)
-    category: Mapped[Optional[TicketCategory]] = mapped_column(String, nullable=True)
+    status: Mapped[constants.TicketStatus] = mapped_column(String, default=constants.TicketStatus.OPEN, nullable=False)
+    category: Mapped[Optional[constants.TicketCategory]] = mapped_column(String, nullable=True)
     description: Mapped[str] = mapped_column(nullable=False)
     # dates
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())

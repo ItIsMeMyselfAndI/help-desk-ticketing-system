@@ -1,0 +1,3150 @@
+{
+    "users": [
+        {
+            "id": 1,
+            "username": "john_doe",
+            "email": "john.doe@example.com",
+            "password": "123",
+            "role": "client",
+            "created_at": "2024-01-15T09:30:15.123456+08:00",
+            "updated_at": "2024-01-20T14:25:33.789012+08:00"
+        },
+        {
+            "id": 2,
+            "username": "jane_smith",
+            "email": "jane.smith@example.com",
+            "password": "123",
+            "role": "support",
+            "created_at": "2024-01-16T10:15:22.456789+08:00",
+            "updated_at": "2024-01-21T11:30:45.234567+08:00"
+        },
+        {
+            "id": 3,
+            "username": "admin_mike",
+            "email": "mike.admin@example.com",
+            "password": "123",
+            "role": "admin",
+            "created_at": "2024-01-17T11:00:33.789012+08:00",
+            "updated_at": "2024-01-22T16:45:12.678901+08:00"
+        },
+        {
+            "id": 4,
+            "username": "client_sarah",
+            "email": "sarah.client@example.com",
+            "password": "123",
+            "role": "client",
+            "created_at": "2024-01-18T14:20:44.012345+08:00",
+            "updated_at": "2024-01-23T09:15:28.345678+08:00"
+        },
+        {
+            "id": 5,
+            "username": "support_tom",
+            "email": "tom.support@example.com",
+            "password": "123",
+            "role": "support",
+            "created_at": "2024-01-19T08:45:55.345678+08:00",
+            "updated_at": "2024-01-24T12:50:39.901234+08:00"
+        },
+        {
+            "id": 6,
+            "username": "alice_johnson",
+            "email": "alice.johnson@example.com",
+            "password": "123",
+            "role": "client",
+            "created_at": "2024-01-25T16:30:06.678901+08:00",
+            "updated_at": "2024-01-30T10:20:15.567890+08:00"
+        },
+        {
+            "id": 7,
+            "username": "bob_wilson",
+            "email": "bob.wilson@example.com",
+            "password": "123",
+            "role": "admin",
+            "created_at": "2024-01-26T12:10:17.901234+08:00",
+            "updated_at": "2024-01-31T15:35:42.123456+08:00"
+        },
+        {
+            "id": 8,
+            "username": "emma_davis",
+            "email": "emma.davis@example.com",
+            "password": "123",
+            "role": "support",
+            "created_at": "2024-01-27T13:25:28.234567+08:00",
+            "updated_at": "2024-02-01T08:40:18.789012+08:00"
+        },
+        {
+            "id": 9,
+            "username": "client_david",
+            "email": "david.client@example.com",
+            "password": "123",
+            "role": "client",
+            "created_at": "2024-01-28T15:40:39.567890+08:00",
+            "updated_at": "2024-02-02T13:25:51.456789+08:00"
+        },
+        {
+            "id": 10,
+            "username": "lisa_brown",
+            "email": "lisa.brown@example.com",
+            "password": "123",
+            "role": "client",
+            "created_at": "2024-01-29T10:55:50.890123+08:00",
+            "updated_at": "2024-02-03T17:10:29.012345+08:00"
+        },
+        {
+            "id": 11,
+            "username": "support_kevin",
+            "email": "kevin.support@example.com",
+            "password": "123",
+            "role": "support",
+            "created_at": "2024-02-04T09:15:01.123456+08:00",
+            "updated_at": "2024-02-08T14:30:37.678901+08:00"
+        },
+        {
+            "id": 12,
+            "username": "admin_carol",
+            "email": "carol.admin@example.com",
+            "password": "123",
+            "role": "admin",
+            "created_at": "2024-02-05T11:30:12.456789+08:00",
+            "updated_at": "2024-02-09T16:45:24.234567+08:00"
+        },
+        {
+            "id": 13,
+            "username": "peter_garcia",
+            "email": "peter.garcia@example.com",
+            "password": "123",
+            "role": "client",
+            "created_at": "2024-02-06T14:45:23.789012+08:00",
+            "updated_at": "2024-02-10T11:20:48.890123+08:00"
+        },
+        {
+            "id": 14,
+            "username": "susan_martinez",
+            "email": "susan.martinez@example.com",
+            "password": "123",
+            "role": "support",
+            "created_at": "2024-02-07T16:20:34.012345+08:00",
+            "updated_at": "2024-02-11T09:55:16.345678+08:00"
+        },
+        {
+            "id": 15,
+            "username": "client_robert",
+            "email": "robert.client@example.com",
+            "password": "123",
+            "role": "client",
+            "created_at": "2024-02-12T08:00:45.345678+08:00",
+            "updated_at": "2024-02-15T12:35:59.567890+08:00"
+        },
+        {
+            "id": 16,
+            "username": "nancy_lee",
+            "email": "nancy.lee@example.com",
+            "password": "123",
+            "role": "admin",
+            "created_at": "2024-02-13T12:35:56.678901+08:00",
+            "updated_at": "2024-02-16T15:10:27.901234+08:00"
+        },
+        {
+            "id": 17,
+            "username": "support_james",
+            "email": "james.support@example.com",
+            "password": "123",
+            "role": "support",
+            "created_at": "2024-02-14T15:10:07.901234+08:00",
+            "updated_at": "2024-02-17T10:45:35.123456+08:00"
+        },
+        {
+            "id": 18,
+            "username": "maria_rodriguez",
+            "email": "maria.rodriguez@example.com",
+            "password": "123",
+            "role": "client",
+            "created_at": "2024-02-18T09:25:18.234567+08:00",
+            "updated_at": "2024-02-22T14:00:43.789012+08:00"
+        },
+        {
+            "id": 19,
+            "username": "client_william",
+            "email": "william.client@example.com",
+            "password": "123",
+            "role": "client",
+            "created_at": "2024-02-19T13:50:29.567890+08:00",
+            "updated_at": "2024-02-23T16:25:11.456789+08:00"
+        },
+        {
+            "id": 20,
+            "username": "admin_jennifer",
+            "email": "jennifer.admin@example.com",
+            "password": "123",
+            "role": "admin",
+            "created_at": "2024-02-20T11:15:40.890123+08:00",
+            "updated_at": "2024-02-24T13:40:22.012345+08:00"
+        }
+    ],
+    "tickets": [
+        {
+            "id": 1,
+            "issuer_id": 1,
+            "assignee_id": 2,
+            "title": "Computer won't start after power outage",
+            "status": "in_progress",
+            "category": "hardware",
+            "description": "My desktop computer refuses to turn on after yesterday's power outage. The power button doesn't respond at all.",
+            "created_at": "2024-02-25 09:15:30.123456+08:00",
+            "updated_at": "2024-02-26 14:22:45.789012+08:00"
+        },
+        {
+            "id": 2,
+            "issuer_id": 4,
+            "assignee_id": 5,
+            "title": "Unable to access email account",
+            "status": "open",
+            "category": "access",
+            "description": "I can't log into my work email. Getting 'invalid credentials' error even though I'm using the correct password.",
+            "created_at": "2024-02-26 11:30:15.456789+08:00",
+            "updated_at": "2024-02-26 11:30:15.456789+08:00"
+        },
+        {
+            "id": 3,
+            "issuer_id": 6,
+            "assignee_id": 2,
+            "title": "Software installation failed",
+            "status": "resolved",
+            "category": "software",
+            "description": "Trying to install the new accounting software but getting error code 1603 during installation.",
+            "created_at": "2024-02-20 14:45:22.234567+08:00",
+            "updated_at": "2024-02-24 16:30:18.901234+08:00"
+        },
+        {
+            "id": 4,
+            "issuer_id": 9,
+            "assignee_id": null,
+            "title": "Printer not responding",
+            "status": "open",
+            "category": "hardware",
+            "description": "Office printer shows offline status and won't print any documents. All cables seem properly connected.",
+            "created_at": "2024-02-27 08:20:45.678901+08:00",
+            "updated_at": "2024-02-27 08:20:45.678901+08:00"
+        },
+        {
+            "id": 5,
+            "issuer_id": 10,
+            "assignee_id": 8,
+            "title": "Network drive disconnected",
+            "status": "in_progress",
+            "category": "network",
+            "description": "Cannot access the shared network drive. Getting 'network path not found' error message.",
+            "created_at": "2024-02-23 13:10:33.345678+08:00",
+            "updated_at": "2024-02-25 10:45:27.567890+08:00"
+        },
+        {
+            "id": 6,
+            "issuer_id": 13,
+            "assignee_id": 5,
+            "title": "Password reset request",
+            "status": "closed",
+            "category": "account",
+            "description": "Need to reset my domain password as it expired and I forgot to update it.",
+            "created_at": "2024-02-15 16:25:18.789012+08:00",
+            "updated_at": "2024-02-16 09:15:42.123456+08:00"
+        },
+        {
+            "id": 7,
+            "issuer_id": 15,
+            "assignee_id": 11,
+            "title": "VPN connection issues",
+            "status": "open",
+            "category": "network",
+            "description": "Cannot connect to company VPN from home. Connection times out after authentication.",
+            "created_at": "2024-02-28 12:40:55.012345+08:00",
+            "updated_at": "2024-02-28 12:40:55.012345+08:00"
+        },
+        {
+            "id": 8,
+            "issuer_id": 18,
+            "assignee_id": 14,
+            "title": "Database connection error",
+            "status": "in_progress",
+            "category": "software",
+            "description": "Getting 'connection timeout' error when trying to access the customer database through the CRM system.",
+            "created_at": "2024-02-21 10:30:12.456789+08:00",
+            "updated_at": "2024-02-26 15:20:38.234567+08:00"
+        },
+        {
+            "id": 9,
+            "issuer_id": 19,
+            "assignee_id": null,
+            "title": "Monitor display issues",
+            "status": "open",
+            "category": "hardware",
+            "description": "Second monitor keeps flickering and sometimes goes completely black. Primary monitor works fine.",
+            "created_at": "2024-02-29 14:15:27.678901+08:00",
+            "updated_at": "2024-02-29 14:15:27.678901+08:00"
+        },
+        {
+            "id": 10,
+            "issuer_id": 1,
+            "assignee_id": 8,
+            "title": "File permissions denied",
+            "status": "resolved",
+            "category": "access",
+            "description": "Cannot access project files on the server. Getting 'access denied' error for folders I used to have access to.",
+            "created_at": "2024-02-18 09:45:39.890123+08:00",
+            "updated_at": "2024-02-22 11:30:15.345678+08:00"
+        },
+        {
+            "id": 11,
+            "issuer_id": 4,
+            "assignee_id": 2,
+            "title": "Application crashes on startup",
+            "status": "cancelled",
+            "category": "software",
+            "description": "The design software crashes immediately after launching. Error message mentions missing dll files.",
+            "created_at": "2024-02-12 11:20:18.123456+08:00",
+            "updated_at": "2024-02-14 16:45:33.789012+08:00"
+        },
+        {
+            "id": 12,
+            "issuer_id": 6,
+            "assignee_id": 5,
+            "title": "WiFi keeps disconnecting",
+            "status": "open",
+            "category": "network",
+            "description": "Laptop WiFi connection drops every 10-15 minutes. Other devices on the same network work fine.",
+            "created_at": "2024-03-01 08:35:42.456789+08:00",
+            "updated_at": "2024-03-01 08:35:42.456789+08:00"
+        },
+        {
+            "id": 13,
+            "issuer_id": 9,
+            "assignee_id": 11,
+            "title": "Account lockout issue",
+            "status": "resolved",
+            "category": "account",
+            "description": "My account gets locked out after 3 failed login attempts, but I'm entering the correct password.",
+            "created_at": "2024-02-16 15:50:25.234567+08:00",
+            "updated_at": "2024-02-19 13:25:49.678901+08:00"
+        },
+        {
+            "id": 14,
+            "issuer_id": 10,
+            "assignee_id": null,
+            "title": "Keyboard keys not working",
+            "status": "open",
+            "category": "hardware",
+            "description": "Several keys on my keyboard (Q, W, E, R) stopped working suddenly. Rest of the keyboard functions normally.",
+            "created_at": "2024-03-02 13:20:11.567890+08:00",
+            "updated_at": "2024-03-02 13:20:11.567890+08:00"
+        },
+        {
+            "id": 15,
+            "issuer_id": 13,
+            "assignee_id": 14,
+            "title": "Email attachments not downloading",
+            "status": "in_progress",
+            "category": "software",
+            "description": "Unable to download email attachments. They appear in the email but clicking download does nothing.",
+            "created_at": "2024-02-24 10:10:33.890123+08:00",
+            "updated_at": "2024-02-28 14:55:17.012345+08:00"
+        },
+        {
+            "id": 16,
+            "issuer_id": 15,
+            "assignee_id": 2,
+            "title": "General inquiry about backup procedures",
+            "status": "closed",
+            "category": "other",
+            "description": "I need information about the company's data backup procedures and how often backups are performed.",
+            "created_at": "2024-02-10 16:30:45.345678+08:00",
+            "updated_at": "2024-02-11 10:15:28.456789+08:00"
+        },
+        {
+            "id": 17,
+            "issuer_id": 18,
+            "assignee_id": 8,
+            "title": "New user account setup",
+            "status": "resolved",
+            "category": "account",
+            "description": "Need to create accounts for 3 new employees starting next week. They need access to email and project folders.",
+            "created_at": "2024-02-19 12:25:52.678901+08:00",
+            "updated_at": "2024-02-23 09:40:36.234567+08:00"
+        },
+        {
+            "id": 18,
+            "issuer_id": 19,
+            "assignee_id": 5,
+            "title": "Server maintenance notification",
+            "status": "closed",
+            "category": "other",
+            "description": "Requesting advance notice for next scheduled server maintenance window to plan work accordingly.",
+            "created_at": "2024-02-08 14:45:29.901234+08:00",
+            "updated_at": "2024-02-09 11:20:15.567890+08:00"
+        },
+        {
+            "id": 19,
+            "issuer_id": 3,
+            "assignee_id": null,
+            "title": "Unable to connect to shared printer",
+            "status": "open",
+            "category": "hardware",
+            "description": "Getting 'printer not found' error when trying to print to the office laser printer. Other users can print fine.",
+            "created_at": "2024-03-04 10:20:15.234567+08:00",
+            "updated_at": "2024-03-04 10:20:15.234567+08:00"
+        },
+        {
+            "id": 20,
+            "issuer_id": 7,
+            "assignee_id": 12,
+            "title": "Password expired notification",
+            "status": "resolved",
+            "category": "account",
+            "description": "My system password has expired and I need assistance resetting it. Unable to access any company resources.",
+            "created_at": "2024-02-28 14:30:22.567890+08:00",
+            "updated_at": "2024-03-01 09:15:44.123456+08:00"
+        },
+        {
+            "id": 21,
+            "issuer_id": 1,
+            "assignee_id": 5,
+            "title": "Bluetooth mouse connection issues",
+            "status": "open",
+            "category": "hardware",
+            "description": "Wireless mouse keeps disconnecting every few minutes. Have to restart Bluetooth to reconnect.",
+            "created_at": "2024-03-05 11:45:22.890123+08:00",
+            "updated_at": "2024-03-05 11:45:22.890123+08:00"
+        },
+        {
+            "id": 22,
+            "issuer_id": 4,
+            "assignee_id": null,
+            "title": "Webcam not working in video calls",
+            "status": "open",
+            "category": "hardware",
+            "description": "Built-in webcam shows black screen in Teams and Zoom calls. Camera works fine in Windows Camera app.",
+            "created_at": "2024-03-06 14:30:45.456789+08:00",
+            "updated_at": "2024-03-06 14:30:45.456789+08:00"
+        },
+        {
+            "id": 23,
+            "issuer_id": 6,
+            "assignee_id": 8,
+            "title": "Cannot save files to network drive",
+            "status": "in_progress",
+            "category": "network",
+            "description": "Getting 'access denied' error when trying to save documents to the Finance shared folder.",
+            "created_at": "2024-03-03 11:20:33.789012+08:00",
+            "updated_at": "2024-03-07 09:45:18.234567+08:00"
+        },
+        {
+            "id": 24,
+            "issuer_id": 9,
+            "assignee_id": 11,
+            "title": "Multi-factor authentication not working",
+            "status": "resolved",
+            "category": "account",
+            "description": "MFA codes from authenticator app are being rejected. Tried multiple codes but all show as invalid.",
+            "created_at": "2024-03-01 09:50:15.345678+08:00",
+            "updated_at": "2024-03-04 16:25:42.678901+08:00"
+        },
+        {
+            "id": 25,
+            "issuer_id": 10,
+            "assignee_id": 14,
+            "title": "Software crashes when opening large files",
+            "status": "open",
+            "category": "software",
+            "description": "CAD software crashes immediately when trying to open files larger than 50MB. Memory usage spikes to 100%.",
+            "created_at": "2024-03-08 13:15:28.901234+08:00",
+            "updated_at": "2024-03-08 13:15:28.901234+08:00"
+        },
+        {
+            "id": 26,
+            "issuer_id": 13,
+            "assignee_id": 2,
+            "title": "Request for software license renewal",
+            "status": "closed",
+            "category": "other",
+            "description": "Adobe Photoshop license expires next week. Need renewal to continue design work for marketing campaigns.",
+            "created_at": "2024-02-28 16:40:11.567890+08:00",
+            "updated_at": "2024-03-02 14:20:55.890123+08:00"
+        },
+        {
+            "id": 27,
+            "issuer_id": 15,
+            "assignee_id": null,
+            "title": "External monitor not detected",
+            "status": "open",
+            "category": "hardware",
+            "description": "Laptop doesn't detect external monitor when connected via HDMI. Cable and monitor work with other laptops.",
+            "created_at": "2024-03-09 08:25:44.012345+08:00",
+            "updated_at": "2024-03-09 08:25:44.012345+08:00"
+        },
+        {
+            "id": 28,
+            "issuer_id": 18,
+            "assignee_id": 17,
+            "title": "Unable to connect to company WiFi",
+            "status": "in_progress",
+            "category": "network",
+            "description": "New laptop cannot connect to company WiFi network. Gets IP address but no internet access.",
+            "created_at": "2024-03-07 12:10:33.345678+08:00",
+            "updated_at": "2024-03-10 10:30:27.678901+08:00"
+        },
+        {
+            "id": 29,
+            "issuer_id": 19,
+            "assignee_id": 16,
+            "title": "Email signature not displaying correctly",
+            "status": "resolved",
+            "category": "software",
+            "description": "Company email signature appears garbled in outgoing emails. Formatting and logo are completely broken.",
+            "created_at": "2024-03-04 15:35:18.901234+08:00",
+            "updated_at": "2024-03-06 11:45:33.234567+08:00"
+        },
+        {
+            "id": 30,
+            "issuer_id": 3,
+            "assignee_id": 20,
+            "title": "Access request for HR database",
+            "status": "open",
+            "category": "access",
+            "description": "Need read-only access to HR database for quarterly reporting. Manager approval attached.",
+            "created_at": "2024-03-11 09:20:55.567890+08:00",
+            "updated_at": "2024-03-11 09:20:55.567890+08:00"
+        },
+        {
+            "id": 31,
+            "issuer_id": 7,
+            "assignee_id": 5,
+            "title": "VPN speed extremely slow",
+            "status": "in_progress",
+            "category": "network",
+            "description": "VPN connection works but speed is less than 1Mbps. Direct internet connection gives 100Mbps.",
+            "created_at": "2024-03-08 14:20:11.123456+08:00",
+            "updated_at": "2024-03-12 16:35:44.456789+08:00"
+        },
+        {
+            "id": 32,
+            "issuer_id": 12,
+            "assignee_id": null,
+            "title": "Cannot install printer driver",
+            "status": "open",
+            "category": "software",
+            "description": "Windows blocks printer driver installation with 'publisher cannot be verified' error message.",
+            "created_at": "2024-03-13 10:30:33.789012+08:00",
+            "updated_at": "2024-03-13 10:30:33.789012+08:00"
+        },
+        {
+            "id": 33,
+            "issuer_id": 16,
+            "assignee_id": 3,
+            "title": "Account locked due to failed login attempts",
+            "status": "closed",
+            "category": "account",
+            "description": "Account was locked after someone tried to login with wrong password multiple times. Need immediate unlock.",
+            "created_at": "2024-03-09 08:15:27.012345+08:00",
+            "updated_at": "2024-03-09 09:30:18.345678+08:00"
+        },
+        {
+            "id": 34,
+            "issuer_id": 1,
+            "assignee_id": 14,
+            "title": "Application runs extremely slow",
+            "status": "open",
+            "category": "software",
+            "description": "Database application takes 10+ seconds to respond to any click. Other applications run normally.",
+            "created_at": "2024-03-14 13:25:44.678901+08:00",
+            "updated_at": "2024-03-14 13:25:44.678901+08:00"
+        },
+        {
+            "id": 35,
+            "issuer_id": 4,
+            "assignee_id": null,
+            "title": "Hard drive making clicking noises",
+            "status": "open",
+            "category": "hardware",
+            "description": "Computer hard drive started making clicking sounds yesterday. System still boots but very concerned.",
+            "created_at": "2024-03-15 09:40:15.901234+08:00",
+            "updated_at": "2024-03-15 09:40:15.901234+08:00"
+        },
+        {
+            "id": 36,
+            "issuer_id": 6,
+            "assignee_id": 17,
+            "title": "Cannot access time tracking system",
+            "status": "resolved",
+            "category": "access",
+            "description": "Getting 'unauthorized access' error when trying to log time entries. Credentials appear correct.",
+            "created_at": "2024-03-10 14:50:33.234567+08:00",
+            "updated_at": "2024-03-12 12:15:27.567890+08:00"
+        },
+        {
+            "id": 37,
+            "issuer_id": 9,
+            "assignee_id": 2,
+            "title": "Request for security software update",
+            "status": "cancelled",
+            "category": "other",
+            "description": "Need latest version of antivirus software installed. Current version showing as outdated.",
+            "created_at": "2024-03-06 11:20:55.890123+08:00",
+            "updated_at": "2024-03-08 15:45:22.123456+08:00"
+        },
+        {
+            "id": 38,
+            "issuer_id": 10,
+            "assignee_id": 5,
+            "title": "Email filters not working properly",
+            "status": "in_progress",
+            "category": "software",
+            "description": "Set up email filters to organize messages but they're not applying to new emails automatically.",
+            "created_at": "2024-03-11 16:15:18.456789+08:00",
+            "updated_at": "2024-03-16 14:30:44.789012+08:00"
+        },
+        {
+            "id": 39,
+            "issuer_id": 13,
+            "assignee_id": 11,
+            "title": "Network printer queue stuck",
+            "status": "open",
+            "category": "hardware",
+            "description": "Print jobs are stuck in queue and won't clear. Printer shows ready but nothing prints.",
+            "created_at": "2024-03-17 12:35:22.012345+08:00",
+            "updated_at": "2024-03-17 12:35:22.012345+08:00"
+        },
+        {
+            "id": 40,
+            "issuer_id": 15,
+            "assignee_id": 8,
+            "title": "Two-factor authentication setup help",
+            "status": "resolved",
+            "category": "account",
+            "description": "Need assistance setting up 2FA for company accounts. Have authenticator app but need configuration guidance.",
+            "created_at": "2024-03-12 10:25:33.345678+08:00",
+            "updated_at": "2024-03-14 16:40:18.678901+08:00"
+        }
+    ],
+    "attachments": [
+        {
+            "id": 1,
+            "ticket_id": 1,
+            "filename": "power_supply_specs.pdf",
+            "filetype": "pdf",
+            "filesize": 245760,
+            "uploaded_at": "2024-02-25T09:30:15.234567+08:00",
+            "updated_at": "2024-02-25T09:30:15.234567+08:00"
+        },
+        {
+            "id": 2,
+            "ticket_id": 3,
+            "filename": "error_screenshot.png",
+            "filetype": "png",
+            "filesize": 1048576,
+            "uploaded_at": "2024-02-20T15:00:30.345678+08:00",
+            "updated_at": "2024-02-20T15:00:30.345678+08:00"
+        },
+        {
+            "id": 3,
+            "ticket_id": 3,
+            "filename": "installation_log.txt",
+            "filetype": "txt",
+            "filesize": 15360,
+            "uploaded_at": "2024-02-20T15:15:45.456789+08:00",
+            "updated_at": "2024-02-20T15:15:45.456789+08:00"
+        },
+        {
+            "id": 4,
+            "ticket_id": 5,
+            "filename": "network_config.docx",
+            "filetype": "docx",
+            "filesize": 524288,
+            "uploaded_at": "2024-02-23T14:20:18.567890+08:00",
+            "updated_at": "2024-02-23T14:20:18.567890+08:00"
+        },
+        {
+            "id": 5,
+            "ticket_id": 8,
+            "filename": "database_error_log.txt",
+            "filetype": "txt",
+            "filesize": 8192,
+            "uploaded_at": "2024-02-21T11:45:22.678901+08:00",
+            "updated_at": "2024-02-21T11:45:22.678901+08:00"
+        },
+        {
+            "id": 6,
+            "ticket_id": 9,
+            "filename": "monitor_photo.jpg",
+            "filetype": "jpg",
+            "filesize": 2097152,
+            "uploaded_at": "2024-02-29T14:30:33.789012+08:00",
+            "updated_at": "2024-02-29T14:30:33.789012+08:00"
+        },
+        {
+            "id": 7,
+            "ticket_id": 11,
+            "filename": "crash_dump.dmp",
+            "filetype": "dmp",
+            "filesize": 10485760,
+            "uploaded_at": "2024-02-12T12:00:45.890123+08:00",
+            "updated_at": "2024-02-12T12:00:45.890123+08:00"
+        },
+        {
+            "id": 8,
+            "ticket_id": 15,
+            "filename": "email_settings.pdf",
+            "filetype": "pdf",
+            "filesize": 131072,
+            "uploaded_at": "2024-02-24T10:30:55.012345+08:00",
+            "updated_at": "2024-02-24T10:30:55.012345+08:00"
+        },
+        {
+            "id": 9,
+            "ticket_id": 17,
+            "filename": "new_employee_list.xlsx",
+            "filetype": "xlsx",
+            "filesize": 65536,
+            "uploaded_at": "2024-02-19T13:15:18.123456+08:00",
+            "updated_at": "2024-02-19T13:15:18.123456+08:00"
+        },
+        {
+            "id": 10,
+            "ticket_id": 21,
+            "filename": "bluetooth_diagnostic.txt",
+            "filetype": "txt",
+            "filesize": 4096,
+            "uploaded_at": "2024-03-05T12:00:33.234567+08:00",
+            "updated_at": "2024-03-05T12:00:33.234567+08:00"
+        },
+        {
+            "id": 11,
+            "ticket_id": 23,
+            "filename": "network_permissions.docx",
+            "filetype": "docx",
+            "filesize": 262144,
+            "uploaded_at": "2024-03-03T11:45:27.345678+08:00",
+            "updated_at": "2024-03-03T11:45:27.345678+08:00"
+        },
+        {
+            "id": 12,
+            "ticket_id": 25,
+            "filename": "large_file_sample.dwg",
+            "filetype": "dwg",
+            "filesize": 52428800,
+            "uploaded_at": "2024-03-08T13:30:42.456789+08:00",
+            "updated_at": "2024-03-08T13:30:42.456789+08:00"
+        },
+        {
+            "id": 13,
+            "ticket_id": 28,
+            "filename": "wifi_config.png",
+            "filetype": "png",
+            "filesize": 786432,
+            "uploaded_at": "2024-03-07T12:25:15.567890+08:00",
+            "updated_at": "2024-03-07T12:25:15.567890+08:00"
+        },
+        {
+            "id": 14,
+            "ticket_id": 31,
+            "filename": "vpn_speed_test.pdf",
+            "filetype": "pdf",
+            "filesize": 196608,
+            "uploaded_at": "2024-03-08T14:45:28.678901+08:00",
+            "updated_at": "2024-03-08T14:45:28.678901+08:00"
+        },
+        {
+            "id": 15,
+            "ticket_id": 34,
+            "filename": "performance_report.xlsx",
+            "filetype": "xlsx",
+            "filesize": 327680,
+            "uploaded_at": "2024-03-14T13:40:18.789012+08:00",
+            "updated_at": "2024-03-14T13:40:18.789012+08:00"
+        },
+        {
+            "id": 16,
+            "ticket_id": 35,
+            "filename": "hard_drive_sounds.wav",
+            "filetype": "wav",
+            "filesize": 5242880,
+            "uploaded_at": "2024-03-15T09:55:33.890123+08:00",
+            "updated_at": "2024-03-15T09:55:33.890123+08:00"
+        },
+        {
+            "id": 17,
+            "ticket_id": 38,
+            "filename": "email_filter_rules.txt",
+            "filetype": "txt",
+            "filesize": 2048,
+            "uploaded_at": "2024-03-11T16:30:44.012345+08:00",
+            "updated_at": "2024-03-11T16:30:44.012345+08:00"
+        },
+        {
+            "id": 18,
+            "ticket_id": 39,
+            "filename": "print_queue_status.png",
+            "filetype": "png",
+            "filesize": 409600,
+            "uploaded_at": "2024-03-17T12:50:55.123456+08:00",
+            "updated_at": "2024-03-17T12:50:55.123456+08:00"
+        },
+        {
+            "id": 19,
+            "ticket_id": 2,
+            "filename": "email_error_screenshot.png",
+            "filetype": "png",
+            "filesize": 892600,
+            "uploaded_at": "2024-02-26T11:45:33.345678+08:00",
+            "updated_at": "2024-02-26T11:45:33.345678+08:00"
+        },
+        {
+            "id": 20,
+            "ticket_id": 4,
+            "filename": "printer_status.jpg",
+            "filetype": "jpg",
+            "filesize": 1543200,
+            "uploaded_at": "2024-02-27T08:35:12.789012+08:00",
+            "updated_at": "2024-02-27T08:35:12.789012+08:00"
+        },
+        {
+            "id": 21,
+            "ticket_id": 7,
+            "filename": "vpn_connection_log.txt",
+            "filetype": "txt",
+            "filesize": 12480,
+            "uploaded_at": "2024-02-28T13:00:18.456789+08:00",
+            "updated_at": "2024-02-28T13:00:18.456789+08:00"
+        },
+        {
+            "id": 22,
+            "ticket_id": 10,
+            "filename": "server_permissions.xlsx",
+            "filetype": "xlsx",
+            "filesize": 89600,
+            "uploaded_at": "2024-02-18T10:15:45.123456+08:00",
+            "updated_at": "2024-02-18T10:15:45.123456+08:00"
+        },
+        {
+            "id": 23,
+            "ticket_id": 12,
+            "filename": "wifi_diagnostics.pdf",
+            "filetype": "pdf",
+            "filesize": 356400,
+            "uploaded_at": "2024-03-01T09:00:55.678901+08:00",
+            "updated_at": "2024-03-01T09:00:55.678901+08:00"
+        },
+        {
+            "id": 24,
+            "ticket_id": 14,
+            "filename": "keyboard_layout.png",
+            "filetype": "png",
+            "filesize": 445500,
+            "uploaded_at": "2024-03-02T13:45:27.234567+08:00",
+            "updated_at": "2024-03-02T13:45:27.234567+08:00"
+        },
+        {
+            "id": 25,
+            "ticket_id": 18,
+            "filename": "maintenance_schedule.docx",
+            "filetype": "docx",
+            "filesize": 178200,
+            "uploaded_at": "2024-02-08T15:20:44.890123+08:00",
+            "updated_at": "2024-02-08T15:20:44.890123+08:00"
+        },
+        {
+            "id": 26,
+            "ticket_id": 20,
+            "filename": "password_reset_form.pdf",
+            "filetype": "pdf",
+            "filesize": 234500,
+            "uploaded_at": "2024-02-28T14:45:33.012345+08:00",
+            "updated_at": "2024-02-28T14:45:33.012345+08:00"
+        },
+        {
+            "id": 27,
+            "ticket_id": 22,
+            "filename": "webcam_test_video.mp4",
+            "filetype": "mp4",
+            "filesize": 15728640,
+            "uploaded_at": "2024-03-06T14:50:18.345678+08:00",
+            "updated_at": "2024-03-06T14:50:18.345678+08:00"
+        },
+        {
+            "id": 28,
+            "ticket_id": 24,
+            "filename": "mfa_setup_guide.pdf",
+            "filetype": "pdf",
+            "filesize": 512000,
+            "uploaded_at": "2024-03-01T10:25:44.567890+08:00",
+            "updated_at": "2024-03-01T10:25:44.567890+08:00"
+        },
+        {
+            "id": 29,
+            "ticket_id": 26,
+            "filename": "license_agreement.docx",
+            "filetype": "docx",
+            "filesize": 298700,
+            "uploaded_at": "2024-02-28T17:15:22.123456+08:00",
+            "updated_at": "2024-02-28T17:15:22.123456+08:00"
+        },
+        {
+            "id": 30,
+            "ticket_id": 27,
+            "filename": "display_settings.png",
+            "filetype": "png",
+            "filesize": 667800,
+            "uploaded_at": "2024-03-09T08:45:55.789012+08:00",
+            "updated_at": "2024-03-09T08:45:55.789012+08:00"
+        },
+        {
+            "id": 31,
+            "ticket_id": 29,
+            "filename": "email_signature_template.html",
+            "filetype": "html",
+            "filesize": 8950,
+            "uploaded_at": "2024-03-04T15:55:33.456789+08:00",
+            "updated_at": "2024-03-04T15:55:33.456789+08:00"
+        },
+        {
+            "id": 32,
+            "ticket_id": 30,
+            "filename": "hr_access_request.pdf",
+            "filetype": "pdf",
+            "filesize": 145600,
+            "uploaded_at": "2024-03-11T09:40:18.234567+08:00",
+            "updated_at": "2024-03-11T09:40:18.234567+08:00"
+        },
+        {
+            "id": 33,
+            "ticket_id": 32,
+            "filename": "printer_driver_setup.exe",
+            "filetype": "exe",
+            "filesize": 25600000,
+            "uploaded_at": "2024-03-13T10:50:44.678901+08:00",
+            "updated_at": "2024-03-13T10:50:44.678901+08:00"
+        },
+        {
+            "id": 34,
+            "ticket_id": 36,
+            "filename": "timesheet_access_log.txt",
+            "filetype": "txt",
+            "filesize": 6789,
+            "uploaded_at": "2024-03-10T15:10:27.890123+08:00",
+            "updated_at": "2024-03-10T15:10:27.890123+08:00"
+        },
+        {
+            "id": 35,
+            "ticket_id": 40,
+            "filename": "2fa_qr_code.png",
+            "filetype": "png",
+            "filesize": 23400,
+            "uploaded_at": "2024-03-12T10:45:55.012345+08:00",
+            "updated_at": "2024-03-12T10:45:55.012345+08:00"
+        },
+        {
+            "id": 36,
+            "ticket_id": 1,
+            "filename": "motherboard_manual.pdf",
+            "filetype": "pdf",
+            "filesize": 3456789,
+            "uploaded_at": "2024-02-25T10:00:33.567890+08:00",
+            "updated_at": "2024-02-25T10:00:33.567890+08:00"
+        },
+        {
+            "id": 37,
+            "ticket_id": 13,
+            "filename": "account_audit_report.xlsx",
+            "filetype": "xlsx",
+            "filesize": 567800,
+            "uploaded_at": "2024-02-16T16:20:18.345678+08:00",
+            "updated_at": "2024-02-16T16:20:18.345678+08:00"
+        },
+        {
+            "id": 38,
+            "ticket_id": 19,
+            "filename": "printer_network_config.json",
+            "filetype": "json",
+            "filesize": 4567,
+            "uploaded_at": "2024-03-04T10:40:33.123456+08:00",
+            "updated_at": "2024-03-04T10:40:33.123456+08:00"
+        },
+        {
+            "id": 39,
+            "ticket_id": 6,
+            "filename": "password_policy.pdf",
+            "filetype": "pdf",
+            "filesize": 187300,
+            "uploaded_at": "2024-02-15T16:45:22.234567+08:00",
+            "updated_at": "2024-02-15T16:45:22.234567+08:00"
+        },
+        {
+            "id": 40,
+            "ticket_id": 16,
+            "filename": "backup_documentation.docx",
+            "filetype": "docx",
+            "filesize": 345600,
+            "uploaded_at": "2024-02-10T17:00:15.789012+08:00",
+            "updated_at": "2024-02-10T17:00:15.789012+08:00"
+        },
+        {
+            "id": 41,
+            "ticket_id": 33,
+            "filename": "security_log.txt",
+            "filetype": "txt",
+            "filesize": 23456,
+            "uploaded_at": "2024-03-09T08:30:44.567890+08:00",
+            "updated_at": "2024-03-09T08:30:44.567890+08:00"
+        },
+        {
+            "id": 42,
+            "ticket_id": 37,
+            "filename": "antivirus_update.zip",
+            "filetype": "zip",
+            "filesize": 78934560,
+            "uploaded_at": "2024-03-06T11:40:18.123456+08:00",
+            "updated_at": "2024-03-06T11:40:18.123456+08:00"
+        },
+        {
+            "id": 43,
+            "ticket_id": 5,
+            "filename": "network_diagram.vsd",
+            "filetype": "vsd",
+            "filesize": 892400,
+            "uploaded_at": "2024-02-23T13:35:27.890123+08:00",
+            "updated_at": "2024-02-23T13:35:27.890123+08:00"
+        },
+        {
+            "id": 44,
+            "ticket_id": 8,
+            "filename": "sql_query_results.csv",
+            "filetype": "csv",
+            "filesize": 156780,
+            "uploaded_at": "2024-02-21T10:50:33.345678+08:00",
+            "updated_at": "2024-02-21T10:50:33.345678+08:00"
+        },
+        {
+            "id": 45,
+            "ticket_id": 26,
+            "filename": "photoshop_license_key.txt",
+            "filetype": "txt",
+            "filesize": 1024,
+            "uploaded_at": "2024-02-28T16:55:44.678901+08:00",
+            "updated_at": "2024-02-28T16:55:44.678901+08:00"
+        },
+        {
+            "id": 46,
+            "ticket_id": 1,
+            "filename": "diagnostic_report.pdf",
+            "filetype": "pdf",
+            "filesize": 567890,
+            "uploaded_at": "2024-02-25T09:45:18.456789+08:00",
+            "updated_at": "2024-02-25T09:45:18.456789+08:00"
+        },
+        {
+            "id": 47,
+            "ticket_id": 11,
+            "filename": "dll_files_backup.rar",
+            "filetype": "rar",
+            "filesize": 23456789,
+            "uploaded_at": "2024-02-12T11:35:22.012345+08:00",
+            "updated_at": "2024-02-12T11:35:22.012345+08:00"
+        },
+        {
+            "id": 48,
+            "ticket_id": 23,
+            "filename": "folder_permissions.xlsx",
+            "filetype": "xlsx",
+            "filesize": 67890,
+            "uploaded_at": "2024-03-03T12:00:15.234567+08:00",
+            "updated_at": "2024-03-03T12:00:15.234567+08:00"
+        },
+        {
+            "id": 49,
+            "ticket_id": 9,
+            "filename": "monitor_specs.pdf",
+            "filetype": "pdf",
+            "filesize": 234567,
+            "uploaded_at": "2024-02-29T14:45:33.567890+08:00",
+            "updated_at": "2024-02-29T14:45:33.567890+08:00"
+        },
+        {
+            "id": 50,
+            "ticket_id": 31,
+            "filename": "bandwidth_report.xlsx",
+            "filetype": "xlsx",
+            "filesize": 123456,
+            "uploaded_at": "2024-03-08T15:00:27.789012+08:00",
+            "updated_at": "2024-03-08T15:00:27.789012+08:00"
+        },
+        {
+            "id": 51,
+            "ticket_id": 34,
+            "filename": "memory_dump.dmp",
+            "filetype": "dmp",
+            "filesize": 134217728,
+            "uploaded_at": "2024-03-14T13:55:18.345678+08:00",
+            "updated_at": "2024-03-14T13:55:18.345678+08:00"
+        },
+        {
+            "id": 52,
+            "ticket_id": 4,
+            "filename": "printer_manual.pdf",
+            "filetype": "pdf",
+            "filesize": 456789,
+            "uploaded_at": "2024-02-27T08:50:44.123456+08:00",
+            "updated_at": "2024-02-27T08:50:44.123456+08:00"
+        },
+        {
+            "id": 53,
+            "ticket_id": 21,
+            "filename": "bluetooth_driver.exe",
+            "filetype": "exe",
+            "filesize": 12345678,
+            "uploaded_at": "2024-03-05T12:15:33.456789+08:00",
+            "updated_at": "2024-03-05T12:15:33.456789+08:00"
+        },
+        {
+            "id": 54,
+            "ticket_id": 15,
+            "filename": "outlook_configuration.reg",
+            "filetype": "reg",
+            "filesize": 2048,
+            "uploaded_at": "2024-02-24T10:45:27.678901+08:00",
+            "updated_at": "2024-02-24T10:45:27.678901+08:00"
+        },
+        {
+            "id": 55,
+            "ticket_id": 35,
+            "filename": "chkdsk_results.txt",
+            "filetype": "txt",
+            "filesize": 7890,
+            "uploaded_at": "2024-03-15T10:10:18.234567+08:00",
+            "updated_at": "2024-03-15T10:10:18.234567+08:00"
+        },
+        {
+            "id": 56,
+            "ticket_id": 17,
+            "filename": "employee_onboarding.pptx",
+            "filetype": "pptx",
+            "filesize": 1234567,
+            "uploaded_at": "2024-02-19T12:40:33.567890+08:00",
+            "updated_at": "2024-02-19T12:40:33.567890+08:00"
+        },
+        {
+            "id": 57,
+            "ticket_id": 3,
+            "filename": "software_requirements.docx",
+            "filetype": "docx",
+            "filesize": 98765,
+            "uploaded_at": "2024-02-20T14:55:18.123456+08:00",
+            "updated_at": "2024-02-20T14:55:18.123456+08:00"
+        },
+        {
+            "id": 58,
+            "ticket_id": 28,
+            "filename": "network_adapter_driver.inf",
+            "filetype": "inf",
+            "filesize": 15432,
+            "uploaded_at": "2024-03-07T12:40:27.890123+08:00",
+            "updated_at": "2024-03-07T12:40:27.890123+08:00"
+        },
+        {
+            "id": 59,
+            "ticket_id": 39,
+            "filename": "print_spooler_log.evtx",
+            "filetype": "evtx",
+            "filesize": 345678,
+            "uploaded_at": "2024-03-17T13:05:44.567890+08:00",
+            "updated_at": "2024-03-17T13:05:44.567890+08:00"
+        },
+        {
+            "id": 60,
+            "ticket_id": 2,
+            "filename": "email_server_config.xml",
+            "filetype": "xml",
+            "filesize": 12543,
+            "uploaded_at": "2024-02-26T12:00:18.789012+08:00",
+            "updated_at": "2024-02-26T12:00:18.789012+08:00"
+        }
+    ],
+    "messages": [
+        {
+            "id": 1,
+            "sender_id": 1,
+            "receiver_id": 2,
+            "ticket_id": 1,
+            "content": "Hi Jane, my computer won't start after the power outage yesterday. I've tried holding the power button but nothing happens.",
+            "sent_at": "2024-02-25T09:45:30.123456+08:00",
+            "edited_at": "2024-02-25T09:45:30.123456+08:00"
+        },
+        {
+            "id": 2,
+            "sender_id": 2,
+            "receiver_id": 1,
+            "ticket_id": 1,
+            "content": "Hi John, I'll help you with this. First, can you check if the power cable is securely connected to both the computer and wall outlet?",
+            "sent_at": "2024-02-25T10:15:45.234567+08:00",
+            "edited_at": "2024-02-25T10:15:45.234567+08:00"
+        },
+        {
+            "id": 3,
+            "sender_id": 1,
+            "receiver_id": 2,
+            "ticket_id": 1,
+            "content": "Yes, I've checked all connections. The power LED on the power supply isn't lighting up either.",
+            "sent_at": "2024-02-25T10:30:22.345678+08:00",
+            "edited_at": "2024-02-25T10:30:22.345678+08:00"
+        },
+        {
+            "id": 4,
+            "sender_id": 2,
+            "receiver_id": 1,
+            "ticket_id": 1,
+            "content": "That suggests a power supply issue. I'll schedule a technician visit to replace the PSU. Should be resolved by tomorrow.",
+            "sent_at": "2024-02-25T11:00:15.456789+08:00",
+            "edited_at": "2024-02-25T11:00:15.456789+08:00"
+        },
+        {
+            "id": 5,
+            "sender_id": 4,
+            "receiver_id": 5,
+            "ticket_id": 2,
+            "content": "Hi Tom, I can't access my work email. It keeps saying 'invalid credentials' but I'm sure my password is correct.",
+            "sent_at": "2024-02-26T11:35:15.567890+08:00",
+            "edited_at": "2024-02-26T11:35:15.567890+08:00"
+        },
+        {
+            "id": 6,
+            "sender_id": 5,
+            "receiver_id": 4,
+            "ticket_id": 2,
+            "content": "Hi Sarah, let's try resetting your password first. I'll send you a temporary password to your personal email shortly.",
+            "sent_at": "2024-02-26T12:00:33.678901+08:00",
+            "edited_at": "2024-02-26T12:00:33.678901+08:00"
+        },
+        {
+            "id": 7,
+            "sender_id": 6,
+            "receiver_id": 2,
+            "ticket_id": 3,
+            "content": "Jane, the accounting software installation failed with error code 1603. I've attached the installation log and error screenshot.",
+            "sent_at": "2024-02-20T15:00:22.789012+08:00",
+            "edited_at": "2024-02-20T15:00:22.789012+08:00"
+        },
+        {
+            "id": 8,
+            "sender_id": 2,
+            "receiver_id": 6,
+            "ticket_id": 3,
+            "content": "Thanks Alice. Error 1603 usually indicates insufficient permissions. I'll run the installer as administrator and update you.",
+            "sent_at": "2024-02-20T16:30:44.890123+08:00",
+            "edited_at": "2024-02-20T16:30:44.890123+08:00"
+        },
+        {
+            "id": 9,
+            "sender_id": 2,
+            "receiver_id": 6,
+            "ticket_id": 3,
+            "content": "Installation completed successfully! The software is now ready to use. Please test it and let me know if you encounter any issues.",
+            "sent_at": "2024-02-24T16:00:18.012345+08:00",
+            "edited_at": "2024-02-24T16:00:18.012345+08:00"
+        },
+        {
+            "id": 10,
+            "sender_id": 10,
+            "receiver_id": 8,
+            "ticket_id": 5,
+            "content": "Emma, I can't access the shared network drive. Getting 'network path not found' error when trying to connect.",
+            "sent_at": "2024-02-23T13:20:33.123456+08:00",
+            "edited_at": "2024-02-23T13:20:33.123456+08:00"
+        },
+        {
+            "id": 11,
+            "sender_id": 8,
+            "receiver_id": 10,
+            "ticket_id": 5,
+            "content": "Hi Lisa, I'm checking the network drive status. Can you try accessing it using the IP address instead of the mapped drive letter?",
+            "sent_at": "2024-02-23T14:45:27.234567+08:00",
+            "edited_at": "2024-02-23T14:45:27.234567+08:00"
+        },
+        {
+            "id": 12,
+            "sender_id": 10,
+            "receiver_id": 8,
+            "ticket_id": 5,
+            "content": "That worked! I can access it via IP. Should I continue using the IP address or will the mapped drive be fixed?",
+            "sent_at": "2024-02-23T15:15:44.345678+08:00",
+            "edited_at": "2024-02-23T15:15:44.345678+08:00"
+        },
+        {
+            "id": 13,
+            "sender_id": 8,
+            "receiver_id": 10,
+            "ticket_id": 5,
+            "content": "I'll fix the DNS resolution issue so your mapped drive works again. Should be resolved by end of day.",
+            "sent_at": "2024-02-25T10:30:27.456789+08:00",
+            "edited_at": "2024-02-25T10:30:27.456789+08:00"
+        },
+        {
+            "id": 14,
+            "sender_id": 18,
+            "receiver_id": 14,
+            "ticket_id": 8,
+            "content": "Susan, I'm getting 'connection timeout' errors when accessing the customer database through our CRM system.",
+            "sent_at": "2024-02-21T10:45:12.567890+08:00",
+            "edited_at": "2024-02-21T10:45:12.567890+08:00"
+        },
+        {
+            "id": 15,
+            "sender_id": 14,
+            "receiver_id": 18,
+            "ticket_id": 8,
+            "content": "Hi Maria, the database server is experiencing high load. I'm optimizing some queries that should improve performance.",
+            "sent_at": "2024-02-21T11:30:55.678901+08:00",
+            "edited_at": "2024-02-21T11:30:55.678901+08:00"
+        },
+        {
+            "id": 16,
+            "sender_id": 15,
+            "receiver_id": 11,
+            "ticket_id": 7,
+            "content": "Kevin, I can't connect to the company VPN from home. It times out after entering my credentials.",
+            "sent_at": "2024-02-28T12:50:55.789012+08:00",
+            "edited_at": "2024-02-28T12:50:55.789012+08:00"
+        },
+        {
+            "id": 17,
+            "sender_id": 11,
+            "receiver_id": 15,
+            "ticket_id": 7,
+            "content": "Hi Robert, can you try connecting to a different VPN server? I'll send you the alternate server details.",
+            "sent_at": "2024-02-28T13:30:18.890123+08:00",
+            "edited_at": "2024-02-28T13:30:18.890123+08:00"
+        },
+        {
+            "id": 18,
+            "sender_id": 6,
+            "receiver_id": 5,
+            "ticket_id": 12,
+            "content": "Tom, my laptop WiFi keeps disconnecting every 10-15 minutes. Other devices on the network work fine.",
+            "sent_at": "2024-03-01T08:45:42.012345+08:00",
+            "edited_at": "2024-03-01T08:45:42.012345+08:00"
+        },
+        {
+            "id": 19,
+            "sender_id": 5,
+            "receiver_id": 6,
+            "ticket_id": 12,
+            "content": "Alice, this sounds like a driver issue. Can you check Device Manager and see if there are any warning signs next to your WiFi adapter?",
+            "sent_at": "2024-03-01T09:15:33.123456+08:00",
+            "edited_at": "2024-03-01T09:15:33.123456+08:00"
+        },
+        {
+            "id": 20,
+            "sender_id": 13,
+            "receiver_id": 14,
+            "ticket_id": 15,
+            "content": "Susan, I can't download email attachments. They show in the email but clicking download doesn't work.",
+            "sent_at": "2024-02-24T10:25:33.234567+08:00",
+            "edited_at": "2024-02-24T10:25:33.234567+08:00"
+        },
+        {
+            "id": 21,
+            "sender_id": 14,
+            "receiver_id": 13,
+            "ticket_id": 15,
+            "content": "Hi Peter, this could be a browser issue. Can you try downloading attachments using a different browser like Chrome or Firefox?",
+            "sent_at": "2024-02-24T11:00:45.345678+08:00",
+            "edited_at": "2024-02-24T11:00:45.345678+08:00"
+        },
+        {
+            "id": 22,
+            "sender_id": 13,
+            "receiver_id": 14,
+            "ticket_id": 15,
+            "content": "I tried Chrome and the same issue occurs. The download button appears but nothing happens when clicked.",
+            "sent_at": "2024-02-24T11:30:18.456789+08:00",
+            "edited_at": "2024-02-24T11:30:18.456789+08:00"
+        },
+        {
+            "id": 23,
+            "sender_id": 14,
+            "receiver_id": 13,
+            "ticket_id": 15,
+            "content": "Let me check the email server logs. Can you tell me the approximate file size of the attachments you're trying to download?",
+            "sent_at": "2024-02-24T12:15:33.567890+08:00",
+            "edited_at": "2024-02-24T12:15:33.567890+08:00"
+        },
+        {
+            "id": 24,
+            "sender_id": 13,
+            "receiver_id": 14,
+            "ticket_id": 15,
+            "content": "Most are around 2-5MB, some PDFs and Excel files. They used to download fine last week.",
+            "sent_at": "2024-02-24T12:45:27.678901+08:00",
+            "edited_at": "2024-02-24T12:45:27.678901+08:00"
+        },
+        {
+            "id": 25,
+            "sender_id": 14,
+            "receiver_id": 13,
+            "ticket_id": 15,
+            "content": "Found the issue - there was a security policy update blocking certain file types. I've updated your account permissions. Please try again.",
+            "sent_at": "2024-02-28T14:30:15.789012+08:00",
+            "edited_at": "2024-02-28T14:30:15.789012+08:00"
+        },
+        {
+            "id": 26,
+            "sender_id": 4,
+            "receiver_id": 5,
+            "ticket_id": 2,
+            "content": "Tom, I received the temporary password but I'm still getting the same error when trying to log in.",
+            "sent_at": "2024-02-26T13:15:44.890123+08:00",
+            "edited_at": "2024-02-26T13:15:44.890123+08:00"
+        },
+        {
+            "id": 27,
+            "sender_id": 5,
+            "receiver_id": 4,
+            "ticket_id": 2,
+            "content": "That's strange. Can you try clearing your browser cache and cookies, then attempt to log in again?",
+            "sent_at": "2024-02-26T13:45:18.012345+08:00",
+            "edited_at": "2024-02-26T13:45:18.012345+08:00"
+        },
+        {
+            "id": 28,
+            "sender_id": 4,
+            "receiver_id": 5,
+            "ticket_id": 2,
+            "content": "I cleared the cache but still no luck. Should I try from a different device?",
+            "sent_at": "2024-02-26T14:20:33.123456+08:00",
+            "edited_at": "2024-02-26T14:20:33.123456+08:00"
+        },
+        {
+            "id": 29,
+            "sender_id": 5,
+            "receiver_id": 4,
+            "ticket_id": 2,
+            "content": "Yes, please try that. Also, let me check if your account is locked. I'll reset it completely and send you new credentials within the hour.",
+            "sent_at": "2024-02-26T14:50:27.234567+08:00",
+            "edited_at": "2024-02-26T14:50:27.234567+08:00"
+        },
+        {
+            "id": 30,
+            "sender_id": 18,
+            "receiver_id": 14,
+            "ticket_id": 8,
+            "content": "The database performance seems better now, but I'm still getting occasional timeouts during peak hours.",
+            "sent_at": "2024-02-22T09:30:45.345678+08:00",
+            "edited_at": "2024-02-22T09:30:45.345678+08:00"
+        },
+        {
+            "id": 31,
+            "sender_id": 14,
+            "receiver_id": 18,
+            "ticket_id": 8,
+            "content": "I've implemented query caching which should help. Can you let me know the specific times when you experience these timeouts?",
+            "sent_at": "2024-02-22T10:15:33.456789+08:00",
+            "edited_at": "2024-02-22T10:15:33.456789+08:00"
+        },
+        {
+            "id": 32,
+            "sender_id": 18,
+            "receiver_id": 14,
+            "ticket_id": 8,
+            "content": "Usually between 2-4 PM when most people are accessing customer records. It's much better in the mornings.",
+            "sent_at": "2024-02-22T14:45:18.567890+08:00",
+            "edited_at": "2024-02-22T14:45:18.567890+08:00"
+        },
+        {
+            "id": 33,
+            "sender_id": 14,
+            "receiver_id": 18,
+            "ticket_id": 8,
+            "content": "That confirms it's a load issue. I'll schedule database maintenance during off-hours to optimize the indexes. Should resolve the peak-time slowdowns.",
+            "sent_at": "2024-02-26T15:00:27.678901+08:00",
+            "edited_at": "2024-02-26T15:00:27.678901+08:00"
+        },
+        {
+            "id": 34,
+            "sender_id": 15,
+            "receiver_id": 11,
+            "ticket_id": 7,
+            "content": "Kevin, I tried the alternate server but I'm getting a 'certificate error' now. The connection seems unstable.",
+            "sent_at": "2024-02-28T15:20:44.789012+08:00",
+            "edited_at": "2024-02-28T15:20:44.789012+08:00"
+        },
+        {
+            "id": 35,
+            "sender_id": 11,
+            "receiver_id": 15,
+            "ticket_id": 7,
+            "content": "The certificate issue is expected with the alternate server. Can you accept the certificate warning for now? I'm working on updating the SSL certificates.",
+            "sent_at": "2024-02-28T16:00:15.890123+08:00",
+            "edited_at": "2024-02-28T16:00:15.890123+08:00"
+        },
+        {
+            "id": 36,
+            "sender_id": 15,
+            "receiver_id": 11,
+            "ticket_id": 7,
+            "content": "I accepted the certificate and I'm now connected! The speed is much better than before. When will the main server be fixed?",
+            "sent_at": "2024-02-28T16:30:33.012345+08:00",
+            "edited_at": "2024-02-28T16:30:33.012345+08:00"
+        },
+        {
+            "id": 37,
+            "sender_id": 11,
+            "receiver_id": 15,
+            "ticket_id": 7,
+            "content": "Great! The main server should be back online by tomorrow morning. I'll send you an update once it's ready and you can switch back.",
+            "sent_at": "2024-02-28T17:15:27.123456+08:00",
+            "edited_at": "2024-02-28T17:15:27.123456+08:00"
+        },
+        {
+            "id": 38,
+            "sender_id": 6,
+            "receiver_id": 5,
+            "ticket_id": 12,
+            "content": "Tom, I checked Device Manager and there's a yellow warning triangle next to the WiFi adapter. Should I try updating the driver?",
+            "sent_at": "2024-03-01T10:20:45.234567+08:00",
+            "edited_at": "2024-03-01T10:20:45.234567+08:00"
+        },
+        {
+            "id": 39,
+            "sender_id": 5,
+            "receiver_id": 6,
+            "ticket_id": 12,
+            "content": "Perfect! That confirms it's a driver issue. Yes, please update the driver. You can either use Windows Update or download it directly from the manufacturer's website.",
+            "sent_at": "2024-03-01T10:45:18.345678+08:00",
+            "edited_at": "2024-03-01T10:45:18.345678+08:00"
+        },
+        {
+            "id": 40,
+            "sender_id": 6,
+            "receiver_id": 5,
+            "ticket_id": 12,
+            "content": "I updated the driver and restarted the laptop. The WiFi has been stable for the past 2 hours now. Thank you for the help!",
+            "sent_at": "2024-03-01T13:30:33.456789+08:00",
+            "edited_at": "2024-03-01T13:30:33.456789+08:00"
+        },
+        {
+            "id": 41,
+            "sender_id": 1,
+            "receiver_id": 2,
+            "ticket_id": 1,
+            "content": "Thanks Jane! The technician came by this morning and replaced the power supply. Everything is working perfectly now.",
+            "sent_at": "2024-02-26T10:30:15.567890+08:00",
+            "edited_at": "2024-02-26T10:30:15.567890+08:00"
+        },
+        {
+            "id": 42,
+            "sender_id": 6,
+            "receiver_id": 2,
+            "ticket_id": 3,
+            "content": "Perfect! The software is working great. I was able to import all our financial data without any issues. Thanks for your help!",
+            "sent_at": "2024-02-24T17:15:33.123456+08:00",
+            "edited_at": "2024-02-24T17:15:33.123456+08:00"
+        },
+        {
+            "id": 43,
+            "sender_id": 8,
+            "receiver_id": 10,
+            "ticket_id": 5,
+            "content": "Good news Lisa! I've fixed the DNS issue. Your mapped drive should work normally now. Can you test it and let me know?",
+            "sent_at": "2024-02-25T16:45:18.789012+08:00",
+            "edited_at": "2024-02-25T16:45:18.789012+08:00"
+        },
+        {
+            "id": 44,
+            "sender_id": 10,
+            "receiver_id": 8,
+            "ticket_id": 5,
+            "content": "Excellent! The mapped drive is working perfectly again. I can access all the shared folders without any issues. Thank you Emma!",
+            "sent_at": "2024-02-25T17:20:44.012345+08:00",
+            "edited_at": "2024-02-25T17:20:44.012345+08:00"
+        },
+        {
+            "id": 45,
+            "sender_id": 9,
+            "receiver_id": 11,
+            "ticket_id": 13,
+            "content": "Kevin, my account keeps getting locked out after 3 failed attempts, but I'm sure I'm entering the right password. Can you help?",
+            "sent_at": "2024-02-16T16:00:25.345678+08:00",
+            "edited_at": "2024-02-16T16:00:25.345678+08:00"
+        },
+        {
+            "id": 46,
+            "sender_id": 11,
+            "receiver_id": 9,
+            "ticket_id": 13,
+            "content": "Hi David, I'll check your account status. Sometimes there's a sync issue between systems. Let me reset your account and update the password policy for you.",
+            "sent_at": "2024-02-16T16:30:44.456789+08:00",
+            "edited_at": "2024-02-16T16:30:44.456789+08:00"
+        },
+        {
+            "id": 47,
+            "sender_id": 9,
+            "receiver_id": 11,
+            "ticket_id": 13,
+            "content": "Thanks! I tried logging in and it worked fine. How can I prevent this from happening again?",
+            "sent_at": "2024-02-17T08:15:33.567890+08:00",
+            "edited_at": "2024-02-17T08:15:33.567890+08:00"
+        },
+        {
+            "id": 48,
+            "sender_id": 11,
+            "receiver_id": 9,
+            "ticket_id": 13,
+            "content": "I've adjusted your account settings to be less sensitive to minor typing variations. Also, make sure Caps Lock isn't accidentally on when typing passwords.",
+            "sent_at": "2024-02-17T09:45:27.678901+08:00",
+            "edited_at": "2024-02-17T09:45:27.678901+08:00"
+        },
+        {
+            "id": 49,
+            "sender_id": 9,
+            "receiver_id": 11,
+            "ticket_id": 13,
+            "content": "That makes sense! I haven't had any lockout issues since then. Really appreciate your help Kevin.",
+            "sent_at": "2024-02-19T13:00:15.789012+08:00",
+            "edited_at": "2024-02-19T13:00:15.789012+08:00"
+        },
+        {
+            "id": 50,
+            "sender_id": 19,
+            "receiver_id": 5,
+            "ticket_id": 18,
+            "content": "Tom, could you let me know when the next server maintenance is scheduled? I need to plan my work accordingly.",
+            "sent_at": "2024-02-08T15:00:29.890123+08:00",
+            "edited_at": "2024-02-08T15:00:29.890123+08:00"
+        },
+        {
+            "id": 51,
+            "sender_id": 5,
+            "receiver_id": 19,
+            "ticket_id": 18,
+            "content": "Hi William, the next scheduled maintenance is this Sunday from 2 AM to 6 AM. All servers will be offline during this window.",
+            "sent_at": "2024-02-08T15:30:44.012345+08:00",
+            "edited_at": "2024-02-08T15:30:44.012345+08:00"
+        },
+        {
+            "id": 52,
+            "sender_id": 19,
+            "receiver_id": 5,
+            "ticket_id": 18,
+            "content": "Thanks for the heads up. Will there be any impact on the email systems or just the database servers?",
+            "sent_at": "2024-02-08T16:15:18.123456+08:00",
+            "edited_at": "2024-02-08T16:15:18.123456+08:00"
+        },
+        {
+            "id": 53,
+            "sender_id": 5,
+            "receiver_id": 19,
+            "ticket_id": 18,
+            "content": "Email will remain operational, but database access and file servers will be unavailable. I'll send out a company-wide notification tomorrow.",
+            "sent_at": "2024-02-08T17:00:33.234567+08:00",
+            "edited_at": "2024-02-08T17:00:33.234567+08:00"
+        },
+        {
+            "id": 54,
+            "sender_id": 19,
+            "receiver_id": 5,
+            "ticket_id": 18,
+            "content": "Perfect, that's all I needed to know. I'll make sure to complete any database work before Sunday. Thanks Tom!",
+            "sent_at": "2024-02-09T11:00:15.345678+08:00",
+            "edited_at": "2024-02-09T11:00:15.345678+08:00"
+        },
+        {
+            "id": 55,
+            "sender_id": 1,
+            "receiver_id": 8,
+            "ticket_id": 10,
+            "content": "Emma, I can't access some project files on the server anymore. Getting 'access denied' errors for folders I used to access regularly.",
+            "sent_at": "2024-02-18T10:00:39.456789+08:00",
+            "edited_at": "2024-02-18T10:00:39.456789+08:00"
+        },
+        {
+            "id": 56,
+            "sender_id": 8,
+            "receiver_id": 1,
+            "ticket_id": 10,
+            "content": "Hi John, there was a recent permissions audit that may have affected your access. Let me check your current permissions and restore them.",
+            "sent_at": "2024-02-18T10:30:15.567890+08:00",
+            "edited_at": "2024-02-18T10:30:15.567890+08:00"
+        },
+        {
+            "id": 57,
+            "sender_id": 1,
+            "receiver_id": 8,
+            "ticket_id": 10,
+            "content": "Thanks! Specifically, I need access to the Marketing and Sales folders. I work on campaigns that span both departments.",
+            "sent_at": "2024-02-18T11:15:27.678901+08:00",
+            "edited_at": "2024-02-18T11:15:27.678901+08:00"
+        },
+        {
+            "id": 58,
+            "sender_id": 8,
+            "receiver_id": 1,
+            "ticket_id": 10,
+            "content": "I've restored your access to both folders and added you to the cross-department projects group. This should prevent similar issues in the future.",
+            "sent_at": "2024-02-20T14:45:33.789012+08:00",
+            "edited_at": "2024-02-20T14:45:33.789012+08:00"
+        },
+        {
+            "id": 59,
+            "sender_id": 1,
+            "receiver_id": 8,
+            "ticket_id": 10,
+            "content": "Excellent! I can access everything I need now. Thanks for adding me to that group - that's very helpful for future projects.",
+            "sent_at": "2024-02-22T11:15:15.890123+08:00",
+            "edited_at": "2024-02-22T11:15:15.890123+08:00"
+        },
+        {
+            "id": 60,
+            "sender_id": 15,
+            "receiver_id": 2,
+            "ticket_id": 16,
+            "content": "Jane, I need some information about our company's data backup procedures. How often are backups performed and where are they stored?",
+            "sent_at": "2024-02-10T16:45:45.012345+08:00",
+            "edited_at": "2024-02-10T16:45:45.012345+08:00"
+        },
+        {
+            "id": 61,
+            "sender_id": 2,
+            "receiver_id": 15,
+            "ticket_id": 16,
+            "content": "Hi Robert, we perform daily incremental backups at 2 AM and full backups every Sunday. All data is stored on our offsite backup servers with 30-day retention.",
+            "sent_at": "2024-02-10T17:15:18.123456+08:00",
+            "edited_at": "2024-02-10T17:15:18.123456+08:00"
+        },
+        {
+            "id": 62,
+            "sender_id": 15,
+            "receiver_id": 2,
+            "ticket_id": 16,
+            "content": "That's great to know. Is there a way for individual users to request file restoration from these backups if needed?",
+            "sent_at": "2024-02-10T17:45:33.234567+08:00",
+            "edited_at": "2024-02-10T17:45:33.234567+08:00"
+        },
+        {
+            "id": 63,
+            "sender_id": 2,
+            "receiver_id": 15,
+            "ticket_id": 16,
+            "content": "Yes, you can submit a restoration request through our IT portal or create a ticket. We can restore files up to 30 days old within 24 hours.",
+            "sent_at": "2024-02-10T18:20:44.345678+08:00",
+            "edited_at": "2024-02-10T18:20:44.345678+08:00"
+        },
+        {
+            "id": 64,
+            "sender_id": 15,
+            "receiver_id": 2,
+            "ticket_id": 16,
+            "content": "Perfect! I've attached a backup documentation file with all this information. Thanks for the detailed explanation Jane.",
+            "sent_at": "2024-02-11T10:00:15.456789+08:00",
+            "edited_at": "2024-02-11T10:00:15.456789+08:00"
+        },
+        {
+            "id": 65,
+            "sender_id": 18,
+            "receiver_id": 8,
+            "ticket_id": 17,
+            "content": "Emma, I need to set up accounts for 3 new employees starting next week. They'll need email access and permissions for the project folders.",
+            "sent_at": "2024-02-19T12:30:52.567890+08:00",
+            "edited_at": "2024-02-19T12:30:52.567890+08:00"
+        },
+        {
+            "id": 66,
+            "sender_id": 8,
+            "receiver_id": 18,
+            "ticket_id": 17,
+            "content": "Hi Maria, I can set those up. Can you provide me with their full names, departments, and which specific project folders they need access to?",
+            "sent_at": "2024-02-19T13:00:18.678901+08:00",
+            "edited_at": "2024-02-19T13:00:18.678901+08:00"
+        },
+        {
+            "id": 67,
+            "sender_id": 18,
+            "receiver_id": 8,
+            "ticket_id": 17,
+            "content": "Sure! I've attached an Excel file with all their details including names, departments, and required access levels. They start Monday.",
+            "sent_at": "2024-02-19T13:30:33.789012+08:00",
+            "edited_at": "2024-02-19T13:30:33.789012+08:00"
+        },
+        {
+            "id": 68,
+            "sender_id": 8,
+            "receiver_id": 18,
+            "ticket_id": 17,
+            "content": "Perfect! I'll have all accounts created by Friday. I'll email you their temporary passwords and setup instructions before they start.",
+            "sent_at": "2024-02-20T09:15:27.890123+08:00",
+            "edited_at": "2024-02-20T09:15:27.890123+08:00"
+        },
+        {
+            "id": 69,
+            "sender_id": 18,
+            "receiver_id": 8,
+            "ticket_id": 17,
+            "content": "Excellent! All accounts are working perfectly. The new employees were able to log in and access everything they needed. Thanks Emma!",
+            "sent_at": "2024-02-23T09:30:36.012345+08:00",
+            "edited_at": "2024-02-23T09:30:36.012345+08:00"
+        },
+        {
+            "id": 70,
+            "sender_id": 4,
+            "receiver_id": 2,
+            "ticket_id": 11,
+            "content": "Jane, the design software keeps crashing right when it starts up. I'm getting an error message about missing DLL files.",
+            "sent_at": "2024-02-12T11:25:18.123456+08:00",
+            "edited_at": "2024-02-12T11:25:18.123456+08:00"
+        },
+        {
+            "id": 71,
+            "sender_id": 2,
+            "receiver_id": 4,
+            "ticket_id": 11,
+            "content": "Hi Sarah, missing DLL errors usually indicate a corrupted installation. Let's try reinstalling the software first. Can you uninstall it completely?",
+            "sent_at": "2024-02-12T12:00:33.234567+08:00",
+            "edited_at": "2024-02-12T12:00:33.234567+08:00"
+        },
+        {
+            "id": 72,
+            "sender_id": 4,
+            "receiver_id": 2,
+            "ticket_id": 11,
+            "content": "I uninstalled it, but the crash dump file is quite large. Should I attach it to help with diagnosis?",
+            "sent_at": "2024-02-12T14:30:45.345678+08:00",
+            "edited_at": "2024-02-12T14:30:45.345678+08:00"
+        },
+        {
+            "id": 73,
+            "sender_id": 2,
+            "receiver_id": 4,
+            "ticket_id": 11,
+            "content": "Yes, please attach the crash dump. After reviewing it, I think we might need to upgrade your graphics drivers before reinstalling.",
+            "sent_at": "2024-02-13T10:15:18.456789+08:00",
+            "edited_at": "2024-02-13T10:15:18.456789+08:00"
+        },
+        {
+            "id": 74,
+            "sender_id": 4,
+            "receiver_id": 2,
+            "ticket_id": 11,
+            "content": "Actually, I found an alternative software that works better for my needs. Can we cancel this ticket? The other tool is more stable.",
+            "sent_at": "2024-02-14T16:30:33.567890+08:00",
+            "edited_at": "2024-02-14T16:30:33.567890+08:00"
+        },
+        {
+            "id": 75,
+            "sender_id": 13,
+            "receiver_id": 5,
+            "ticket_id": 6,
+            "content": "Tom, I need to reset my domain password. It expired yesterday and I forgot to update it before the deadline.",
+            "sent_at": "2024-02-15T16:30:18.678901+08:00",
+            "edited_at": "2024-02-15T16:30:18.678901+08:00"
+        },
+        {
+            "id": 76,
+            "sender_id": 5,
+            "receiver_id": 13,
+            "ticket_id": 6,
+            "content": "Hi Peter, no problem. I'll reset your password now. You'll receive an email with a temporary password that you'll need to change on first login.",
+            "sent_at": "2024-02-15T17:00:33.789012+08:00",
+            "edited_at": "2024-02-15T17:00:33.789012+08:00"
+        },
+        {
+            "id": 77,
+            "sender_id": 13,
+            "receiver_id": 5,
+            "ticket_id": 6,
+            "content": "Got the email! Just to confirm, I need to follow the company password policy with special characters and minimum length, right?",
+            "sent_at": "2024-02-15T17:30:45.890123+08:00",
+            "edited_at": "2024-02-15T17:30:45.890123+08:00"
+        },
+        {
+            "id": 78,
+            "sender_id": 5,
+            "receiver_id": 13,
+            "ticket_id": 6,
+            "content": "Exactly! Minimum 8 characters with at least one uppercase, lowercase, number, and special character. I've attached the full policy document.",
+            "sent_at": "2024-02-15T18:00:15.012345+08:00",
+            "edited_at": "2024-02-15T18:00:15.012345+08:00"
+        },
+        {
+            "id": 79,
+            "sender_id": 13,
+            "receiver_id": 5,
+            "ticket_id": 6,
+            "content": "Perfect! I've successfully changed my password and can access all systems now. Thanks for the quick help Tom!",
+            "sent_at": "2024-02-16T09:00:42.123456+08:00",
+            "edited_at": "2024-02-16T09:00:42.123456+08:00"
+        },
+        {
+            "id": 80,
+            "sender_id": 9,
+            "receiver_id": 1,
+            "ticket_id": 4,
+            "content": "Hello, our office printer shows as offline and won't print anything. I've checked all the cables and they seem connected properly.",
+            "sent_at": "2024-02-27T08:25:45.234567+08:00",
+            "edited_at": "2024-02-27T08:25:45.234567+08:00"
+        },
+        {
+            "id": 81,
+            "sender_id": 1,
+            "receiver_id": 9,
+            "ticket_id": 4,
+            "content": "Hi David, I see the printer is showing offline. Let me check the network connection first. Can you try turning the printer off and on again?",
+            "sent_at": "2024-02-27T09:00:18.345678+08:00",
+            "edited_at": "2024-02-27T09:00:18.345678+08:00"
+        },
+        {
+            "id": 82,
+            "sender_id": 9,
+            "receiver_id": 1,
+            "ticket_id": 4,
+            "content": "I tried restarting it but still shows offline. The network cable is connected and the green light is on. What else should I check?",
+            "sent_at": "2024-02-27T09:30:33.456789+08:00",
+            "edited_at": "2024-02-27T09:30:33.456789+08:00"
+        },
+        {
+            "id": 83,
+            "sender_id": 1,
+            "receiver_id": 9,
+            "ticket_id": 4,
+            "content": "Can you print a network configuration page directly from the printer? Usually there's a button combination or menu option for this.",
+            "sent_at": "2024-02-27T10:15:44.567890+08:00",
+            "edited_at": "2024-02-27T10:15:44.567890+08:00"
+        },
+        {
+            "id": 84,
+            "sender_id": 9,
+            "receiver_id": 1,
+            "ticket_id": 4,
+            "content": "Got it! The config page shows it has an IP address but it's different from what's configured on the computers. Should I update the printer settings?",
+            "sent_at": "2024-02-27T10:45:15.678901+08:00",
+            "edited_at": "2024-02-27T10:45:15.678901+08:00"
+        },
+        {
+            "id": 85,
+            "sender_id": 1,
+            "receiver_id": 9,
+            "ticket_id": 4,
+            "content": "Perfect! That's the issue. I'll remotely update all the computers to use the correct printer IP address. Should be working within 10 minutes.",
+            "sent_at": "2024-02-27T11:00:27.789012+08:00",
+            "edited_at": "2024-02-27T11:00:27.789012+08:00"
+        },
+        {
+            "id": 86,
+            "sender_id": 19,
+            "receiver_id": 16,
+            "ticket_id": 29,
+            "content": "Nancy, my email signature appears garbled in outgoing emails. The formatting and company logo are completely broken.",
+            "sent_at": "2024-03-04T15:40:18.890123+08:00",
+            "edited_at": "2024-03-04T15:40:18.890123+08:00"
+        },
+        {
+            "id": 87,
+            "sender_id": 16,
+            "receiver_id": 19,
+            "ticket_id": 29,
+            "content": "Hi William, this usually happens when there's an HTML formatting issue. Are you using Outlook or the web version of email?",
+            "sent_at": "2024-03-04T16:15:33.012345+08:00",
+            "edited_at": "2024-03-04T16:15:33.012345+08:00"
+        },
+        {
+            "id": 88,
+            "sender_id": 19,
+            "receiver_id": 16,
+            "ticket_id": 29,
+            "content": "I'm using Outlook desktop. The signature looks fine in the editor but gets messed up when I send emails. Recipients see weird formatting.",
+            "sent_at": "2024-03-04T16:45:27.123456+08:00",
+            "edited_at": "2024-03-04T16:45:27.123456+08:00"
+        },
+        {
+            "id": 89,
+            "sender_id": 16,
+            "receiver_id": 19,
+            "ticket_id": 29,
+            "content": "I'll send you a corrected HTML template. The issue is likely with embedded images and CSS that Outlook doesn't handle well. Please replace your current signature with this template.",
+            "sent_at": "2024-03-05T09:20:44.234567+08:00",
+            "edited_at": "2024-03-05T09:20:44.234567+08:00"
+        },
+        {
+            "id": 90,
+            "sender_id": 19,
+            "receiver_id": 16,
+            "ticket_id": 29,
+            "content": "That worked perfectly! The signature now displays correctly in all my emails. Thanks for the quick fix Nancy!",
+            "sent_at": "2024-03-06T11:30:15.345678+08:00",
+            "edited_at": "2024-03-06T11:30:15.345678+08:00"
+        },
+        {
+            "id": 91,
+            "sender_id": 7,
+            "receiver_id": 12,
+            "ticket_id": 20,
+            "content": "Carol, my system password has expired and I need assistance resetting it. I can't access any company resources right now.",
+            "sent_at": "2024-02-28T14:40:22.456789+08:00",
+            "edited_at": "2024-02-28T14:40:22.456789+08:00"
+        },
+        {
+            "id": 92,
+            "sender_id": 12,
+            "receiver_id": 7,
+            "ticket_id": 20,
+            "content": "Hi Bob, I can help with that. I'll reset your password now and send you temporary credentials to your personal email address.",
+            "sent_at": "2024-02-28T15:15:33.567890+08:00",
+            "edited_at": "2024-02-28T15:15:33.567890+08:00"
+        },
+        {
+            "id": 93,
+            "sender_id": 7,
+            "receiver_id": 12,
+            "ticket_id": 20,
+            "content": "Got the temporary password! I was able to log in but it's asking me to change it immediately. Is there a specific format I need to follow?",
+            "sent_at": "2024-02-28T15:45:18.678901+08:00",
+            "edited_at": "2024-02-28T15:45:18.678901+08:00"
+        },
+        {
+            "id": 94,
+            "sender_id": 12,
+            "receiver_id": 7,
+            "ticket_id": 20,
+            "content": "Yes, please use at least 10 characters with uppercase, lowercase, numbers, and symbols. Also, it can't be any of your last 5 passwords.",
+            "sent_at": "2024-02-28T16:20:44.789012+08:00",
+            "edited_at": "2024-02-28T16:20:44.789012+08:00"
+        },
+        {
+            "id": 95,
+            "sender_id": 7,
+            "receiver_id": 12,
+            "ticket_id": 20,
+            "content": "Perfect! Password changed successfully and I'm back to full access. Thanks for the quick turnaround Carol!",
+            "sent_at": "2024-03-01T09:00:15.890123+08:00",
+            "edited_at": "2024-03-01T09:00:15.890123+08:00"
+        },
+        {
+            "id": 96,
+            "sender_id": 9,
+            "receiver_id": 11,
+            "ticket_id": 24,
+            "content": "Kevin, my MFA codes from the authenticator app are being rejected. I've tried multiple codes but they all show as invalid.",
+            "sent_at": "2024-03-01T10:00:15.012345+08:00",
+            "edited_at": "2024-03-01T10:00:15.012345+08:00"
+        },
+        {
+            "id": 97,
+            "sender_id": 11,
+            "receiver_id": 9,
+            "ticket_id": 24,
+            "content": "Hi David, this could be a time sync issue. Can you check if the time on your phone matches your computer exactly? Even a few seconds difference can cause this.",
+            "sent_at": "2024-03-01T10:30:33.123456+08:00",
+            "edited_at": "2024-03-01T10:30:33.123456+08:00"
+        },
+        {
+            "id": 98,
+            "sender_id": 9,
+            "receiver_id": 11,
+            "ticket_id": 24,
+            "content": "You're right! My phone was 2 minutes fast. I synced the time and the MFA codes work now. Should I do anything to prevent this in the future?",
+            "sent_at": "2024-03-01T11:15:44.234567+08:00",
+            "edited_at": "2024-03-01T11:15:44.234567+08:00"
+        },
+        {
+            "id": 99,
+            "sender_id": 11,
+            "receiver_id": 9,
+            "ticket_id": 24,
+            "content": "Enable automatic time sync on your phone in the date/time settings. This will prevent the issue from happening again. I'll also add some tolerance to your MFA settings.",
+            "sent_at": "2024-03-01T11:45:18.345678+08:00",
+            "edited_at": "2024-03-01T11:45:18.345678+08:00"
+        },
+        {
+            "id": 100,
+            "sender_id": 9,
+            "receiver_id": 11,
+            "ticket_id": 24,
+            "content": "Excellent! Auto-sync is now enabled and MFA is working flawlessly. Thanks for the quick diagnosis and fix Kevin!",
+            "sent_at": "2024-03-04T16:15:33.456789+08:00",
+            "edited_at": "2024-03-04T16:15:33.456789+08:00"
+        },
+        {
+            "id": 101,
+            "sender_id": 10,
+            "receiver_id": 14,
+            "ticket_id": 25,
+            "content": "Susan, my CAD software crashes immediately when trying to open files larger than 50MB. Memory usage spikes to 100% before the crash.",
+            "sent_at": "2024-03-08T13:20:28.012345+08:00",
+            "edited_at": "2024-03-08T13:20:28.012345+08:00"
+        },
+        {
+            "id": 102,
+            "sender_id": 14,
+            "receiver_id": 10,
+            "ticket_id": 25,
+            "content": "Hi Lisa, this sounds like a memory allocation issue. Can you tell me how much RAM is installed in your workstation?",
+            "sent_at": "2024-03-08T13:45:15.123456+08:00",
+            "edited_at": "2024-03-08T13:45:15.123456+08:00"
+        },
+        {
+            "id": 103,
+            "sender_id": 10,
+            "receiver_id": 14,
+            "ticket_id": 25,
+            "content": "I have 8GB of RAM. The files used to open fine a few weeks ago, so I'm not sure what changed.",
+            "sent_at": "2024-03-08T14:15:33.234567+08:00",
+            "edited_at": "2024-03-08T14:15:33.234567+08:00"
+        },
+        {
+            "id": 104,
+            "sender_id": 14,
+            "receiver_id": 10,
+            "ticket_id": 25,
+            "content": "8GB might not be sufficient for large CAD files. I'll check if there was a recent software update that increased memory requirements. In the meantime, try closing other applications before opening large files.",
+            "sent_at": "2024-03-08T14:45:27.345678+08:00",
+            "edited_at": "2024-03-08T14:45:27.345678+08:00"
+        },
+        {
+            "id": 105,
+            "sender_id": 10,
+            "receiver_id": 14,
+            "ticket_id": 25,
+            "content": "That helped a bit, but still crashes on the largest files. Will we need to upgrade the RAM?",
+            "sent_at": "2024-03-08T15:30:44.456789+08:00",
+            "edited_at": "2024-03-08T15:30:44.456789+08:00"
+        },
+        {
+            "id": 106,
+            "sender_id": 1,
+            "receiver_id": 5,
+            "ticket_id": 21,
+            "content": "Tom, my Bluetooth mouse keeps disconnecting every few minutes. I have to restart Bluetooth to reconnect it each time.",
+            "sent_at": "2024-03-05T11:50:22.567890+08:00",
+            "edited_at": "2024-03-05T11:50:22.567890+08:00"
+        },
+        {
+            "id": 107,
+            "sender_id": 5,
+            "receiver_id": 1,
+            "ticket_id": 21,
+            "content": "Hi John, this could be a power management issue. Can you check if the Bluetooth adapter is set to allow the computer to turn it off to save power?",
+            "sent_at": "2024-03-05T12:15:33.678901+08:00",
+            "edited_at": "2024-03-05T12:15:33.678901+08:00"
+        },
+        {
+            "id": 108,
+            "sender_id": 1,
+            "receiver_id": 5,
+            "ticket_id": 21,
+            "content": "I found the power management setting and disabled it. Also, the mouse battery is at 85%, so that shouldn't be the issue.",
+            "sent_at": "2024-03-05T12:45:18.789012+08:00",
+            "edited_at": "2024-03-05T12:45:18.789012+08:00"
+        },
+        {
+            "id": 109,
+            "sender_id": 5,
+            "receiver_id": 1,
+            "ticket_id": 21,
+            "content": "Good! Let's also update the Bluetooth drivers. I'll send you the latest driver package to install.",
+            "sent_at": "2024-03-05T13:20:27.890123+08:00",
+            "edited_at": "2024-03-05T13:20:27.890123+08:00"
+        },
+        {
+            "id": 110,
+            "sender_id": 1,
+            "receiver_id": 5,
+            "ticket_id": 21,
+            "content": "Installed the new drivers and rebooted. The mouse has been stable for 3 hours now. Thanks for the help Tom!",
+            "sent_at": "2024-03-05T16:30:44.012345+08:00",
+            "edited_at": "2024-03-05T16:30:44.012345+08:00"
+        },
+        {
+            "id": 111,
+            "sender_id": 6,
+            "receiver_id": 8,
+            "ticket_id": 23,
+            "content": "Emma, I'm getting 'access denied' errors when trying to save documents to the Finance shared folder. I used to have access to this folder.",
+            "sent_at": "2024-03-03T11:25:33.123456+08:00",
+            "edited_at": "2024-03-03T11:25:33.123456+08:00"
+        },
+        {
+            "id": 112,
+            "sender_id": 8,
+            "receiver_id": 6,
+            "ticket_id": 23,
+            "content": "Hi Alice, there was a recent permissions restructure. Let me check your current access level and restore the appropriate permissions.",
+            "sent_at": "2024-03-03T12:00:15.234567+08:00",
+            "edited_at": "2024-03-03T12:00:15.234567+08:00"
+        },
+        {
+            "id": 113,
+            "sender_id": 6,
+            "receiver_id": 8,
+            "ticket_id": 23,
+            "content": "I need read/write access for monthly reports and budget documents. My manager approved this access last month.",
+            "sent_at": "2024-03-03T12:30:44.345678+08:00",
+            "edited_at": "2024-03-03T12:30:44.345678+08:00"
+        },
+        {
+            "id": 114,
+            "sender_id": 8,
+            "receiver_id": 6,
+            "ticket_id": 23,
+            "content": "I've restored your read/write permissions and added you to the Finance Reports group for future access. Please try saving a document now.",
+            "sent_at": "2024-03-07T09:30:18.456789+08:00",
+            "edited_at": "2024-03-07T09:30:18.456789+08:00"
+        },
+        {
+            "id": 115,
+            "sender_id": 6,
+            "receiver_id": 8,
+            "ticket_id": 23,
+            "content": "Perfect! I can now save and edit files in the Finance folder. Thanks for adding me to the group Emma!",
+            "sent_at": "2024-03-07T10:15:33.567890+08:00",
+            "edited_at": "2024-03-07T10:15:33.567890+08:00"
+        },
+        {
+            "id": 116,
+            "sender_id": 18,
+            "receiver_id": 17,
+            "ticket_id": 28,
+            "content": "James, my new laptop can connect to the company WiFi and gets an IP address, but I have no internet access. Other devices work fine on the same network.",
+            "sent_at": "2024-03-07T12:15:33.678901+08:00",
+            "edited_at": "2024-03-07T12:15:33.678901+08:00"
+        },
+        {
+            "id": 117,
+            "sender_id": 17,
+            "receiver_id": 18,
+            "ticket_id": 28,
+            "content": "Hi Maria, this sounds like a DNS or proxy configuration issue. Can you check if your network settings are set to obtain DNS automatically?",
+            "sent_at": "2024-03-07T12:45:27.789012+08:00",
+            "edited_at": "2024-03-07T12:45:27.789012+08:00"
+        },
+        {
+            "id": 118,
+            "sender_id": 18,
+            "receiver_id": 17,
+            "ticket_id": 28,
+            "content": "DNS is set to automatic. I can ping the gateway but can't reach any external websites. Should I check the proxy settings too?",
+            "sent_at": "2024-03-07T13:20:44.890123+08:00",
+            "edited_at": "2024-03-07T13:20:44.890123+08:00"
+        },
+        {
+            "id": 119,
+            "sender_id": 17,
+            "receiver_id": 18,
+            "ticket_id": 28,
+            "content": "Yes, please check proxy settings. Also, I'll add your laptop's MAC address to the network whitelist. Sometimes new devices get blocked by our security policies.",
+            "sent_at": "2024-03-08T09:15:18.012345+08:00",
+            "edited_at": "2024-03-08T09:15:18.012345+08:00"
+        },
+        {
+            "id": 120,
+            "sender_id": 18,
+            "receiver_id": 17,
+            "ticket_id": 28,
+            "content": "That was it! After you added my MAC address to the whitelist, internet access started working immediately. Thanks James!",
+            "sent_at": "2024-03-10T10:45:27.123456+08:00",
+            "edited_at": "2024-03-10T10:45:27.123456+08:00"
+        },
+        {
+            "id": 121,
+            "sender_id": 13,
+            "receiver_id": 2,
+            "ticket_id": 26,
+            "content": "Jane, my Adobe Photoshop license expires next week. I need renewal to continue design work for marketing campaigns.",
+            "sent_at": "2024-02-28T16:45:11.567890+08:00",
+            "edited_at": "2024-02-28T16:45:11.567890+08:00"
+        },
+        {
+            "id": 122,
+            "sender_id": 2,
+            "receiver_id": 13,
+            "ticket_id": 26,
+            "content": "Hi Peter, I'll contact Adobe to renew your license. Can you confirm which version you're currently using and if you need any additional Creative Cloud apps?",
+            "sent_at": "2024-02-28T17:20:33.678901+08:00",
+            "edited_at": "2024-02-28T17:20:33.678901+08:00"
+        },
+        {
+            "id": 123,
+            "sender_id": 13,
+            "receiver_id": 2,
+            "ticket_id": 26,
+            "content": "I'm using Photoshop CC 2024. I also occasionally use Illustrator, so it would be great if that could be included in the renewal.",
+            "sent_at": "2024-03-01T09:15:44.789012+08:00",
+            "edited_at": "2024-03-01T09:15:44.789012+08:00"
+        },
+        {
+            "id": 124,
+            "sender_id": 2,
+            "receiver_id": 13,
+            "ticket_id": 26,
+            "content": "Perfect! I've ordered the Creative Cloud subscription that includes both Photoshop and Illustrator. You'll receive the license key within 24 hours.",
+            "sent_at": "2024-03-01T14:30:18.890123+08:00",
+            "edited_at": "2024-03-01T14:30:18.890123+08:00"
+        },
+        {
+            "id": 125,
+            "sender_id": 13,
+            "receiver_id": 2,
+            "ticket_id": 26,
+            "content": "Excellent! I received the license key and successfully activated both applications. Thanks for upgrading me to the full Creative Cloud suite Jane!",
+            "sent_at": "2024-03-02T14:15:55.012345+08:00",
+            "edited_at": "2024-03-02T14:15:55.012345+08:00"
+        },
+        {
+            "id": 126,
+            "sender_id": 7,
+            "receiver_id": 5,
+            "ticket_id": 31,
+            "content": "Tom, my VPN connection works but the speed is extremely slow. I'm getting less than 1Mbps while my direct internet connection gives 100Mbps.",
+            "sent_at": "2024-03-08T14:25:11.123456+08:00",
+            "edited_at": "2024-03-08T14:25:11.123456+08:00"
+        },
+        {
+            "id": 127,
+            "sender_id": 5,
+            "receiver_id": 7,
+            "ticket_id": 31,
+            "content": "Hi Bob, slow VPN speeds can be caused by server load or routing issues. Can you try connecting to a different VPN server location?",
+            "sent_at": "2024-03-08T15:00:33.234567+08:00",
+            "edited_at": "2024-03-08T15:00:33.234567+08:00"
+        },
+        {
+            "id": 128,
+            "sender_id": 7,
+            "receiver_id": 5,
+            "ticket_id": 31,
+            "content": "I tried three different servers and the speed is consistently slow. Is there a specific protocol setting I should check?",
+            "sent_at": "2024-03-09T09:30:44.345678+08:00",
+            "edited_at": "2024-03-09T09:30:44.345678+08:00"
+        },
+        {
+            "id": 129,
+            "sender_id": 5,
+            "receiver_id": 7,
+            "ticket_id": 31,
+            "content": "Try switching from UDP to TCP protocol in your VPN client settings. Also, I'll check if there are any bandwidth limitations configured on your account.",
+            "sent_at": "2024-03-11T11:15:18.456789+08:00",
+            "edited_at": "2024-03-11T11:15:18.456789+08:00"
+        },
+        {
+            "id": 130,
+            "sender_id": 7,
+            "receiver_id": 5,
+            "ticket_id": 31,
+            "content": "That did the trick! Changed to TCP and removed the bandwidth limit - now I'm getting 80+ Mbps through VPN. Much better, thanks Tom!",
+            "sent_at": "2024-03-12T16:20:44.567890+08:00",
+            "edited_at": "2024-03-12T16:20:44.567890+08:00"
+        },
+        {
+            "id": 131,
+            "sender_id": 16,
+            "receiver_id": 3,
+            "ticket_id": 33,
+            "content": "Mike, my account was locked after someone tried to login with wrong password multiple times. I need immediate unlock as I have urgent work to complete.",
+            "sent_at": "2024-03-09T08:20:27.012345+08:00",
+            "edited_at": "2024-03-09T08:20:27.012345+08:00"
+        },
+        {
+            "id": 132,
+            "sender_id": 3,
+            "receiver_id": 16,
+            "ticket_id": 33,
+            "content": "Hi Nancy, I can see the failed login attempts in the security log. I'll unlock your account immediately and reset the failed attempt counter.",
+            "sent_at": "2024-03-09T08:45:33.123456+08:00",
+            "edited_at": "2024-03-09T08:45:33.123456+08:00"
+        },
+        {
+            "id": 133,
+            "sender_id": 16,
+            "receiver_id": 3,
+            "ticket_id": 33,
+            "content": "Thank you! I can access my account now. Should I be concerned about the unauthorized login attempts? They came from an unfamiliar IP address.",
+            "sent_at": "2024-03-09T09:00:18.234567+08:00",
+            "edited_at": "2024-03-09T09:00:18.234567+08:00"
+        },
+        {
+            "id": 134,
+            "sender_id": 3,
+            "receiver_id": 16,
+            "ticket_id": 33,
+            "content": "I've blocked that IP address and enabled additional monitoring on your account. I recommend changing your password as a precaution. I'll send you the security guidelines.",
+            "sent_at": "2024-03-09T09:15:44.345678+08:00",
+            "edited_at": "2024-03-09T09:15:44.345678+08:00"
+        },
+        {
+            "id": 135,
+            "sender_id": 16,
+            "receiver_id": 3,
+            "ticket_id": 33,
+            "content": "Password changed successfully! I also enabled 2FA as suggested in your security guidelines. Thanks for the quick response and security measures Mike!",
+            "sent_at": "2024-03-09T09:25:18.456789+08:00",
+            "edited_at": "2024-03-09T09:25:18.456789+08:00"
+        },
+        {
+            "id": 136,
+            "sender_id": 6,
+            "receiver_id": 17,
+            "ticket_id": 36,
+            "content": "James, I'm getting 'unauthorized access' error when trying to log time entries in the time tracking system. My credentials appear to be correct.",
+            "sent_at": "2024-03-10T14:55:33.567890+08:00",
+            "edited_at": "2024-03-10T14:55:33.567890+08:00"
+        },
+        {
+            "id": 137,
+            "sender_id": 17,
+            "receiver_id": 6,
+            "ticket_id": 36,
+            "content": "Hi Alice, this could be a permissions issue with the timesheet system. Let me check your user role and access level in the system.",
+            "sent_at": "2024-03-10T15:30:18.678901+08:00",
+            "edited_at": "2024-03-10T15:30:18.678901+08:00"
+        },
+        {
+            "id": 138,
+            "sender_id": 6,
+            "receiver_id": 17,
+            "ticket_id": 36,
+            "content": "I was able to access it last week without issues. Could this be related to the recent system updates?",
+            "sent_at": "2024-03-11T09:20:44.789012+08:00",
+            "edited_at": "2024-03-11T09:20:44.789012+08:00"
+        },
+        {
+            "id": 139,
+            "sender_id": 17,
+            "receiver_id": 6,
+            "ticket_id": 36,
+            "content": "Yes, exactly! The recent update reset some user permissions. I've restored your timesheet access and added you to the correct user group.",
+            "sent_at": "2024-03-11T11:45:33.890123+08:00",
+            "edited_at": "2024-03-11T11:45:33.890123+08:00"
+        },
+        {
+            "id": 140,
+            "sender_id": 6,
+            "receiver_id": 17,
+            "ticket_id": 36,
+            "content": "Perfect! I can now log my time entries without any issues. Thanks for quickly identifying and fixing the permissions problem James!",
+            "sent_at": "2024-03-12T12:10:27.012345+08:00",
+            "edited_at": "2024-03-12T12:10:27.012345+08:00"
+        },
+        {
+            "id": 141,
+            "sender_id": 3,
+            "receiver_id": 20,
+            "ticket_id": 30,
+            "content": "Jennifer, I need read-only access to the HR database for quarterly reporting. I have manager approval attached to this request.",
+            "sent_at": "2024-03-11T09:25:55.123456+08:00",
+            "edited_at": "2024-03-11T09:25:55.123456+08:00"
+        },
+        {
+            "id": 142,
+            "sender_id": 20,
+            "receiver_id": 3,
+            "ticket_id": 30,
+            "content": "Hi Mike, I can see the manager approval. I'll set up read-only access to the HR database. Which specific tables do you need for the quarterly report?",
+            "sent_at": "2024-03-11T10:00:18.234567+08:00",
+            "edited_at": "2024-03-11T10:00:18.234567+08:00"
+        },
+        {
+            "id": 143,
+            "sender_id": 3,
+            "receiver_id": 20,
+            "ticket_id": 30,
+            "content": "I need access to employee records, department assignments, and salary information for headcount and budget analysis.",
+            "sent_at": "2024-03-11T10:30:33.345678+08:00",
+            "edited_at": "2024-03-11T10:30:33.345678+08:00"
+        },
+        {
+            "id": 144,
+            "sender_id": 20,
+            "receiver_id": 3,
+            "ticket_id": 30,
+            "content": "Access granted! You now have read-only permissions to the HR database with the specific tables you requested. Access will expire after 30 days as per policy.",
+            "sent_at": "2024-03-11T11:15:27.456789+08:00",
+            "edited_at": "2024-03-11T11:15:27.456789+08:00"
+        },
+        {
+            "id": 145,
+            "sender_id": 3,
+            "receiver_id": 20,
+            "ticket_id": 30,
+            "content": "Perfect! I can access all the data I need for the quarterly report. The 30-day expiration timeline works well. Thanks Jennifer!",
+            "sent_at": "2024-03-11T12:00:44.567890+08:00",
+            "edited_at": "2024-03-11T12:00:44.567890+08:00"
+        },
+        {
+            "id": 146,
+            "sender_id": 12,
+            "receiver_id": 7,
+            "ticket_id": 32,
+            "content": "I'm having trouble installing a printer driver. Windows is blocking the installation with a 'publisher cannot be verified' error message.",
+            "sent_at": "2024-03-13T10:35:33.678901+08:00",
+            "edited_at": "2024-03-13T10:35:33.678901+08:00"
+        },
+        {
+            "id": 147,
+            "sender_id": 1,
+            "receiver_id": 14,
+            "ticket_id": 34,
+            "content": "Susan, my database application is running extremely slow. It takes 10+ seconds to respond to any click, but other applications run normally.",
+            "sent_at": "2024-03-14T13:30:44.789012+08:00",
+            "edited_at": "2024-03-14T13:30:44.789012+08:00"
+        },
+        {
+            "id": 148,
+            "sender_id": 14,
+            "receiver_id": 1,
+            "ticket_id": 34,
+            "content": "Hi John, this could be a database connectivity or performance issue. Can you tell me which database application you're using and when the slowdown started?",
+            "sent_at": "2024-03-14T14:00:18.890123+08:00",
+            "edited_at": "2024-03-14T14:00:18.890123+08:00"
+        },
+        {
+            "id": 149,
+            "sender_id": 1,
+            "receiver_id": 14,
+            "ticket_id": 34,
+            "content": "It's our customer management system. The slowdown started about 3 days ago. I've attached a performance report showing the response times.",
+            "sent_at": "2024-03-14T14:30:33.012345+08:00",
+            "edited_at": "2024-03-14T14:30:33.012345+08:00"
+        },
+        {
+            "id": 150,
+            "sender_id": 14,
+            "receiver_id": 1,
+            "ticket_id": 34,
+            "content": "Thanks for the report. I can see the response times have increased significantly. Let me check the database server load and optimize some queries.",
+            "sent_at": "2024-03-14T15:15:44.123456+08:00",
+            "edited_at": "2024-03-14T15:15:44.123456+08:00"
+        },
+        {
+            "id": 151,
+            "sender_id": 1,
+            "receiver_id": 14,
+            "ticket_id": 34,
+            "content": "The performance is much better now! Response times are back to normal. What was causing the slowdown?",
+            "sent_at": "2024-03-14T16:45:27.234567+08:00",
+            "edited_at": "2024-03-14T16:45:27.234567+08:00"
+        },
+        {
+            "id": 152,
+            "sender_id": 4,
+            "receiver_id": 5,
+            "ticket_id": 35,
+            "content": "My computer hard drive started making clicking sounds yesterday. The system still boots but I'm very concerned about potential data loss.",
+            "sent_at": "2024-03-15T09:45:15.345678+08:00",
+            "edited_at": "2024-03-15T09:45:15.345678+08:00"
+        },
+        {
+            "id": 153,
+            "sender_id": 9,
+            "receiver_id": 2,
+            "ticket_id": 37,
+            "content": "Jane, I need the latest version of antivirus software installed. The current version is showing as outdated and vulnerable.",
+            "sent_at": "2024-03-06T11:25:55.456789+08:00",
+            "edited_at": "2024-03-06T11:25:55.456789+08:00"
+        },
+        {
+            "id": 154,
+            "sender_id": 2,
+            "receiver_id": 9,
+            "ticket_id": 37,
+            "content": "Hi David, I'll update your antivirus software. The new version has better protection against recent threats. I'll schedule the update for tonight.",
+            "sent_at": "2024-03-06T12:00:18.567890+08:00",
+            "edited_at": "2024-03-06T12:00:18.567890+08:00"
+        },
+        {
+            "id": 155,
+            "sender_id": 9,
+            "receiver_id": 2,
+            "ticket_id": 37,
+            "content": "Actually, I found out we're switching to a different antivirus solution company-wide next month. Can we hold off on this update?",
+            "sent_at": "2024-03-07T09:30:33.678901+08:00",
+            "edited_at": "2024-03-07T09:30:33.678901+08:00"
+        },
+        {
+            "id": 156,
+            "sender_id": 2,
+            "receiver_id": 9,
+            "ticket_id": 37,
+            "content": "Good point! I'll cancel the update. The current version should be sufficient until we deploy the new solution. I'll close this ticket.",
+            "sent_at": "2024-03-08T15:40:44.789012+08:00",
+            "edited_at": "2024-03-08T15:40:44.789012+08:00"
+        },
+        {
+            "id": 157,
+            "sender_id": 10,
+            "receiver_id": 5,
+            "ticket_id": 38,
+            "content": "Tom, I set up email filters to organize my messages, but they're not applying to new emails automatically. The rules seem correct.",
+            "sent_at": "2024-03-11T16:20:18.890123+08:00",
+            "edited_at": "2024-03-11T16:20:18.890123+08:00"
+        },
+        {
+            "id": 158,
+            "sender_id": 5,
+            "receiver_id": 10,
+            "ticket_id": 38,
+            "content": "Hi Lisa, email filter issues are usually caused by rule conflicts or incorrect syntax. Can you show me the specific filters you've configured?",
+            "sent_at": "2024-03-11T17:00:33.012345+08:00",
+            "edited_at": "2024-03-11T17:00:33.012345+08:00"
+        },
+        {
+            "id": 159,
+            "sender_id": 10,
+            "receiver_id": 5,
+            "ticket_id": 38,
+            "content": "I've attached my filter rules file. I'm trying to sort emails by sender and subject keywords into different folders.",
+            "sent_at": "2024-03-11T17:30:44.123456+08:00",
+            "edited_at": "2024-03-11T17:30:44.123456+08:00"
+        },
+        {
+            "id": 160,
+            "sender_id": 5,
+            "receiver_id": 10,
+            "ticket_id": 38,
+            "content": "I found the issue - there's a conflicting rule that's processing first. I've reordered your filters and they should work properly now. Test with a few new emails.",
+            "sent_at": "2024-03-16T14:15:44.234567+08:00",
+            "edited_at": "2024-03-16T14:15:44.234567+08:00"
+        },
+        {
+            "id": 161,
+            "sender_id": 13,
+            "receiver_id": 11,
+            "ticket_id": 39,
+            "content": "Kevin, print jobs are stuck in the queue and won't clear. The printer shows ready but nothing prints.",
+            "sent_at": "2024-03-17T12:40:22.345678+08:00",
+            "edited_at": "2024-03-17T12:40:22.345678+08:00"
+        },
+        {
+            "id": 162,
+            "sender_id": 11,
+            "receiver_id": 13,
+            "ticket_id": 39,
+            "content": "Hi Peter, this is usually a print spooler issue. Can you try restarting the Print Spooler service on your computer? Go to Services and restart 'Print Spooler'.",
+            "sent_at": "2024-03-17T13:15:33.456789+08:00",
+            "edited_at": "2024-03-17T13:15:33.456789+08:00"
+        },
+        {
+            "id": 163,
+            "sender_id": 13,
+            "receiver_id": 11,
+            "ticket_id": 39,
+            "content": "I restarted the Print Spooler service but the jobs are still stuck. Should I try clearing the print queue manually?",
+            "sent_at": "2024-03-17T13:45:18.567890+08:00",
+            "edited_at": "2024-03-17T13:45:18.567890+08:00"
+        },
+        {
+            "id": 164,
+            "sender_id": 11,
+            "receiver_id": 13,
+            "ticket_id": 39,
+            "content": "Yes, let's clear the queue manually. Go to Control Panel > Devices and Printers, right-click the printer, select 'See what's printing', then cancel all documents.",
+            "sent_at": "2024-03-17T14:20:27.678901+08:00",
+            "edited_at": "2024-03-17T14:20:27.678901+08:00"
+        },
+        {
+            "id": 165,
+            "sender_id": 13,
+            "receiver_id": 11,
+            "ticket_id": 39,
+            "content": "That worked! I cleared the queue and now new print jobs are working normally. Thanks for walking me through it Kevin!",
+            "sent_at": "2024-03-17T14:50:44.789012+08:00",
+            "edited_at": "2024-03-17T14:50:44.789012+08:00"
+        },
+        {
+            "id": 166,
+            "sender_id": 15,
+            "receiver_id": 8,
+            "ticket_id": 40,
+            "content": "Emma, I need assistance setting up 2FA for my company accounts. I have the authenticator app but need configuration guidance.",
+            "sent_at": "2024-03-12T10:30:33.890123+08:00",
+            "edited_at": "2024-03-12T10:30:33.890123+08:00"
+        },
+        {
+            "id": 167,
+            "sender_id": 8,
+            "receiver_id": 15,
+            "ticket_id": 40,
+            "content": "Hi Robert, I'll help you set up 2FA. First, I'll generate QR codes for your accounts. Which authenticator app are you using - Google Authenticator or Microsoft Authenticator?",
+            "sent_at": "2024-03-12T11:00:18.012345+08:00",
+            "edited_at": "2024-03-12T11:00:18.012345+08:00"
+        },
+        {
+            "id": 168,
+            "sender_id": 15,
+            "receiver_id": 8,
+            "ticket_id": 40,
+            "content": "I'm using Microsoft Authenticator. I need 2FA set up for my email account, VPN access, and the project management system.",
+            "sent_at": "2024-03-12T11:30:44.123456+08:00",
+            "edited_at": "2024-03-12T11:30:44.123456+08:00"
+        },
+        {
+            "id": 169,
+            "sender_id": 8,
+            "receiver_id": 15,
+            "ticket_id": 40,
+            "content": "Perfect! I've generated QR codes for all three systems. I'll email you the setup instructions with the QR codes. Scan each one with your Authenticator app.",
+            "sent_at": "2024-03-12T12:15:27.234567+08:00",
+            "edited_at": "2024-03-12T12:15:27.234567+08:00"
+        },
+        {
+            "id": 170,
+            "sender_id": 15,
+            "receiver_id": 8,
+            "ticket_id": 40,
+            "content": "Excellent! I've successfully scanned all QR codes and tested the authentication. 2FA is now active on all my accounts. Thanks for the clear instructions Emma!",
+            "sent_at": "2024-03-14T16:25:18.345678+08:00",
+            "edited_at": "2024-03-14T16:25:18.345678+08:00"
+        },
+        {
+            "id": 171,
+            "sender_id": 10,
+            "receiver_id": 8,
+            "ticket_id": 14,
+            "content": "Several keys on my keyboard (Q, W, E, R) stopped working suddenly. Rest of the keyboard functions normally.",
+            "sent_at": "2024-03-02T13:25:11.456789+08:00",
+            "edited_at": "2024-03-02T13:25:11.456789+08:00"
+        },
+        {
+            "id": 172,
+            "sender_id": 19,
+            "receiver_id": 5,
+            "ticket_id": 9,
+            "content": "Second monitor keeps flickering and sometimes goes completely black. Primary monitor works fine.",
+            "sent_at": "2024-02-29T14:20:27.567890+08:00",
+            "edited_at": "2024-02-29T14:20:27.567890+08:00"
+        },
+        {
+            "id": 173,
+            "sender_id": 4,
+            "receiver_id": 5,
+            "ticket_id": 22,
+            "content": "Built-in webcam shows black screen in Teams and Zoom calls. Camera works fine in Windows Camera app.",
+            "sent_at": "2024-03-06T14:35:45.678901+08:00",
+            "edited_at": "2024-03-06T14:35:45.678901+08:00"
+        },
+        {
+            "id": 174,
+            "sender_id": 15,
+            "receiver_id": 11,
+            "ticket_id": 27,
+            "content": "Laptop doesn't detect external monitor when connected via HDMI. Cable and monitor work with other laptops.",
+            "sent_at": "2024-03-09T08:30:44.789012+08:00",
+            "edited_at": "2024-03-09T08:30:44.789012+08:00"
+        },
+        {
+            "id": 175,
+            "sender_id": 3,
+            "receiver_id": 20,
+            "ticket_id": 19,
+            "content": "Getting 'printer not found' error when trying to print to the office laser printer. Other users can print fine.",
+            "sent_at": "2024-03-04T10:25:15.890123+08:00",
+            "edited_at": "2024-03-04T10:25:15.890123+08:00"
+        },
+        {
+            "id": 176,
+            "sender_id": 10,
+            "receiver_id": 5,
+            "ticket_id": 38,
+            "content": "Perfect! The email filters are working correctly now. All new emails are being sorted into the right folders automatically. Thanks Tom!",
+            "sent_at": "2024-03-16T15:30:55.012345+08:00",
+            "edited_at": "2024-03-16T15:30:55.012345+08:00"
+        },
+        {
+            "id": 177,
+            "sender_id": 14,
+            "receiver_id": 1,
+            "ticket_id": 34,
+            "content": "The slowdown was caused by a large table that hadn't been indexed properly after a recent data import. I've added the missing indexes and optimized the queries.",
+            "sent_at": "2024-03-14T17:15:33.345678+08:00",
+            "edited_at": "2024-03-14T17:15:33.345678+08:00"
+        },
+        {
+            "id": 178,
+            "sender_id": 1,
+            "receiver_id": 14,
+            "ticket_id": 34,
+            "content": "That makes perfect sense! The timing aligns with when we imported the new customer data last week. System performance has been excellent since the fix. Great job Susan!",
+            "sent_at": "2024-03-14T17:45:18.456789+08:00",
+            "edited_at": "2024-03-14T17:45:18.456789+08:00"
+        },
+        {
+            "id": 179,
+            "sender_id": 9,
+            "receiver_id": 2,
+            "ticket_id": 37,
+            "content": "Actually, let me clarify - when exactly will the new antivirus solution be deployed? I want to make sure my system stays protected.",
+            "sent_at": "2024-03-08T16:15:22.567890+08:00",
+            "edited_at": "2024-03-08T16:15:22.567890+08:00"
+        },
+        {
+            "id": 180,
+            "sender_id": 2,
+            "receiver_id": 9,
+            "ticket_id": 37,
+            "content": "The new solution rollout is scheduled for March 25th. Your current antivirus will remain active and receive updates until then, so you're fully protected. I'll send a company announcement next week.",
+            "sent_at": "2024-03-08T16:45:33.678901+08:00",
+            "edited_at": "2024-03-08T16:45:33.678901+08:00"
+        },
+        {
+            "id": 181,
+            "sender_id": 2,
+            "receiver_id": 19,
+            "ticket_id": 9,
+            "content": "Hi William, I see the monitor flickering issue. This could be a cable connection or graphics driver problem. Can you try a different HDMI/DisplayPort cable first?",
+            "sent_at": "2024-02-29T15:00:33.678901+08:00",
+            "edited_at": "2024-02-29T15:00:33.678901+08:00"
+        },
+        {
+            "id": 182,
+            "sender_id": 19,
+            "receiver_id": 2,
+            "ticket_id": 9,
+            "content": "I tried a different cable but the flickering persists. The monitor is about 3 years old. Could it be a hardware failure?",
+            "sent_at": "2024-02-29T15:30:44.789012+08:00",
+            "edited_at": "2024-02-29T15:30:44.789012+08:00"
+        },
+        {
+            "id": 183,
+            "sender_id": 2,
+            "receiver_id": 19,
+            "ticket_id": 9,
+            "content": "Let's test the monitor on a different computer to isolate the issue. Also, try updating your graphics drivers. I'll send you the latest driver package.",
+            "sent_at": "2024-03-01T09:15:18.890123+08:00",
+            "edited_at": "2024-03-01T09:15:18.890123+08:00"
+        },
+        {
+            "id": 184,
+            "sender_id": 19,
+            "receiver_id": 2,
+            "ticket_id": 9,
+            "content": "The monitor works fine on another computer, and I've updated the graphics drivers. Still flickering on my machine though.",
+            "sent_at": "2024-03-01T10:45:33.012345+08:00",
+            "edited_at": "2024-03-01T10:45:33.012345+08:00"
+        },
+        {
+            "id": 185,
+            "sender_id": 2,
+            "receiver_id": 19,
+            "ticket_id": 9,
+            "content": "Since the monitor works elsewhere, it's likely a graphics card issue. I'll arrange for a technician to check your graphics card and possibly replace it if needed.",
+            "sent_at": "2024-03-01T11:20:44.123456+08:00",
+            "edited_at": "2024-03-01T11:20:44.123456+08:00"
+        },
+        {
+            "id": 186,
+            "sender_id": 5,
+            "receiver_id": 10,
+            "ticket_id": 14,
+            "content": "Hi Lisa, I see several keyboard keys aren't working. This could be a hardware issue or driver problem. Have you tried using a different USB port?",
+            "sent_at": "2024-03-02T14:00:27.234567+08:00",
+            "edited_at": "2024-03-02T14:00:27.234567+08:00"
+        },
+        {
+            "id": 187,
+            "sender_id": 10,
+            "receiver_id": 5,
+            "ticket_id": 14,
+            "content": "I tried different USB ports and the same keys remain unresponsive. It's a mechanical keyboard that's about 2 years old.",
+            "sent_at": "2024-03-02T14:30:44.345678+08:00",
+            "edited_at": "2024-03-02T14:30:44.345678+08:00"
+        },
+        {
+            "id": 188,
+            "sender_id": 5,
+            "receiver_id": 10,
+            "ticket_id": 14,
+            "content": "Mechanical keyboards can have switch failures. Try gently cleaning around those keys with compressed air. If that doesn't work, we'll need to replace the keyboard.",
+            "sent_at": "2024-03-02T15:15:18.456789+08:00",
+            "edited_at": "2024-03-02T15:15:18.456789+08:00"
+        },
+        {
+            "id": 189,
+            "sender_id": 10,
+            "receiver_id": 5,
+            "ticket_id": 14,
+            "content": "I cleaned it with compressed air but no improvement. The keys are completely unresponsive. I think we need a replacement.",
+            "sent_at": "2024-03-02T16:00:33.567890+08:00",
+            "edited_at": "2024-03-02T16:00:33.567890+08:00"
+        },
+        {
+            "id": 190,
+            "sender_id": 5,
+            "receiver_id": 10,
+            "ticket_id": 14,
+            "content": "I'll order a replacement keyboard of the same model. Should arrive by tomorrow. In the meantime, I can provide you with a temporary keyboard if needed.",
+            "sent_at": "2024-03-02T16:45:27.678901+08:00",
+            "edited_at": "2024-03-02T16:45:27.678901+08:00"
+        },
+        {
+            "id": 191,
+            "sender_id": 8,
+            "receiver_id": 3,
+            "ticket_id": 19,
+            "content": "Hi Mike, I see you're having printer connection issues. Let me check if your computer can see the printer on the network. Can you go to Settings > Printers & scanners?",
+            "sent_at": "2024-03-04T11:00:33.789012+08:00",
+            "edited_at": "2024-03-04T11:00:33.789012+08:00"
+        },
+        {
+            "id": 192,
+            "sender_id": 3,
+            "receiver_id": 8,
+            "ticket_id": 19,
+            "content": "I can see the printer listed there, but when I try to print, I get the 'printer not found' error. The status shows as offline.",
+            "sent_at": "2024-03-04T11:30:18.890123+08:00",
+            "edited_at": "2024-03-04T11:30:18.890123+08:00"
+        },
+        {
+            "id": 193,
+            "sender_id": 8,
+            "receiver_id": 3,
+            "ticket_id": 19,
+            "content": "This sounds like a driver or network configuration issue. Let me remove the printer and reinstall it with the correct driver. I'll do this remotely.",
+            "sent_at": "2024-03-04T12:15:44.012345+08:00",
+            "edited_at": "2024-03-04T12:15:44.012345+08:00"
+        },
+        {
+            "id": 194,
+            "sender_id": 3,
+            "receiver_id": 8,
+            "ticket_id": 19,
+            "content": "Great! I can see you're working on it remotely. The printer now shows as online and I was able to print a test page successfully.",
+            "sent_at": "2024-03-04T13:00:27.123456+08:00",
+            "edited_at": "2024-03-04T13:00:27.123456+08:00"
+        },
+        {
+            "id": 195,
+            "sender_id": 8,
+            "receiver_id": 3,
+            "ticket_id": 19,
+            "content": "Perfect! I reinstalled the printer driver and updated the network configuration. Everything should work normally now. Let me know if you have any other printing issues.",
+            "sent_at": "2024-03-04T13:30:44.234567+08:00",
+            "edited_at": "2024-03-04T13:30:44.234567+08:00"
+        },
+        {
+            "id": 196,
+            "sender_id": 11,
+            "receiver_id": 4,
+            "ticket_id": 22,
+            "content": "Hi Sarah, webcam issues in video calls are usually permissions or driver related. Can you check if Teams and Zoom have camera permissions enabled?",
+            "sent_at": "2024-03-06T15:00:18.345678+08:00",
+            "edited_at": "2024-03-06T15:00:18.345678+08:00"
+        },
+        {
+            "id": 197,
+            "sender_id": 4,
+            "receiver_id": 11,
+            "ticket_id": 22,
+            "content": "I checked and both applications have camera permissions enabled. Windows Camera app works fine, but Teams and Zoom show a black screen.",
+            "sent_at": "2024-03-06T15:30:33.456789+08:00",
+            "edited_at": "2024-03-06T15:30:33.456789+08:00"
+        },
+        {
+            "id": 198,
+            "sender_id": 11,
+            "receiver_id": 4,
+            "ticket_id": 22,
+            "content": "This could be a camera driver conflict. Try updating your camera drivers through Device Manager. Also, close all camera apps and restart Teams/Zoom.",
+            "sent_at": "2024-03-06T16:15:44.567890+08:00",
+            "edited_at": "2024-03-06T16:15:44.567890+08:00"
+        },
+        {
+            "id": 199,
+            "sender_id": 4,
+            "receiver_id": 11,
+            "ticket_id": 22,
+            "content": "I updated the drivers and restarted the applications, but still getting a black screen in video calls. Any other suggestions?",
+            "sent_at": "2024-03-06T17:00:27.678901+08:00",
+            "edited_at": "2024-03-06T17:00:27.678901+08:00"
+        },
+        {
+            "id": 200,
+            "sender_id": 11,
+            "receiver_id": 4,
+            "ticket_id": 22,
+            "content": "Let's try running Windows Camera app first, then opening Teams/Zoom without closing the camera app. This sometimes resolves driver conflicts. If that doesn't work, we may need to reinstall the camera drivers completely.",
+            "sent_at": "2024-03-06T17:45:18.789012+08:00",
+            "edited_at": "2024-03-06T17:45:18.789012+08:00"
+        },
+        {
+            "id": 201,
+            "sender_id": 17,
+            "receiver_id": 15,
+            "ticket_id": 27,
+            "content": "Hi Robert, HDMI detection issues are common with laptops. First, try the Windows key + P combination to switch display modes. Does the laptop recognize the external monitor?",
+            "sent_at": "2024-03-09T09:00:18.890123+08:00",
+            "edited_at": "2024-03-09T09:00:18.890123+08:00"
+        },
+        {
+            "id": 202,
+            "sender_id": 15,
+            "receiver_id": 17,
+            "ticket_id": 27,
+            "content": "I tried Win+P but the external monitor doesn't appear as an option. The laptop doesn't seem to detect it at all. Should I check display settings?",
+            "sent_at": "2024-03-09T09:30:33.012345+08:00",
+            "edited_at": "2024-03-09T09:30:33.012345+08:00"
+        },
+        {
+            "id": 203,
+            "sender_id": 17,
+            "receiver_id": 15,
+            "ticket_id": 27,
+            "content": "Yes, and also check Device Manager for any display adapter issues. Sometimes the graphics drivers need updating. Can you see any warning signs in Device Manager?",
+            "sent_at": "2024-03-09T10:15:44.123456+08:00",
+            "edited_at": "2024-03-09T10:15:44.123456+08:00"
+        },
+        {
+            "id": 204,
+            "sender_id": 15,
+            "receiver_id": 17,
+            "ticket_id": 27,
+            "content": "I found a yellow warning triangle next to the display adapter. The device status shows 'This device cannot start (Code 10)'. This might be the issue.",
+            "sent_at": "2024-03-09T10:45:27.234567+08:00",
+            "edited_at": "2024-03-09T10:45:27.234567+08:00"
+        },
+        {
+            "id": 205,
+            "sender_id": 17,
+            "receiver_id": 15,
+            "ticket_id": 27,
+            "content": "That's exactly the problem! Code 10 indicates a driver issue. I'll send you the latest graphics drivers for your laptop model. After installing, the external monitor should be detected properly.",
+            "sent_at": "2024-03-10T11:20:18.345678+08:00",
+            "edited_at": "2024-03-10T11:20:18.345678+08:00"
+        },
+        {
+            "id": 206,
+            "sender_id": 2,
+            "receiver_id": 12,
+            "ticket_id": 32,
+            "content": "Hi Carol, I see you're having trouble with printer driver installation. The 'publisher cannot be verified' error is a Windows security feature. Let me help you install it safely.",
+            "sent_at": "2024-03-13T11:00:44.456789+08:00",
+            "edited_at": "2024-03-13T11:00:44.456789+08:00"
+        },
+        {
+            "id": 207,
+            "sender_id": 12,
+            "receiver_id": 2,
+            "ticket_id": 32,
+            "content": "Thanks Jane! I downloaded the driver from the manufacturer's website, but Windows won't let me install it. Is there a way to bypass this security warning?",
+            "sent_at": "2024-03-13T11:30:18.567890+08:00",
+            "edited_at": "2024-03-13T11:30:18.567890+08:00"
+        },
+        {
+            "id": 208,
+            "sender_id": 2,
+            "receiver_id": 12,
+            "ticket_id": 32,
+            "content": "Yes, but only for trusted drivers. Right-click the installer, select Properties, then check 'Unblock' if available. Alternatively, I can install it remotely with admin privileges.",
+            "sent_at": "2024-03-13T12:15:33.678901+08:00",
+            "edited_at": "2024-03-13T12:15:33.678901+08:00"
+        },
+        {
+            "id": 209,
+            "sender_id": 12,
+            "receiver_id": 2,
+            "ticket_id": 32,
+            "content": "I tried the Properties method but there's no 'Unblock' option. Could you install it remotely? I need the printer working for an important presentation today.",
+            "sent_at": "2024-03-13T12:45:27.789012+08:00",
+            "edited_at": "2024-03-13T12:45:27.789012+08:00"
+        },
+        {
+            "id": 210,
+            "sender_id": 2,
+            "receiver_id": 12,
+            "ticket_id": 32,
+            "content": "Absolutely! I've installed the printer driver remotely and configured the printer connection. You should now be able to print to the new printer. Test it with a document to confirm it's working.",
+            "sent_at": "2024-03-13T13:20:44.890123+08:00",
+            "edited_at": "2024-03-13T13:20:44.890123+08:00"
+        },
+        {
+            "id": 211,
+            "sender_id": 2,
+            "receiver_id": 4,
+            "ticket_id": 35,
+            "content": "Hi Sarah, clicking sounds from a hard drive are very concerning and usually indicate mechanical failure. We need to back up your data immediately before the drive fails completely.",
+            "sent_at": "2024-03-15T10:15:33.012345+08:00",
+            "edited_at": "2024-03-15T10:15:33.012345+08:00"
+        },
+        {
+            "id": 212,
+            "sender_id": 4,
+            "receiver_id": 2,
+            "ticket_id": 35,
+            "content": "That sounds serious! I have important project files on there. How quickly can we back up the data? The clicking is getting more frequent.",
+            "sent_at": "2024-03-15T10:45:18.123456+08:00",
+            "edited_at": "2024-03-15T10:45:18.123456+08:00"
+        },
+        {
+            "id": 213,
+            "sender_id": 2,
+            "receiver_id": 4,
+            "ticket_id": 35,
+            "content": "I'm dispatching a technician immediately with backup equipment. Don't use the computer heavily until then - just essential tasks. We'll clone the drive before it fails completely.",
+            "sent_at": "2024-03-15T11:00:44.234567+08:00",
+            "edited_at": "2024-03-15T11:00:44.234567+08:00"
+        },
+        {
+            "id": 214,
+            "sender_id": 4,
+            "receiver_id": 2,
+            "ticket_id": 35,
+            "content": "The technician arrived and successfully backed up all my data to an external drive. They're installing a new SSD now. How long will the replacement take?",
+            "sent_at": "2024-03-15T14:30:27.345678+08:00",
+            "edited_at": "2024-03-15T14:30:27.345678+08:00"
+        },
+        {
+            "id": 215,
+            "sender_id": 2,
+            "receiver_id": 4,
+            "ticket_id": 35,
+            "content": "The SSD installation and data restoration should be complete within 2 hours. You'll have better performance than before, and all your files will be restored. Crisis averted!",
+            "sent_at": "2024-03-15T15:15:44.456789+08:00",
+            "edited_at": "2024-03-15T15:15:44.456789+08:00"
+        },
+        {
+            "id": 216,
+            "sender_id": 9,
+            "receiver_id": 2,
+            "ticket_id": 37,
+            "content": "Perfect timing then! Thanks for clarifying the deployment schedule. I'll make sure to follow any instructions when the new antivirus solution is rolled out on March 25th.",
+            "sent_at": "2024-03-08T17:15:44.567890+08:00",
+            "edited_at": "2024-03-08T17:15:44.567890+08:00"
+        },
+        {
+            "id": 217,
+            "sender_id": 4,
+            "receiver_id": 11,
+            "ticket_id": 22,
+            "content": "That workaround worked! Opening Windows Camera first, then Teams allows the webcam to function properly in video calls. Thanks for the creative solution Kevin!",
+            "sent_at": "2024-03-07T09:00:33.678901+08:00",
+            "edited_at": "2024-03-07T09:00:33.678901+08:00"
+        },
+        {
+            "id": 218,
+            "sender_id": 15,
+            "receiver_id": 17,
+            "ticket_id": 27,
+            "content": "Excellent! I installed the graphics drivers and rebooted. The external monitor is now detected and working perfectly. Both screens are displaying correctly. Thanks James!",
+            "sent_at": "2024-03-10T12:30:55.789012+08:00",
+            "edited_at": "2024-03-10T12:30:55.789012+08:00"
+        },
+        {
+            "id": 219,
+            "sender_id": 12,
+            "receiver_id": 2,
+            "ticket_id": 32,
+            "content": "Perfect! I tested printing and it works flawlessly. The presentation documents printed without any issues. Thanks for the quick remote installation Jane!",
+            "sent_at": "2024-03-13T13:45:18.890123+08:00",
+            "edited_at": "2024-03-13T13:45:18.890123+08:00"
+        },
+        {
+            "id": 220,
+            "sender_id": 4,
+            "receiver_id": 2,
+            "ticket_id": 35,
+            "content": "Wow, the new SSD is incredibly fast! Everything loads instantly and all my files are exactly where I left them. Thank you for the emergency response and upgrade!",
+            "sent_at": "2024-03-15T17:45:33.012345+08:00",
+            "edited_at": "2024-03-15T17:45:33.012345+08:00"
+        }
+    ]
+}
