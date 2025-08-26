@@ -2,10 +2,17 @@ from sqlalchemy import select
 from sqlalchemy.orm import Session
 from typing import Optional
 
-from . import models, schemas
-
+from . import models, schemas, security
 
 # users
+def verify_user(db: Session, username: str, password: str) -> Optional[models.User]:
+    result = db.execute(select(models.User).where(models.User.username == username)).first()
+    if not result:
+        return None
+    user: models.User = result[0]
+    if security.verify_password(password, user.hashed_password):
+        return user
+
 def get_user_bad(db: Session, user_id: int):
     return db.get(models.User, user_id)
 
@@ -13,13 +20,12 @@ def create_user(db: Session, user: schemas.UserCreate) -> Optional[models.User]:
     user_exist = db.execute(select(models.User).where(models.User.username == user.username)).first()
     if user_exist:
         return None
-    # ---- temporary ----
     user_dict = dict()
     for key, val in user.model_dump().items():
         if key == "password":
             key = "hashed_password"
+            val = security.hash_password(val)
         user_dict.update({key:val})
-    # -------------------
     new_user = models.User(**user_dict)
     db.add(new_user)
     db.commit()
