@@ -1,25 +1,31 @@
-from sqlalchemy import select
+from sqlalchemy import delete, select
 from sqlalchemy.orm import Session
-from typing import Optional
+from typing import Optional, Tuple
+
+from app.constants import Error
 
 from . import models, schemas, security
 
 # users
-def verify_user(db: Session, username: str, password: str) -> Optional[models.User]:
+def verify_user(db: Session, username: str, password: str) -> bool:
     result = db.execute(select(models.User).where(models.User.username == username)).first()
     if not result:
-        return None
+        return False
     user: models.User = result[0]
     if security.verify_password(password, user.hashed_password):
-        return user
+        return True
+    return False
 
-def get_user_bad(db: Session, user_id: int):
+def get_user_bad(db: Session, user_id: int) -> Optional[models.User]:
     return db.get(models.User, user_id)
 
-def create_user(db: Session, user: schemas.UserCreate) -> Optional[models.User]:
-    user_exist = db.execute(select(models.User).where(models.User.username == user.username)).first()
-    if user_exist:
-        return None
+def create_user(db: Session, user: schemas.UserCreate) -> Tuple[Optional[models.User], Error]:
+    uname_exist = db.execute(select(models.User).where(models.User.username == user.username)).first()
+    email_exist = db.execute(select(models.User).where(models.User.email == user.email)).first()
+    if uname_exist:
+        return None, Error.UNAME_ALREADY_EXIST
+    if email_exist:
+        return None, Error.EMAIL_ALREADY_EXIST
     user_dict = dict()
     for key, val in user.model_dump().items():
         if key == "password":
@@ -29,26 +35,27 @@ def create_user(db: Session, user: schemas.UserCreate) -> Optional[models.User]:
     new_user = models.User(**user_dict)
     db.add(new_user)
     db.commit()
-    return new_user
+    return new_user, Error.SUCCESS
 
 def update_user(db: Session, user_id: int,
-                updated_user: schemas.UserUpdate) -> Optional[models.User]:
+                updated_user: schemas.UserUpdate) -> Tuple[Optional[models.User], Error]:
     db_user = get_user_bad(db, user_id)
     if not db_user:
-        return None
-    updated_dict = updated_user.model_dump()
+        return None, Error.USER_DOESNT_EXIST
+    updated_dict = updated_user.model_dump(exclude_none=True, exclude_unset=True)
     for key, val in updated_dict.items():
         setattr(db_user, key, val)
     db.commit()
-    return db_user
+    return db_user, Error.SUCCESS
 
-def delete_user(db: Session, user_id: int) -> Optional[models.User]:
+def delete_user(db: Session, user_id: int) -> Tuple[Optional[models.User], Error]:
     db_user = get_user_bad(db, user_id)
     if not db_user:
-        return None
+        return None, Error.USER_DOESNT_EXIST
+    # db.execute(delete(models.User).where(models.User.id == user_id))
     db.delete(db_user)
     db.commit()
-    return db_user
+    return db_user, Error.SUCCESS
 
 
 # tickets
@@ -67,7 +74,7 @@ def update_ticket(db: Session, ticket_id: int,
     db_ticket = get_ticket_bad(db, ticket_id)
     if not db_ticket:
         return None
-    updated_dict = updated_ticket.model_dump()
+    updated_dict = updated_ticket.model_dump(exclude_none=True, exclude_unset=True)
     for key, val in updated_dict.items():
         setattr(db_ticket, key, val)
     db.commit()
@@ -96,7 +103,7 @@ def update_attachment(db: Session, attachment_id: int,
     db_attachment = get_attachment_bad(db, attachment_id)
     if not db_attachment:
         return None
-    updated_dict = updated_attachment.model_dump()
+    updated_dict = updated_attachment.model_dump(exclude_none=True, exclude_unset=True)
     for key, val in updated_dict.items():
         setattr(db_attachment, key, val)
     db.commit()
@@ -125,7 +132,7 @@ def update_message(db: Session, message_id: int,
     db_message = get_message_bad(db, message_id)
     if not db_message:
         return None
-    updated_dict = updated_message.model_dump()
+    updated_dict = updated_message.model_dump(exclude_none=True, exclude_unset=True)
     for key, val in updated_dict.items():
         setattr(db_message, key, val)
     db.commit()

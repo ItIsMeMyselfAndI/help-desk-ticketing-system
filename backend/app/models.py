@@ -1,4 +1,4 @@
-from sqlalchemy import DateTime, ForeignKey, String, func
+from sqlalchemy import DateTime, ForeignKey, String, func, Enum
 from sqlalchemy.orm import (
     DeclarativeBase,
     Mapped,
@@ -8,7 +8,7 @@ from sqlalchemy.orm import (
 from datetime import datetime
 from typing import Optional, List
 
-from . import constants
+from app.constants import UserRole, TicketStatus, TicketCategory
 
 # for shared metadata
 class Base(DeclarativeBase):
@@ -23,7 +23,7 @@ class User(Base):
     username: Mapped[str] = mapped_column(unique=True, nullable=False)
     email: Mapped[str] = mapped_column(unique=True, index=True)
     hashed_password: Mapped[str] = mapped_column(nullable=False)
-    role: Mapped[constants.UserRoles] = mapped_column(String, nullable=False)
+    role: Mapped[UserRole] = mapped_column(Enum(UserRole), nullable=False)
     # dates
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
     updated_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now(), onupdate=func.now())
@@ -39,12 +39,12 @@ class Ticket(Base):
     __tablename__ = "tickets"
     # ids
     id: Mapped[int] = mapped_column(primary_key=True, index=True)
-    issuer_id: Mapped[int] = mapped_column(ForeignKey("users.id"), index=True)
-    assignee_id: Mapped[Optional[int]] = mapped_column(ForeignKey("users.id"), nullable=True, index=True)
+    issuer_id: Mapped[int] = mapped_column(ForeignKey("users.id", ondelete="CASCADE"), index=True)
+    assignee_id: Mapped[Optional[int]] = mapped_column(ForeignKey("users.id", ondelete="CASCADE"), nullable=True, index=True)
     # details
     title: Mapped[str] = mapped_column(nullable=False, index=True)
-    status: Mapped[constants.TicketStatus] = mapped_column(String, default=constants.TicketStatus.OPEN, nullable=False)
-    category: Mapped[Optional[constants.TicketCategory]] = mapped_column(String, nullable=True)
+    status: Mapped[TicketStatus] = mapped_column(Enum(TicketStatus), default=TicketStatus.OPEN, nullable=False)
+    category: Mapped[Optional[TicketCategory]] = mapped_column(Enum(TicketCategory), nullable=True)
     description: Mapped[str] = mapped_column(nullable=False)
     # dates
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
@@ -61,7 +61,7 @@ class Attachment(Base):
     __tablename__ = "attachments"
     # ids
     id: Mapped[int] = mapped_column(primary_key=True, index=True)
-    ticket_id: Mapped[int] = mapped_column(ForeignKey("tickets.id"), index=True)
+    ticket_id: Mapped[int] = mapped_column(ForeignKey("tickets.id", ondelete="CASCADE"), index=True)
     # details
     filename: Mapped[str] = mapped_column(nullable=False)
     filetype: Mapped[str] = mapped_column(nullable=False)
@@ -78,9 +78,9 @@ class Message(Base):
     __tablename__ = "messages"
     # ids
     id: Mapped[int] = mapped_column(primary_key=True, index=True)
-    sender_id: Mapped[int] = mapped_column(ForeignKey("users.id"), index=True)
-    receiver_id: Mapped[int] = mapped_column(ForeignKey("users.id"), index=True)
-    ticket_id: Mapped[int] = mapped_column(ForeignKey("tickets.id"), index=True)
+    sender_id: Mapped[int] = mapped_column(ForeignKey("users.id", ondelete="CASCADE"), index=True)
+    receiver_id: Mapped[int] = mapped_column(ForeignKey("users.id", ondelete="CASCADE"), index=True)
+    ticket_id: Mapped[int] = mapped_column(ForeignKey("tickets.id", ondelete="CASCADE"), index=True)
     # details
     content: Mapped[str] = mapped_column(nullable=False)
     # TODO: emojis

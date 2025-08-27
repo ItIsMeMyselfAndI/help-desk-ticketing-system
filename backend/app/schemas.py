@@ -2,7 +2,7 @@ from datetime import datetime
 from typing import Optional
 from pydantic import BaseModel, EmailStr
 
-from . import constants
+from app.constants import UserRole, TicketStatus, TicketCategory
 
 class ORMBase(BaseModel):
     class Config:
@@ -12,7 +12,7 @@ class ORMBase(BaseModel):
 class UserBase(ORMBase):
     username: str
     email: EmailStr
-    role: constants.UserRolesLiterals
+    role: UserRole
     created_at: Optional[datetime]
     updated_at: Optional[datetime]
 
@@ -23,9 +23,7 @@ class UserUpdate(ORMBase):
     username: Optional[str] = None
     email: Optional[EmailStr] = None
     password: Optional[str] = None
-    role: Optional[constants.UserRolesLiterals] = None
-    created_at: Optional[datetime]
-    updated_at: Optional[datetime]
+    role: Optional[UserRole] = None
 
 class UserResponse(UserBase):
     id: int
@@ -38,9 +36,9 @@ class UserRef(ORMBase):
 # tickets
 class TicketBase(ORMBase):
     title: str
-    status: constants.TicketStatusLiterals
+    status: TicketStatus
     description: str
-    category: Optional[constants.TicketCategoryLiterals] = None
+    category: Optional[TicketCategory] = None
     created_at: Optional[datetime]
     updated_at: Optional[datetime]
 
@@ -55,8 +53,6 @@ class TicketUpdate(ORMBase):
     status: Optional[str] = None
     category: Optional[str] = None
     description: Optional[str] = None
-    created_at: Optional[datetime]
-    updated_at: Optional[datetime]
 
 class TicketResponse(TicketBase):
     id: int
@@ -84,8 +80,6 @@ class AttachmentUpdate(ORMBase):
     filename: Optional[str] = None
     filetype: Optional[str] = None
     filesize: Optional[int] = None
-    uploaded_at: Optional[datetime]
-    updated_at: Optional[datetime]
 
 class AttachmentResponse(AttachmentBase):
     id: int
@@ -108,8 +102,6 @@ class MessageUpdate(ORMBase):
     receiver_id: Optional[int] = None
     ticket_id: Optional[int] = None
     content: Optional[str] = None
-    sent_at: Optional[datetime]
-    edited_at: Optional[datetime]
 
 class MessageResponse(MessageBase):
     id: int
