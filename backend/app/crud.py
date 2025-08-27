@@ -1,4 +1,4 @@
-from sqlalchemy import delete, select
+from sqlalchemy import delete, select, update
 from sqlalchemy.orm import Session
 from typing import Optional, Tuple
 
@@ -39,12 +39,17 @@ def create_user(db: Session, user: schemas.UserCreate) -> Tuple[Optional[models.
 
 def update_user(db: Session, user_id: int,
                 updated_user: schemas.UserUpdate) -> Tuple[Optional[models.User], Error]:
+    uname_exist = db.execute(select(models.User).where(models.User.username == updated_user.username)).first()
+    email_exist = db.execute(select(models.User).where(models.User.email == updated_user.email)).first()
     db_user = get_user_bad(db, user_id)
     if not db_user:
         return None, Error.USER_DOESNT_EXIST
+    elif uname_exist:
+        return None, Error.UNAME_ALREADY_EXIST
+    elif email_exist:
+        return None, Error.EMAIL_ALREADY_EXIST
     updated_dict = updated_user.model_dump(exclude_none=True, exclude_unset=True)
-    for key, val in updated_dict.items():
-        setattr(db_user, key, val)
+    db.execute(update(models.User).where(models.User.id == user_id).values(**updated_dict))
     db.commit()
     return db_user, Error.SUCCESS
 
@@ -52,8 +57,7 @@ def delete_user(db: Session, user_id: int) -> Tuple[Optional[models.User], Error
     db_user = get_user_bad(db, user_id)
     if not db_user:
         return None, Error.USER_DOESNT_EXIST
-    # db.execute(delete(models.User).where(models.User.id == user_id))
-    db.delete(db_user)
+    db.execute(delete(models.User).where(models.User.id == user_id))
     db.commit()
     return db_user, Error.SUCCESS
 

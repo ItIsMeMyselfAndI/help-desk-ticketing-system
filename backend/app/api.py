@@ -52,7 +52,7 @@ def create_user(user: schemas.UserCreate):
           updated_at: {result.updated_at}
           """)
 
-@app.patch("/user/update")
+@app.patch("/user/update/{user_id}")
 def update_user(user_id: int, user: schemas.UserUpdate):
     dbase = next(db.get_db())
     result, err = crud.update_user(dbase, user_id, user)

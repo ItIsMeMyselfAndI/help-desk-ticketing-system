@@ -28,10 +28,10 @@ class User(Base):
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
     updated_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now(), onupdate=func.now())
     # relationships
-    issued_tickets: Mapped[List["Ticket"]] = relationship(back_populates="issuer", foreign_keys="Ticket.issuer_id")
-    assignee_tickets: Mapped[List["Ticket"]] = relationship(back_populates="assignee", foreign_keys="Ticket.assignee_id")
-    sent_messages: Mapped[List["Message"]] = relationship(back_populates="sender", foreign_keys="Message.sender_id")
-    received_messages: Mapped[List["Message"]] = relationship(back_populates="receiver", foreign_keys="Message.receiver_id")
+    issued_tickets: Mapped[List["Ticket"]] = relationship(back_populates="issuer", foreign_keys="Ticket.issuer_id", cascade="all, delete")
+    assignee_tickets: Mapped[List["Ticket"]] = relationship(back_populates="assignee", foreign_keys="Ticket.assignee_id", cascade="all, delete")
+    sent_messages: Mapped[List["Message"]] = relationship(back_populates="sender", foreign_keys="Message.sender_id", cascade="all, delete")
+    received_messages: Mapped[List["Message"]] = relationship(back_populates="receiver", foreign_keys="Message.receiver_id", cascade="all, delete")
 
 
 # tickets
@@ -39,8 +39,8 @@ class Ticket(Base):
     __tablename__ = "tickets"
     # ids
     id: Mapped[int] = mapped_column(primary_key=True, index=True)
-    issuer_id: Mapped[int] = mapped_column(ForeignKey("users.id", ondelete="CASCADE"), index=True)
-    assignee_id: Mapped[Optional[int]] = mapped_column(ForeignKey("users.id", ondelete="CASCADE"), nullable=True, index=True)
+    issuer_id: Mapped[int] = mapped_column(ForeignKey("users.id"), index=True)
+    assignee_id: Mapped[Optional[int]] = mapped_column(ForeignKey("users.id"), nullable=True, index=True)
     # details
     title: Mapped[str] = mapped_column(nullable=False, index=True)
     status: Mapped[TicketStatus] = mapped_column(Enum(TicketStatus), default=TicketStatus.OPEN, nullable=False)
@@ -52,8 +52,8 @@ class Ticket(Base):
     # relationships
     issuer: Mapped[User] = relationship(back_populates="issued_tickets", foreign_keys=[issuer_id])
     assignee: Mapped[Optional[User]] = relationship(back_populates="assignee_tickets", foreign_keys=[assignee_id])
-    attachments: Mapped[List["Attachment"]] = relationship(back_populates="ticket")
-    messages: Mapped[List["Message"]] = relationship(back_populates="ticket")
+    attachments: Mapped[List["Attachment"]] = relationship(back_populates="ticket", cascade="all, delete")
+    messages: Mapped[List["Message"]] = relationship(back_populates="ticket", cascade="all, delete")
 
 
 # attachments
@@ -61,7 +61,7 @@ class Attachment(Base):
     __tablename__ = "attachments"
     # ids
     id: Mapped[int] = mapped_column(primary_key=True, index=True)
-    ticket_id: Mapped[int] = mapped_column(ForeignKey("tickets.id", ondelete="CASCADE"), index=True)
+    ticket_id: Mapped[int] = mapped_column(ForeignKey("tickets.id"), index=True)
     # details
     filename: Mapped[str] = mapped_column(nullable=False)
     filetype: Mapped[str] = mapped_column(nullable=False)
@@ -78,9 +78,9 @@ class Message(Base):
     __tablename__ = "messages"
     # ids
     id: Mapped[int] = mapped_column(primary_key=True, index=True)
-    sender_id: Mapped[int] = mapped_column(ForeignKey("users.id", ondelete="CASCADE"), index=True)
-    receiver_id: Mapped[int] = mapped_column(ForeignKey("users.id", ondelete="CASCADE"), index=True)
-    ticket_id: Mapped[int] = mapped_column(ForeignKey("tickets.id", ondelete="CASCADE"), index=True)
+    sender_id: Mapped[int] = mapped_column(ForeignKey("users.id"), index=True)
+    receiver_id: Mapped[int] = mapped_column(ForeignKey("users.id"), index=True)
+    ticket_id: Mapped[int] = mapped_column(ForeignKey("tickets.id"), index=True)
     # details
     content: Mapped[str] = mapped_column(nullable=False)
     # TODO: emojis
