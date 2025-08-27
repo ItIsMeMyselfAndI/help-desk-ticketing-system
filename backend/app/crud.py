@@ -1,4 +1,4 @@
-from sqlalchemy import delete, select, update
+from sqlalchemy import select
 from sqlalchemy.orm import Session
 from typing import Optional, Tuple
 
@@ -49,7 +49,8 @@ def update_user(db: Session, user_id: int,
     elif email_exist:
         return None, Error.EMAIL_ALREADY_EXIST
     updated_dict = updated_user.model_dump(exclude_none=True, exclude_unset=True)
-    db.execute(update(models.User).where(models.User.id == user_id).values(**updated_dict))
+    for key, val in updated_dict.items():
+        setattr(db_user, key, val)
     db.commit()
     return db_user, Error.SUCCESS
 
@@ -57,7 +58,7 @@ def delete_user(db: Session, user_id: int) -> Tuple[Optional[models.User], Error
     db_user = get_user_bad(db, user_id)
     if not db_user:
         return None, Error.USER_DOESNT_EXIST
-    db.execute(delete(models.User).where(models.User.id == user_id))
+    db.delete(db_user)
     db.commit()
     return db_user, Error.SUCCESS
 
