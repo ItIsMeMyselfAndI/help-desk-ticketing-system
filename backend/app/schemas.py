@@ -25,7 +25,7 @@ class UserUpdate(ORMBase):
     password: Optional[str] = None
     role: Optional[UserRole] = None
 
-class UserResponse(UserBase):
+class UserOut(UserBase):
     id: int
 
 class UserRef(ORMBase):
@@ -54,7 +54,7 @@ class TicketUpdate(ORMBase):
     category: Optional[str] = None
     description: Optional[str] = None
 
-class TicketResponse(TicketBase):
+class TicketOut(TicketBase):
     id: int
     issuer: UserRef
     assignee: Optional[UserRef] = None
@@ -81,7 +81,7 @@ class AttachmentUpdate(ORMBase):
     filetype: Optional[str] = None
     filesize: Optional[int] = None
 
-class AttachmentResponse(AttachmentBase):
+class AttachmentOut(AttachmentBase):
     id: int
     ticket: TicketRef
 
@@ -103,7 +103,7 @@ class MessageUpdate(ORMBase):
     ticket_id: Optional[int] = None
     content: Optional[str] = None
 
-class MessageResponse(MessageBase):
+class MessageOut(MessageBase):
     id: int
     sender: UserRef
     receiver: UserRef

@@ -1,4 +1,4 @@
-from sqlalchemy import DateTime, ForeignKey, String, func, Enum
+from sqlalchemy import DateTime, ForeignKey, func, Enum
 from sqlalchemy.orm import (
     DeclarativeBase,
     Mapped,
@@ -6,7 +6,7 @@ from sqlalchemy.orm import (
     relationship,
 )
 from datetime import datetime
-from typing import Optional, List
+from typing import Dict, Optional, List
 
 from app.constants import UserRole, TicketStatus, TicketCategory
 
@@ -32,6 +32,16 @@ class User(Base):
     assignee_tickets: Mapped[List["Ticket"]] = relationship(back_populates="assignee", foreign_keys="Ticket.assignee_id", cascade="all, delete")
     sent_messages: Mapped[List["Message"]] = relationship(back_populates="sender", foreign_keys="Message.sender_id", cascade="all, delete")
     received_messages: Mapped[List["Message"]] = relationship(back_populates="receiver", foreign_keys="Message.receiver_id", cascade="all, delete")
+    # dict ver
+    def as_dict(self) -> Dict:
+        return {
+                "id": self.id,
+                "username": self.username,
+                "email": self.email,
+                "role": self.role.value,
+                "created_at": self.created_at.isoformat(),
+                "updated_at": self.updated_at.isoformat()
+                }
 
 
 # tickets

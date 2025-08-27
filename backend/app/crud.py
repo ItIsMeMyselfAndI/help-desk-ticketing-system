@@ -16,8 +16,13 @@ def verify_user(db: Session, username: str, password: str) -> bool:
         return True
     return False
 
-def get_user_bad(db: Session, user_id: int) -> Optional[models.User]:
-    return db.get(models.User, user_id)
+def get_user_good(db: Session, user_id: int) -> Tuple[Optional[schemas.UserOut], Error]:
+    result = db.execute(select(models.User).where(models.User.id == user_id))
+    if not result:
+        return None, Error.USER_DOESNT_EXIST
+    db_user = result.scalar_one()
+    user_out = schemas.UserOut(**db_user.as_dict())
+    return user_out, Error.SUCCESS
 
 def create_user(db: Session, user: schemas.UserCreate) -> Tuple[Optional[models.User], Error]:
     uname_exist = db.execute(select(models.User).where(models.User.username == user.username)).first()
@@ -41,7 +46,7 @@ def update_user(db: Session, user_id: int,
                 updated_user: schemas.UserUpdate) -> Tuple[Optional[models.User], Error]:
     uname_exist = db.execute(select(models.User).where(models.User.username == updated_user.username)).first()
     email_exist = db.execute(select(models.User).where(models.User.email == updated_user.email)).first()
-    db_user = get_user_bad(db, user_id)
+    db_user = db.get(models.User, user_id)
     if not db_user:
         return None, Error.USER_DOESNT_EXIST
     elif uname_exist:
@@ -55,7 +60,7 @@ def update_user(db: Session, user_id: int,
     return db_user, Error.SUCCESS
 
 def delete_user(db: Session, user_id: int) -> Tuple[Optional[models.User], Error]:
-    db_user = get_user_bad(db, user_id)
+    db_user = db.get(models.User, user_id)
     if not db_user:
         return None, Error.USER_DOESNT_EXIST
     db.delete(db_user)

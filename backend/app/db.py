@@ -11,9 +11,12 @@ engine = create_engine(DATABASE_URL) # , echo=True
 Session = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 def get_db():
-    with Session() as session:
-        # session.expire_on_commit = False
+    session = Session()
+    try:
         yield session
+    finally:
+        session.close()
+        print("closed db session")
 
 def init_db(with_data: bool, datasets_path: Optional[str]):
     db_exists = inspect(engine).get_table_names()
