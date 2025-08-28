@@ -1,4 +1,4 @@
-from sqlalchemy import DateTime, ForeignKey, func, Enum
+from sqlalchemy import DateTime, ForeignKey, func, Enum, null
 from sqlalchemy.orm import (
     DeclarativeBase,
     Mapped,
@@ -38,7 +38,7 @@ class User(Base):
                 "id": self.id,
                 "username": self.username,
                 "email": self.email,
-                "role": self.role.value,
+                "role": self.role,
                 "created_at": self.created_at.isoformat(),
                 "updated_at": self.updated_at.isoformat()
                 }
@@ -50,11 +50,11 @@ class Ticket(Base):
     # ids
     id: Mapped[int] = mapped_column(primary_key=True, index=True)
     issuer_id: Mapped[int] = mapped_column(ForeignKey("users.id"), index=True)
-    assignee_id: Mapped[Optional[int]] = mapped_column(ForeignKey("users.id"), nullable=True, index=True)
+    assignee_id: Mapped[Optional[int]] = mapped_column(ForeignKey("users.id"), nullable=True, default=None, index=True)
     # details
     title: Mapped[str] = mapped_column(nullable=False, index=True)
     status: Mapped[TicketStatus] = mapped_column(Enum(TicketStatus), default=TicketStatus.OPEN, nullable=False)
-    category: Mapped[Optional[TicketCategory]] = mapped_column(Enum(TicketCategory), nullable=True)
+    category: Mapped[TicketCategory] = mapped_column(Enum(TicketCategory), nullable=False)
     description: Mapped[str] = mapped_column(nullable=False)
     # dates
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
@@ -64,6 +64,19 @@ class Ticket(Base):
     assignee: Mapped[Optional[User]] = relationship(back_populates="assignee_tickets", foreign_keys=[assignee_id])
     attachments: Mapped[List["Attachment"]] = relationship(back_populates="ticket", cascade="all, delete")
     messages: Mapped[List["Message"]] = relationship(back_populates="ticket", cascade="all, delete")
+    # dict ver
+    def as_dict(self) -> Dict:
+        return {
+                "id": self.id,
+                "issuer_id": self.issuer_id,
+                "assignee_id": self.assignee_id,
+                "title": self.title,
+                "status": self.status,
+                "category": self.category,
+                "description": self.description,
+                "created_at": self.created_at.isoformat(),
+                "updated_at": self.updated_at.isoformat()
+                }
 
 
 # attachments

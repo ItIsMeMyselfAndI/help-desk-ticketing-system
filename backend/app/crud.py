@@ -17,10 +17,9 @@ def verify_user(db: Session, username: str, password: str) -> bool:
     return False
 
 def get_user_good(db: Session, user_id: int) -> Tuple[Optional[schemas.UserOut], Error]:
-    result = db.execute(select(models.User).where(models.User.id == user_id))
-    if not result:
-        return None, Error.USER_DOESNT_EXIST
-    db_user = result.scalar_one()
+    db_user = db.execute(select(models.User).where(models.User.id == user_id)).scalars().first()
+    if not db_user:
+        return None, Error.USER_NOT_FOUND
     user_out = schemas.UserOut(**db_user.as_dict())
     return user_out, Error.SUCCESS
 
@@ -48,7 +47,7 @@ def update_user(db: Session, user_id: int,
     email_exist = db.execute(select(models.User).where(models.User.email == updated_user.email)).first()
     db_user = db.get(models.User, user_id)
     if not db_user:
-        return None, Error.USER_DOESNT_EXIST
+        return None, Error.USER_NOT_FOUND
     elif uname_exist:
         return None, Error.UNAME_ALREADY_EXIST
     elif email_exist:
@@ -62,39 +61,64 @@ def update_user(db: Session, user_id: int,
 def delete_user(db: Session, user_id: int) -> Tuple[Optional[models.User], Error]:
     db_user = db.get(models.User, user_id)
     if not db_user:
-        return None, Error.USER_DOESNT_EXIST
+        return None, Error.USER_NOT_FOUND
     db.delete(db_user)
     db.commit()
     return db_user, Error.SUCCESS
 
 
 # tickets
-def get_ticket_bad(db: Session, ticket_id: int):
-    return db.get(models.Ticket, ticket_id)
+def get_ticket_good(db: Session, ticket_id: int) -> Tuple[Optional[schemas.TicketOut], Error]:
+    db_ticket = db.execute(select(models.Ticket).where(models.Ticket.id == ticket_id)).scalars().first()
+    if not db_ticket:
+        return None, Error.USER_NOT_FOUND
+    issuer = db.execute(select(models.User).where(models.User.id == db_ticket.issuer_id)).scalars().first()
+    assignee = db.execute(select(models.User).where(models.User.id == db_ticket.assignee_id)).scalars().first()
+    if not issuer:
+        return None, Error.ISSUER_NOT_FOUND
+    issuer_uname = issuer.username
+    ticket_dict = db_ticket.as_dict()
+    ticket_dict.update({
+        "issuer": schemas.UserRef(
+            id=ticket_dict["issuer_id"],
+            username=issuer_uname
+            ),
+        })
+    if assignee:
+        ticket_dict.update({
+            "assignee": schemas.UserRef(
+                id=ticket_dict["assignee_id"],
+                username=assignee.username
+                )
+            })
+    ticket_out = schemas.TicketOut(**ticket_dict)
+    return ticket_out, Error.SUCCESS
 
-def create_ticket(db: Session, ticket: schemas.TicketCreate) -> Optional[models.Ticket]:
+def create_ticket(db: Session, ticket: schemas.TicketCreate) -> Tuple[Optional[models.Ticket], Error]:
     ticket_dict = ticket.model_dump()
     new_ticket = models.Ticket(**ticket_dict)
     db.add(new_ticket)
     db.commit()
-    return new_ticket
+    return new_ticket, Error.SUCCESS
 
 def update_ticket(db: Session, ticket_id: int,
-                  updated_ticket: schemas.TicketUpdate) -> Optional[models.Ticket]:
-    db_ticket = get_ticket_bad(db, ticket_id)
+                  updated_ticket: schemas.TicketUpdate) -> Tuple[Optional[models.Ticket], Error]:
+    db_ticket = db.get(models.Ticket, ticket_id)
     if not db_ticket:
-        return None
+        return None, Error.TICKET_NOT_FOUND
     updated_dict = updated_ticket.model_dump(exclude_none=True, exclude_unset=True)
     for key, val in updated_dict.items():
         setattr(db_ticket, key, val)
     db.commit()
-    return db_ticket
+    return db_ticket, Error.SUCCESS
 
-def delete_ticket(db: Session, ticket_id: int) -> Optional[models.Ticket]:
-    db_ticket =  db.get(models.Ticket, ticket_id)
+def delete_ticket(db: Session, ticket_id: int) -> Tuple[Optional[models.Ticket], Error]:
+    db_ticket = db.get(models.Ticket, ticket_id)
+    if not db_ticket:
+        return None, Error.USER_NOT_FOUND
     db.delete(db_ticket)
     db.commit()
-    return db_ticket
+    return db_ticket, Error.SUCCESS
 
 
 # attachments

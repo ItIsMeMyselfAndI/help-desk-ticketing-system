@@ -52,6 +52,7 @@ def create_user(user: schemas.UserCreate):
         print(json.dumps({"status_code": status_code.value}, indent=4))
         return {"status_code": status_code}
     user_out = result.as_dict()
+    user_out.update({"role" : user_out["role"].value})
     print(json.dumps(user_out, indent=4))
     return user_out
 
@@ -63,6 +64,7 @@ def update_user(user_id: int, user: schemas.UserUpdate):
         print(json.dumps({"status_code": status_code.value}, indent=4))
         return {"status_code": status_code}
     user_out = result.as_dict()
+    user_out.update({"role" : user_out["role"].value})
     print(json.dumps(user_out, indent=4))
     return user_out
 
@@ -74,8 +76,59 @@ def delete_user(user_id: int):
         print(json.dumps({"status_code": status_code.value}, indent=4))
         return {"status_code": status_code}
     user_out = result.as_dict()
+    user_out.update({"role" : user_out["role"].value})
     print(json.dumps(user_out, indent=4))
     return user_out
+
+
+# ---- tickets ----
+@app.get("/ticket/{ticket_id}")
+def get_ticket_good(ticket_id: int):
+    db = next(get_db())
+    result, status_code = crud.get_ticket_good(db, ticket_id)
+    if not result:
+        print(json.dumps({"status_code": status_code.value}, indent=4))
+        return {"status_code": status_code}
+    ticket_out = result.model_dump(mode="json")
+    print(json.dumps(ticket_out, indent=4))
+    return result
+
+@app.post("/ticket/create")
+def create_ticket(ticket: schemas.TicketCreate):
+    db = next(get_db())
+    result, status_code = crud.create_ticket(db, ticket)
+    if not result:
+        print(json.dumps({"status_code": status_code.value}, indent=4))
+        return {"status_code": status_code}
+    ticket_out = result.as_dict()
+    ticket_out.update({"role" : ticket_out["role"].value})
+    print(json.dumps(ticket_out, indent=4))
+    return ticket_out
+
+@app.patch("/ticket/update/{ticket_id}")
+def update_ticket(ticket_id: int, ticket: schemas.TicketUpdate):
+    db = next(get_db())
+    result, status_code = crud.update_ticket(db, ticket_id, ticket)
+    if not result:
+        print(json.dumps({"status_code": status_code.value}, indent=4))
+        return {"status_code": status_code}
+    ticket_out = result.as_dict()
+    ticket_out.update({"role" : ticket_out["role"].value})
+    print(json.dumps(ticket_out, indent=4))
+    return ticket_out
+
+@app.delete("/ticket/delete/{ticket_id}")
+def delete_ticket(ticket_id: int):
+    db = next(get_db())
+    result, status_code = crud.delete_ticket(db, ticket_id)
+    if not result:
+        print(json.dumps({"status_code": status_code.value}, indent=4))
+        return {"status_code": status_code}
+    ticket_out = result.as_dict()
+    ticket_out.update({"role" : ticket_out["role"].value})
+    print(json.dumps(ticket_out, indent=4))
+    return ticket_out
+
 
 
 

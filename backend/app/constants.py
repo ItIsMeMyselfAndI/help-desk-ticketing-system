@@ -2,9 +2,16 @@ from enum import Enum
 
 class Error(Enum):
     SUCCESS = 0
+    # user
     UNAME_ALREADY_EXIST = 1
     EMAIL_ALREADY_EXIST = 2
-    USER_DOESNT_EXIST = 3
+    USER_NOT_FOUND = 3
+
+    # ticket
+    TICKET_NOT_FOUND = 4
+    ISSUER_NOT_FOUND = 5
+    ASSIGNEE_NOT_FOUND = 6
+
 
 class TableName(Enum):
     USERS = "users"
