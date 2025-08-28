@@ -105,7 +105,7 @@ def create_ticket(db: Session, ticket: schemas.TicketCreate) -> Tuple[Optional[m
     issuer_exist = verify_user_id(db, ticket.issuer_id)
     if not issuer_exist:
         return None, Error.ISSUER_NOT_FOUND
-    if ticket.assignee_id or not ticket.assignee_id != 0:
+    if ticket.assignee_id != None:
         assignee_exist = verify_user_id(db, ticket.assignee_id)
         if not assignee_exist:
             return None, Error.ASSIGNEE_NOT_FOUND
@@ -121,11 +121,11 @@ def create_ticket(db: Session, ticket: schemas.TicketCreate) -> Tuple[Optional[m
 def update_ticket(db: Session, ticket_id: int,
                   updated_ticket: schemas.TicketUpdate) -> Tuple[Optional[models.Ticket], Error]:
     # verify
-    if updated_ticket.issuer_id or not updated_ticket.issuer_id != 0:
+    if updated_ticket.issuer_id != None:
         issuer_exist = verify_user_id(db, updated_ticket.issuer_id)
         if not issuer_exist:
             return None, Error.ISSUER_NOT_FOUND
-    if updated_ticket.assignee_id or not updated_ticket.assignee_id != 0:
+    if updated_ticket.assignee_id != None:
         assignee_exist = verify_user_id(db, updated_ticket.assignee_id)
         if not assignee_exist:
             return None, Error.ASSIGNEE_NOT_FOUND

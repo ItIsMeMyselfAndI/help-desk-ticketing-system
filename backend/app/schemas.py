@@ -39,8 +39,8 @@ class TicketBase(ORMBase):
     status: TicketStatus
     category: Optional[TicketCategory] = None
     description: str
-    created_at: Optional[datetime]
-    updated_at: Optional[datetime]
+    created_at: Optional[datetime] = None
+    updated_at: Optional[datetime] = None
 
 class TicketCreate(TicketBase):
     issuer_id: int
