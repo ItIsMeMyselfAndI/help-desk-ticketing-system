@@ -11,6 +11,7 @@ class Error(Enum):
     TICKET_NOT_FOUND = 4
     ISSUER_NOT_FOUND = 5
     ASSIGNEE_NOT_FOUND = 6
+    SAME_ISSUER_AND_ASSIGNEE = 7
 
 
 class TableName(Enum):

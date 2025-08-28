@@ -29,7 +29,7 @@ def root():
 @app.get("/user")
 def verify_user(username: str, password: str):
     db = next(get_db())
-    result = crud.verify_user(db, username, password)
+    result = crud.verify_user_account(db, username, password)
     print(json.dumps({"verified": result}, indent=4))
     return {"verified": result}
 
@@ -101,7 +101,9 @@ def create_ticket(ticket: schemas.TicketCreate):
         print(json.dumps({"status_code": status_code.value}, indent=4))
         return {"status_code": status_code}
     ticket_out = result.as_dict()
-    ticket_out.update({"role" : ticket_out["role"].value})
+    ticket_out.update({"status" : ticket_out["status"].value})
+    if result.category:
+        ticket_out.update({"category" : ticket_out["category"].value})
     print(json.dumps(ticket_out, indent=4))
     return ticket_out
 
@@ -113,7 +115,9 @@ def update_ticket(ticket_id: int, ticket: schemas.TicketUpdate):
         print(json.dumps({"status_code": status_code.value}, indent=4))
         return {"status_code": status_code}
     ticket_out = result.as_dict()
-    ticket_out.update({"role" : ticket_out["role"].value})
+    ticket_out.update({"status" : ticket_out["status"].value})
+    if result.category:
+        ticket_out.update({"category" : ticket_out["category"].value})
     print(json.dumps(ticket_out, indent=4))
     return ticket_out
 
@@ -125,7 +129,9 @@ def delete_ticket(ticket_id: int):
         print(json.dumps({"status_code": status_code.value}, indent=4))
         return {"status_code": status_code}
     ticket_out = result.as_dict()
-    ticket_out.update({"role" : ticket_out["role"].value})
+    ticket_out.update({"status" : ticket_out["status"].value})
+    if result.category:
+        ticket_out.update({"category" : ticket_out["category"].value})
     print(json.dumps(ticket_out, indent=4))
     return ticket_out
 

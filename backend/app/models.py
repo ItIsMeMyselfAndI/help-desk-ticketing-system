@@ -54,7 +54,7 @@ class Ticket(Base):
     # details
     title: Mapped[str] = mapped_column(nullable=False, index=True)
     status: Mapped[TicketStatus] = mapped_column(Enum(TicketStatus), default=TicketStatus.OPEN, nullable=False)
-    category: Mapped[TicketCategory] = mapped_column(Enum(TicketCategory), nullable=False)
+    category: Mapped[Optional[TicketCategory]] = mapped_column(Enum(TicketCategory), nullable=True)
     description: Mapped[str] = mapped_column(nullable=False)
     # dates
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())

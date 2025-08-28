@@ -37,8 +37,8 @@ class UserRef(ORMBase):
 class TicketBase(ORMBase):
     title: str
     status: TicketStatus
-    description: str
     category: Optional[TicketCategory] = None
+    description: str
     created_at: Optional[datetime]
     updated_at: Optional[datetime]
 
@@ -50,8 +50,8 @@ class TicketUpdate(ORMBase):
     issuer_id: Optional[int] = None
     assignee_id: Optional[int] = None
     title: Optional[str] = None
-    status: Optional[str] = None
-    category: Optional[str] = None
+    status: Optional[TicketStatus] = None
+    category: Optional[TicketCategory] = None
     description: Optional[str] = None
 
 class TicketOut(TicketBase):

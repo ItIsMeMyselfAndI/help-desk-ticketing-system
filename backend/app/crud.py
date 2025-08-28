@@ -7,12 +7,18 @@ from app.constants import Error
 from . import models, schemas, security
 
 # users
-def verify_user(db: Session, username: str, password: str) -> bool:
+def verify_user_account(db: Session, username: str, password: str) -> bool:
     result = db.execute(select(models.User).where(models.User.username == username)).first()
     if not result:
         return False
     user: models.User = result[0]
     if security.verify_password(password, user.hashed_password):
+        return True
+    return False
+
+def verify_user_id(db: Session, user_id: int) -> bool:
+    result = db.execute(select(models.User).where(models.User.id == user_id)).scalars().first()
+    if result:
         return True
     return False
 
@@ -71,7 +77,7 @@ def delete_user(db: Session, user_id: int) -> Tuple[Optional[models.User], Error
 def get_ticket_good(db: Session, ticket_id: int) -> Tuple[Optional[schemas.TicketOut], Error]:
     db_ticket = db.execute(select(models.Ticket).where(models.Ticket.id == ticket_id)).scalars().first()
     if not db_ticket:
-        return None, Error.USER_NOT_FOUND
+        return None, Error.TICKET_NOT_FOUND
     issuer = db.execute(select(models.User).where(models.User.id == db_ticket.issuer_id)).scalars().first()
     assignee = db.execute(select(models.User).where(models.User.id == db_ticket.assignee_id)).scalars().first()
     if not issuer:
@@ -95,6 +101,17 @@ def get_ticket_good(db: Session, ticket_id: int) -> Tuple[Optional[schemas.Ticke
     return ticket_out, Error.SUCCESS
 
 def create_ticket(db: Session, ticket: schemas.TicketCreate) -> Tuple[Optional[models.Ticket], Error]:
+    # verify
+    issuer_exist = verify_user_id(db, ticket.issuer_id)
+    if not issuer_exist:
+        return None, Error.ISSUER_NOT_FOUND
+    if ticket.assignee_id or not ticket.assignee_id != 0:
+        assignee_exist = verify_user_id(db, ticket.assignee_id)
+        if not assignee_exist:
+            return None, Error.ASSIGNEE_NOT_FOUND
+    if ticket.issuer_id == ticket.assignee_id:
+        return None, Error.SAME_ISSUER_AND_ASSIGNEE
+    # main
     ticket_dict = ticket.model_dump()
     new_ticket = models.Ticket(**ticket_dict)
     db.add(new_ticket)
@@ -103,6 +120,18 @@ def create_ticket(db: Session, ticket: schemas.TicketCreate) -> Tuple[Optional[m
 
 def update_ticket(db: Session, ticket_id: int,
                   updated_ticket: schemas.TicketUpdate) -> Tuple[Optional[models.Ticket], Error]:
+    # verify
+    if updated_ticket.issuer_id or not updated_ticket.issuer_id != 0:
+        issuer_exist = verify_user_id(db, updated_ticket.issuer_id)
+        if not issuer_exist:
+            return None, Error.ISSUER_NOT_FOUND
+    if updated_ticket.assignee_id or not updated_ticket.assignee_id != 0:
+        assignee_exist = verify_user_id(db, updated_ticket.assignee_id)
+        if not assignee_exist:
+            return None, Error.ASSIGNEE_NOT_FOUND
+    if updated_ticket.issuer_id == updated_ticket.assignee_id:
+        return None, Error.SAME_ISSUER_AND_ASSIGNEE
+    # main
     db_ticket = db.get(models.Ticket, ticket_id)
     if not db_ticket:
         return None, Error.TICKET_NOT_FOUND
@@ -115,7 +144,7 @@ def update_ticket(db: Session, ticket_id: int,
 def delete_ticket(db: Session, ticket_id: int) -> Tuple[Optional[models.Ticket], Error]:
     db_ticket = db.get(models.Ticket, ticket_id)
     if not db_ticket:
-        return None, Error.USER_NOT_FOUND
+        return None, Error.TICKET_NOT_FOUND
     db.delete(db_ticket)
     db.commit()
     return db_ticket, Error.SUCCESS
