@@ -6,12 +6,14 @@ class Error(Enum):
     UNAME_ALREADY_EXIST = 1
     EMAIL_ALREADY_EXIST = 2
     USER_NOT_FOUND = 3
-
     # ticket
     TICKET_NOT_FOUND = 4
     ISSUER_NOT_FOUND = 5
     ASSIGNEE_NOT_FOUND = 6
     SAME_ISSUER_AND_ASSIGNEE = 7
+    # attachment
+    FILE_NOT_FOUND = 8
+    FILE_ALREADY_EXIST = 9
 
 
 class TableName(Enum):

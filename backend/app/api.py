@@ -7,8 +7,8 @@ from app.db import get_db
 
 paths = {
         "user": [
-            "/user/{user_id:int}",
-            "/user/?username={uname:str}&password={passwd:str}",
+            "/users/{user_id:int}",
+            "/users/?username={uname:str}&password={passwd:str}",
             ],
         "ticket": "",
         "attachment": "",
@@ -26,25 +26,14 @@ def root():
 
 
 # ---- users ----
-@app.get("/user")
+@app.get("/users")
 def verify_user(username: str, password: str):
     db = next(get_db())
     result = crud.verify_user_account(db, username, password)
     print(json.dumps({"verified": result}, indent=4))
     return {"verified": result}
 
-@app.get("/user/{user_id}")
-def get_user_good(user_id: int):
-    db = next(get_db())
-    result, status_code = crud.get_user_good(db, user_id)
-    if not result:
-        print(json.dumps({"status_code": status_code.value}, indent=4))
-        return {"status_code": status_code}
-    user_out = result.model_dump(mode="json")
-    print(json.dumps(user_out, indent=4))
-    return result
-
-@app.post("/user/create")
+@app.post("/users")
 def create_user(user: schemas.UserCreate):
     db = next(get_db())
     result, status_code = crud.create_user(db, user)
@@ -56,7 +45,18 @@ def create_user(user: schemas.UserCreate):
     print(json.dumps(user_out, indent=4))
     return user_out
 
-@app.patch("/user/update/{user_id}")
+@app.get("/users/{user_id}")
+def get_user_good(user_id: int):
+    db = next(get_db())
+    result, status_code = crud.get_user_good(db, user_id)
+    if not result:
+        print(json.dumps({"status_code": status_code.value}, indent=4))
+        return {"status_code": status_code}
+    user_out = result.model_dump(mode="json")
+    print(json.dumps(user_out, indent=4))
+    return result
+
+@app.patch("/users/{user_id}")
 def update_user(user_id: int, user: schemas.UserUpdate):
     db = next(get_db())
     result, status_code = crud.update_user(db, user_id, user)
@@ -68,7 +68,7 @@ def update_user(user_id: int, user: schemas.UserUpdate):
     print(json.dumps(user_out, indent=4))
     return user_out
 
-@app.delete("/user/delete/{user_id}")
+@app.delete("/users/{user_id}")
 def delete_user(user_id: int):
     db = next(get_db())
     result, status_code = crud.delete_user(db, user_id)
@@ -82,18 +82,7 @@ def delete_user(user_id: int):
 
 
 # ---- tickets ----
-@app.get("/ticket/{ticket_id}")
-def get_ticket_good(ticket_id: int):
-    db = next(get_db())
-    result, status_code = crud.get_ticket_good(db, ticket_id)
-    if not result:
-        print(json.dumps({"status_code": status_code.value}, indent=4))
-        return {"status_code": status_code}
-    ticket_out = result.model_dump(mode="json")
-    print(json.dumps(ticket_out, indent=4))
-    return result
-
-@app.post("/ticket/create")
+@app.post("/tickets")
 def create_ticket(ticket: schemas.TicketCreate):
     db = next(get_db())
     result, status_code = crud.create_ticket(db, ticket)
@@ -107,7 +96,18 @@ def create_ticket(ticket: schemas.TicketCreate):
     print(json.dumps(ticket_out, indent=4))
     return ticket_out
 
-@app.patch("/ticket/update/{ticket_id}")
+@app.get("/tickets/{ticket_id}")
+def get_ticket_good(ticket_id: int):
+    db = next(get_db())
+    result, status_code = crud.get_ticket_good(db, ticket_id)
+    if not result:
+        print(json.dumps({"status_code": status_code.value}, indent=4))
+        return {"status_code": status_code}
+    ticket_out = result.model_dump(mode="json")
+    print(json.dumps(ticket_out, indent=4))
+    return result
+
+@app.patch("/tickets/{ticket_id}")
 def update_ticket(ticket_id: int, ticket: schemas.TicketUpdate):
     db = next(get_db())
     result, status_code = crud.update_ticket(db, ticket_id, ticket)
@@ -121,7 +121,7 @@ def update_ticket(ticket_id: int, ticket: schemas.TicketUpdate):
     print(json.dumps(ticket_out, indent=4))
     return ticket_out
 
-@app.delete("/ticket/delete/{ticket_id}")
+@app.delete("/tickets/{ticket_id}")
 def delete_ticket(ticket_id: int):
     db = next(get_db())
     result, status_code = crud.delete_ticket(db, ticket_id)
@@ -134,6 +134,53 @@ def delete_ticket(ticket_id: int):
         ticket_out.update({"category" : ticket_out["category"].value})
     print(json.dumps(ticket_out, indent=4))
     return ticket_out
+
+
+# ---- attachments ----
+@app.post("/attachments")
+def create_attachment(attachment: schemas.AttachmentCreate):
+    db = next(get_db())
+    result, status_code = crud.create_attachment(db, attachment)
+    if not result:
+        print(json.dumps({"status_code": status_code.value}, indent=4))
+        return {"status_code": status_code}
+    attachment_out = result.as_dict()
+    print(json.dumps(attachment_out, indent=4))
+    return attachment_out
+
+@app.get("/attachments/{attachment_id}")
+def get_attachment_good(attachment_id: int):
+    db = next(get_db())
+    result, status_code = crud.get_attachment_good(db, attachment_id)
+    if not result:
+        print(json.dumps({"status_code": status_code.value}, indent=4))
+        return {"status_code": status_code}
+    attachment_out = result.model_dump(mode="json")
+    print(json.dumps(attachment_out, indent=4))
+    return result
+
+@app.patch("/attachments/{attachment_id}")
+def update_attachment(attachment_id: int, attachment: schemas.AttachmentUpdate):
+    db = next(get_db())
+    result, status_code = crud.update_attachment(db, attachment_id, attachment)
+    if not result:
+        print(json.dumps({"status_code": status_code.value}, indent=4))
+        return {"status_code": status_code}
+    attachment_out = result.as_dict()
+    print(json.dumps(attachment_out, indent=4))
+    return attachment_out
+
+@app.delete("/attachments/{attachment_id}")
+def delete_attachment(attachment_id: int):
+    db = next(get_db())
+    result, status_code = crud.delete_attachment(db, attachment_id)
+    if not result:
+        print(json.dumps({"status_code": status_code.value}, indent=4))
+        return {"status_code": status_code}
+    attachment_out = result.as_dict()
+    print(json.dumps(attachment_out, indent=4))
+    return attachment_out
+
 
 
 

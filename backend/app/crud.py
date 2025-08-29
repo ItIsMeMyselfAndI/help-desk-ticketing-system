@@ -17,7 +17,7 @@ def verify_user_account(db: Session, username: str, password: str) -> bool:
     return False
 
 def verify_user_id(db: Session, user_id: int) -> bool:
-    result = db.execute(select(models.User).where(models.User.id == user_id)).scalars().first()
+    result = db.get(models.Attachment, user_id)
     if result:
         return True
     return False
@@ -74,12 +74,18 @@ def delete_user(db: Session, user_id: int) -> Tuple[Optional[models.User], Error
 
 
 # tickets
+def verify_ticket_id(db: Session, ticket_id: int) -> bool:
+    result = db.get(models.Ticket, ticket_id)
+    if result:
+        return True
+    return False
+
 def get_ticket_good(db: Session, ticket_id: int) -> Tuple[Optional[schemas.TicketOut], Error]:
     db_ticket = db.execute(select(models.Ticket).where(models.Ticket.id == ticket_id)).scalars().first()
     if not db_ticket:
         return None, Error.TICKET_NOT_FOUND
-    issuer = db.execute(select(models.User).where(models.User.id == db_ticket.issuer_id)).scalars().first()
-    assignee = db.execute(select(models.User).where(models.User.id == db_ticket.assignee_id)).scalars().first()
+    issuer = db.get(models.User, db_ticket.issuer_id)
+    assignee = db.get(models.User, db_ticket.assignee_id)
     if not issuer:
         return None, Error.ISSUER_NOT_FOUND
     issuer_uname = issuer.username
@@ -151,32 +157,79 @@ def delete_ticket(db: Session, ticket_id: int) -> Tuple[Optional[models.Ticket],
 
 
 # attachments
-def get_attachment_bad(db: Session, attachment_id: int):
-    return db.get(models.Attachment, attachment_id)
+def check_attachment_existence(db: Session, ticket_id: int, filename: str, filetype: str) -> bool:
+    db_file = db.execute(select(models.Attachment).where(
+        models.Ticket.id == ticket_id,
+        models.Attachment.filename == filename,
+        models.Attachment.filetype == filetype
+        )).scalars().first()
+    if db_file:
+        return True
+    return False
 
-def create_attachment(db: Session, attachment: schemas.AttachmentCreate) -> Optional[models.Attachment]:
+def verify_attachment_id(db: Session, attachment_id: int) -> bool:
+    result = db.get(models.Attachment, attachment_id)
+    if result:
+        return True
+    return False
+
+def get_attachment_good(db: Session, attachment_id: int) -> Tuple[Optional[schemas.AttachmentOut], Error]:
+    db_attachment = db.execute(select(models.Attachment).where(models.Attachment.id == attachment_id)).scalars().first()
+    if not db_attachment:
+        return None, Error.FILE_NOT_FOUND
+    ticket = db.get(models.Ticket, db_attachment.ticket_id)
+    if not ticket:
+        return None, Error.TICKET_NOT_FOUND
+    ticket_title = ticket.title
+    attachment_dict = db_attachment.as_dict()
+    attachment_dict.update({
+        "ticket": schemas.TicketRef(
+            id=attachment_dict["ticket_id"],
+            title=ticket_title
+            ),
+        })
+    attachment_out = schemas.AttachmentOut(**attachment_dict)
+    return attachment_out, Error.SUCCESS
+
+def create_attachment(db: Session, attachment: schemas.AttachmentCreate) -> Tuple[Optional[models.Attachment], Error]:
+    # verify
+    ticket_exist = verify_ticket_id(db, attachment.ticket_id)
+    if not ticket_exist:
+        return None, Error.TICKET_NOT_FOUND
+    file_exist = check_attachment_existence(db, attachment.ticket_id, attachment.filename, attachment.filetype)
+    if file_exist:
+        return None, Error.FILE_ALREADY_EXIST
+    # main
     attachment_dict = attachment.model_dump()
     new_attachment = models.Attachment(**attachment_dict)
     db.add(new_attachment)
     db.commit()
-    return new_attachment
+    return new_attachment, Error.SUCCESS
 
 def update_attachment(db: Session, attachment_id: int,
-                  updated_attachment: schemas.AttachmentUpdate) -> Optional[models.Attachment]:
-    db_attachment = get_attachment_bad(db, attachment_id)
+                  updated_attachment: schemas.AttachmentUpdate) -> Tuple[Optional[models.Attachment], Error]:
+    # verify
+    if updated_attachment.ticket_id != None:
+        ticket_exist = verify_ticket_id(db, updated_attachment.ticket_id)
+        if not ticket_exist:
+            return None, Error.TICKET_NOT_FOUND
+    # main
+    db_attachment = db.get(models.Attachment, attachment_id)
     if not db_attachment:
-        return None
+        return None, Error.FILE_NOT_FOUND
     updated_dict = updated_attachment.model_dump(exclude_none=True, exclude_unset=True)
     for key, val in updated_dict.items():
         setattr(db_attachment, key, val)
     db.commit()
-    return db_attachment
+    return db_attachment, Error.SUCCESS
 
-def delete_attachment(db: Session, attachment_id: int) -> Optional[models.Attachment]:
-    db_attachment = get_attachment_bad(db, attachment_id)
+def delete_attachment(db: Session, attachment_id: int) -> Tuple[Optional[models.Attachment], Error]:
+    db_attachment = db.get(models.Attachment, attachment_id)
+    if not db_attachment:
+        return None, Error.FILE_NOT_FOUND
     db.delete(db_attachment)
     db.commit()
-    return db_attachment
+    return db_attachment, Error.SUCCESS
 
 
 # messages

@@ -94,6 +94,16 @@ class Attachment(Base):
     updated_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now(), onupdate=func.now())
     # relationships
     ticket: Mapped[Ticket] = relationship(back_populates="attachments")
+    def as_dict(self) -> Dict:
+        return {
+                "id": self.id,
+                "ticket_id": self.ticket_id,
+                "filename": self.filename,
+                "filetype": self.filetype,
+                "filesize": self.filesize,
+                "uploaded_at": self.uploaded_at.isoformat(),
+                "updated_at": self.updated_at.isoformat()
+                }
 
 
 # messages

@@ -69,8 +69,8 @@ class AttachmentBase(ORMBase):
     filename: str
     filetype: str
     filesize: int
-    uploaded_at: Optional[datetime]
-    updated_at: Optional[datetime]
+    uploaded_at: Optional[datetime] = None
+    updated_at: Optional[datetime] = None
 
 class AttachmentCreate(AttachmentBase):
     ticket_id: int
