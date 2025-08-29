@@ -13,8 +13,8 @@ class UserBase(ORMBase):
     username: str
     email: EmailStr
     role: UserRole
-    created_at: Optional[datetime]
-    updated_at: Optional[datetime]
+    created_at: Optional[datetime] = None
+    updated_at: Optional[datetime] = None
 
 class UserCreate(UserBase):
     password: str
