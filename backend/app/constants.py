@@ -1,6 +1,6 @@
 from enum import Enum
 
-class Error(Enum):
+class StatusCode(Enum):
     SUCCESS = 0
     # user
     UNAME_ALREADY_EXIST = 1

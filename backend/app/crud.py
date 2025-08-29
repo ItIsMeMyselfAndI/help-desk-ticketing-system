@@ -2,7 +2,7 @@ from sqlalchemy import select
 from sqlalchemy.orm import Session
 from typing import Optional, Tuple
 
-from app.constants import Error
+from app.constants import StatusCode
 from app import models, schemas, security
 
 
@@ -26,20 +26,20 @@ def verify_user_id(db: Session, user_id: int) -> bool:
         return True
     return False
 
-def get_user_good(db: Session, user_id: int) -> Tuple[Optional[schemas.UserOut], Error]:
+def get_user_good(db: Session, user_id: int) -> Tuple[Optional[schemas.UserOut], StatusCode]:
     db_user = db.execute(select(models.User).where(models.User.id == user_id)).scalars().first()
     if not db_user:
-        return None, Error.USER_NOT_FOUND
+        return None, StatusCode.USER_NOT_FOUND
     user_out = schemas.UserOut(**db_user.as_dict())
-    return user_out, Error.SUCCESS
+    return user_out, StatusCode.SUCCESS
 
-def create_user(db: Session, user: schemas.UserCreate) -> Tuple[Optional[models.User], Error]:
+def create_user(db: Session, user: schemas.UserCreate) -> Tuple[Optional[models.User], StatusCode]:
     uname_exist = db.execute(select(models.User).where(models.User.username == user.username)).first()
     email_exist = db.execute(select(models.User).where(models.User.email == user.email)).first()
     if uname_exist:
-        return None, Error.UNAME_ALREADY_EXIST
+        return None, StatusCode.UNAME_ALREADY_EXIST
     if email_exist:
-        return None, Error.EMAIL_ALREADY_EXIST
+        return None, StatusCode.EMAIL_ALREADY_EXIST
     user_dict = dict()
     for key, val in user.model_dump().items():
         if key == "password":
@@ -49,32 +49,34 @@ def create_user(db: Session, user: schemas.UserCreate) -> Tuple[Optional[models.
     new_user = models.User(**user_dict)
     db.add(new_user)
     db.commit()
-    return new_user, Error.SUCCESS
+    return new_user, StatusCode.SUCCESS
 
 def update_user(db: Session, user_id: int,
-                updated_user: schemas.UserUpdate) -> Tuple[Optional[models.User], Error]:
-    uname_exist = db.execute(select(models.User).where(models.User.username == updated_user.username)).first()
-    email_exist = db.execute(select(models.User).where(models.User.email == updated_user.email)).first()
+                updated_user: schemas.UserUpdate) -> Tuple[Optional[models.User], StatusCode]:
+    # verify
     db_user = db.get(models.User, user_id)
     if not db_user:
-        return None, Error.USER_NOT_FOUND
-    elif uname_exist:
-        return None, Error.UNAME_ALREADY_EXIST
+        return None, StatusCode.USER_NOT_FOUND
+    uname_exist = db.execute(select(models.User).where(models.User.username == updated_user.username)).first()
+    email_exist = db.execute(select(models.User).where(models.User.email == updated_user.email)).first()
+    if uname_exist:
+        return None, StatusCode.UNAME_ALREADY_EXIST
     elif email_exist:
-        return None, Error.EMAIL_ALREADY_EXIST
+        return None, StatusCode.EMAIL_ALREADY_EXIST
+    # main
     updated_dict = updated_user.model_dump(exclude_none=True, exclude_unset=True)
     for key, val in updated_dict.items():
         setattr(db_user, key, val)
     db.commit()
-    return db_user, Error.SUCCESS
+    return db_user, StatusCode.SUCCESS
 
-def delete_user(db: Session, user_id: int) -> Tuple[Optional[models.User], Error]:
+def delete_user(db: Session, user_id: int) -> Tuple[Optional[models.User], StatusCode]:
     db_user = db.get(models.User, user_id)
     if not db_user:
-        return None, Error.USER_NOT_FOUND
+        return None, StatusCode.USER_NOT_FOUND
     db.delete(db_user)
     db.commit()
-    return db_user, Error.SUCCESS
+    return db_user, StatusCode.SUCCESS
 
 
 # tickets
@@ -84,14 +86,14 @@ def verify_ticket_id(db: Session, ticket_id: int) -> bool:
         return True
     return False
 
-def get_ticket_good(db: Session, ticket_id: int) -> Tuple[Optional[schemas.TicketOut], Error]:
+def get_ticket_good(db: Session, ticket_id: int) -> Tuple[Optional[schemas.TicketOut], StatusCode]:
     db_ticket = db.get(models.Ticket, ticket_id)
     if not db_ticket:
-        return None, Error.TICKET_NOT_FOUND
+        return None, StatusCode.TICKET_NOT_FOUND
     issuer = db.get(models.User, db_ticket.issuer_id)
     assignee = db.get(models.User, db_ticket.assignee_id)
     if not issuer:
-        return None, Error.ISSUER_NOT_FOUND
+        return None, StatusCode.ISSUER_NOT_FOUND
     ticket_dict = db_ticket.as_dict()
     ticket_dict.update({
         "issuer": schemas.UserRef(
@@ -107,65 +109,67 @@ def get_ticket_good(db: Session, ticket_id: int) -> Tuple[Optional[schemas.Ticke
                 )
             })
     ticket_out = schemas.TicketOut(**ticket_dict)
-    return ticket_out, Error.SUCCESS
+    return ticket_out, StatusCode.SUCCESS
 
-def create_ticket(db: Session, ticket: schemas.TicketCreate) -> Tuple[Optional[models.Ticket], Error]:
+def create_ticket(db: Session, ticket: schemas.TicketCreate) -> Tuple[Optional[models.Ticket], StatusCode]:
     # verify
     issuer_exist = verify_user_id(db, ticket.issuer_id)
     if not issuer_exist:
-        return None, Error.ISSUER_NOT_FOUND
+        return None, StatusCode.ISSUER_NOT_FOUND
     if ticket.assignee_id != None:
         assignee_exist = verify_user_id(db, ticket.assignee_id)
         if not assignee_exist:
-            return None, Error.ASSIGNEE_NOT_FOUND
+            return None, StatusCode.ASSIGNEE_NOT_FOUND
     if ticket.issuer_id == ticket.assignee_id:
-        return None, Error.SAME_ISSUER_AND_ASSIGNEE
+        return None, StatusCode.SAME_ISSUER_AND_ASSIGNEE
     # main
     ticket_dict = ticket.model_dump()
     new_ticket = models.Ticket(**ticket_dict)
     db.add(new_ticket)
     db.commit()
-    return new_ticket, Error.SUCCESS
+    return new_ticket, StatusCode.SUCCESS
 
 def update_ticket(db: Session, ticket_id: int,
-                  updated_ticket: schemas.TicketUpdate) -> Tuple[Optional[models.Ticket], Error]:
+                  updated_ticket: schemas.TicketUpdate) -> Tuple[Optional[models.Ticket], StatusCode]:
     # verify
-    if updated_ticket.issuer_id != None:
-        issuer_exist = verify_user_id(db, updated_ticket.issuer_id)
-        if not issuer_exist:
-            return None, Error.ISSUER_NOT_FOUND
-    if updated_ticket.issuer_id != None:
-        issuer = db.get(models.Ticket, updated_ticket.issuer_id)
-        if not issuer:
-            return None, Error.ISSUER_NOT_FOUND
-        if issuer.id == updated_ticket.issuer_id:
-            return None, Error.SAME_ISSUER_AND_ASSIGNEE
-    if updated_ticket.assignee_id != None:
-        assignee = db.get(models.Ticket, updated_ticket.assignee_id)
-        if not assignee:
-            return None, Error.ASSIGNEE_NOT_FOUND
-        if assignee.id == updated_ticket.assignee_id:
-            return None, Error.SAME_ISSUER_AND_ASSIGNEE
-    if updated_ticket.issuer_id != None and updated_ticket.assignee_id != None:
-        if updated_ticket.issuer_id == updated_ticket.assignee_id:
-            return None, Error.SAME_ISSUER_AND_ASSIGNEE
-    # main
     db_ticket = db.get(models.Ticket, ticket_id)
     if not db_ticket:
-        return None, Error.TICKET_NOT_FOUND
+        return None, StatusCode.TICKET_NOT_FOUND
+    if updated_ticket.issuer_id != None and updated_ticket.assignee_id != None:
+        if updated_ticket.issuer_id == updated_ticket.assignee_id:
+            return None, StatusCode.SAME_ISSUER_AND_ASSIGNEE
+        issuer = db.get(models.Ticket, updated_ticket.issuer_id)
+        assignee = db.get(models.Ticket, updated_ticket.assignee_id)
+        if issuer == None:
+            return None, StatusCode.ISSUER_NOT_FOUND
+        if assignee == None:
+            return None, StatusCode.ASSIGNEE_NOT_FOUND
+    elif updated_ticket.issuer_id != None:
+        issuer = db.get(models.Ticket, updated_ticket.issuer_id)
+        if issuer == None:
+            return None, StatusCode.ISSUER_NOT_FOUND
+        if issuer.id == db_ticket.assignee_id:
+            return None, StatusCode.SAME_ISSUER_AND_ASSIGNEE
+    elif updated_ticket.assignee_id != None:
+        assignee = db.get(models.Ticket, updated_ticket.assignee_id)
+        if assignee == None:
+            return None, StatusCode.ASSIGNEE_NOT_FOUND
+        if assignee.id == db_ticket.issuer_id:
+            return None, StatusCode.SAME_ISSUER_AND_ASSIGNEE
+    # main
     updated_dict = updated_ticket.model_dump(exclude_none=True, exclude_unset=True)
     for key, val in updated_dict.items():
         setattr(db_ticket, key, val)
     db.commit()
-    return db_ticket, Error.SUCCESS
+    return db_ticket, StatusCode.SUCCESS
 
-def delete_ticket(db: Session, ticket_id: int) -> Tuple[Optional[models.Ticket], Error]:
+def delete_ticket(db: Session, ticket_id: int) -> Tuple[Optional[models.Ticket], StatusCode]:
     db_ticket = db.get(models.Ticket, ticket_id)
     if not db_ticket:
-        return None, Error.TICKET_NOT_FOUND
+        return None, StatusCode.TICKET_NOT_FOUND
     db.delete(db_ticket)
     db.commit()
-    return db_ticket, Error.SUCCESS
+    return db_ticket, StatusCode.SUCCESS
 
 
 # attachments
@@ -185,13 +189,13 @@ def verify_attachment_id(db: Session, attachment_id: int) -> bool:
         return True
     return False
 
-def get_attachment_good(db: Session, attachment_id: int) -> Tuple[Optional[schemas.AttachmentOut], Error]:
+def get_attachment_good(db: Session, attachment_id: int) -> Tuple[Optional[schemas.AttachmentOut], StatusCode]:
     db_attachment = db.get(models.Attachment, attachment_id)
     if not db_attachment:
-        return None, Error.FILE_NOT_FOUND
+        return None, StatusCode.FILE_NOT_FOUND
     ticket = db.get(models.Ticket, db_attachment.ticket_id)
     if not ticket:
-        return None, Error.TICKET_NOT_FOUND
+        return None, StatusCode.TICKET_NOT_FOUND
     attachment_dict = db_attachment.as_dict()
     attachment_dict.update({
         "ticket": schemas.TicketRef(
@@ -200,47 +204,47 @@ def get_attachment_good(db: Session, attachment_id: int) -> Tuple[Optional[schem
             ),
         })
     attachment_out = schemas.AttachmentOut(**attachment_dict)
-    return attachment_out, Error.SUCCESS
+    return attachment_out, StatusCode.SUCCESS
 
-def create_attachment(db: Session, attachment: schemas.AttachmentCreate) -> Tuple[Optional[models.Attachment], Error]:
+def create_attachment(db: Session, attachment: schemas.AttachmentCreate) -> Tuple[Optional[models.Attachment], StatusCode]:
     # verify
     ticket_exist = verify_ticket_id(db, attachment.ticket_id)
     if not ticket_exist:
-        return None, Error.TICKET_NOT_FOUND
+        return None, StatusCode.TICKET_NOT_FOUND
     file_exist = check_attachment_existence(db, attachment.ticket_id, attachment.filename, attachment.filetype)
     if file_exist:
-        return None, Error.FILE_ALREADY_EXIST
+        return None, StatusCode.FILE_ALREADY_EXIST
     # main
     attachment_dict = attachment.model_dump()
     new_attachment = models.Attachment(**attachment_dict)
     db.add(new_attachment)
     db.commit()
-    return new_attachment, Error.SUCCESS
+    return new_attachment, StatusCode.SUCCESS
 
 def update_attachment(db: Session, attachment_id: int,
-                  updated_attachment: schemas.AttachmentUpdate) -> Tuple[Optional[models.Attachment], Error]:
+                  updated_attachment: schemas.AttachmentUpdate) -> Tuple[Optional[models.Attachment], StatusCode]:
     # verify
+    db_attachment = db.get(models.Attachment, attachment_id)
+    if not db_attachment:
+        return None, StatusCode.FILE_NOT_FOUND
     if updated_attachment.ticket_id != None:
         ticket_exist = verify_ticket_id(db, updated_attachment.ticket_id)
         if not ticket_exist:
-            return None, Error.TICKET_NOT_FOUND
+            return None, StatusCode.TICKET_NOT_FOUND
     # main
-    db_attachment = db.get(models.Attachment, attachment_id)
-    if not db_attachment:
-        return None, Error.FILE_NOT_FOUND
     updated_dict = updated_attachment.model_dump(exclude_none=True, exclude_unset=True)
     for key, val in updated_dict.items():
         setattr(db_attachment, key, val)
     db.commit()
-    return db_attachment, Error.SUCCESS
+    return db_attachment, StatusCode.SUCCESS
 
-def delete_attachment(db: Session, attachment_id: int) -> Tuple[Optional[models.Attachment], Error]:
+def delete_attachment(db: Session, attachment_id: int) -> Tuple[Optional[models.Attachment], StatusCode]:
     db_attachment = db.get(models.Attachment, attachment_id)
     if not db_attachment:
-        return None, Error.FILE_NOT_FOUND
+        return None, StatusCode.FILE_NOT_FOUND
     db.delete(db_attachment)
     db.commit()
-    return db_attachment, Error.SUCCESS
+    return db_attachment, StatusCode.SUCCESS
 
 
 # messages
@@ -250,19 +254,19 @@ def verify_message_id(db: Session, message_id: int) -> bool:
         return True
     return False
 
-def get_message_good(db: Session, message_id: int) -> Tuple[Optional[schemas.MessageOut], Error]:
+def get_message_good(db: Session, message_id: int) -> Tuple[Optional[schemas.MessageOut], StatusCode]:
     db_message = db.get(models.Message, message_id)
     if not db_message:
-        return None, Error.MESSAGE_NOT_FOUND
+        return None, StatusCode.MESSAGE_NOT_FOUND
     ticket = db.get(models.Ticket, db_message.ticket_id)
     if not ticket:
-        return None, Error.TICKET_NOT_FOUND
+        return None, StatusCode.TICKET_NOT_FOUND
     sender = db.get(models.User, db_message.sender_id)
     if not sender:
-        return None, Error.SENDER_NOT_FOUND
+        return None, StatusCode.SENDER_NOT_FOUND
     receiver = db.get(models.User, db_message.receiver_id)
     if not receiver:
-        return None, Error.RECEIVER_NOT_FOUND
+        return None, StatusCode.RECEIVER_NOT_FOUND
     message_dict = db_message.as_dict()
     message_dict.update({
         "ticket": schemas.TicketRef(
@@ -283,69 +287,69 @@ def get_message_good(db: Session, message_id: int) -> Tuple[Optional[schemas.Mes
             ),
         })
     message_out = schemas.MessageOut(**message_dict)
-    return message_out, Error.SUCCESS
+    return message_out, StatusCode.SUCCESS
 
-def create_message(db: Session, message: schemas.MessageCreate) -> Tuple[Optional[models.Message], Error]:
+def create_message(db: Session, message: schemas.MessageCreate) -> Tuple[Optional[models.Message], StatusCode]:
     # verify
     if message.content:
-        return None, Error.CONTENT_IS_EMPTY
+        return None, StatusCode.CONTENT_IS_EMPTY
     ticket_exist = verify_ticket_id(db, message.ticket_id)
     if not ticket_exist:
-        return None, Error.TICKET_NOT_FOUND
+        return None, StatusCode.TICKET_NOT_FOUND
     sender = db.get(models.User, message.sender_id)
     if not sender:
-        return None, Error.SENDER_NOT_FOUND
+        return None, StatusCode.SENDER_NOT_FOUND
     receiver = db.get(models.User, message.receiver_id)
     if not receiver:
-        return None, Error.RECEIVER_NOT_FOUND
+        return None, StatusCode.RECEIVER_NOT_FOUND
     if check_same_ids(sender.id, receiver.id):
-        return None, Error.SAME_SENDER_AND_RECEIVER
+        return None, StatusCode.SAME_SENDER_AND_RECEIVER
     # main
     message_dict = message.model_dump()
     new_message = models.Message(**message_dict)
     db.add(new_message)
     db.commit()
-    return new_message, Error.SUCCESS
+    return new_message, StatusCode.SUCCESS
 
 def update_message(db: Session, message_id: int,
-                  updated_message: schemas.MessageUpdate) -> Tuple[Optional[models.Message], Error]:
+                  updated_message: schemas.MessageUpdate) -> Tuple[Optional[models.Message], StatusCode]:
     # verify
     orig_message = db.get(models.Message, message_id)
     if not orig_message:
-        return None, Error.MESSAGE_NOT_FOUND
+        return None, StatusCode.MESSAGE_NOT_FOUND
     if updated_message.ticket_id != None:
         ticket_exist = verify_ticket_id(db, updated_message.ticket_id)
         if not ticket_exist:
-            return None, Error.TICKET_NOT_FOUND
+            return None, StatusCode.TICKET_NOT_FOUND
     if updated_message.sender_id != None:
         sender = db.get(models.User, updated_message.sender_id)
         if not sender:
-            return None, Error.SENDER_NOT_FOUND
+            return None, StatusCode.SENDER_NOT_FOUND
         if check_same_ids(sender.id, orig_message.sender_id):
-            return None, Error.SAME_SENDER_AND_RECEIVER
+            return None, StatusCode.SAME_SENDER_AND_RECEIVER
     if updated_message.receiver_id != None:
         receiver = db.get(models.User, updated_message.receiver_id)
         if not receiver:
-            return None, Error.RECEIVER_NOT_FOUND
+            return None, StatusCode.RECEIVER_NOT_FOUND
         if check_same_ids(receiver.id, orig_message.sender_id):
-            return None, Error.SAME_SENDER_AND_RECEIVER
+            return None, StatusCode.SAME_SENDER_AND_RECEIVER
     if updated_message.sender_id != None and updated_message.receiver_id != None:
         if check_same_ids(updated_message.sender_id, updated_message.receiver_id):
-            return None, Error.SAME_SENDER_AND_RECEIVER
+            return None, StatusCode.SAME_SENDER_AND_RECEIVER
     # main
     db_message = db.get(models.Message, message_id)
     if not db_message:
-        return None, Error.MESSAGE_NOT_FOUND
+        return None, StatusCode.MESSAGE_NOT_FOUND
     updated_dict = updated_message.model_dump(exclude_none=True, exclude_unset=True)
     for key, val in updated_dict.items():
         setattr(db_message, key, val)
     db.commit()
-    return db_message, Error.SUCCESS
+    return db_message, StatusCode.SUCCESS
 
-def delete_message(db: Session, message_id: int) -> Tuple[Optional[models.Message], Error]:
+def delete_message(db: Session, message_id: int) -> Tuple[Optional[models.Message], StatusCode]:
     db_message = db.get(models.Message, message_id)
     if not db_message:
-        return None, Error.MESSAGE_NOT_FOUND
+        return None, StatusCode.MESSAGE_NOT_FOUND
     db.delete(db_message)
     db.commit()
-    return db_message, Error.SUCCESS
+    return db_message, StatusCode.SUCCESS

@@ -2,7 +2,7 @@ import json
 from fastapi import FastAPI
 
 from app import crud, models, schemas
-from app.constants import Error
+from app.constants import StatusCode
 from app.db import get_db
 
 paths = {
