@@ -3,8 +3,12 @@ from sqlalchemy.orm import Session
 from typing import Optional, Tuple
 
 from app.constants import Error
+from app import models, schemas, security
 
-from . import models, schemas, security
+
+def check_same_ids(id_1: int, id_2) -> bool:
+    return id_1 == id_2
+
 
 # users
 def verify_user_account(db: Session, username: str, password: str) -> bool:
@@ -17,7 +21,7 @@ def verify_user_account(db: Session, username: str, password: str) -> bool:
     return False
 
 def verify_user_id(db: Session, user_id: int) -> bool:
-    result = db.get(models.Attachment, user_id)
+    result = db.get(models.User, user_id)
     if result:
         return True
     return False
@@ -81,7 +85,7 @@ def verify_ticket_id(db: Session, ticket_id: int) -> bool:
     return False
 
 def get_ticket_good(db: Session, ticket_id: int) -> Tuple[Optional[schemas.TicketOut], Error]:
-    db_ticket = db.execute(select(models.Ticket).where(models.Ticket.id == ticket_id)).scalars().first()
+    db_ticket = db.get(models.Ticket, ticket_id)
     if not db_ticket:
         return None, Error.TICKET_NOT_FOUND
     issuer = db.get(models.User, db_ticket.issuer_id)
@@ -130,12 +134,21 @@ def update_ticket(db: Session, ticket_id: int,
         issuer_exist = verify_user_id(db, updated_ticket.issuer_id)
         if not issuer_exist:
             return None, Error.ISSUER_NOT_FOUND
+    if updated_ticket.issuer_id != None:
+        issuer = db.get(models.Ticket, updated_ticket.issuer_id)
+        if not issuer:
+            return None, Error.ISSUER_NOT_FOUND
+        if issuer.id == updated_ticket.issuer_id:
+            return None, Error.SAME_ISSUER_AND_ASSIGNEE
     if updated_ticket.assignee_id != None:
-        assignee_exist = verify_user_id(db, updated_ticket.assignee_id)
-        if not assignee_exist:
+        assignee = db.get(models.Ticket, updated_ticket.assignee_id)
+        if not assignee:
             return None, Error.ASSIGNEE_NOT_FOUND
-    if updated_ticket.issuer_id == updated_ticket.assignee_id:
-        return None, Error.SAME_ISSUER_AND_ASSIGNEE
+        if assignee.id == updated_ticket.assignee_id:
+            return None, Error.SAME_ISSUER_AND_ASSIGNEE
+    if updated_ticket.issuer_id != None and updated_ticket.assignee_id != None:
+        if updated_ticket.issuer_id == updated_ticket.assignee_id:
+            return None, Error.SAME_ISSUER_AND_ASSIGNEE
     # main
     db_ticket = db.get(models.Ticket, ticket_id)
     if not db_ticket:
@@ -173,7 +186,7 @@ def verify_attachment_id(db: Session, attachment_id: int) -> bool:
     return False
 
 def get_attachment_good(db: Session, attachment_id: int) -> Tuple[Optional[schemas.AttachmentOut], Error]:
-    db_attachment = db.execute(select(models.Attachment).where(models.Attachment.id == attachment_id)).scalars().first()
+    db_attachment = db.get(models.Attachment, attachment_id)
     if not db_attachment:
         return None, Error.FILE_NOT_FOUND
     ticket = db.get(models.Ticket, db_attachment.ticket_id)
@@ -238,7 +251,7 @@ def verify_message_id(db: Session, message_id: int) -> bool:
     return False
 
 def get_message_good(db: Session, message_id: int) -> Tuple[Optional[schemas.MessageOut], Error]:
-    db_message = db.execute(select(models.Message).where(models.Message.id == message_id)).scalars().first()
+    db_message = db.get(models.Message, message_id)
     if not db_message:
         return None, Error.MESSAGE_NOT_FOUND
     ticket = db.get(models.Ticket, db_message.ticket_id)
@@ -279,12 +292,14 @@ def create_message(db: Session, message: schemas.MessageCreate) -> Tuple[Optiona
     ticket_exist = verify_ticket_id(db, message.ticket_id)
     if not ticket_exist:
         return None, Error.TICKET_NOT_FOUND
-    sender_exist = verify_user_id(db, message.sender_id)
-    if not sender_exist:
+    sender = db.get(models.User, message.sender_id)
+    if not sender:
         return None, Error.SENDER_NOT_FOUND
-    receiver_exist = verify_user_id(db, message.receiver_id)
-    if not receiver_exist:
+    receiver = db.get(models.User, message.receiver_id)
+    if not receiver:
         return None, Error.RECEIVER_NOT_FOUND
+    if check_same_ids(sender.id, receiver.id):
+        return None, Error.SAME_SENDER_AND_RECEIVER
     # main
     message_dict = message.model_dump()
     new_message = models.Message(**message_dict)
@@ -295,18 +310,28 @@ def create_message(db: Session, message: schemas.MessageCreate) -> Tuple[Optiona
 def update_message(db: Session, message_id: int,
                   updated_message: schemas.MessageUpdate) -> Tuple[Optional[models.Message], Error]:
     # verify
+    orig_message = db.get(models.Message, message_id)
+    if not orig_message:
+        return None, Error.MESSAGE_NOT_FOUND
     if updated_message.ticket_id != None:
         ticket_exist = verify_ticket_id(db, updated_message.ticket_id)
         if not ticket_exist:
             return None, Error.TICKET_NOT_FOUND
     if updated_message.sender_id != None:
-        sender_exist = verify_user_id(db, updated_message.sender_id)
-        if not sender_exist:
+        sender = db.get(models.User, updated_message.sender_id)
+        if not sender:
             return None, Error.SENDER_NOT_FOUND
+        if check_same_ids(sender.id, orig_message.sender_id):
+            return None, Error.SAME_SENDER_AND_RECEIVER
     if updated_message.receiver_id != None:
-        receiver_exist = verify_user_id(db, updated_message.receiver_id)
-        if not receiver_exist:
+        receiver = db.get(models.User, updated_message.receiver_id)
+        if not receiver:
             return None, Error.RECEIVER_NOT_FOUND
+        if check_same_ids(receiver.id, orig_message.sender_id):
+            return None, Error.SAME_SENDER_AND_RECEIVER
+    if updated_message.sender_id != None and updated_message.receiver_id != None:
+        if check_same_ids(updated_message.sender_id, updated_message.receiver_id):
+            return None, Error.SAME_SENDER_AND_RECEIVER
     # main
     db_message = db.get(models.Message, message_id)
     if not db_message:

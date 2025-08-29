@@ -19,6 +19,7 @@ class Error(Enum):
     CONTENT_IS_EMPTY = 11
     SENDER_NOT_FOUND = 12
     RECEIVER_NOT_FOUND = 13
+    SAME_SENDER_AND_RECEIVER = 14
 
 
 class TableName(Enum):

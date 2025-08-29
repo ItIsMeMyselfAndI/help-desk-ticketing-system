@@ -1,4 +1,4 @@
-from sqlalchemy import DateTime, ForeignKey, func, Enum, null
+from sqlalchemy import DateTime, ForeignKey, func, Enum
 from sqlalchemy.orm import (
     DeclarativeBase,
     Mapped,
@@ -6,14 +6,13 @@ from sqlalchemy.orm import (
     relationship,
 )
 from datetime import datetime
-from typing import Dict, Optional, List
+from typing import Dict, Optional, List, Union
 
 from app.constants import UserRole, TicketStatus, TicketCategory
 
 # for shared metadata
 class Base(DeclarativeBase):
     pass
-
 
 # users
 class User(Base):
@@ -138,3 +137,5 @@ class Message(Base):
                 }
 
 
+# ----
+TableModels = Union[User, Ticket, Attachment, Message]
