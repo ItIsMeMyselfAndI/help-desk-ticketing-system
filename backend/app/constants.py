@@ -14,6 +14,11 @@ class Error(Enum):
     # attachment
     FILE_NOT_FOUND = 8
     FILE_ALREADY_EXIST = 9
+    # message
+    MESSAGE_NOT_FOUND = 10
+    CONTENT_IS_EMPTY = 11
+    SENDER_NOT_FOUND = 12
+    RECEIVER_NOT_FOUND = 13
 
 
 class TableName(Enum):

@@ -94,6 +94,7 @@ class Attachment(Base):
     updated_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now(), onupdate=func.now())
     # relationships
     ticket: Mapped[Ticket] = relationship(back_populates="attachments")
+    # dict ver
     def as_dict(self) -> Dict:
         return {
                 "id": self.id,
@@ -111,9 +112,9 @@ class Message(Base):
     __tablename__ = "messages"
     # ids
     id: Mapped[int] = mapped_column(primary_key=True, index=True)
+    ticket_id: Mapped[int] = mapped_column(ForeignKey("tickets.id"), index=True)
     sender_id: Mapped[int] = mapped_column(ForeignKey("users.id"), index=True)
     receiver_id: Mapped[int] = mapped_column(ForeignKey("users.id"), index=True)
-    ticket_id: Mapped[int] = mapped_column(ForeignKey("tickets.id"), index=True)
     # details
     content: Mapped[str] = mapped_column(nullable=False)
     # TODO: emojis
@@ -124,4 +125,16 @@ class Message(Base):
     sender: Mapped[User] = relationship(back_populates="sent_messages", foreign_keys=sender_id)
     receiver: Mapped[User] = relationship(back_populates="received_messages", foreign_keys=receiver_id)
     ticket: Mapped[Ticket] = relationship(back_populates="messages", foreign_keys=ticket_id)
+    # dict ver
+    def as_dict(self) -> Dict:
+        return {
+                "id": self.id,
+                "ticket_id": self.ticket_id,
+                "sender_id": self.sender_id,
+                "receiver_id": self.receiver_id,
+                "content": self.content,
+                "sent_at": self.sent_at.isoformat(),
+                "edited_at": self.edited_at.isoformat()
+                }
+
 

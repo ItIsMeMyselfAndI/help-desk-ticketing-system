@@ -89,8 +89,8 @@ class AttachmentOut(AttachmentBase):
 # messages
 class MessageBase(ORMBase):
     content: str
-    sent_at: Optional[datetime]
-    edited_at: Optional[datetime]
+    sent_at: Optional[datetime] = None
+    edited_at: Optional[datetime] = None
 
 class MessageCreate(MessageBase):
     sender_id: int

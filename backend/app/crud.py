@@ -88,12 +88,11 @@ def get_ticket_good(db: Session, ticket_id: int) -> Tuple[Optional[schemas.Ticke
     assignee = db.get(models.User, db_ticket.assignee_id)
     if not issuer:
         return None, Error.ISSUER_NOT_FOUND
-    issuer_uname = issuer.username
     ticket_dict = db_ticket.as_dict()
     ticket_dict.update({
         "issuer": schemas.UserRef(
             id=ticket_dict["issuer_id"],
-            username=issuer_uname
+            username=issuer.username
             ),
         })
     if assignee:
@@ -180,12 +179,11 @@ def get_attachment_good(db: Session, attachment_id: int) -> Tuple[Optional[schem
     ticket = db.get(models.Ticket, db_attachment.ticket_id)
     if not ticket:
         return None, Error.TICKET_NOT_FOUND
-    ticket_title = ticket.title
     attachment_dict = db_attachment.as_dict()
     attachment_dict.update({
         "ticket": schemas.TicketRef(
             id=attachment_dict["ticket_id"],
-            title=ticket_title
+            title=ticket.title
             ),
         })
     attachment_out = schemas.AttachmentOut(**attachment_dict)
@@ -233,31 +231,96 @@ def delete_attachment(db: Session, attachment_id: int) -> Tuple[Optional[models.
 
 
 # messages
-def get_message_bad(db: Session, message_id: int):
-    return db.get(models.Message, message_id)
+def verify_message_id(db: Session, message_id: int) -> bool:
+    result = db.get(models.Message, message_id)
+    if result:
+        return True
+    return False
 
-def create_message(db: Session, message: schemas.MessageCreate) -> Optional[models.Message]:
+def get_message_good(db: Session, message_id: int) -> Tuple[Optional[schemas.MessageOut], Error]:
+    db_message = db.execute(select(models.Message).where(models.Message.id == message_id)).scalars().first()
+    if not db_message:
+        return None, Error.MESSAGE_NOT_FOUND
+    ticket = db.get(models.Ticket, db_message.ticket_id)
+    if not ticket:
+        return None, Error.TICKET_NOT_FOUND
+    sender = db.get(models.User, db_message.sender_id)
+    if not sender:
+        return None, Error.SENDER_NOT_FOUND
+    receiver = db.get(models.User, db_message.receiver_id)
+    if not receiver:
+        return None, Error.RECEIVER_NOT_FOUND
+    message_dict = db_message.as_dict()
+    message_dict.update({
+        "ticket": schemas.TicketRef(
+            id=message_dict["ticket_id"],
+            title=ticket.title
+            ),
+        })
+    message_dict.update({
+        "sender": schemas.UserRef(
+            id=message_dict["sender_id"],
+            username=sender.username
+            ),
+        })
+    message_dict.update({
+        "receiver": schemas.UserRef(
+            id=message_dict["receiver_id"],
+            username=receiver.username
+            ),
+        })
+    message_out = schemas.MessageOut(**message_dict)
+    return message_out, Error.SUCCESS
+
+def create_message(db: Session, message: schemas.MessageCreate) -> Tuple[Optional[models.Message], Error]:
+    # verify
+    if message.content:
+        return None, Error.CONTENT_IS_EMPTY
+    ticket_exist = verify_ticket_id(db, message.ticket_id)
+    if not ticket_exist:
+        return None, Error.TICKET_NOT_FOUND
+    sender_exist = verify_user_id(db, message.sender_id)
+    if not sender_exist:
+        return None, Error.SENDER_NOT_FOUND
+    receiver_exist = verify_user_id(db, message.receiver_id)
+    if not receiver_exist:
+        return None, Error.RECEIVER_NOT_FOUND
+    # main
     message_dict = message.model_dump()
     new_message = models.Message(**message_dict)
     db.add(new_message)
     db.commit()
-    return new_message
+    return new_message, Error.SUCCESS
 
 def update_message(db: Session, message_id: int,
-                  updated_message: schemas.MessageUpdate) -> Optional[models.Message]:
-    db_message = get_message_bad(db, message_id)
+                  updated_message: schemas.MessageUpdate) -> Tuple[Optional[models.Message], Error]:
+    # verify
+    if updated_message.ticket_id != None:
+        ticket_exist = verify_ticket_id(db, updated_message.ticket_id)
+        if not ticket_exist:
+            return None, Error.TICKET_NOT_FOUND
+    if updated_message.sender_id != None:
+        sender_exist = verify_user_id(db, updated_message.sender_id)
+        if not sender_exist:
+            return None, Error.SENDER_NOT_FOUND
+    if updated_message.receiver_id != None:
+        receiver_exist = verify_user_id(db, updated_message.receiver_id)
+        if not receiver_exist:
+            return None, Error.RECEIVER_NOT_FOUND
+    # main
+    db_message = db.get(models.Message, message_id)
     if not db_message:
-        return None
+        return None, Error.MESSAGE_NOT_FOUND
     updated_dict = updated_message.model_dump(exclude_none=True, exclude_unset=True)
     for key, val in updated_dict.items():
         setattr(db_message, key, val)
     db.commit()
-    return db_message
+    return db_message, Error.SUCCESS
 
-def delete_message(db: Session, message_id: int) -> Optional[models.Message]:
-    db_message = get_message_bad(db, message_id)
+def delete_message(db: Session, message_id: int) -> Tuple[Optional[models.Message], Error]:
+    db_message = db.get(models.Message, message_id)
+    if not db_message:
+        return None, Error.MESSAGE_NOT_FOUND
     db.delete(db_message)
     db.commit()
-    return db_message
-
-
+    return db_message, Error.SUCCESS
