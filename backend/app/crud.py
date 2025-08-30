@@ -9,6 +9,8 @@ from app import models, schemas, security
 def check_same_ids(id_1: int, id_2) -> bool:
     return id_1 == id_2
 
+# TODO: prevent assigning client as assignee
+# TODO-2: add try catch for invalid type args
 
 # users
 def verify_user_account(db: Session, username: str, password: str) -> bool:

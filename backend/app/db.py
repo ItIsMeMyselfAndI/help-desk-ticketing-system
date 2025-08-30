@@ -18,21 +18,20 @@ def get_db():
         session.close()
         print("closed db session")
 
-def init_db(with_data: bool, datasets_path: Optional[str]):
+def init_db(datasets_path: Optional[str] = None):
     db_exists = inspect(engine).get_table_names()
     if db_exists:
         print("[*] Database already exists.")
         return
+    print("[*] Database initialized.")
     from app.models import Base
     Base.metadata.create_all(bind=engine)
-    print("[*] Database initialized.")
-    if with_data and not db_exists:
-        if not datasets_path:
-            return
-        insert_data(datasets_path, TableName.USERS)
-        insert_data(datasets_path, TableName.TICKETS)
-        insert_data(datasets_path, TableName.ATTACHMENTS)
-        insert_data(datasets_path, TableName.MESSAGES)
+    if not datasets_path:
+        return
+    insert_data(datasets_path, TableName.USERS)
+    insert_data(datasets_path, TableName.TICKETS)
+    insert_data(datasets_path, TableName.ATTACHMENTS)
+    insert_data(datasets_path, TableName.MESSAGES)
 
 def drop_db():
     from app.models import Base
@@ -44,7 +43,11 @@ def drop_db():
 def insert_data(datasets_path: str, tablename: TableName):
     db = next(get_db())
     with open(datasets_path, "r") as file:
-        dataset_json = json.load(file)
+        try:
+            dataset_json = json.load(file)
+        except json.JSONDecodeError:
+            print(f'[!] File "{datasets_path}" is not json')
+            return
     if not dataset_json:
         print("no data")
         return None
@@ -66,6 +69,42 @@ def insert_data(datasets_path: str, tablename: TableName):
             obj = crud.create_message(db, message)
         print(f"\t [+] {{{i}}} {obj}")
     print(f"[*] {tablename.value.capitalize()} inserted.")
+
+
+
+
+if __name__ == "__main__":
+    import sys
+    argv = sys.argv
+    def print_usage():
+        print('Usage:\n',
+              '\tdb.py --drop\n',
+              '\tdb.py --init\n',
+              '\tdb.py --init --data "app/datasets.json"\n')
+
+    if len(argv) not in [2, 4]:
+        print(len(argv))
+        print("lkjl")
+        print_usage()
+    elif len(argv) == 2:
+        if argv[1] == "--drop":
+            drop_db()
+        elif argv[1] == "--init":
+            init_db()
+        else:
+            print_usage()
+    elif len(argv) == 4:
+        if argv[1] == "--init" and argv[2] == "--data":
+            try:
+                init_db(argv[3])
+            except FileNotFoundError:
+                print(f'File "{argv[3]}" not found.')
+        else:
+            print_usage()
+    else:
+        print_usage()
+
+
 
 
 
