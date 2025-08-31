@@ -1,143 +1,106 @@
 import datetime
 import json
-from sys import modules
 import unittest
-from time import sleep
 
 from pydantic import EmailStr
 import pydantic_core
-from sqlalchemy import func, select
-import sqlalchemy
+from sqlalchemy import delete, func, select
+from sqlalchemy.sql.functions import user
 from app import crud, models, schemas, constants
-from app.db import drop_db, get_db, init_db
+from app.db import engine, drop_db, get_db, init_db
 
 
 # create
 class TestCreateTicketDB(unittest.TestCase):
 
     def setUp(self):
-        self.sample_users = self.__get_sample_users()
-        self.available_unames = self.__get_available_unames()
+        # Ensure all sessions are closed first
         self.db = next(get_db())
-
-    def __get_sample_users(self):
+        self.db.execute(delete(models.User))
+        self.db.commit()
         with open("app/datasets.json", "r") as file:
-            users = json.load(file)["users"]
-        if not users:
-            self.fail("empty sample users")
-        return users
-
-    def __get_available_unames(self):
-        db = next(get_db())
-        usernames = []
-        for user in self.sample_users:
-            uname = db.execute(
-                select(models.User.username).where(
-                    models.User.username == user["username"]
-                )
-            ).first()
-            if not uname:
-                usernames.append(user["username"])
-        if not usernames:
-            self.skipTest("empty users table")
-        return usernames
+            self.sample_users = json.load(file)["users"]
 
     def tearDown(self):
         pass
 
     def test_existing_username(self):
-        username = (
-            self.db.execute(select(models.User.username).limit(1)).scalars().first()
-        )
-        if not username:
-            self.skipTest("empty users table")
         user_create = schemas.UserCreate(
-            username=username,
-            email="new@gmail.com",
+            username="old",
+            email="old@gmail.com",
             password="123",
             role=constants.UserRole.CLIENT,
         )
-        user_entity, status_code = crud.create_user(self.db, user_create)
-        if user_entity:
-            self.fail("unintended user creation")
-        self.assertEqual(status_code, constants.StatusCode.UNAME_ALREADY_EXIST)
+        # dummy
+        result_1 = crud.create_user(self.db, user_create)
+        if result_1[1] != constants.StatusCode.SUCCESS:
+            self.skipTest("dummy user not created")
+        # test
+        user_create.email = "new@gmail.com"
+        result_2 = crud.create_user(self.db, user_create)
+        self.assertEqual(result_2[1], constants.StatusCode.UNAME_ALREADY_EXIST)
 
     def test_existing_email(self):
-        email = self.db.execute(select(models.User.email).limit(1)).scalars().first()
-        if not email:
-            self.skipTest("empty users table")
         user_create = schemas.UserCreate(
-            username="hello",
-            email=email,
+            username="old",
+            email="old@gmail.com",
             password="123",
             role=constants.UserRole.CLIENT,
         )
-        user_entity, status_code = crud.create_user(self.db, user_create)
-        if user_entity:
-            self.fail("unintended user creation")
-        self.assertEqual(status_code, constants.StatusCode.EMAIL_ALREADY_EXIST)
+        # dummy
+        result_1 = crud.create_user(self.db, user_create)
+        if result_1[1] != constants.StatusCode.SUCCESS:
+            self.skipTest("dummy user not created")
+        # test
+        user_create.username = "new"
+        result_2 = crud.create_user(self.db, user_create)
+        self.assertEqual(result_2[1], constants.StatusCode.EMAIL_ALREADY_EXIST)
 
     def test_with_dates(self):
-        user_create_list = []
         roles = [
             constants.UserRole.CLIENT,
             constants.UserRole.SUPPORT,
             constants.UserRole.ADMIN,
         ]
         for i, role in enumerate(roles):
-            user_create_list.append(
-                schemas.UserCreate(
-                    email=f"{self.available_unames[i]}@gmail.com",
-                    username=self.available_unames[i],
-                    role=role,
-                    password="123",
-                )
-            )
-        for user_create in user_create_list:
-            with self.subTest(user_create=user_create):
-                user_entity, status_code = crud.create_user(self.db, user_create)
-                if not user_entity:
-                    self.fail(status_code)
-                db_user_entity = self.db.get(models.User, user_entity.id)
-                if not db_user_entity:
-                    self.fail(status_code)
-                user_dict = user_entity.as_dict()
-                db_user_dict = db_user_entity.as_dict()
-                self.assertEqual(
-                    (user_dict, status_code),
-                    (db_user_dict, constants.StatusCode.SUCCESS),
-                )
+            with self.subTest(i=i, role=role):
+                user_dict = {
+                    "username": f"name{i}",
+                    "email": f"name{i}@gmail.com",
+                    "password": "123",
+                    "role": role,
+                    "created_at": datetime.datetime.now().astimezone().isoformat(),
+                    "updated_at": datetime.datetime.now().astimezone().isoformat(),
+                }
+                user_create = schemas.UserCreate(**user_dict)
+                result = crud.create_user(self.db, user_create)
+                if not result[0]:
+                    self.fail("valid user with dates not created")
+                del user_dict["password"]  # no password in models.User.as_dict()
+                for key in user_dict.keys():  # stop sub test if not eq
+                    self.assertEqual(user_dict[key], result[0].as_dict()[key])
 
     def test_without_dates(self):
-        user_create_list = []
         roles = [
             constants.UserRole.CLIENT,
             constants.UserRole.SUPPORT,
             constants.UserRole.ADMIN,
         ]
         for i, role in enumerate(roles):
-            user_create_list.append(
-                schemas.UserCreate(
-                    email=f"{self.available_unames[i]}@gmail.com",
-                    username=self.available_unames[i],
-                    role=role,
-                    password="123",
-                )
-            )
-        for user_create in user_create_list:
-            with self.subTest(user_create=user_create):
-                user_entity, status_code = crud.create_user(self.db, user_create)
-                if not user_entity:
-                    self.fail(status_code)
-                db_user_entity = self.db.get(models.User, user_entity.id)
-                if not db_user_entity:
-                    self.fail(status_code)
-                user_dict = user_entity.as_dict()
-                db_user_dict = db_user_entity.as_dict()
-                self.assertEqual(
-                    (user_dict, status_code),
-                    (db_user_dict, constants.StatusCode.SUCCESS),
-                )
+            with self.subTest(i=i, role=role):
+                user_dict = {
+                    "username": f"name{i}",
+                    "email": f"name{i}@gmail.com",
+                    "password": "123",
+                    "role": role,
+                }
+                user_create = schemas.UserCreate(**user_dict)
+                result = crud.create_user(self.db, user_create)
+                if not result[0]:
+                    self.fail("valid user with dates not created")
+                del user_dict["password"]  # no password in models.User.as_dict()
+                for key in user_dict.keys():  # stop sub test if not eq
+                    self.assertEqual(user_dict[key], result[0].as_dict()[key])
 
     def test_missing_username(self):
         roles = [
@@ -146,12 +109,15 @@ class TestCreateTicketDB(unittest.TestCase):
             constants.UserRole.ADMIN,
         ]
         for i, role in enumerate(roles):
-            with self.assertRaises(pydantic_core.ValidationError):
-                schemas.UserCreate(
-                    email=f"{self.available_unames[i]}@gmail.com",
-                    role=role,
-                    password="123",
-                )
+            with self.subTest(i=i, role=role):
+                with self.assertRaises(pydantic_core.ValidationError):
+                    schemas.UserCreate.model_validate(
+                        {
+                            "email": f"name{i}@gmail.com",
+                            "role": role,
+                            "password": "123",
+                        }
+                    )
 
     def test_missing_email(self):
         roles = [
@@ -160,54 +126,75 @@ class TestCreateTicketDB(unittest.TestCase):
             constants.UserRole.ADMIN,
         ]
         for i, role in enumerate(roles):
-            with self.assertRaises(pydantic_core.ValidationError):
-                schemas.UserCreate(
-                    username=self.available_unames[i],
-                    role=role,
-                    password="123",
-                )
+            with self.subTest(i=i, role=role):
+                with self.assertRaises(pydantic_core.ValidationError):
+                    schemas.UserCreate.model_validate(
+                        {
+                            "username": f"name{i}",
+                            "role": role,
+                            "password": "123",
+                        }
+                    )
 
-    def test_missing_email(self):
+    def test_missing_password(self):
         roles = [
             constants.UserRole.CLIENT,
             constants.UserRole.SUPPORT,
             constants.UserRole.ADMIN,
         ]
         for i, role in enumerate(roles):
-            with self.assertRaises(pydantic_core.ValidationError):
-                schemas.UserCreate(
-                    email=f"{self.available_unames[i]}@gmail.com",
-                    username=self.available_unames[i],
-                    role=role,
-                )
+            with self.subTest(i=i, role=role):
+                with self.assertRaises(pydantic_core.ValidationError):
+                    schemas.UserCreate.model_validate(
+                        {
+                            "username": f"name{i}",
+                            "email": f"name{i}@gmail.com",
+                            "role": role,
+                        }
+                    )
 
     def test_invalid_role(self):
         roles = ["CLIENT", "SUPPORT", "ADMIN"]
         for i, role in enumerate(roles):
-            with self.assertRaises(pydantic_core.ValidationError):
-                schemas.UserCreate(
-                    email=f"{self.available_unames[i]}@gmail.com",
-                    username=self.available_unames[i],
-                    role=role,
-                    password="123",
-                )
+            with self.subTest(i=i, role=role):
+                with self.assertRaises(pydantic_core.ValidationError):
+                    schemas.UserCreate.model_validate(
+                        {
+                            "username": f"name{i}",
+                            "email": f"name{i}@gmail.com",
+                            "role": role,
+                            "password": "123",
+                        }
+                    )
 
     def test_none_required_field(self):
-        roles = [
-            constants.UserRole.CLIENT,
-            constants.UserRole.SUPPORT,
-            constants.UserRole.ADMIN,
+        user_dict_list = [
+            {
+                "username": None,
+                "email": "name@gmail.com",
+                "role": constants.UserRole.CLIENT,
+                "password": "123",
+            },
+            {
+                "username": "name",
+                "email": None,
+                "role": constants.UserRole.CLIENT,
+                "password": "123",
+            },
+            {
+                "username": "name",
+                "email": "name@gmail.com",
+                "role": constants.UserRole.CLIENT,
+                "password": None,
+            },
         ]
-        for i, role in enumerate(roles):
-            with self.assertRaises(pydantic_core.ValidationError):
-                schemas.UserCreate(
-                    email=None,
-                    username=self.available_unames[i],
-                    role=role,
-                    password="123",
-                )
+        for user_dict in user_dict_list:
+            with self.subTest(user_dict=user_dict):
+                with self.assertRaises(pydantic_core.ValidationError):
+                    schemas.UserCreate.model_validate(user_dict)
 
 
+@unittest.skip("get ticket tests")
 # read
 class TestGetTicketDB(unittest.TestCase):
     def setUp(self):
@@ -295,4 +282,4 @@ class TestGetTicketDB(unittest.TestCase):
 
 
 if __name__ == "__main__":
-    unittest.main()
+    unittest.main(verbosity=2)

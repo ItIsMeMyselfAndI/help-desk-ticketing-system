@@ -1,12 +1,15 @@
 from datetime import datetime
 from typing import Optional
-from pydantic import BaseModel, EmailStr
+from pydantic import BaseModel, ConfigDict, EmailStr
 
 from app.constants import UserRole, TicketStatus, TicketCategory
 
+
 class ORMBase(BaseModel):
-    class Config:
-        from_attributes = True # for attr + dict access + model compatibility
+    model_config = ConfigDict(
+        from_attributes=True  # for attr + dict access + model compatibility
+    )
+
 
 # users
 class UserBase(ORMBase):
@@ -16,8 +19,10 @@ class UserBase(ORMBase):
     created_at: Optional[datetime] = None
     updated_at: Optional[datetime] = None
 
+
 class UserCreate(UserBase):
     password: str
+
 
 class UserUpdate(ORMBase):
     username: Optional[str] = None
@@ -25,8 +30,10 @@ class UserUpdate(ORMBase):
     password: Optional[str] = None
     role: Optional[UserRole] = None
 
+
 class UserOut(UserBase):
     id: int
+
 
 class UserRef(ORMBase):
     id: int
@@ -42,9 +49,11 @@ class TicketBase(ORMBase):
     created_at: Optional[datetime] = None
     updated_at: Optional[datetime] = None
 
+
 class TicketCreate(TicketBase):
     issuer_id: int
     assignee_id: Optional[int] = None
+
 
 class TicketUpdate(ORMBase):
     issuer_id: Optional[int] = None
@@ -54,10 +63,12 @@ class TicketUpdate(ORMBase):
     category: Optional[TicketCategory] = None
     description: Optional[str] = None
 
+
 class TicketOut(TicketBase):
     id: int
     issuer: UserRef
     assignee: Optional[UserRef] = None
+
 
 class TicketRef(ORMBase):
     id: int
@@ -72,14 +83,17 @@ class AttachmentBase(ORMBase):
     uploaded_at: Optional[datetime] = None
     updated_at: Optional[datetime] = None
 
+
 class AttachmentCreate(AttachmentBase):
     ticket_id: int
+
 
 class AttachmentUpdate(ORMBase):
     ticket_id: Optional[int] = None
     filename: Optional[str] = None
     filetype: Optional[str] = None
     filesize: Optional[int] = None
+
 
 class AttachmentOut(AttachmentBase):
     id: int
@@ -92,10 +106,12 @@ class MessageBase(ORMBase):
     sent_at: Optional[datetime] = None
     edited_at: Optional[datetime] = None
 
+
 class MessageCreate(MessageBase):
     sender_id: int
     receiver_id: int
     ticket_id: int
+
 
 class MessageUpdate(ORMBase):
     sender_id: Optional[int] = None
@@ -103,10 +119,9 @@ class MessageUpdate(ORMBase):
     ticket_id: Optional[int] = None
     content: Optional[str] = None
 
+
 class MessageOut(MessageBase):
     id: int
     sender: UserRef
     receiver: UserRef
     ticket: TicketRef
-
-
