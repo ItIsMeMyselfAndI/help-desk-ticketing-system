@@ -2,27 +2,26 @@ import datetime
 import json
 import unittest
 
-from pydantic import EmailStr
 import pydantic_core
-from sqlalchemy import delete, func, select
-from sqlalchemy.sql.functions import user
+from sqlalchemy import func, select
 from app import crud, models, schemas, constants
-from app.db import engine, drop_db, get_db, init_db
+from app.db import get_db, reset_db
 
 
 # create
 class TestCreateTicketDB(unittest.TestCase):
 
     def setUp(self):
-        # Ensure all sessions are closed first
         self.db = next(get_db())
-        self.db.execute(delete(models.User))
-        self.db.commit()
+        # reset db
+        reset_db(bind=self.db.get_bind())
+        # json datasets
         with open("app/datasets.json", "r") as file:
             self.sample_users = json.load(file)["users"]
 
     def tearDown(self):
-        pass
+        # just to make sure
+        self.db.close()  # not necessary since get_db closes it on success/fail
 
     def test_existing_username(self):
         user_create = schemas.UserCreate(
@@ -78,7 +77,7 @@ class TestCreateTicketDB(unittest.TestCase):
                     self.fail("valid user with dates not created")
                 del user_dict["password"]  # no password in models.User.as_dict()
                 for key in user_dict.keys():  # stop sub test if not eq
-                    self.assertEqual(user_dict[key], result[0].as_dict()[key])
+                    self.assertEqual(result[0].as_dict()[key], user_dict[key])
 
     def test_without_dates(self):
         roles = [
@@ -100,7 +99,7 @@ class TestCreateTicketDB(unittest.TestCase):
                     self.fail("valid user with dates not created")
                 del user_dict["password"]  # no password in models.User.as_dict()
                 for key in user_dict.keys():  # stop sub test if not eq
-                    self.assertEqual(user_dict[key], result[0].as_dict()[key])
+                    self.assertEqual(result[0].as_dict()[key], user_dict[key])
 
     def test_missing_username(self):
         roles = [
@@ -194,91 +193,63 @@ class TestCreateTicketDB(unittest.TestCase):
                     schemas.UserCreate.model_validate(user_dict)
 
 
-@unittest.skip("get ticket tests")
+# @unittest.skip("get ticket tests")
 # read
 class TestGetTicketDB(unittest.TestCase):
+
     def setUp(self):
-        self.sample_users = self.__get_sample_users()
-        self.max_id, self.min_id = self.__get_min_and_max_id()
-        self.available_unames = self.__get_available_unames()
         self.db = next(get_db())
-
-    def __get_sample_users(self):
+        # reset db
+        reset_db(bind=self.db.get_bind(), datasets_path="app/datasets.json", limit=1)
+        # json datasets
         with open("app/datasets.json", "r") as file:
-            users = json.load(file)["users"]
-        if not users:
-            self.fail("empty sample users")
-        return users
-
-    def __get_available_unames(self):
-        db = next(get_db())
-        usernames = []
-        for user in self.sample_users:
-            uname = db.execute(
-                select(models.User.username).where(
-                    models.User.username == user["username"]
-                )
-            ).first()
-            if not uname:
-                usernames.append(user["username"])
-        if not usernames:
-            self.skipTest("empty users table")
-        return usernames
-
-    def __get_min_and_max_id(self):
-        db = next(get_db())
-        max_id = db.execute(select(func.max(models.User.id))).scalars().first()
-        min_id = db.execute(select(func.min(models.User.id))).scalars().first()
-        if not max_id or not min_id:
-            self.skipTest("empty users table")
-        return max_id, min_id
+            self.sample_users = json.load(file)["users"]
 
     def tearDown(self):
-        pass
+        # just to make sure
+        self.db.close()  # not necessary since get_db closes it on success/fail
 
     def test_left_out_of_bound_id(self):
-        result = crud.get_user_good(self.db, self.min_id - 100)
+        min_id = self.db.execute(select(func.min(models.User.id))).scalars().first()
+        if min_id is None:
+            self.skipTest("empty users table")
+        result = crud.get_user_good(self.db, min_id - 100)
         self.assertEqual(result, (None, constants.StatusCode.USER_NOT_FOUND))
 
     def test_right_out_of_bound_id(self):
-        result = crud.get_user_good(self.db, self.max_id + 100)
+        max_id = self.db.execute(select(func.max(models.User.id))).scalars().first()
+        if max_id is None:
+            self.skipTest("empty users table")
+        result = crud.get_user_good(self.db, max_id + 100)
         self.assertEqual(result, (None, constants.StatusCode.USER_NOT_FOUND))
 
-    # TODO-2: fix invalid type args
+    @unittest.skip("TODO: catch invalid arg type")
     def test_invalid_type_id(self):
         invalid_type_ids = ["lksdjfd", None, 4.8]
         for id in invalid_type_ids:
             with self.subTest(id=id):
-                crud.get_user_good(self.db, id)
+                with self.assertRaises(TypeError):
+                    crud.get_user_good(self.db, id)
 
     def test_correct_id(self):
-        for user_id in [self.min_id, self.max_id]:
-            user_out, status_code = crud.get_user_good(self.db, user_id)
-            if not user_out:
-                self.skipTest(status_code)
-            db_user_dict = user_out.model_dump()
-            email: EmailStr = db_user_dict["email"]
-            role: constants.UserRole = db_user_dict["role"]
-            created_at: datetime.datetime = db_user_dict["created_at"]
-            updated_at: datetime.datetime = db_user_dict["updated_at"]
-            db_user_dict.update(
-                {
-                    "email": email,
-                    "role": role.value,
-                    "created_at": created_at.isoformat(),
-                    "updated_at": updated_at.isoformat(),
-                }
-            )
-            sample_user_dict = None
-            for sample_user_dict in self.sample_users:
-                if sample_user_dict["username"] == db_user_dict["username"]:
-                    break
-            if not sample_user_dict:
-                self.skipTest("sample user not found")
-            self.assertEqual(
-                (sample_user_dict, status_code),
-                (db_user_dict, constants.StatusCode.SUCCESS),
-            )
+        min_id = self.db.execute(select(func.min(models.User.id))).scalars().first()
+        max_id = self.db.execute(select(func.max(models.User.id))).scalars().first()
+        if min_id is None or max_id is None:
+            self.skipTest("empty users table")
+
+        for user_id in [min_id, max_id]:
+            with self.subTest(user_id=user_id):
+                result = crud.get_user_good(self.db, user_id)
+                if not result[0]:
+                    self.skipTest(result[1])
+                user_dict = schemas.UserOut.model_validate(
+                    self.db.get(models.User, user_id)
+                ).model_dump()
+                for key in user_dict.keys():  # stop sub test if not eq
+                    self.assertEqual(
+                        (result[0].model_dump()[key], result[1]),
+                        (user_dict[key], constants.StatusCode.SUCCESS),
+                    )
 
 
 if __name__ == "__main__":

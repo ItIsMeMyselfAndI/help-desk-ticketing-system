@@ -32,7 +32,7 @@ def get_user_good(db: Session, user_id: int) -> Tuple[Optional[schemas.UserOut],
     db_user = db.execute(select(models.User).where(models.User.id == user_id)).scalars().first()
     if not db_user:
         return None, StatusCode.USER_NOT_FOUND
-    user_out = schemas.UserOut(**db_user.as_dict())
+    user_out = schemas.UserOut.model_validate(db_user)
     return user_out, StatusCode.SUCCESS
 
 def create_user(db: Session, user: schemas.UserCreate) -> Tuple[Optional[models.User], StatusCode]:
@@ -110,7 +110,7 @@ def get_ticket_good(db: Session, ticket_id: int) -> Tuple[Optional[schemas.Ticke
                 username=assignee.username
                 )
             })
-    ticket_out = schemas.TicketOut(**ticket_dict)
+    ticket_out = schemas.TicketOut.model_validate(ticket_dict)
     return ticket_out, StatusCode.SUCCESS
 
 def create_ticket(db: Session, ticket: schemas.TicketCreate) -> Tuple[Optional[models.Ticket], StatusCode]:
@@ -205,7 +205,7 @@ def get_attachment_good(db: Session, attachment_id: int) -> Tuple[Optional[schem
             title=ticket.title
             ),
         })
-    attachment_out = schemas.AttachmentOut(**attachment_dict)
+    attachment_out = schemas.AttachmentOut.model_validate(attachment_dict)
     return attachment_out, StatusCode.SUCCESS
 
 def create_attachment(db: Session, attachment: schemas.AttachmentCreate) -> Tuple[Optional[models.Attachment], StatusCode]:
@@ -288,7 +288,7 @@ def get_message_good(db: Session, message_id: int) -> Tuple[Optional[schemas.Mes
             username=receiver.username
             ),
         })
-    message_out = schemas.MessageOut(**message_dict)
+    message_out = schemas.MessageOut.model_validate(message_dict)
     return message_out, StatusCode.SUCCESS
 
 def create_message(db: Session, message: schemas.MessageCreate) -> Tuple[Optional[models.Message], StatusCode]:

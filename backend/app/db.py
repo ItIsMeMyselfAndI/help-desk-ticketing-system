@@ -116,15 +116,15 @@ if __name__ == "__main__":
             "Usage:\n",
             "----------------------------------------------------------\n",
             "[Drop database]\n",
-            "\tdb.py --drop\n",
+            "\tpython -m db --drop\n",
             "[Initialize database]\n",
-            "\tdb.py --init\n",
-            '\tdb.py --init --data "app/datasets.json"\n',
-            '\tdb.py --init --data "app/datasets.json" --limit 1\n',
+            "\tpython -m db --init\n",
+            '\tpython -m db --init --data "app/datasets.json"\n',
+            '\tpython -m db --init --data "app/datasets.json" --limit 1\n',
             "[Reset database]\n",
-            "\tdb.py --reset\n",
-            '\tdb.py --reset --data "app/datasets.json"\n',
-            '\tdb.py --reset --data "app/datasets.json" --limit 1\n',
+            "\tpython -m db --reset\n",
+            '\tpython -m db --reset --data "app/datasets.json"\n',
+            '\tpython -m db --reset --data "app/datasets.json" --limit 1\n',
         )
 
     if len(argv) not in [2, 4, 6]:
