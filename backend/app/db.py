@@ -1,5 +1,5 @@
 from typing import Optional
-from sqlalchemy import create_engine, inspect
+from sqlalchemy import Connection, Engine, create_engine, inspect
 from sqlalchemy.orm import sessionmaker
 
 from app.constants import TableName
@@ -20,7 +20,7 @@ def get_db():
         print("closed db session")
 
 
-def init_db(datasets_path: Optional[str] = None):
+def init_db(datasets_path: Optional[str] = None, bind: Engine | Connection = engine):
     db_exists = inspect(engine).get_table_names()
     if db_exists:
         print("[*] Database already exists.")
@@ -28,7 +28,7 @@ def init_db(datasets_path: Optional[str] = None):
     print("[*] Database initialized.")
     from app.models import Base
 
-    Base.metadata.create_all(bind=engine)
+    Base.metadata.create_all(bind=bind)
     if not datasets_path:
         return
     insert_data(datasets_path, TableName.USERS)
@@ -37,16 +37,16 @@ def init_db(datasets_path: Optional[str] = None):
     insert_data(datasets_path, TableName.MESSAGES)
 
 
-def drop_db():
+def drop_db(bind: Engine | Connection = engine):
     from app.models import Base
 
-    Base.metadata.drop_all(bind=engine)
+    Base.metadata.drop_all(bind=bind)
     print("[*] Database dropped.")
 
 
-def reset_db():
-    drop_db()
-    init_db()
+def reset_db(bind: Engine | Connection = engine):
+    drop_db(bind=bind)
+    init_db(bind=bind)
 
 
 # ---- inserting sample data ----
