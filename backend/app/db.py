@@ -20,7 +20,11 @@ def get_db():
         print("closed db session")
 
 
-def init_db(datasets_path: Optional[str] = None, bind: Engine | Connection = engine):
+def init_db(
+    bind: Engine | Connection = engine,
+    datasets_path: str | None = None,
+    limit: int | None = None,
+):
     db_exists = inspect(engine).get_table_names()
     if db_exists:
         print("[*] Database already exists.")
@@ -31,10 +35,10 @@ def init_db(datasets_path: Optional[str] = None, bind: Engine | Connection = eng
     Base.metadata.create_all(bind=bind)
     if not datasets_path:
         return
-    insert_data(datasets_path, TableName.USERS)
-    insert_data(datasets_path, TableName.TICKETS)
-    insert_data(datasets_path, TableName.ATTACHMENTS)
-    insert_data(datasets_path, TableName.MESSAGES)
+    insert_data(datasets_path, TableName.USERS, limit)
+    insert_data(datasets_path, TableName.TICKETS, limit)
+    insert_data(datasets_path, TableName.ATTACHMENTS, limit)
+    insert_data(datasets_path, TableName.MESSAGES, limit)
 
 
 def drop_db(bind: Engine | Connection = engine):
@@ -44,13 +48,17 @@ def drop_db(bind: Engine | Connection = engine):
     print("[*] Database dropped.")
 
 
-def reset_db(bind: Engine | Connection = engine):
+def reset_db(
+    bind: Engine | Connection = engine,
+    datasets_path: Optional[str] = None,
+    limit: int | None = None,
+):
     drop_db(bind=bind)
-    init_db(bind=bind)
+    init_db(bind=bind, datasets_path=datasets_path, limit=limit)
 
 
 # ---- inserting sample data ----
-def insert_data(datasets_path: str, tablename: TableName):
+def insert_data(datasets_path: str, tablename: TableName, limit: int | None = None):
     db = next(get_db())
     with open(datasets_path, "r") as file:
         try:
@@ -64,6 +72,10 @@ def insert_data(datasets_path: str, tablename: TableName):
     # create entries
     print(f"[*] Inserting {tablename.value.capitalize()}...")
     for i, entry in enumerate(dataset_json[tablename.value]):
+        if limit:
+            if i == limit:
+                break
+
         obj = None
         if tablename is TableName.USERS:
             user = schemas.UserCreate(**entry)
@@ -77,6 +89,7 @@ def insert_data(datasets_path: str, tablename: TableName):
         elif tablename is TableName.MESSAGES:
             message = schemas.MessageCreate(**entry)
             obj = crud.create_message(db, message)
+
         print(f"\t [+] {{{i}}} {obj}")
     print(f"[*] {tablename.value.capitalize()} inserted.")
 
@@ -89,13 +102,20 @@ if __name__ == "__main__":
     def print_usage():
         print(
             "Usage:\n",
+            "----------------------------------------------------------\n",
+            "[Drop database]\n",
             "\tdb.py --drop\n",
+            "[Initialize database]\n",
             "\tdb.py --init\n",
-            "\tdb.py --reset\n",
             '\tdb.py --init --data "app/datasets.json"\n',
+            '\tdb.py --init --data "app/datasets.json" --limit 1\n',
+            "[Reset database]\n",
+            "\tdb.py --reset\n",
+            '\tdb.py --reset --data "app/datasets.json"\n',
+            '\tdb.py --reset --data "app/datasets.json" --limit 1\n',
         )
 
-    if len(argv) not in [2, 4]:
+    if len(argv) not in [2, 4, 6]:
         print(len(argv))
         print("lkjl")
         print_usage()
@@ -111,9 +131,31 @@ if __name__ == "__main__":
     elif len(argv) == 4:
         if argv[1] == "--init" and argv[2] == "--data":
             try:
-                init_db(argv[3])
+                init_db(datasets_path=argv[3])
             except FileNotFoundError:
                 print(f'File "{argv[3]}" not found.')
+        elif argv[1] == "--reset" and argv[2] == "--data":
+            try:
+                reset_db(datasets_path=argv[3])
+            except FileNotFoundError:
+                print(f'File "{argv[3]}" not found.')
+        else:
+            print_usage()
+    elif len(argv) == 6:
+        if argv[1] == "--init" and argv[2] == "--data" and argv[4] == "--limit":
+            try:
+                init_db(datasets_path=argv[3], limit=int(argv[5]))
+            except FileNotFoundError:
+                print(f'File "{argv[3]}" not found.')
+            except ValueError:
+                print(f'Limit "{argv[5]}" is not an integer.')
+        elif argv[1] == "--reset" and argv[2] == "--data" and argv[4] == "--limit":
+            try:
+                reset_db(datasets_path=argv[3], limit=int(argv[5]))
+            except FileNotFoundError:
+                print(f'File "{argv[3]}" not found.')
+            except ValueError:
+                print(f'Limit "{argv[5]}" is not an integer.')
         else:
             print_usage()
     else:
