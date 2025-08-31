@@ -1,6 +1,6 @@
-from typing import Optional
+from typing import Generator, Optional
 from sqlalchemy import Connection, Engine, create_engine, inspect
-from sqlalchemy.orm import sessionmaker
+from sqlalchemy.orm import Session, sessionmaker
 
 from app.constants import TableName
 from app import crud, schemas
@@ -8,11 +8,11 @@ from app.config import DATABASE_URL
 import json
 
 engine = create_engine(DATABASE_URL)  # , echo=True
-Session = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+session_maker = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 
-def get_db():
-    session = Session()
+def get_db() -> Generator[Session]:
+    session = session_maker()
     try:
         yield session
     finally:
@@ -35,10 +35,10 @@ def init_db(
     Base.metadata.create_all(bind=bind)
     if not datasets_path:
         return
-    insert_data(datasets_path, TableName.USERS, limit)
-    insert_data(datasets_path, TableName.TICKETS, limit)
-    insert_data(datasets_path, TableName.ATTACHMENTS, limit)
-    insert_data(datasets_path, TableName.MESSAGES, limit)
+    insert_data(datasets_path, TableName.USERS, bind, limit)
+    insert_data(datasets_path, TableName.TICKETS, bind, limit)
+    insert_data(datasets_path, TableName.ATTACHMENTS, bind, limit)
+    insert_data(datasets_path, TableName.MESSAGES, bind, limit)
 
 
 def drop_db(bind: Engine | Connection = engine):
@@ -53,45 +53,57 @@ def reset_db(
     datasets_path: Optional[str] = None,
     limit: int | None = None,
 ):
-    drop_db(bind=bind)
-    init_db(bind=bind, datasets_path=datasets_path, limit=limit)
+    drop_db(bind)
+    init_db(bind, datasets_path, limit)
 
 
 # ---- inserting sample data ----
-def insert_data(datasets_path: str, tablename: TableName, limit: int | None = None):
-    db = next(get_db())
-    with open(datasets_path, "r") as file:
-        try:
-            dataset_json = json.load(file)
-        except json.JSONDecodeError:
-            print(f'[!] File "{datasets_path}" is not json')
-            return
-    if not dataset_json:
-        print("no data")
-        return None
-    # create entries
-    print(f"[*] Inserting {tablename.value.capitalize()}...")
-    for i, entry in enumerate(dataset_json[tablename.value]):
-        if limit:
-            if i == limit:
-                break
+def insert_data(
+    datasets_path: str,
+    tablename: TableName,
+    bind: Engine | Connection = engine,
+    limit: int | None = None,
+):
+    # local session maker
+    session_maker = sessionmaker(autocommit=False, autoflush=False, bind=bind)
+    db = session_maker()
 
-        obj = None
-        if tablename is TableName.USERS:
-            user = schemas.UserCreate(**entry)
-            obj = crud.create_user(db, user)
-        elif tablename is TableName.TICKETS:
-            ticket = schemas.TicketCreate(**entry)
-            obj = crud.create_ticket(db, ticket)
-        elif tablename is TableName.ATTACHMENTS:
-            attachment = schemas.AttachmentCreate(**entry)
-            obj = crud.create_attachment(db, attachment)
-        elif tablename is TableName.MESSAGES:
-            message = schemas.MessageCreate(**entry)
-            obj = crud.create_message(db, message)
+    try:
+        with open(datasets_path, "r") as file:
+            try:
+                dataset_json = json.load(file)
+            except json.JSONDecodeError:
+                print(f'[!] File "{datasets_path}" is not json')
+                return
+        if not dataset_json:
+            print("no data")
+            return None
+        # create entries
+        print(f"[*] Inserting {tablename.value.capitalize()}...")
+        for i, entry in enumerate(dataset_json[tablename.value]):
+            if limit:
+                if i == limit:
+                    break
 
-        print(f"\t [+] {{{i}}} {obj}")
-    print(f"[*] {tablename.value.capitalize()} inserted.")
+            obj = None
+            if tablename is TableName.USERS:
+                user = schemas.UserCreate(**entry)
+                obj = crud.create_user(db, user)
+            elif tablename is TableName.TICKETS:
+                ticket = schemas.TicketCreate(**entry)
+                obj = crud.create_ticket(db, ticket)
+            elif tablename is TableName.ATTACHMENTS:
+                attachment = schemas.AttachmentCreate(**entry)
+                obj = crud.create_attachment(db, attachment)
+            elif tablename is TableName.MESSAGES:
+                message = schemas.MessageCreate(**entry)
+                obj = crud.create_message(db, message)
+
+            print(f"\t [+] {{{i}}} {obj}")
+        print(f"[*] {tablename.value.capitalize()} inserted.")
+
+    finally:
+        db.close()
 
 
 if __name__ == "__main__":
