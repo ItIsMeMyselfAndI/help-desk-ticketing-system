@@ -1,14 +1,14 @@
 import json
 import unittest
 
+import pydantic
 from sqlalchemy import func, select
 from app import crud, models, schemas, constants
 from app.db import get_db, reset_db
 
 
-# @unittest.skip("get ticket tests")
 # read
-class TestGetTicketDB(unittest.TestCase):
+class TestDBGetTicket(unittest.TestCase):
 
     def setUp(self):
         self.db = next(get_db())
@@ -21,6 +21,21 @@ class TestGetTicketDB(unittest.TestCase):
     def tearDown(self):
         # just to make sure
         self.db.close()  # not necessary since get_db closes it on success/fail
+
+    def test_invalid_id(self):
+        invalid_args = ["lksdjfd", None, 4.8]
+        user_id = self.db.execute(select(models.User.id).limit(1)).scalars().first()
+        for arg in invalid_args:
+            # db session
+            with self.subTest(arg=arg):
+                if not user_id:
+                    self.skipTest("empty users table")
+                with self.assertRaises(pydantic.ValidationError):
+                    crud.get_user_good(arg, user_id)
+            # user id
+            with self.subTest(arg=arg):
+                with self.assertRaises(pydantic.ValidationError):
+                    crud.get_user_good(self.db, arg)
 
     def test_left_out_of_bound_id(self):
         min_id = self.db.execute(select(func.min(models.User.id))).scalars().first()
@@ -35,14 +50,6 @@ class TestGetTicketDB(unittest.TestCase):
             self.skipTest("empty users table")
         result = crud.get_user_good(self.db, max_id + 100)
         self.assertEqual(result, (None, constants.StatusCode.USER_NOT_FOUND))
-
-    @unittest.skip("TODO: catch invalid arg type")
-    def test_invalid_type_id(self):
-        invalid_type_ids = ["lksdjfd", None, 4.8]
-        for id in invalid_type_ids:
-            with self.subTest(id=id):
-                with self.assertRaises(TypeError):
-                    crud.get_user_good(self.db, id)
 
     def test_correct_id(self):
         min_id = self.db.execute(select(func.min(models.User.id))).scalars().first()

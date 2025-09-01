@@ -1,16 +1,14 @@
 import datetime
 import json
 import unittest
-import os
 
+import pydantic
 import pydantic_core
 from app import crud, schemas, constants
 from app.db import get_db, reset_db
 
-print(os.getcwd())
 
-
-class TestCreateTicketDB(unittest.TestCase):
+class TestDBCreateTicket(unittest.TestCase):
 
     def setUp(self):
         self.db = next(get_db())
@@ -23,6 +21,69 @@ class TestCreateTicketDB(unittest.TestCase):
     def tearDown(self):
         # just to make sure
         self.db.close()  # not necessary since get_db closes it on success/fail
+
+    def test_invalid_arg(self):
+        invalid_args = ["lksdjfd", None, 4.8]
+        user_create = schemas.UserCreate(
+            username="old",
+            email="old@gmail.com",
+            password="123",
+            role=constants.UserRole.CLIENT,
+        )
+        for arg in invalid_args:
+            # db session
+            with self.subTest(arg=arg):
+                with self.assertRaises(pydantic.ValidationError):
+                    crud.create_user(arg, user_create)
+            # user basemodel
+            with self.subTest(arg=arg):
+                with self.assertRaises(pydantic.ValidationError):
+                    crud.get_user_good(self.db, arg)
+
+    def test_missing_user_basemodel_field(self):
+        user_dict = {
+            "username": "name",
+            "email": f"name@gmail.com",
+            "role": constants.UserRole.SUPPORT,
+            "password": "123",
+        }
+        for key in user_dict.keys():
+            with self.subTest(key=key, user_dict=user_dict):
+                user_dict_copy = user_dict.copy()
+                del user_dict_copy[key]
+                with self.assertRaises(pydantic_core.ValidationError):
+                    schemas.UserCreate.model_validate(user_dict_copy)
+
+    def test_invalid_user_basemodel_field(self):
+        invalid_field = constants.TableName  # sample invalid field
+        user_dict = {
+            "username": "name",
+            "email": f"name@gmail.com",
+            "role": constants.UserRole.SUPPORT,
+            "password": "123",
+            "created_at": datetime.datetime.now().astimezone().isoformat(),
+            "updated_at": datetime.datetime.now().astimezone().isoformat(),
+        }
+        for key in user_dict.keys():
+            with self.subTest(key=key, user_dict=user_dict):
+                user_dict_copy = user_dict.copy()
+                user_dict_copy.update({key: invalid_field})
+                with self.assertRaises(pydantic_core.ValidationError):
+                    schemas.UserCreate.model_validate(user_dict_copy)
+
+    def test_none_user_basemodel_required_field(self):
+        user_dict = {
+            "username": "name",
+            "email": f"name@gmail.com",
+            "role": constants.UserRole.SUPPORT,
+            "password": "123",
+        }
+        for key in user_dict.keys():
+            with self.subTest(key=key, user_dict=user_dict):
+                user_dict_copy = user_dict.copy()
+                user_dict_copy.update({key: None})
+                with self.assertRaises(pydantic_core.ValidationError):
+                    schemas.UserCreate.model_validate(user_dict_copy)
 
     def test_existing_username(self):
         user_create = schemas.UserCreate(
@@ -101,97 +162,6 @@ class TestCreateTicketDB(unittest.TestCase):
                 del user_dict["password"]  # no password in models.User.as_dict()
                 for key in user_dict.keys():  # stop sub test if not eq
                     self.assertEqual(result[0].as_dict()[key], user_dict[key])
-
-    def test_missing_username(self):
-        roles = [
-            constants.UserRole.CLIENT,
-            constants.UserRole.SUPPORT,
-            constants.UserRole.ADMIN,
-        ]
-        for i, role in enumerate(roles):
-            with self.subTest(i=i, role=role):
-                with self.assertRaises(pydantic_core.ValidationError):
-                    schemas.UserCreate.model_validate(
-                        {
-                            "email": f"name{i}@gmail.com",
-                            "role": role,
-                            "password": "123",
-                        }
-                    )
-
-    def test_missing_email(self):
-        roles = [
-            constants.UserRole.CLIENT,
-            constants.UserRole.SUPPORT,
-            constants.UserRole.ADMIN,
-        ]
-        for i, role in enumerate(roles):
-            with self.subTest(i=i, role=role):
-                with self.assertRaises(pydantic_core.ValidationError):
-                    schemas.UserCreate.model_validate(
-                        {
-                            "username": f"name{i}",
-                            "role": role,
-                            "password": "123",
-                        }
-                    )
-
-    def test_missing_password(self):
-        roles = [
-            constants.UserRole.CLIENT,
-            constants.UserRole.SUPPORT,
-            constants.UserRole.ADMIN,
-        ]
-        for i, role in enumerate(roles):
-            with self.subTest(i=i, role=role):
-                with self.assertRaises(pydantic_core.ValidationError):
-                    schemas.UserCreate.model_validate(
-                        {
-                            "username": f"name{i}",
-                            "email": f"name{i}@gmail.com",
-                            "role": role,
-                        }
-                    )
-
-    def test_invalid_role(self):
-        roles = ["CLIENT", "SUPPORT", "ADMIN"]
-        for i, role in enumerate(roles):
-            with self.subTest(i=i, role=role):
-                with self.assertRaises(pydantic_core.ValidationError):
-                    schemas.UserCreate.model_validate(
-                        {
-                            "username": f"name{i}",
-                            "email": f"name{i}@gmail.com",
-                            "role": role,
-                            "password": "123",
-                        }
-                    )
-
-    def test_none_required_field(self):
-        user_dict_list = [
-            {
-                "username": None,
-                "email": "name@gmail.com",
-                "role": constants.UserRole.CLIENT,
-                "password": "123",
-            },
-            {
-                "username": "name",
-                "email": None,
-                "role": constants.UserRole.CLIENT,
-                "password": "123",
-            },
-            {
-                "username": "name",
-                "email": "name@gmail.com",
-                "role": constants.UserRole.CLIENT,
-                "password": None,
-            },
-        ]
-        for user_dict in user_dict_list:
-            with self.subTest(user_dict=user_dict):
-                with self.assertRaises(pydantic_core.ValidationError):
-                    schemas.UserCreate.model_validate(user_dict)
 
 
 if __name__ == "__main__":

@@ -1,3 +1,4 @@
+import pydantic
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 from typing import Optional, Tuple
@@ -6,15 +7,21 @@ from app.constants import StatusCode
 from app import models, schemas, security
 
 
+@pydantic.validate_call(config=pydantic.ConfigDict(arbitrary_types_allowed=True))
 def check_same_ids(id_1: int, id_2) -> bool:
     return id_1 == id_2
 
+
 # TODO: prevent assigning client as assignee
-# TODO-2: add try catch for invalid type args
+# [DONE] TODO-2: add try catch for invalid type args
+
 
 # users
+@pydantic.validate_call(config=pydantic.ConfigDict(arbitrary_types_allowed=True))
 def verify_user_account(db: Session, username: str, password: str) -> bool:
-    result = db.execute(select(models.User).where(models.User.username == username)).first()
+    result = db.execute(
+        select(models.User).where(models.User.username == username)
+    ).first()
     if not result:
         return False
     user: models.User = result[0]
@@ -22,22 +29,40 @@ def verify_user_account(db: Session, username: str, password: str) -> bool:
         return True
     return False
 
+
+@pydantic.validate_call(config=pydantic.ConfigDict(arbitrary_types_allowed=True))
 def verify_user_id(db: Session, user_id: int) -> bool:
     result = db.get(models.User, user_id)
     if result:
         return True
     return False
 
-def get_user_good(db: Session, user_id: int) -> Tuple[Optional[schemas.UserOut], StatusCode]:
-    db_user = db.execute(select(models.User).where(models.User.id == user_id)).scalars().first()
+
+@pydantic.validate_call(config=pydantic.ConfigDict(arbitrary_types_allowed=True))
+def get_user_good(
+    db: Session, user_id: int
+) -> Tuple[Optional[schemas.UserOut], StatusCode]:
+    db_user = (
+        db.execute(select(models.User).where(models.User.id == user_id))
+        .scalars()
+        .first()
+    )
     if not db_user:
         return None, StatusCode.USER_NOT_FOUND
     user_out = schemas.UserOut.model_validate(db_user)
     return user_out, StatusCode.SUCCESS
 
-def create_user(db: Session, user: schemas.UserCreate) -> Tuple[Optional[models.User], StatusCode]:
-    uname_exist = db.execute(select(models.User).where(models.User.username == user.username)).first()
-    email_exist = db.execute(select(models.User).where(models.User.email == user.email)).first()
+
+@pydantic.validate_call(config=pydantic.ConfigDict(arbitrary_types_allowed=True))
+def create_user(
+    db: Session, user: schemas.UserCreate
+) -> Tuple[Optional[models.User], StatusCode]:
+    uname_exist = db.execute(
+        select(models.User).where(models.User.username == user.username)
+    ).first()
+    email_exist = db.execute(
+        select(models.User).where(models.User.email == user.email)
+    ).first()
     if uname_exist:
         return None, StatusCode.UNAME_ALREADY_EXIST
     if email_exist:
@@ -47,20 +72,27 @@ def create_user(db: Session, user: schemas.UserCreate) -> Tuple[Optional[models.
         if key == "password":
             key = "hashed_password"
             val = security.hash_password(val)
-        user_dict.update({key:val})
+        user_dict.update({key: val})
     new_user = models.User(**user_dict)
     db.add(new_user)
     db.commit()
     return new_user, StatusCode.SUCCESS
 
-def update_user(db: Session, user_id: int,
-                updated_user: schemas.UserUpdate) -> Tuple[Optional[models.User], StatusCode]:
+
+@pydantic.validate_call(config=pydantic.ConfigDict(arbitrary_types_allowed=True))
+def update_user(
+    db: Session, user_id: int, updated_user: schemas.UserUpdate
+) -> Tuple[Optional[models.User], StatusCode]:
     # verify
     db_user = db.get(models.User, user_id)
     if not db_user:
         return None, StatusCode.USER_NOT_FOUND
-    uname_exist = db.execute(select(models.User).where(models.User.username == updated_user.username)).first()
-    email_exist = db.execute(select(models.User).where(models.User.email == updated_user.email)).first()
+    uname_exist = db.execute(
+        select(models.User).where(models.User.username == updated_user.username)
+    ).first()
+    email_exist = db.execute(
+        select(models.User).where(models.User.email == updated_user.email)
+    ).first()
     if uname_exist:
         return None, StatusCode.UNAME_ALREADY_EXIST
     elif email_exist:
@@ -72,6 +104,8 @@ def update_user(db: Session, user_id: int,
     db.commit()
     return db_user, StatusCode.SUCCESS
 
+
+@pydantic.validate_call(config=pydantic.ConfigDict(arbitrary_types_allowed=True))
 def delete_user(db: Session, user_id: int) -> Tuple[Optional[models.User], StatusCode]:
     db_user = db.get(models.User, user_id)
     if not db_user:
@@ -82,13 +116,18 @@ def delete_user(db: Session, user_id: int) -> Tuple[Optional[models.User], Statu
 
 
 # tickets
+@pydantic.validate_call(config=pydantic.ConfigDict(arbitrary_types_allowed=True))
 def verify_ticket_id(db: Session, ticket_id: int) -> bool:
     result = db.get(models.Ticket, ticket_id)
     if result:
         return True
     return False
 
-def get_ticket_good(db: Session, ticket_id: int) -> Tuple[Optional[schemas.TicketOut], StatusCode]:
+
+@pydantic.validate_call(config=pydantic.ConfigDict(arbitrary_types_allowed=True))
+def get_ticket_good(
+    db: Session, ticket_id: int
+) -> Tuple[Optional[schemas.TicketOut], StatusCode]:
     db_ticket = db.get(models.Ticket, ticket_id)
     if not db_ticket:
         return None, StatusCode.TICKET_NOT_FOUND
@@ -97,23 +136,29 @@ def get_ticket_good(db: Session, ticket_id: int) -> Tuple[Optional[schemas.Ticke
     if not issuer:
         return None, StatusCode.ISSUER_NOT_FOUND
     ticket_dict = db_ticket.as_dict()
-    ticket_dict.update({
-        "issuer": schemas.UserRef(
-            id=ticket_dict["issuer_id"],
-            username=issuer.username
+    ticket_dict.update(
+        {
+            "issuer": schemas.UserRef(
+                id=ticket_dict["issuer_id"], username=issuer.username
             ),
-        })
+        }
+    )
     if assignee:
-        ticket_dict.update({
-            "assignee": schemas.UserRef(
-                id=ticket_dict["assignee_id"],
-                username=assignee.username
+        ticket_dict.update(
+            {
+                "assignee": schemas.UserRef(
+                    id=ticket_dict["assignee_id"], username=assignee.username
                 )
-            })
+            }
+        )
     ticket_out = schemas.TicketOut.model_validate(ticket_dict)
     return ticket_out, StatusCode.SUCCESS
 
-def create_ticket(db: Session, ticket: schemas.TicketCreate) -> Tuple[Optional[models.Ticket], StatusCode]:
+
+@pydantic.validate_call(config=pydantic.ConfigDict(arbitrary_types_allowed=True))
+def create_ticket(
+    db: Session, ticket: schemas.TicketCreate
+) -> Tuple[Optional[models.Ticket], StatusCode]:
     # verify
     issuer_exist = verify_user_id(db, ticket.issuer_id)
     if not issuer_exist:
@@ -131,8 +176,11 @@ def create_ticket(db: Session, ticket: schemas.TicketCreate) -> Tuple[Optional[m
     db.commit()
     return new_ticket, StatusCode.SUCCESS
 
-def update_ticket(db: Session, ticket_id: int,
-                  updated_ticket: schemas.TicketUpdate) -> Tuple[Optional[models.Ticket], StatusCode]:
+
+@pydantic.validate_call(config=pydantic.ConfigDict(arbitrary_types_allowed=True))
+def update_ticket(
+    db: Session, ticket_id: int, updated_ticket: schemas.TicketUpdate
+) -> Tuple[Optional[models.Ticket], StatusCode]:
     # verify
     db_ticket = db.get(models.Ticket, ticket_id)
     if not db_ticket:
@@ -165,7 +213,11 @@ def update_ticket(db: Session, ticket_id: int,
     db.commit()
     return db_ticket, StatusCode.SUCCESS
 
-def delete_ticket(db: Session, ticket_id: int) -> Tuple[Optional[models.Ticket], StatusCode]:
+
+@pydantic.validate_call(config=pydantic.ConfigDict(arbitrary_types_allowed=True))
+def delete_ticket(
+    db: Session, ticket_id: int
+) -> Tuple[Optional[models.Ticket], StatusCode]:
     db_ticket = db.get(models.Ticket, ticket_id)
     if not db_ticket:
         return None, StatusCode.TICKET_NOT_FOUND
@@ -175,23 +227,38 @@ def delete_ticket(db: Session, ticket_id: int) -> Tuple[Optional[models.Ticket],
 
 
 # attachments
-def check_attachment_existence(db: Session, ticket_id: int, filename: str, filetype: str) -> bool:
-    db_file = db.execute(select(models.Attachment).where(
-        models.Ticket.id == ticket_id,
-        models.Attachment.filename == filename,
-        models.Attachment.filetype == filetype
-        )).scalars().first()
+@pydantic.validate_call(config=pydantic.ConfigDict(arbitrary_types_allowed=True))
+def check_attachment_existence(
+    db: Session, ticket_id: int, filename: str, filetype: str
+) -> bool:
+    db_file = (
+        db.execute(
+            select(models.Attachment).where(
+                models.Ticket.id == ticket_id,
+                models.Attachment.filename == filename,
+                models.Attachment.filetype == filetype,
+            )
+        )
+        .scalars()
+        .first()
+    )
     if db_file:
         return True
     return False
 
+
+@pydantic.validate_call(config=pydantic.ConfigDict(arbitrary_types_allowed=True))
 def verify_attachment_id(db: Session, attachment_id: int) -> bool:
     result = db.get(models.Attachment, attachment_id)
     if result:
         return True
     return False
 
-def get_attachment_good(db: Session, attachment_id: int) -> Tuple[Optional[schemas.AttachmentOut], StatusCode]:
+
+@pydantic.validate_call(config=pydantic.ConfigDict(arbitrary_types_allowed=True))
+def get_attachment_good(
+    db: Session, attachment_id: int
+) -> Tuple[Optional[schemas.AttachmentOut], StatusCode]:
     db_attachment = db.get(models.Attachment, attachment_id)
     if not db_attachment:
         return None, StatusCode.FILE_NOT_FOUND
@@ -199,21 +266,28 @@ def get_attachment_good(db: Session, attachment_id: int) -> Tuple[Optional[schem
     if not ticket:
         return None, StatusCode.TICKET_NOT_FOUND
     attachment_dict = db_attachment.as_dict()
-    attachment_dict.update({
-        "ticket": schemas.TicketRef(
-            id=attachment_dict["ticket_id"],
-            title=ticket.title
+    attachment_dict.update(
+        {
+            "ticket": schemas.TicketRef(
+                id=attachment_dict["ticket_id"], title=ticket.title
             ),
-        })
+        }
+    )
     attachment_out = schemas.AttachmentOut.model_validate(attachment_dict)
     return attachment_out, StatusCode.SUCCESS
 
-def create_attachment(db: Session, attachment: schemas.AttachmentCreate) -> Tuple[Optional[models.Attachment], StatusCode]:
+
+@pydantic.validate_call(config=pydantic.ConfigDict(arbitrary_types_allowed=True))
+def create_attachment(
+    db: Session, attachment: schemas.AttachmentCreate
+) -> Tuple[Optional[models.Attachment], StatusCode]:
     # verify
     ticket_exist = verify_ticket_id(db, attachment.ticket_id)
     if not ticket_exist:
         return None, StatusCode.TICKET_NOT_FOUND
-    file_exist = check_attachment_existence(db, attachment.ticket_id, attachment.filename, attachment.filetype)
+    file_exist = check_attachment_existence(
+        db, attachment.ticket_id, attachment.filename, attachment.filetype
+    )
     if file_exist:
         return None, StatusCode.FILE_ALREADY_EXIST
     # main
@@ -223,8 +297,11 @@ def create_attachment(db: Session, attachment: schemas.AttachmentCreate) -> Tupl
     db.commit()
     return new_attachment, StatusCode.SUCCESS
 
-def update_attachment(db: Session, attachment_id: int,
-                  updated_attachment: schemas.AttachmentUpdate) -> Tuple[Optional[models.Attachment], StatusCode]:
+
+@pydantic.validate_call(config=pydantic.ConfigDict(arbitrary_types_allowed=True))
+def update_attachment(
+    db: Session, attachment_id: int, updated_attachment: schemas.AttachmentUpdate
+) -> Tuple[Optional[models.Attachment], StatusCode]:
     # verify
     db_attachment = db.get(models.Attachment, attachment_id)
     if not db_attachment:
@@ -240,7 +317,11 @@ def update_attachment(db: Session, attachment_id: int,
     db.commit()
     return db_attachment, StatusCode.SUCCESS
 
-def delete_attachment(db: Session, attachment_id: int) -> Tuple[Optional[models.Attachment], StatusCode]:
+
+@pydantic.validate_call(config=pydantic.ConfigDict(arbitrary_types_allowed=True))
+def delete_attachment(
+    db: Session, attachment_id: int
+) -> Tuple[Optional[models.Attachment], StatusCode]:
     db_attachment = db.get(models.Attachment, attachment_id)
     if not db_attachment:
         return None, StatusCode.FILE_NOT_FOUND
@@ -250,13 +331,18 @@ def delete_attachment(db: Session, attachment_id: int) -> Tuple[Optional[models.
 
 
 # messages
+@pydantic.validate_call(config=pydantic.ConfigDict(arbitrary_types_allowed=True))
 def verify_message_id(db: Session, message_id: int) -> bool:
     result = db.get(models.Message, message_id)
     if result:
         return True
     return False
 
-def get_message_good(db: Session, message_id: int) -> Tuple[Optional[schemas.MessageOut], StatusCode]:
+
+@pydantic.validate_call(config=pydantic.ConfigDict(arbitrary_types_allowed=True))
+def get_message_good(
+    db: Session, message_id: int
+) -> Tuple[Optional[schemas.MessageOut], StatusCode]:
     db_message = db.get(models.Message, message_id)
     if not db_message:
         return None, StatusCode.MESSAGE_NOT_FOUND
@@ -270,28 +356,35 @@ def get_message_good(db: Session, message_id: int) -> Tuple[Optional[schemas.Mes
     if not receiver:
         return None, StatusCode.RECEIVER_NOT_FOUND
     message_dict = db_message.as_dict()
-    message_dict.update({
-        "ticket": schemas.TicketRef(
-            id=message_dict["ticket_id"],
-            title=ticket.title
+    message_dict.update(
+        {
+            "ticket": schemas.TicketRef(
+                id=message_dict["ticket_id"], title=ticket.title
             ),
-        })
-    message_dict.update({
-        "sender": schemas.UserRef(
-            id=message_dict["sender_id"],
-            username=sender.username
+        }
+    )
+    message_dict.update(
+        {
+            "sender": schemas.UserRef(
+                id=message_dict["sender_id"], username=sender.username
             ),
-        })
-    message_dict.update({
-        "receiver": schemas.UserRef(
-            id=message_dict["receiver_id"],
-            username=receiver.username
+        }
+    )
+    message_dict.update(
+        {
+            "receiver": schemas.UserRef(
+                id=message_dict["receiver_id"], username=receiver.username
             ),
-        })
+        }
+    )
     message_out = schemas.MessageOut.model_validate(message_dict)
     return message_out, StatusCode.SUCCESS
 
-def create_message(db: Session, message: schemas.MessageCreate) -> Tuple[Optional[models.Message], StatusCode]:
+
+@pydantic.validate_call(config=pydantic.ConfigDict(arbitrary_types_allowed=True))
+def create_message(
+    db: Session, message: schemas.MessageCreate
+) -> Tuple[Optional[models.Message], StatusCode]:
     # verify
     if message.content:
         return None, StatusCode.CONTENT_IS_EMPTY
@@ -313,8 +406,11 @@ def create_message(db: Session, message: schemas.MessageCreate) -> Tuple[Optiona
     db.commit()
     return new_message, StatusCode.SUCCESS
 
-def update_message(db: Session, message_id: int,
-                  updated_message: schemas.MessageUpdate) -> Tuple[Optional[models.Message], StatusCode]:
+
+@pydantic.validate_call(config=pydantic.ConfigDict(arbitrary_types_allowed=True))
+def update_message(
+    db: Session, message_id: int, updated_message: schemas.MessageUpdate
+) -> Tuple[Optional[models.Message], StatusCode]:
     # verify
     orig_message = db.get(models.Message, message_id)
     if not orig_message:
@@ -348,7 +444,11 @@ def update_message(db: Session, message_id: int,
     db.commit()
     return db_message, StatusCode.SUCCESS
 
-def delete_message(db: Session, message_id: int) -> Tuple[Optional[models.Message], StatusCode]:
+
+@pydantic.validate_call(config=pydantic.ConfigDict(arbitrary_types_allowed=True))
+def delete_message(
+    db: Session, message_id: int
+) -> Tuple[Optional[models.Message], StatusCode]:
     db_message = db.get(models.Message, message_id)
     if not db_message:
         return None, StatusCode.MESSAGE_NOT_FOUND
