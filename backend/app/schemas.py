@@ -7,7 +7,7 @@ from app.constants import UserRole, TicketStatus, TicketCategory
 
 class ORMBase(BaseModel):
     model_config = ConfigDict(
-        from_attributes=True  # for attr + dict access + model compatibility
+        from_attributes=True,  # for attr + dict access + model compatibility
     )
 
 

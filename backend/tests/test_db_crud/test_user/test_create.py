@@ -39,53 +39,6 @@ class TestDBCreateTicket(unittest.TestCase):
                 with self.assertRaises(pydantic.ValidationError):
                     crud.create_user(self.db, arg)
 
-    def test_missing_user_basemodel_field(self):
-        user_dict = {
-            "username": "name",
-            "email": f"name@gmail.com",
-            "role": constants.UserRole.SUPPORT,
-            "password": "123",
-        }
-        for key in user_dict.keys():
-            with self.subTest(key=key, user_dict=user_dict):
-                user_dict_copy = user_dict.copy()
-                del user_dict_copy[key]
-                with self.assertRaises(pydantic.ValidationError):
-                    schemas.UserCreate.model_validate(user_dict_copy)
-
-    def test_invalid_user_basemodel_field(self):
-        invalid_field = constants.TableName  # sample invalid field
-        user_dict = {
-            "username": "name",
-            "email": f"name@gmail.com",
-            "role": constants.UserRole.SUPPORT,
-            "password": "123",
-            "created_at": datetime.datetime.now().astimezone().isoformat(),
-            "updated_at": datetime.datetime.now().astimezone().isoformat(),
-        }
-        for key in user_dict.keys():
-            with self.subTest(
-                key=key, user_dict=user_dict, invalid_field=invalid_field
-            ):
-                user_dict_copy = user_dict.copy()
-                user_dict_copy.update({key: invalid_field})
-                with self.assertRaises(pydantic.ValidationError):
-                    schemas.UserCreate.model_validate(user_dict_copy)
-
-    def test_none_user_basemodel_required_field(self):
-        user_dict = {
-            "username": "name",
-            "email": f"name@gmail.com",
-            "role": constants.UserRole.SUPPORT,
-            "password": "123",
-        }
-        for key in user_dict.keys():
-            with self.subTest(key=key, user_dict=user_dict):
-                user_dict_copy = user_dict.copy()
-                user_dict_copy.update({key: None})
-                with self.assertRaises(pydantic.ValidationError):
-                    schemas.UserCreate.model_validate(user_dict_copy)
-
     def test_existing_username(self):
         user_create = schemas.UserCreate(
             username="old",
@@ -119,50 +72,82 @@ class TestDBCreateTicket(unittest.TestCase):
         self.assertEqual(result_2[1], constants.StatusCode.EMAIL_ALREADY_EXIST)
 
     def test_with_dates(self):
-        roles = [
-            constants.UserRole.CLIENT,
-            constants.UserRole.SUPPORT,
-            constants.UserRole.ADMIN,
-        ]
-        for i, role in enumerate(roles):
-            with self.subTest(i=i, role=role):
-                user_dict = {
-                    "username": f"name{i}",
-                    "email": f"name{i}@gmail.com",
-                    "password": "123",
-                    "role": role,
-                    "created_at": datetime.datetime.now().astimezone().isoformat(),
-                    "updated_at": datetime.datetime.now().astimezone().isoformat(),
-                }
-                user_create = schemas.UserCreate(**user_dict)
-                result = crud.create_user(self.db, user_create)
-                if not result[0]:
-                    self.fail("valid user with dates not created")
-                del user_dict["password"]  # no password in models.User.as_dict()
-                for key in user_dict.keys():  # stop sub test if not eq
-                    self.assertEqual(result[0].as_dict()[key], user_dict[key])
+        user_dict = {
+            "username": "name",
+            "email": "name@gmail.com",
+            "password": "123",
+            "role": constants.UserRole.SUPPORT,
+            "created_at": datetime.datetime.now().astimezone().isoformat(),
+            "updated_at": datetime.datetime.now().astimezone().isoformat(),
+        }
+        user_create = schemas.UserCreate(**user_dict)
+        result = crud.create_user(self.db, user_create)
+        if not result[0]:
+            self.fail("valid user with dates not created")
+        del user_dict["password"]  # no password in models.User.as_dict()
+        for key in user_dict.keys():  # stop sub test if not eq
+            self.assertEqual(result[0].as_dict()[key], user_dict[key])
 
     def test_without_dates(self):
-        roles = [
-            constants.UserRole.CLIENT,
-            constants.UserRole.SUPPORT,
-            constants.UserRole.ADMIN,
-        ]
-        for i, role in enumerate(roles):
-            with self.subTest(i=i, role=role):
-                user_dict = {
-                    "username": f"name{i}",
-                    "email": f"name{i}@gmail.com",
-                    "password": "123",
-                    "role": role,
-                }
-                user_create = schemas.UserCreate(**user_dict)
-                result = crud.create_user(self.db, user_create)
-                if not result[0]:
-                    self.fail("valid user with dates not created")
-                del user_dict["password"]  # no password in models.User.as_dict()
-                for key in user_dict.keys():  # stop sub test if not eq
-                    self.assertEqual(result[0].as_dict()[key], user_dict[key])
+        user_dict = {
+            "username": "name",
+            "email": "name@gmail.com",
+            "password": "123",
+            "role": constants.UserRole.SUPPORT,
+        }
+        user_create = schemas.UserCreate(**user_dict)
+        result = crud.create_user(self.db, user_create)
+        if not result[0]:
+            self.fail("valid user with dates not created")
+        del user_dict["password"]  # no password in models.User.as_dict()
+        for key in user_dict.keys():  # stop sub test if not eq
+            self.assertEqual(result[0].as_dict()[key], user_dict[key])
+
+    def test_missing_field_on_user_create_basemodel(self):
+        user_dict = {
+            "username": "name",
+            "email": f"name@gmail.com",
+            "role": constants.UserRole.SUPPORT,
+            "password": "123",
+        }
+        for key in user_dict.keys():
+            with self.subTest(key=key, user_dict=user_dict):
+                user_dict_copy = user_dict.copy()
+                del user_dict_copy[key]
+                with self.assertRaises(pydantic.ValidationError):
+                    schemas.UserCreate.model_validate(user_dict_copy)
+
+    def test_invalid_value_on_user_create_basemodel(self):
+        invalid_value = [1, 2, 3]
+        user_dict = {
+            "username": "name",
+            "email": f"name@gmail.com",
+            "role": constants.UserRole.SUPPORT,
+            "password": "123",
+            "created_at": datetime.datetime.now().astimezone().isoformat(),
+        }
+        for key in user_dict.keys():
+            with self.subTest(
+                key=key, user_dict=user_dict, invalid_value=invalid_value
+            ):
+                user_dict_copy = user_dict.copy()
+                user_dict_copy.update({key: invalid_value})
+                with self.assertRaises(pydantic.ValidationError):
+                    schemas.UserCreate.model_validate(user_dict_copy)
+
+    def test_none_in_required_field_on_user_create_basemodel(self):
+        user_dict = {
+            "username": "name",
+            "email": f"name@gmail.com",
+            "role": constants.UserRole.SUPPORT,
+            "password": "123",
+        }
+        for key in user_dict.keys():
+            with self.subTest(key=key, user_dict=user_dict):
+                user_dict_copy = user_dict.copy()
+                user_dict_copy.update({key: None})
+                with self.assertRaises(pydantic.ValidationError):
+                    schemas.UserCreate.model_validate(user_dict_copy)
 
 
 if __name__ == "__main__":
