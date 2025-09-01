@@ -27,13 +27,13 @@ class TestDBGetTicket(unittest.TestCase):
         user_id = self.db.execute(select(models.User.id).limit(1)).scalars().first()
         for arg in invalid_args:
             # db session
-            with self.subTest(arg=arg):
+            with self.subTest(arg=arg, user_id=user_id):
                 if not user_id:
                     self.skipTest("empty users table")
                 with self.assertRaises(pydantic.ValidationError):
                     crud.get_user_good(arg, user_id)
             # user id
-            with self.subTest(arg=arg):
+            with self.subTest(arg=arg, user_id=user_id):
                 with self.assertRaises(pydantic.ValidationError):
                     crud.get_user_good(self.db, arg)
 

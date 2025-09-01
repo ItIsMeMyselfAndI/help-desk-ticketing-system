@@ -3,7 +3,6 @@ import json
 import unittest
 
 import pydantic
-import pydantic_core
 from app import crud, schemas, constants
 from app.db import get_db, reset_db
 
@@ -32,13 +31,13 @@ class TestDBCreateTicket(unittest.TestCase):
         )
         for arg in invalid_args:
             # db session
-            with self.subTest(arg=arg):
+            with self.subTest(arg=arg, user_create=user_create):
                 with self.assertRaises(pydantic.ValidationError):
                     crud.create_user(arg, user_create)
             # user basemodel
-            with self.subTest(arg=arg):
+            with self.subTest(arg=arg, user_create=user_create):
                 with self.assertRaises(pydantic.ValidationError):
-                    crud.get_user_good(self.db, arg)
+                    crud.create_user(self.db, arg)
 
     def test_missing_user_basemodel_field(self):
         user_dict = {
@@ -51,7 +50,7 @@ class TestDBCreateTicket(unittest.TestCase):
             with self.subTest(key=key, user_dict=user_dict):
                 user_dict_copy = user_dict.copy()
                 del user_dict_copy[key]
-                with self.assertRaises(pydantic_core.ValidationError):
+                with self.assertRaises(pydantic.ValidationError):
                     schemas.UserCreate.model_validate(user_dict_copy)
 
     def test_invalid_user_basemodel_field(self):
@@ -65,10 +64,12 @@ class TestDBCreateTicket(unittest.TestCase):
             "updated_at": datetime.datetime.now().astimezone().isoformat(),
         }
         for key in user_dict.keys():
-            with self.subTest(key=key, user_dict=user_dict):
+            with self.subTest(
+                key=key, user_dict=user_dict, invalid_field=invalid_field
+            ):
                 user_dict_copy = user_dict.copy()
                 user_dict_copy.update({key: invalid_field})
-                with self.assertRaises(pydantic_core.ValidationError):
+                with self.assertRaises(pydantic.ValidationError):
                     schemas.UserCreate.model_validate(user_dict_copy)
 
     def test_none_user_basemodel_required_field(self):
@@ -82,7 +83,7 @@ class TestDBCreateTicket(unittest.TestCase):
             with self.subTest(key=key, user_dict=user_dict):
                 user_dict_copy = user_dict.copy()
                 user_dict_copy.update({key: None})
-                with self.assertRaises(pydantic_core.ValidationError):
+                with self.assertRaises(pydantic.ValidationError):
                     schemas.UserCreate.model_validate(user_dict_copy)
 
     def test_existing_username(self):
