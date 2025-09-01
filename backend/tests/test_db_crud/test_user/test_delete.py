@@ -1,14 +1,16 @@
 import json
+import re
 import unittest
 
 import pydantic
 from sqlalchemy import func, select
 from app import crud, models, schemas, constants
+from app import db
 from app.db import get_db, reset_db
 
 
 # read
-class TestDBGetTicket(unittest.TestCase):
+class TestDBDeleteTicket(unittest.TestCase):
 
     def setUp(self):
         self.db = next(get_db())
@@ -31,24 +33,24 @@ class TestDBGetTicket(unittest.TestCase):
                 if not user_id:
                     self.skipTest("empty users table")
                 with self.assertRaises(pydantic.ValidationError):
-                    crud.get_user_good(arg, user_id)
+                    crud.delete_user(arg, user_id)
             # user id
             with self.subTest(arg=arg, user_id=user_id):
                 with self.assertRaises(pydantic.ValidationError):
-                    crud.get_user_good(self.db, arg)
+                    crud.delete_user(self.db, arg)
 
     def test_left_out_of_bound_id(self):
         min_id = self.db.execute(select(func.min(models.User.id))).scalars().first()
         if min_id is None:
             self.skipTest("empty users table")
-        result = crud.get_user_good(self.db, min_id - 100)
+        result = crud.delete_user(self.db, min_id - 100)
         self.assertEqual(result, (None, constants.StatusCode.USER_NOT_FOUND))
 
     def test_right_out_of_bound_id(self):
         max_id = self.db.execute(select(func.max(models.User.id))).scalars().first()
         if max_id is None:
             self.skipTest("empty users table")
-        result = crud.get_user_good(self.db, max_id + 100)
+        result = crud.delete_user(self.db, max_id + 100)
         self.assertEqual(result, (None, constants.StatusCode.USER_NOT_FOUND))
 
     def test_correct_id(self):
@@ -60,11 +62,11 @@ class TestDBGetTicket(unittest.TestCase):
         self.assertIsNotNone(db_user_raw, "empty users table")
         db_user = schemas.UserOut.model_validate(db_user_raw)
 
-        result = crud.get_user_good(self.db, user_id)
+        result = crud.delete_user(self.db, user_id)
         self.assertIsNotNone(result[0], "empty users table")
-        result_user = schemas.UserOut.model_validate(result[0])
+        del_user = schemas.UserOut.model_validate(result[0])
 
-        self.assertEqual(result_user.model_dump(), db_user.model_dump())
+        self.assertEqual(del_user.model_dump(), db_user.model_dump())
 
 
 if __name__ == "__main__":
