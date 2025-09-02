@@ -41,8 +41,6 @@ class TestDBDeleteTicket(unittest.TestCase):
         for arg in invalid_args:
             # db session
             with self.subTest(arg=arg, user_id=user_id):
-                if not user_id:
-                    self.skipTest("empty users table")
                 with self.assertRaises(pydantic.ValidationError):
                     crud.delete_user(arg, user_id)
             # user id
