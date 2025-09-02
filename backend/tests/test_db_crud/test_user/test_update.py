@@ -1,10 +1,7 @@
-import datetime
-import json
 import unittest
 
 import pydantic
-from sqlalchemy import select
-from app import crud, models, schemas, constants
+from app import crud, schemas, constants
 from app.db import get_db, reset_db
 
 

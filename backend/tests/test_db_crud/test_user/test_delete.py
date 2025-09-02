@@ -1,11 +1,7 @@
-import json
-import re
 import unittest
 
 import pydantic
-from sqlalchemy import func, select
-from app import crud, models, schemas, constants
-from app import db
+from app import crud, schemas, constants
 from app.db import get_db, reset_db
 
 
@@ -15,18 +11,33 @@ class TestDBDeleteTicket(unittest.TestCase):
     def setUp(self):
         self.db = next(get_db())
         # reset db
-        reset_db(bind=self.db.get_bind(), datasets_path="app/datasets.json", limit=1)
-        # json datasets
-        with open("app/datasets.json", "r") as file:
-            self.sample_users = json.load(file)["users"]
+        reset_db(bind=self.db.get_bind())
+        self.test_user_dict = {
+            "username": "new",
+            "email": "new@gmail.com",
+            "password": "123",
+            "role": constants.UserRole.SUPPORT,
+        }
+        self.existing_user_dict = {
+            "username": "old",
+            "email": "old@gmail.com",
+            "password": "123",
+            "role": constants.UserRole.CLIENT,
+        }
+        self.existing_user, _ = crud.create_user(
+            self.db, schemas.UserCreate.model_validate(self.existing_user_dict)
+        )
 
     def tearDown(self):
         # just to make sure
         self.db.close()  # not necessary since get_db closes it on success/fail
 
     def test_invalid_id(self):
+        if self.existing_user is None:
+            self.skipTest("existing user was not created")
+        user_id = self.existing_user.id
+
         invalid_args = ["lksdjfd", None, 4.8]
-        user_id = self.db.execute(select(models.User.id).limit(1)).scalars().first()
         for arg in invalid_args:
             # db session
             with self.subTest(arg=arg, user_id=user_id):
@@ -35,38 +46,43 @@ class TestDBDeleteTicket(unittest.TestCase):
                 with self.assertRaises(pydantic.ValidationError):
                     crud.delete_user(arg, user_id)
             # user id
-            with self.subTest(arg=arg, user_id=user_id):
+            with self.subTest(arg=arg):
                 with self.assertRaises(pydantic.ValidationError):
                     crud.delete_user(self.db, arg)
 
     def test_left_out_of_bound_id(self):
-        min_id = self.db.execute(select(func.min(models.User.id))).scalars().first()
-        if min_id is None:
-            self.skipTest("empty users table")
-        result = crud.delete_user(self.db, min_id - 100)
-        self.assertEqual(result, (None, constants.StatusCode.USER_NOT_FOUND))
+        if self.existing_user is None:
+            self.skipTest("existing user was not created")
+        user_id = self.existing_user.id
+
+        result_user, status_code = crud.delete_user(self.db, user_id - 100)
+        self.assertIsNone(result_user)
+        self.assertEqual(status_code, constants.StatusCode.USER_NOT_FOUND)
 
     def test_right_out_of_bound_id(self):
-        max_id = self.db.execute(select(func.max(models.User.id))).scalars().first()
-        if max_id is None:
-            self.skipTest("empty users table")
-        result = crud.delete_user(self.db, max_id + 100)
-        self.assertEqual(result, (None, constants.StatusCode.USER_NOT_FOUND))
+        if self.existing_user is None:
+            self.skipTest("existing user was not created")
+        user_id = self.existing_user.id
+
+        result_user, status_code = crud.delete_user(self.db, user_id + 100)
+        self.assertIsNone(result_user)
+        self.assertEqual(status_code, constants.StatusCode.USER_NOT_FOUND)
 
     def test_correct_id(self):
-        user_id = self.db.execute(select(models.User.id)).scalars().first()
-        if not user_id:
-            self.skipTest("empty users table")
+        if self.existing_user is None:
+            self.skipTest("existing user was not created")
+        user_id = self.existing_user.id
 
-        db_user_raw = self.db.get(models.User, user_id)
-        self.assertIsNotNone(db_user_raw, "empty users table")
-        db_user = schemas.UserOut.model_validate(db_user_raw)
+        result_user, _ = crud.delete_user(self.db, user_id)
+        if result_user is None:
+            self.fail("delete user failed")
+        result_user_dict = result_user.as_dict()
 
-        result = crud.delete_user(self.db, user_id)
-        self.assertIsNotNone(result[0], "empty users table")
-        del_user = schemas.UserOut.model_validate(result[0])
-
-        self.assertEqual(del_user.model_dump(), db_user.model_dump())
+        self.assertEqual(
+            result_user_dict["username"], self.existing_user_dict["username"]
+        )
+        self.assertEqual(result_user_dict["email"], self.existing_user_dict["email"])
+        self.assertEqual(result_user_dict["role"], self.existing_user_dict["role"])
 
 
 if __name__ == "__main__":
