@@ -6,7 +6,7 @@ from app import crud, schemas, constants
 from app.db import get_db, reset_db
 
 
-class TestDBCreateTicket(unittest.TestCase):
+class TestDBCreateUser(unittest.TestCase):
 
     def setUp(self):
         self.db = next(get_db())

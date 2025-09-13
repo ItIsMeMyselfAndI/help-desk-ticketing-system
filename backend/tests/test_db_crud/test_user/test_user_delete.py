@@ -6,7 +6,7 @@ from app.db import get_db, reset_db
 
 
 # read
-class TestDBGetTicket(unittest.TestCase):
+class TestDBDeleteUser(unittest.TestCase):
 
     def setUp(self):
         self.db = next(get_db())
@@ -42,18 +42,18 @@ class TestDBGetTicket(unittest.TestCase):
             # db session
             with self.subTest(arg=arg, user_id=user_id):
                 with self.assertRaises(pydantic.ValidationError):
-                    crud.get_user_good(arg, user_id)
+                    crud.delete_user(arg, user_id)
             # user id
             with self.subTest(arg=arg):
                 with self.assertRaises(pydantic.ValidationError):
-                    crud.get_user_good(self.db, arg)
+                    crud.delete_user(self.db, arg)
 
     def test_left_out_of_bound_id(self):
         if self.existing_user is None:
             self.skipTest("existing user was not created")
         user_id = self.existing_user.id
 
-        result_user, status_code = crud.get_user_good(self.db, user_id - 100)
+        result_user, status_code = crud.delete_user(self.db, user_id - 100)
         self.assertIsNone(result_user)
         self.assertEqual(status_code, constants.StatusCode.USER_NOT_FOUND)
 
@@ -62,7 +62,7 @@ class TestDBGetTicket(unittest.TestCase):
             self.skipTest("existing user was not created")
         user_id = self.existing_user.id
 
-        result_user, status_code = crud.get_user_good(self.db, user_id + 100)
+        result_user, status_code = crud.delete_user(self.db, user_id + 100)
         self.assertIsNone(result_user)
         self.assertEqual(status_code, constants.StatusCode.USER_NOT_FOUND)
 
@@ -71,10 +71,10 @@ class TestDBGetTicket(unittest.TestCase):
             self.skipTest("existing user was not created")
         user_id = self.existing_user.id
 
-        result_user, _ = crud.get_user_good(self.db, user_id)
+        result_user, _ = crud.delete_user(self.db, user_id)
         if result_user is None:
-            self.fail("get user failed")
-        result_user_dict = result_user.model_dump()
+            self.fail("delete user failed")
+        result_user_dict = result_user.as_dict()
 
         self.assertEqual(
             result_user_dict["username"], self.existing_user_dict["username"]
