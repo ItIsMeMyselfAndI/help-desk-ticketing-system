@@ -110,6 +110,18 @@ class TestDBUpdateUser(unittest.TestCase):
         _, status_code = crud.update_ticket(self.db, test_id, ticket_update)
         self.assertEqual(status_code, constants.StatusCode.ASSIGNEE_NOT_FOUND)
 
+    def test_same_sender_and_receiver(self):
+        if self.existing_ticket is None:
+            self.skipTest("existing ticket was not created")
+
+        test_ticket_dict = self.test_ticket_dict.copy()
+        test_ticket_dict["issuer_id"] = 1
+        test_ticket_dict["assignee_id"] = 1
+        ticket_id = self.existing_ticket.id
+        ticket_update = schemas.TicketUpdate.model_validate(test_ticket_dict)
+        _, status_code = crud.update_ticket(self.db, ticket_id, ticket_update)
+        self.assertEqual(status_code, constants.StatusCode.SAME_ISSUER_AND_ASSIGNEE)
+
     def test_optional_field_on_ticket_update_basemodel(self):
         if self.existing_ticket is None:
             self.skipTest("existing ticket was not created")

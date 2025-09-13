@@ -79,6 +79,14 @@ class TestDBCreateTicket(unittest.TestCase):
         _, status_code = crud.create_ticket(self.db, ticket_create)
         self.assertEqual(status_code, constants.StatusCode.ASSIGNEE_NOT_FOUND)
 
+    def test_same_sender_and_receiver(self):
+        test_ticket_dict = self.test_ticket_dict.copy()
+        test_ticket_dict["issuer_id"] = 1
+        test_ticket_dict["assignee_id"] = 1
+        ticket_create = schemas.TicketCreate.model_validate(test_ticket_dict)
+        _, status_code = crud.create_ticket(self.db, ticket_create)
+        self.assertEqual(status_code, constants.StatusCode.SAME_ISSUER_AND_ASSIGNEE)
+
     def test_with_dates(self):
         ticket_create = schemas.TicketCreate.model_validate(self.test_ticket_dict)
         result_ticket, _ = crud.create_ticket(self.db, ticket_create)
