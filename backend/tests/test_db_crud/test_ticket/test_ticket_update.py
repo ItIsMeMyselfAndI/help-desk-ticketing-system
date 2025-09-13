@@ -144,32 +144,32 @@ class TestDBUpdateUser(unittest.TestCase):
         test_ticket_dict = self.test_ticket_dict.copy()
         test_ticket_dict["issuer_id"] = [1, 2, 3]
         with self.assertRaises(pydantic.ValidationError):
-            schemas.TicketCreate.model_validate(test_ticket_dict)
+            schemas.TicketUpdate.model_validate(test_ticket_dict)
         # assignee_id
         test_ticket_dict = self.test_ticket_dict.copy()
         test_ticket_dict["assignee_id"] = [1, 2, 3]
         with self.assertRaises(pydantic.ValidationError):
-            schemas.TicketCreate.model_validate(test_ticket_dict)
+            schemas.TicketUpdate.model_validate(test_ticket_dict)
         # title
         test_ticket_dict = self.test_ticket_dict.copy()
         test_ticket_dict["title"] = [1, 2, 3]
         with self.assertRaises(pydantic.ValidationError):
-            schemas.TicketCreate.model_validate(test_ticket_dict)
+            schemas.TicketUpdate.model_validate(test_ticket_dict)
         # status
         test_ticket_dict = self.test_ticket_dict.copy()
         test_ticket_dict["status"] = [1, 2, 3]
         with self.assertRaises(pydantic.ValidationError):
-            schemas.TicketCreate.model_validate(test_ticket_dict)
+            schemas.TicketUpdate.model_validate(test_ticket_dict)
         # category
         test_ticket_dict = self.test_ticket_dict.copy()
         test_ticket_dict["category"] = [1, 2, 3]
         with self.assertRaises(pydantic.ValidationError):
-            schemas.TicketCreate.model_validate(test_ticket_dict)
+            schemas.TicketUpdate.model_validate(test_ticket_dict)
         # description
         test_ticket_dict = self.test_ticket_dict.copy()
         test_ticket_dict["description"] = [1, 2, 3]
         with self.assertRaises(pydantic.ValidationError):
-            schemas.TicketCreate.model_validate(test_ticket_dict)
+            schemas.TicketUpdate.model_validate(test_ticket_dict)
 
     def test_none_in_optional_field_on_ticket_update_basemodel(self):
         # issuer id

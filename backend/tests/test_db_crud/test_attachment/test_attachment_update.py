@@ -142,44 +142,52 @@ class TestDBUpdateUser(unittest.TestCase):
         test_attachment_dict = self.test_attachment_dict.copy()
         test_attachment_dict["ticket_id"] = [1, 2, 3]
         with self.assertRaises(pydantic.ValidationError):
-            schemas.AttachmentCreate.model_validate(test_attachment_dict)
+            schemas.AttachmentUpdate.model_validate(test_attachment_dict)
         # filename
         test_attachment_dict = self.test_attachment_dict.copy()
         test_attachment_dict["filename"] = [1, 2, 3]
         with self.assertRaises(pydantic.ValidationError):
-            schemas.AttachmentCreate.model_validate(test_attachment_dict)
+            schemas.AttachmentUpdate.model_validate(test_attachment_dict)
         # filetype
         test_attachment_dict = self.test_attachment_dict.copy()
         test_attachment_dict["filetype"] = [1, 2, 3]
         with self.assertRaises(pydantic.ValidationError):
-            schemas.AttachmentCreate.model_validate(test_attachment_dict)
+            schemas.AttachmentUpdate.model_validate(test_attachment_dict)
         # filesize
         test_attachment_dict = self.test_attachment_dict.copy()
         test_attachment_dict["filesize"] = [1, 2, 3]
         with self.assertRaises(pydantic.ValidationError):
-            schemas.AttachmentCreate.model_validate(test_attachment_dict)
+            schemas.AttachmentUpdate.model_validate(test_attachment_dict)
 
     def test_none_in_optional_field_on_attachment_update_basemodel(self):
         # ticket id
         test_attachment_dict = self.test_attachment_dict.copy()
         test_attachment_dict["ticket_id"] = None
-        with self.assertRaises(pydantic.ValidationError):
-            schemas.AttachmentCreate.model_validate(test_attachment_dict)
+        attachment_update = schemas.AttachmentUpdate.model_validate(
+            test_attachment_dict
+        )
+        self.assertIsInstance(attachment_update, schemas.AttachmentUpdate)
         # filename
         test_attachment_dict = self.test_attachment_dict.copy()
         test_attachment_dict["filename"] = None
-        with self.assertRaises(pydantic.ValidationError):
-            schemas.AttachmentCreate.model_validate(test_attachment_dict)
+        attachment_update = schemas.AttachmentUpdate.model_validate(
+            test_attachment_dict
+        )
+        self.assertIsInstance(attachment_update, schemas.AttachmentUpdate)
         # filetype
         test_attachment_dict = self.test_attachment_dict.copy()
         test_attachment_dict["filetype"] = None
-        with self.assertRaises(pydantic.ValidationError):
-            schemas.AttachmentCreate.model_validate(test_attachment_dict)
+        attachment_update = schemas.AttachmentUpdate.model_validate(
+            test_attachment_dict
+        )
+        self.assertIsInstance(attachment_update, schemas.AttachmentUpdate)
         # filesize
         test_attachment_dict = self.test_attachment_dict.copy()
         test_attachment_dict["filesize"] = None
-        with self.assertRaises(pydantic.ValidationError):
-            schemas.AttachmentCreate.model_validate(test_attachment_dict)
+        attachment_update = schemas.AttachmentUpdate.model_validate(
+            test_attachment_dict
+        )
+        self.assertIsInstance(attachment_update, schemas.AttachmentUpdate)
 
 
 if __name__ == "__main__":
