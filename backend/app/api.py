@@ -18,7 +18,7 @@ paths = {
 app = FastAPI()
 
 @app.get("/")
-def root():
+async def root():
     return {
             "app": "help desk ticketing system",
             "paths": paths
@@ -27,14 +27,14 @@ def root():
 
 # ---- users ----
 @app.get("/users")
-def verify_user(username: str, password: str):
+async def verify_user(username: str, password: str):
     db = next(get_db())
     result = crud.verify_user_account(db, username, password)
     print(json.dumps({"verified": result}, indent=4))
     return {"verified": result}
 
 @app.get("/users/{user_id}")
-def get_user_good(user_id: int):
+async def get_user_good(user_id: int):
     db = next(get_db())
     result, status_code = crud.get_user_good(db, user_id)
     if not result:
@@ -45,7 +45,7 @@ def get_user_good(user_id: int):
     return result
 
 @app.post("/users")
-def create_user(user: schemas.UserCreate):
+async def create_user(user: schemas.UserCreate):
     db = next(get_db())
     result, status_code = crud.create_user(db, user)
     if not result:
@@ -57,7 +57,7 @@ def create_user(user: schemas.UserCreate):
     return user_out
 
 @app.patch("/users/{user_id}")
-def update_user(user_id: int, user: schemas.UserUpdate):
+async def update_user(user_id: int, user: schemas.UserUpdate):
     db = next(get_db())
     result, status_code = crud.update_user(db, user_id, user)
     if not result:
@@ -69,7 +69,7 @@ def update_user(user_id: int, user: schemas.UserUpdate):
     return user_out
 
 @app.delete("/users/{user_id}")
-def delete_user(user_id: int):
+async def delete_user(user_id: int):
     db = next(get_db())
     result, status_code = crud.delete_user(db, user_id)
     if not result:
@@ -83,7 +83,7 @@ def delete_user(user_id: int):
 
 # ---- tickets ----
 @app.get("/tickets/{ticket_id}")
-def get_ticket_good(ticket_id: int):
+async def get_ticket_good(ticket_id: int):
     db = next(get_db())
     result, status_code = crud.get_ticket_good(db, ticket_id)
     if not result:
@@ -94,7 +94,7 @@ def get_ticket_good(ticket_id: int):
     return result
 
 @app.post("/tickets")
-def create_ticket(ticket: schemas.TicketCreate):
+async def create_ticket(ticket: schemas.TicketCreate):
     db = next(get_db())
     result, status_code = crud.create_ticket(db, ticket)
     if not result:
@@ -108,7 +108,7 @@ def create_ticket(ticket: schemas.TicketCreate):
     return ticket_out
 
 @app.patch("/tickets/{ticket_id}")
-def update_ticket(ticket_id: int, ticket: schemas.TicketUpdate):
+async def update_ticket(ticket_id: int, ticket: schemas.TicketUpdate):
     db = next(get_db())
     result, status_code = crud.update_ticket(db, ticket_id, ticket)
     if not result:
@@ -122,7 +122,7 @@ def update_ticket(ticket_id: int, ticket: schemas.TicketUpdate):
     return ticket_out
 
 @app.delete("/tickets/{ticket_id}")
-def delete_ticket(ticket_id: int):
+async def delete_ticket(ticket_id: int):
     db = next(get_db())
     result, status_code = crud.delete_ticket(db, ticket_id)
     if not result:
@@ -138,7 +138,7 @@ def delete_ticket(ticket_id: int):
 
 # ---- attachments ----
 @app.get("/attachments/{attachment_id}")
-def get_attachment_good(attachment_id: int):
+async def get_attachment_good(attachment_id: int):
     db = next(get_db())
     result, status_code = crud.get_attachment_good(db, attachment_id)
     if not result:
@@ -149,7 +149,7 @@ def get_attachment_good(attachment_id: int):
     return result
 
 @app.post("/attachments")
-def create_attachment(attachment: schemas.AttachmentCreate):
+async def create_attachment(attachment: schemas.AttachmentCreate):
     db = next(get_db())
     result, status_code = crud.create_attachment(db, attachment)
     if not result:
@@ -160,7 +160,7 @@ def create_attachment(attachment: schemas.AttachmentCreate):
     return attachment_out
 
 @app.patch("/attachments/{attachment_id}")
-def update_attachment(attachment_id: int, attachment: schemas.AttachmentUpdate):
+async def update_attachment(attachment_id: int, attachment: schemas.AttachmentUpdate):
     db = next(get_db())
     result, status_code = crud.update_attachment(db, attachment_id, attachment)
     if not result:
@@ -171,7 +171,7 @@ def update_attachment(attachment_id: int, attachment: schemas.AttachmentUpdate):
     return attachment_out
 
 @app.delete("/attachments/{attachment_id}")
-def delete_attachment(attachment_id: int):
+async def delete_attachment(attachment_id: int):
     db = next(get_db())
     result, status_code = crud.delete_attachment(db, attachment_id)
     if not result:
@@ -184,7 +184,7 @@ def delete_attachment(attachment_id: int):
 
 # ---- messages ----
 @app.get("/messages/{message_id}")
-def get_message_good(message_id: int):
+async def get_message_good(message_id: int):
     db = next(get_db())
     result, status_code = crud.get_message_good(db, message_id)
     if not result:
@@ -195,7 +195,7 @@ def get_message_good(message_id: int):
     return result
 
 @app.post("/messages")
-def create_message(message: schemas.MessageCreate):
+async def create_message(message: schemas.MessageCreate):
     db = next(get_db())
     result, status_code = crud.create_message(db, message)
     if not result:
@@ -206,7 +206,7 @@ def create_message(message: schemas.MessageCreate):
     return message_out
 
 @app.patch("/messages/{message_id}")
-def update_message(message_id: int, message: schemas.MessageUpdate):
+async def update_message(message_id: int, message: schemas.MessageUpdate):
     db = next(get_db())
     result, status_code = crud.update_message(db, message_id, message)
     if not result:
@@ -217,7 +217,7 @@ def update_message(message_id: int, message: schemas.MessageUpdate):
     return message_out
 
 @app.delete("/messages/{message_id}")
-def delete_message(message_id: int):
+async def delete_message(message_id: int):
     db = next(get_db())
     result, status_code = crud.delete_message(db, message_id)
     if not result:
