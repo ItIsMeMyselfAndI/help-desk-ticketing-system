@@ -386,7 +386,7 @@ def create_message(
     db: Session, message: schemas.MessageCreate
 ) -> Tuple[Optional[models.Message], StatusCode]:
     # verify
-    if message.content:
+    if not message.content:
         return None, StatusCode.CONTENT_IS_EMPTY
     ticket_exist = verify_ticket_id(db, message.ticket_id)
     if not ticket_exist:
