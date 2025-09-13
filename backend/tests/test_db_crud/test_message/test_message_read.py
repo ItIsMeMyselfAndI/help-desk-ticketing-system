@@ -87,7 +87,7 @@ class TestDBReadMessage(unittest.TestCase):
 
         result_message, status_code = crud.get_message_good(self.db, message_id - 100)
         self.assertIsNone(result_message)
-        self.assertEqual(status_code, constants.StatusCode.FILE_NOT_FOUND)
+        self.assertEqual(status_code, constants.StatusCode.MESSAGE_NOT_FOUND)
 
     def test_right_out_of_bound_id(self):
         if self.existing_message is None:
@@ -96,7 +96,7 @@ class TestDBReadMessage(unittest.TestCase):
 
         result_message, status_code = crud.get_message_good(self.db, message_id + 100)
         self.assertIsNone(result_message)
-        self.assertEqual(status_code, constants.StatusCode.FILE_NOT_FOUND)
+        self.assertEqual(status_code, constants.StatusCode.MESSAGE_NOT_FOUND)
 
     def test_correct_id(self):
         if self.existing_message is None:

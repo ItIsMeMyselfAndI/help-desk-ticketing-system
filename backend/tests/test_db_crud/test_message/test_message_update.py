@@ -103,20 +103,18 @@ class TestDBUpdateUser(unittest.TestCase):
 
         test_message_dict = self.test_message_dict.copy()
         test_message_dict["sender_id"] = -100
-        test_id = self.existing_message.id
+        message_id = self.existing_message.id
         message_update = schemas.MessageUpdate.model_validate(test_message_dict)
-        _, status_code = crud.update_message(self.db, test_id, message_update)
+        _, status_code = crud.update_message(self.db, message_id, message_update)
         self.assertEqual(status_code, constants.StatusCode.SENDER_NOT_FOUND)
 
     def test_receiver_not_found(self):
         if self.existing_message is None:
             self.skipTest("existing message was not created")
 
-        test_message_dict = self.test_message_dict.copy()
-        test_message_dict["receiver_id"] = -100
-        test_id = self.existing_message.id
-        message_update = schemas.MessageUpdate.model_validate(test_message_dict)
-        _, status_code = crud.update_message(self.db, test_id, message_update)
+        message_id = self.existing_message.id
+        message_update = schemas.MessageUpdate.model_validate({"receiver_id": -100})
+        _, status_code = crud.update_message(self.db, message_id, message_update)
         self.assertEqual(status_code, constants.StatusCode.RECEIVER_NOT_FOUND)
 
     def test_ticket_not_found(self):
@@ -125,10 +123,37 @@ class TestDBUpdateUser(unittest.TestCase):
 
         test_message_dict = self.test_message_dict.copy()
         test_message_dict["ticket_id"] = -100
-        test_id = self.existing_message.id
+        message_id = self.existing_message.id
         message_update = schemas.MessageUpdate.model_validate(test_message_dict)
-        _, status_code = crud.update_message(self.db, test_id, message_update)
+        _, status_code = crud.update_message(self.db, message_id, message_update)
         self.assertEqual(status_code, constants.StatusCode.TICKET_NOT_FOUND)
+
+    def test_same_sender_and_receiver(self):
+        if self.existing_message is None:
+            self.skipTest("existing message was not created")
+
+        # same new sender & new receiver
+        test_message_dict = self.test_message_dict.copy()
+        test_message_dict["sender_id"] = 2
+        test_message_dict["receiver_id"] = 2
+        message_id = self.existing_message.id
+        message_update = schemas.MessageUpdate.model_validate(test_message_dict)
+        _, status_code = crud.update_message(self.db, message_id, message_update)
+        self.assertEqual(status_code, constants.StatusCode.SAME_SENDER_AND_RECEIVER)
+        # same new sender & prev receiver
+        test_message_dict = self.test_message_dict.copy()
+        test_message_dict["sender_id"] = 2
+        message_id = self.existing_message.id
+        message_update = schemas.MessageUpdate.model_validate(test_message_dict)
+        _, status_code = crud.update_message(self.db, message_id, message_update)
+        self.assertEqual(status_code, constants.StatusCode.SAME_SENDER_AND_RECEIVER)
+        # same prev sender & new receiver
+        test_message_dict = self.test_message_dict.copy()
+        test_message_dict["receiver_id"] = 1
+        message_id = self.existing_message.id
+        message_update = schemas.MessageUpdate.model_validate(test_message_dict)
+        _, status_code = crud.update_message(self.db, message_id, message_update)
+        self.assertEqual(status_code, constants.StatusCode.SAME_SENDER_AND_RECEIVER)
 
     def test_optional_field_on_message_update_basemodel(self):
         if self.existing_message is None:

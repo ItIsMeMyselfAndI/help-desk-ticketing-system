@@ -97,6 +97,22 @@ class TestDBCreateMessage(unittest.TestCase):
         _, status_code = crud.create_message(self.db, message_create)
         self.assertEqual(status_code, constants.StatusCode.TICKET_NOT_FOUND)
 
+    def test_empty_content(self):
+        test_message_dict = self.test_message_dict.copy()
+        test_message_dict["content"] = ""
+        message_create = schemas.MessageCreate.model_validate(test_message_dict)
+        _, status_code = crud.create_message(self.db, message_create)
+        self.assertEqual(status_code, constants.StatusCode.CONTENT_IS_EMPTY)
+
+    def test_same_sender_and_receiver(self):
+        # same new sender & new receiver
+        test_message_dict = self.test_message_dict.copy()
+        test_message_dict["sender_id"] = 2
+        test_message_dict["receiver_id"] = 2
+        message_create = schemas.MessageCreate.model_validate(test_message_dict)
+        _, status_code = crud.create_message(self.db, message_create)
+        self.assertEqual(status_code, constants.StatusCode.SAME_SENDER_AND_RECEIVER)
+
     def test_with_dates(self):
         message_create = schemas.MessageCreate.model_validate(self.test_message_dict)
         result_message, _ = crud.create_message(self.db, message_create)

@@ -110,14 +110,14 @@ class TestDBDeleteMessage(unittest.TestCase):
         result_message_dict = result_message.as_dict()
 
         self.assertEqual(
-            result_message_dict["sender"]["id"], self.existing_message_dict["sender_id"]
+            result_message_dict["sender_id"], self.existing_message_dict["sender_id"]
         )
         self.assertEqual(
-            result_message_dict["receiver"]["id"],
+            result_message_dict["receiver_id"],
             self.existing_message_dict["receiver_id"],
         )
         self.assertEqual(
-            result_message_dict["ticket"]["id"], self.existing_message_dict["ticket_id"]
+            result_message_dict["ticket_id"], self.existing_message_dict["ticket_id"]
         )
         self.assertEqual(
             result_message_dict["content"], self.existing_message_dict["content"]
